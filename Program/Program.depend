@@ -1,0 +1,14 @@
+# depslib dependency file v1.0
+1404973152 source:c:\users\stuart\documents\source code\stulibc\screen.c
+	<stdio.h>
+
+1404974342 source:c:\users\stuart\documents\source code\stulibc\keyboard.c
+	<stdio.h>
+
+1404974593 source:c:\users\stuart\documents\source code\stulibc\program\main.c
+	<stdio.h>
+	<stdlib.h>
+	"../keyboard.h"
+
+1404974670 c:\users\stuart\documents\source code\stulibc\keyboard.h
+
