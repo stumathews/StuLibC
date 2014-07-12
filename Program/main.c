@@ -3,10 +3,11 @@
 #include <string.h>
 #include "../keyboard.h"
 
+#define MAX_LINE_LENGTH 5
+
 int main()
 {
-    char* buf;
-    int chars_read = kbd_GetLine(buf);
-    printf("Wrote %d characters to buffer: %s\n",  chars_read, buf);
+    printf("The buffer contains: %s", kbd_GetLine(MAX_LINE_LENGTH));
+
     return 0;
 }

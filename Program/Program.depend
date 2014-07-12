@@ -2,13 +2,16 @@
 1404973152 source:c:\users\stuart\documents\source code\stulibc\screen.c
 	<stdio.h>
 
-1404974342 source:c:\users\stuart\documents\source code\stulibc\keyboard.c
+1405193638 source:c:\users\stuart\documents\source code\stulibc\keyboard.c
 	<stdio.h>
+	<string.h>
+	<stdlib.h>
 
-1404974593 source:c:\users\stuart\documents\source code\stulibc\program\main.c
+1405193649 source:c:\users\stuart\documents\source code\stulibc\program\main.c
 	<stdio.h>
 	<stdlib.h>
+	<string.h>
 	"../keyboard.h"
 
-1404974670 c:\users\stuart\documents\source code\stulibc\keyboard.h
+1405194469 c:\users\stuart\documents\source code\stulibc\keyboard.h
 

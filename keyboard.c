@@ -1,28 +1,30 @@
-#ifndef KBD_C_INCLUDED
-#define KBD_C_INCLUDED
+/**
+ * @file keyboard.c
+ * @brief Keyboard library function definitions.
+ * @author Stuart Mathews
+ * @date 12 July 2013
+ *
+ * This headers contains the various keyboard management functions defined in the library.
+ * These typically involve reading from the keyboard in various ways
+ * @see keyboard.h
+ */
+#ifndef STULIBC_KEYBOARD_MANAGEMENT_H
+#define STULIBC_KEYBOARD_MANAGEMENT_H
 
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 
-
-#define BUFFER_INCREMENT 3
-
-int kbd_GetLine(char* buf)
+char* kbd_GetLine(int max_line_length)
 {
-	int c;	
-	buf = (char*) calloc( sizeof(char) * BUFFER_INCREMENT, BUFFER_INCREMENT );
+    int c, chars_read = 0;
+    char* buf = (char*) malloc( sizeof(char) * max_line_length );
 
-	if( buf == NULL )
-		return 0;
-	int bufSize = BUFFER_INCREMENT;
-	printf("bufsize:%d",bufSize);
-	int chars_read = 0;
-	
-	while( (c = getchar()) != EOF && (c != '\n') && (chars_read < bufSize) )
-		buf[chars_read++] = c;    
-	buf[chars_read] = '\0';
-	return chars_read;
+	while( (c = getchar()) != EOF && (c != '\n') && (chars_read < max_line_length) )
+		buf[chars_read++] = c;
+
+    return buf;
+
 }
 
 #endif // SCREEN_C_INCLUDED
