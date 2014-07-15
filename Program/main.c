@@ -7,7 +7,9 @@
 
 int main()
 {
-    printf("The buffer contains: %s", kbd_GetLine(MAX_LINE_LENGTH));
+    char* line = kbd_GetLine(MAX_LINE_LENGTH);
+    printf("The buffer contains: %s", line);
+    free(line);
 
     return 0;
 }
