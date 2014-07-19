@@ -1,4 +1,5 @@
-#include "string.h"
+#include "libstring.h"
+#include <string.h>
 
 char* STR_FromInt(int number)
 {

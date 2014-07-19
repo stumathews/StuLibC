@@ -14,6 +14,6 @@
 // bounds checking on data structures and other sanity checks
 void CHK_ResultExitIf(void* result, int condition);
 void CHK_ResultLogIf(void* result,int condition);
-void CHK_ResultLog(void* result, char* functionName,int lineNumber);
+void CHK_ResultLog(char* result, char* functionName,int lineNumber, char* resultContext);
 
 #endif
