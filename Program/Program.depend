@@ -60,7 +60,7 @@
 
 1405788628 c:\users\stuart\documents\source code\stulibc\libstring.h
 
-1405807125 source:c:\users\stuart\documents\source code\stulibc\logging.c
+1405807344 source:c:\users\stuart\documents\source code\stulibc\logging.c
 	"logging.h"
 	<stdio.h>
 	"timing.h"

@@ -50,6 +50,10 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="../libstring.h" />
+		<Unit filename="../logging.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../logging.h" />
 		<Unit filename="../memory.h" />
 		<Unit filename="../safetychecking.c">
 			<Option compilerVar="CC" />
