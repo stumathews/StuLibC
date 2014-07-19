@@ -11,6 +11,8 @@
 #ifndef FILE_H
 #define FILE_H
 
+#include <stdio.h>
+
 // File managment functions
 
 // writing to files
@@ -25,6 +27,14 @@
  */
 void FILE_AppendText(char* text, char* filename);
 
+/** @brief Appends a piece of text to a stream.
+ *
+ * @param text char* piece of text
+ * @param stream FILE*
+ * @return void
+ *
+ */
+void FILE_AppendTextToStream(char* text, FILE* stream);
 // writing to config files
 
 // writing to records

@@ -11,7 +11,6 @@
 
 int main()
 {
-    DBG_WriteLineToFile("The germans are coming!","phrases.txt", CRITICAL);
-    DBG_WriteLineToFile("Russian intelligence? Are you mad!","phrases.txt", UNSPECIFIED);
+
     return 0;
 }

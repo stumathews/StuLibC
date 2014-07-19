@@ -11,7 +11,7 @@
 
  #ifndef STULIBC_DEBUGGING_H
  #define STULIBC_DEBUGGING_H
-
+#include <stdio.h>
  // Debugging functionality like writing to trace files, log files etc.
  enum Severity { MINOR, NORMAL, CRITICAL, UNSPECIFIED  };
 
@@ -45,8 +45,8 @@ void DBG_WriteLineToFile(char* message, char* filename, enum Severity severity);
   * @return char* the enumeration value as a string.
   *
   */
-
-// void DBG_WriteLineToStream(char* message, FILE* stream, enum Severity severity);
  char* DBG_GetSeverityAsString(enum Severity severity);
+
+ void DBG_WriteLineToStream(char* message, FILE* stream, enum Severity severity);
 
  #endif // STULIBC_DEBUGGING_H

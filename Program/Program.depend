@@ -7,7 +7,7 @@
 	<string.h>
 	<stdlib.h>
 
-1405795512 source:c:\users\stuart\documents\source code\stulibc\program\main.c
+1405807006 source:c:\users\stuart\documents\source code\stulibc\program\main.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -19,15 +19,17 @@
 
 1405196815 c:\users\stuart\documents\source code\stulibc\keyboard.h
 
-1405795176 source:c:\users\stuart\documents\source code\stulibc\debugging.c
+1405803588 source:c:\users\stuart\documents\source code\stulibc\debugging.c
 	"debugging.h"
 	"timing.h"
 	"filemanagement.h"
 	"safetychecking.h"
+	"logging.h"
 	<string.h>
 	<stdio.h>
 
-1405792452 c:\users\stuart\documents\source code\stulibc\debugging.h
+1405798509 c:\users\stuart\documents\source code\stulibc\debugging.h
+	<stdio.h>
 
 1405788660 c:\users\stuart\documents\source code\stulibc\timing.h
 	<time.h>
@@ -35,19 +37,20 @@
 1405795425 source:c:\users\stuart\documents\source code\stulibc\timing.c
 	"timing.h"
 
-1405783266 source:c:\users\stuart\documents\source code\stulibc\filemanagement.c
+1405807226 source:c:\users\stuart\documents\source code\stulibc\filemanagement.c
 	"filemanagement.h"
 	<stdio.h>
 
-1405788492 c:\users\stuart\documents\source code\stulibc\filemanagement.h
+1405798520 c:\users\stuart\documents\source code\stulibc\filemanagement.h
+	<stdio.h>
 
-1405794700 source:c:\users\stuart\documents\source code\stulibc\safetychecking.c
+1405804003 source:c:\users\stuart\documents\source code\stulibc\safetychecking.c
 	"safetychecking.h"
 	"filemanagement.h"
 	<stdlib.h>
 	<stdio.h>
 
-1405793584 c:\users\stuart\documents\source code\stulibc\safetychecking.h
+1405802550 c:\users\stuart\documents\source code\stulibc\safetychecking.h
 
 1405784392 c:\users\stuart\documents\source code\stulibc\string.h
 
@@ -56,4 +59,13 @@
 	<string.h>
 
 1405788628 c:\users\stuart\documents\source code\stulibc\libstring.h
+
+1405807125 source:c:\users\stuart\documents\source code\stulibc\logging.c
+	"logging.h"
+	<stdio.h>
+	"timing.h"
+	"filemanagement.h"
+
+1405807355 c:\users\stuart\documents\source code\stulibc\logging.h
+	<stdio.h>
 

@@ -5,32 +5,17 @@
 
 #define MAX_LOG_LINE_LENGTH 255
 
-static char* safetyfile = "safety.txt";
+static char* DEFAULT_FILE_NAME = "safety.txt";
+static char* COMMON_CHK_RESULT_FORMAT = "[SAFETY] %s (%s)\n";
+static char buffer[MAX_LOG_LINE_LENGTH];
 
-void CHK_ResultExitIf(int condition, char* message, char* resultContext)
+
+void CHK_ExitIf(int condition_result, char* message, char* resultContext)
 {
-    char buffer[MAX_LOG_LINE_LENGTH];
-    sprintf(buffer,"%s %s",resultContext,message);
-    if(condition)
+    if(condition_result)
     {
-        FILE_AppendText(buffer, safetyfile);
+        sprintf(buffer,COMMON_CHK_RESULT_FORMAT,message, resultContext);
+        FILE_AppendText(buffer, DEFAULT_FILE_NAME);
         exit(1);
     }
-}
-int CHK_ResultLogIf(int condition, char* message, char* resultContext)
-{
-    char buf[MAX_LOG_LINE_LENGTH];
-    sprintf(buf,"%s (%s)",message,resultContext);
-
-    if(condition == 1)
-        FILE_AppendText(buf, safetyfile);
-    return condition;
-}
-
-void CHK_ResultLog(char* functionName,int lineNumber, char* resultContext)
-{
-    char buffer[MAX_LOG_LINE_LENGTH];
-
-    sprintf(buffer,"at function %s:%d - %s\n", functionName, lineNumber,resultContext);
-    FILE_AppendText( buffer, safetyfile);
 }

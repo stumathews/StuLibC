@@ -12,8 +12,8 @@
 #define SAFETY_CHECKING_H
 
 // bounds checking on data structures and other sanity checks
-void CHK_ResultExitIf(int condition, char* message, char* resultContext);
-int CHK_ResultLogIf(int condition, char* message, char* resultContext);
-void CHK_ResultLog(char* functionName,int lineNumber, char* resultContext);
+void CHK_ExitIf(int condition, char* message, char* resultContext);
+int CHK_LogIf(int condition, char* message, char* resultContext);
+void CHK_Log(char* functionName,int lineNumber, char* resultContext);
 
 #endif
