@@ -10,7 +10,13 @@
  */
 #ifndef TIMING_H
 #define TIMING_H
+#include <time.h>
 
+enum DateType {DATE_SIMPLE};
+enum TimeType {TIME_SIMPLE};
 // how long something took to execute
+char* TM_GetDate(enum DateType type);
+char* TM_GetTime(enum TimeType type);
+char* TM_GetDateTimeStr();
 
 #endif

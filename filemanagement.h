@@ -15,6 +15,8 @@
 
 // writing to files
 
+void FILE_AppendText(char* text, char* filename);
+
 // writing to config files
 
 // writing to records
