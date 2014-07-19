@@ -7,7 +7,7 @@
 	<string.h>
 	<stdlib.h>
 
-1405784246 source:c:\users\stuart\documents\source code\stulibc\program\main.c
+1405787509 source:c:\users\stuart\documents\source code\stulibc\program\main.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -15,16 +15,16 @@
 	"../debugging.h"
 	"../filemanagement.h"
 	"../safetychecking.h"
-	"../string.h"
+	"../libstring.h"
 
 1405196815 c:\users\stuart\documents\source code\stulibc\keyboard.h
 
-1405783262 source:c:\users\stuart\documents\source code\stulibc\debugging.c
+1405788170 source:c:\users\stuart\documents\source code\stulibc\debugging.c
 	"debugging.h"
 	"timing.h"
 	"filemanagement.h"
 
-1405775221 c:\users\stuart\documents\source code\stulibc\debugging.h
+1405788124 c:\users\stuart\documents\source code\stulibc\debugging.h
 
 1405770384 c:\users\stuart\documents\source code\stulibc\timing.h
 	<time.h>

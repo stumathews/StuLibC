@@ -46,12 +46,15 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="../keyboard.h" />
+		<Unit filename="../libstring.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../libstring.h" />
 		<Unit filename="../memory.h" />
 		<Unit filename="../safetychecking.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="../safetychecking.h" />
-		<Unit filename="../string.h" />
 		<Unit filename="../testing.h" />
 		<Unit filename="../timing.c">
 			<Option compilerVar="CC" />

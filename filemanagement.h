@@ -15,6 +15,14 @@
 
 // writing to files
 
+/** @brief Appends a piece of text to a file.
+ *
+ * @param text char* piece of text
+ * @param filename char* piece of text to append to @param text
+ * @return void
+ * @remarks if the file doesnt exist, it is created.
+ *
+ */
 void FILE_AppendText(char* text, char* filename);
 
 // writing to config files

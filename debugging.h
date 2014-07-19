@@ -39,5 +39,12 @@ void DBG_WriteLine(char* message, char* filename, enum Severity severity);
   */
  void DBG_WriteLineExtra(char* prefix, char* message,char* suffix, char* filename, enum Severity severity);
 
+ /** @brief Returns a string representation of the severity enumeration
+  *
+  * @param severity enum Severity
+  * @return char* the enumeration value as a string.
+  *
+  */
+ char* DBG_GetSeverityAsString(enum Severity severity);
 
  #endif // STULIBC_DEBUGGING_H

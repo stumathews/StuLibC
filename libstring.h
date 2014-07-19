@@ -11,12 +11,31 @@
  #ifndef STULIBC_STRING_H
  #define STULIBC_STRING_H
 
- // things to do with string management
+
+/** @brief Converts an integer into a string
+ *
+ * @param number int the number to represent as a string
+ * @return char* the string that represents @param number
+ *
+ */
 char* STR_FromInt(int number);
 
-// from K&R2 book
+
+/** @brief from K&R2 book, converts a int a string
+ *
+ * @param n int number
+ * @param s[] char string destination
+ * @return void
+ *
+ */
 void itoa(int n, char s[]);
- /* reverse:  reverse string s in place */
+
+/** @brief reverse string @param s in place
+ *
+ * @param s[] char
+ * @return void
+ *
+ */
 void reverse(char s[]);
 
  #endif // STULIBC_STRING_H

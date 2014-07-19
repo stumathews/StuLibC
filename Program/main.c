@@ -13,8 +13,8 @@ int main()
 {
 
 
-    DBG_WriteLineExtra("[PROGRAM]","Unable to parse file","[FINISHED]","afile.txt", MINOR);
-    CHK_ResultLog(STR_FromInt(53290),"main",12,"My favourite number.");
+    DBG_WriteLine("Hellow World","debug.txt",MINOR);
+    DBG_WriteLineExtra("Init","Creating startup files...","ben is sleeping","afile.txt", CRITICAL);
 
     return 0;
 }
