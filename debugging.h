@@ -13,7 +13,7 @@
  #define STULIBC_DEBUGGING_H
 
  // Debugging functionality like writing to trace files, log files etc.
- enum Severity { MINOR, NORMAL, CRITICAL  };
+ enum Severity { MINOR, NORMAL, CRITICAL, UNSPECIFIED  };
 
 
 /** @brief Writes a debug line to file.
@@ -24,7 +24,7 @@
  * @return void
  * @remarks The current date and time is prepended to message.
  */
-void DBG_WriteLine(char* message, char* filename, enum Severity severity);
+void DBG_WriteLineToFile(char* message, char* filename, enum Severity severity);
 
  /** @brief Writes a message to a file.
   *
@@ -37,7 +37,7 @@ void DBG_WriteLine(char* message, char* filename, enum Severity severity);
   * @remarks Adds the date and time to all messages. And appends to the end of @param filename
   *
   */
- void DBG_WriteLineExtra(char* prefix, char* message,char* suffix, char* filename, enum Severity severity);
+ void DBG_WriteLineToFileExtra(char* prefix, char* message,char* suffix, char* filename, enum Severity severity);
 
  /** @brief Returns a string representation of the severity enumeration
   *
@@ -45,6 +45,8 @@ void DBG_WriteLine(char* message, char* filename, enum Severity severity);
   * @return char* the enumeration value as a string.
   *
   */
+
+// void DBG_WriteLineToStream(char* message, FILE* stream, enum Severity severity);
  char* DBG_GetSeverityAsString(enum Severity severity);
 
  #endif // STULIBC_DEBUGGING_H

@@ -11,10 +11,7 @@
 
 int main()
 {
-
-
-    DBG_WriteLine("Hellow World","debug.txt",MINOR);
-    DBG_WriteLineExtra("Init","Creating startup files...","ben is sleeping","afile.txt", CRITICAL);
-
+    DBG_WriteLineToFile("The germans are coming!","phrases.txt", CRITICAL);
+    DBG_WriteLineToFile("Russian intelligence? Are you mad!","phrases.txt", UNSPECIFIED);
     return 0;
 }
