@@ -31,10 +31,32 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="../console.h" />
+		<Unit filename="../datastructures.h" />
+		<Unit filename="../debugging.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../debugging.h" />
+		<Unit filename="../encryption.h" />
+		<Unit filename="../filemanagement.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../filemanagement.h" />
 		<Unit filename="../keyboard.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="../keyboard.h" />
+		<Unit filename="../memory.h" />
+		<Unit filename="../safetychecking.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../safetychecking.h" />
+		<Unit filename="../string.h" />
+		<Unit filename="../testing.h" />
+		<Unit filename="../timing.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../timing.h" />
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>

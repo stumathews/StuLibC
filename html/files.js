@@ -1,5 +1,6 @@
 var files =
 [
+    [ "console.h", "console_8h.html", null ],
     [ "data_structures.h", "data__structures_8h.html", null ],
     [ "debugging.h", "debugging_8h.html", null ],
     [ "file_mgmt.h", "file__mgmt_8h.html", null ],

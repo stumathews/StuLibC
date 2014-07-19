@@ -28,6 +28,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="stuart_twitter_bigger.jpg"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">StuLibC
    &#160;<span id="projectnumber">1.0</span>
@@ -108,37 +109,52 @@ $(document).ready(function(){initNavTree('keyboard_8h.html','');});
 </div><!--header-->
 <div class="contents">
 
+<p>Keyboard library function prototypes.  
+<a href="#details">More...</a></p>
+
 <p><a href="keyboard_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a9dbc3e791a22d4dabe7366458269178d"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="keyboard_8h.html#a9dbc3e791a22d4dabe7366458269178d">kbd_GetLine</a> (char *buffer)</td></tr>
-<tr class="memdesc:a9dbc3e791a22d4dabe7366458269178d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Waits for input from keyboard and returns what is on stdin when the newline is sent to keyboard.  <a href="#a9dbc3e791a22d4dabe7366458269178d">More...</a><br /></td></tr>
-<tr class="separator:a9dbc3e791a22d4dabe7366458269178d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a334af1e1c4cd5b099bd370ff49a4c698"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="keyboard_8h.html#a334af1e1c4cd5b099bd370ff49a4c698">kbd_GetLine</a> (int max_line_length)</td></tr>
+<tr class="memdesc:a334af1e1c4cd5b099bd370ff49a4c698"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads all characters that are typed into the keyboard until the newline character.  <a href="#a334af1e1c4cd5b099bd370ff49a4c698">More...</a><br /></td></tr>
+<tr class="separator:a334af1e1c4cd5b099bd370ff49a4c698"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Function Documentation</h2>
-<a class="anchor" id="a9dbc3e791a22d4dabe7366458269178d"></a>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Keyboard library function prototypes. </p>
+<dl class="section author"><dt>Author</dt><dd>Stuart Mathews </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>12 July 2013</dd></dl>
+<p>This headers contains the various keyboard management functions defined in the library. These typically involve reading from the keyboard in various ways </p><dl class="section see"><dt>See also</dt><dd><a href="http://devel.stuartmathews.com/stulibc">http://devel.stuartmathews.com/stulibc</a> </dd></dl>
+</div><h2 class="groupheader">Function Documentation</h2>
+<a class="anchor" id="a334af1e1c4cd5b099bd370ff49a4c698"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">char* kbd_GetLine </td>
           <td>(</td>
-          <td class="paramtype">char *&#160;</td>
-          <td class="paramname"><em>buffer</em></td><td>)</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>max_line_length</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Waits for input from keyboard and returns what is on stdin when the newline is sent to keyboard. </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<p>Reads all characters that are typed into the keyboard until the newline character. </p>
+<p>This function waits for each character that is type into the keyboard as it receives it. This is saves it into a memory location, allocated by the function of at most <code>max_line_length</code> characters. This memory location is returned as a pointer to it. It also ensures that if no newline character is ever typed in, it then will only read at most <code>max_line_length</code> characters and therefore promises that the returned string is at most <code>max_line_length</code> in size. Here is a typical example of how to use it: </p><div class="fragment"><div class="line"><span class="keywordtype">char</span>* buffer = <a class="code" href="keyboard_8c.html#a334af1e1c4cd5b099bd370ff49a4c698">kbd_GetLine</a>(80);</div>
+<div class="line">printf(<span class="stringliteral">&quot;The following line was obtained from the keyboard: %s\n&quot;</span>,buffer);</div>
+<div class="line">free(buffer);</div>
+</div><!-- fragment --> <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">buffer</td><td>char* The memory location to store the fetched line. </td></tr>
+    <tr><td class="paramname">max_line_length</td><td>int reads at most <code>max_line_length</code> characters from keyboard. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>char* The memory location of the fetch line data. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>char* a pointer to the memory location containing the retrieved line. </dd></dl>
+<dl class="section remark"><dt>Remarks</dt><dd>None </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a href="http://devel.stuartmathews.com/stulibc">http://devel.stuartmathews.com/stulibc</a> </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Be sure to free the memory that is allocated to the returned string, once you're done with it. </dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd>Not freeing the memory will result in memory leaks. </dd></dl>
 
 </div>
 </div>
@@ -148,7 +164,7 @@ Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="keyboard_8h.html">keyboard.h</a></li>
-    <li class="footer">Generated on Thu Jul 10 2014 08:02:48 for StuLibC by
+    <li class="footer">Generated on Sat Jul 12 2014 21:33:47 for StuLibC by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.7 </li>
   </ul>

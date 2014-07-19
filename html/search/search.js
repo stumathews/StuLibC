@@ -7,10 +7,10 @@
 
 var indexSectionsWithContent =
 {
-  0: "dfkmpst",
-  1: "dfkmpst",
+  0: "cdfkmpst",
+  1: "cdfkmpst",
   2: "km",
-  3: "ks"
+  3: "s"
 };
 
 var indexSectionNames =
