@@ -1,3 +1,13 @@
+/**
+ * @file Console.h
+ * @brief Console function prototypes.
+ * @author Stuart Mathews
+ * @date 19 July 2013
+ *
+ * This headers contains the various console management functions defined in the library.
+ * These typically involve reading and writing to and from the console in various ways
+ * @see http://devel.stuartmathews.com/stulibc
+ */
 #ifndef STULIBC_CONSOLE_H
 #define STULIBC_CONSOLE_H
 
