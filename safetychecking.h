@@ -1,6 +1,6 @@
 /**
  * @file safetychecking.h
- * @brief Encryption library prototypes.
+ * @brief Safety checking library prototypes.
  * @author Stuart Mathews
  * @date 19 July 2013
  *

@@ -15,7 +15,7 @@
 #include <string.h>
 #include <stdlib.h>
 
-char* kbd_GetLine(int max_line_length)
+char* KBD_GetLine(int max_line_length)
 {
     int c, chars_read = 0;
     char* buf = (char*) malloc( sizeof(char) * max_line_length );

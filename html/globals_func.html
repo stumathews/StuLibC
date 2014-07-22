@@ -76,7 +76,23 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="globals.html"><span>All</span></a></li>
       <li class="current"><a href="globals_func.html"><span>Functions</span></a></li>
+      <li><a href="globals_enum.html"><span>Enumerations</span></a></li>
+      <li><a href="globals_eval.html"><span>Enumerator</span></a></li>
       <li><a href="globals_defs.html"><span>Macros</span></a></li>
+    </ul>
+  </div>
+  <div id="navrow4" class="tabs3">
+    <ul class="tablist">
+      <li><a href="#index_c"><span>c</span></a></li>
+      <li><a href="#index_d"><span>d</span></a></li>
+      <li><a href="#index_f"><span>f</span></a></li>
+      <li><a href="#index_i"><span>i</span></a></li>
+      <li><a href="#index_k"><span>k</span></a></li>
+      <li><a href="#index_l"><span>l</span></a></li>
+      <li><a href="#index_m"><span>m</span></a></li>
+      <li><a href="#index_r"><span>r</span></a></li>
+      <li><a href="#index_s"><span>s</span></a></li>
+      <li class="current"><a href="#index_t"><span>t</span></a></li>
     </ul>
   </div>
 </div><!-- top -->
@@ -99,7 +115,7 @@ $(document).ready(function(){initNavTree('globals_func.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Macros</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Macros</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -109,13 +125,120 @@ $(document).ready(function(){initNavTree('globals_func.html','');});
 </div>
 
 <div class="contents">
-&#160;<ul>
-<li>kbd_GetLine()
-: <a class="el" href="keyboard_8c.html#a334af1e1c4cd5b099bd370ff49a4c698">keyboard.c</a>
-, <a class="el" href="keyboard_8h.html#a334af1e1c4cd5b099bd370ff49a4c698">keyboard.h</a>
+&#160;
+
+<h3><a class="anchor" id="index_c"></a>- c -</h3><ul>
+<li>CHK_ExitIf()
+: <a class="el" href="safetychecking_8c.html#a90e8f42db38a0a7bdec190feaff00582">safetychecking.c</a>
+, <a class="el" href="safetychecking_8h.html#ae7b45caafdf2ac7be1e979c1c3ff24eb">safetychecking.h</a>
 </li>
+<li>CHK_Log()
+: <a class="el" href="safetychecking_8h.html#a0a2194cbf6d7073f27db0c93100b0c6f">safetychecking.h</a>
+</li>
+<li>CHK_LogIf()
+: <a class="el" href="safetychecking_8h.html#a08845cdcbb7a5466596a59e7461096ff">safetychecking.h</a>
+</li>
+</ul>
+
+
+<h3><a class="anchor" id="index_d"></a>- d -</h3><ul>
+<li>DBG_GetSeverityAsString()
+: <a class="el" href="debugging_8c.html#aa75767c48377b3b42fe7eda808e23540">debugging.c</a>
+, <a class="el" href="debugging_8h.html#aa75767c48377b3b42fe7eda808e23540">debugging.h</a>
+</li>
+<li>DBG_LogIf()
+: <a class="el" href="debugging_8c.html#a8fb734e684c3713574babda6baaae4fc">debugging.c</a>
+, <a class="el" href="debugging_8h.html#a8fb734e684c3713574babda6baaae4fc">debugging.h</a>
+</li>
+<li>DBG_LogIfToStream()
+: <a class="el" href="debugging_8c.html#a5a7dc90353d4123fa4e6b55f1622cb58">debugging.c</a>
+, <a class="el" href="debugging_8h.html#a5a7dc90353d4123fa4e6b55f1622cb58">debugging.h</a>
+</li>
+<li>DBG_WriteLineToFile()
+: <a class="el" href="debugging_8c.html#a93da9d1504194c8fffc5e3d73afe38fb">debugging.c</a>
+, <a class="el" href="debugging_8h.html#a93da9d1504194c8fffc5e3d73afe38fb">debugging.h</a>
+</li>
+<li>DBG_WriteLineToFileExtra()
+: <a class="el" href="debugging_8c.html#a0d9446d8f705e3bf5bbdbae2ccc73498">debugging.c</a>
+, <a class="el" href="debugging_8h.html#a0d9446d8f705e3bf5bbdbae2ccc73498">debugging.h</a>
+</li>
+<li>DBG_WriteLineToStream()
+: <a class="el" href="debugging_8c.html#ac5b5ed8781dbabf2c99cb3e68781d567">debugging.c</a>
+, <a class="el" href="debugging_8h.html#ac5b5ed8781dbabf2c99cb3e68781d567">debugging.h</a>
+</li>
+</ul>
+
+
+<h3><a class="anchor" id="index_f"></a>- f -</h3><ul>
+<li>FILE_AppendText()
+: <a class="el" href="filemanagement_8c.html#a28a0ddeaffb04e65270a7a74ff072df7">filemanagement.c</a>
+, <a class="el" href="filemanagement_8h.html#a28a0ddeaffb04e65270a7a74ff072df7">filemanagement.h</a>
+</li>
+<li>FILE_AppendTextToStream()
+: <a class="el" href="filemanagement_8c.html#ac750c4d6863fd631072a709ce185b238">filemanagement.c</a>
+, <a class="el" href="filemanagement_8h.html#ac750c4d6863fd631072a709ce185b238">filemanagement.h</a>
+</li>
+</ul>
+
+
+<h3><a class="anchor" id="index_i"></a>- i -</h3><ul>
+<li>itoa()
+: <a class="el" href="libstring_8c.html#af749add1ff19b6ff96a62f35ebb49b7e">libstring.c</a>
+, <a class="el" href="libstring_8h.html#af749add1ff19b6ff96a62f35ebb49b7e">libstring.h</a>
+</li>
+</ul>
+
+
+<h3><a class="anchor" id="index_k"></a>- k -</h3><ul>
+<li>KBD_GetLine()
+: <a class="el" href="keyboard_8c.html#a5b7c135dca7ae3e88ae8f1f87788a981">keyboard.c</a>
+, <a class="el" href="keyboard_8h.html#a5b7c135dca7ae3e88ae8f1f87788a981">keyboard.h</a>
+</li>
+</ul>
+
+
+<h3><a class="anchor" id="index_l"></a>- l -</h3><ul>
+<li>LOG()
+: <a class="el" href="logging_8c.html#a4dc84fa3169dcbb4e6fef63f5ad3f771">logging.c</a>
+</li>
+<li>LOG_If()
+: <a class="el" href="logging_8c.html#a7cce76722453397dbcd569651d1b2f55">logging.c</a>
+, <a class="el" href="logging_8h.html#a7cce76722453397dbcd569651d1b2f55">logging.h</a>
+</li>
+<li>LOG_It()
+: <a class="el" href="logging_8c.html#a03e34f33d5c4666f8b8442a5bb1e382e">logging.c</a>
+, <a class="el" href="logging_8h.html#a03e34f33d5c4666f8b8442a5bb1e382e">logging.h</a>
+</li>
+</ul>
+
+
+<h3><a class="anchor" id="index_m"></a>- m -</h3><ul>
 <li>main()
 : <a class="el" href="program_8c.html#a3c04138a5bfe5d72780bb7e82a18e627">program.c</a>
+</li>
+</ul>
+
+
+<h3><a class="anchor" id="index_r"></a>- r -</h3><ul>
+<li>reverse()
+: <a class="el" href="libstring_8c.html#aa8a9a8836962d890b4939c112fd29190">libstring.c</a>
+, <a class="el" href="libstring_8h.html#aa8a9a8836962d890b4939c112fd29190">libstring.h</a>
+</li>
+</ul>
+
+
+<h3><a class="anchor" id="index_s"></a>- s -</h3><ul>
+<li>STR_FromInt()
+: <a class="el" href="libstring_8c.html#a7e9b1f9067f7868de581107082c7bfb7">libstring.c</a>
+, <a class="el" href="libstring_8h.html#a7e9b1f9067f7868de581107082c7bfb7">libstring.h</a>
+</li>
+</ul>
+
+
+<h3><a class="anchor" id="index_t"></a>- t -</h3><ul>
+<li>TM_GetDateTimeStr()
+: <a class="el" href="timing_8c.html#ad0711371c6c67a4500968bdb3f17669c">timing.c</a>
+, <a class="el" href="timing_8h.html#ad0711371c6c67a4500968bdb3f17669c">timing.h</a>
 </li>
 </ul>
 </div><!-- contents -->
@@ -123,7 +246,7 @@ $(document).ready(function(){initNavTree('globals_func.html','');});
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Sat Jul 12 2014 21:33:47 for StuLibC by
+    <li class="footer">Generated on Mon Jul 21 2014 20:43:42 for StuLibC by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.7 </li>
   </ul>

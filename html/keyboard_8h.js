@@ -1,4 +1,4 @@
 var keyboard_8h =
 [
-    [ "kbd_GetLine", "keyboard_8h.html#a334af1e1c4cd5b099bd370ff49a4c698", null ]
+    [ "KBD_GetLine", "keyboard_8h.html#a5b7c135dca7ae3e88ae8f1f87788a981", null ]
 ];

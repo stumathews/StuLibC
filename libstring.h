@@ -8,6 +8,7 @@
  * This includes creating, copying, manipulating strings.
  * @see http://devel.stuartmathews.com/stulibc
  */
+
  #ifndef STULIBC_STRING_H
  #define STULIBC_STRING_H
 

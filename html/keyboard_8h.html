@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('keyboard_8h.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Macros</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Macros</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -116,9 +116,9 @@ $(document).ready(function(){initNavTree('keyboard_8h.html','');});
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a334af1e1c4cd5b099bd370ff49a4c698"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="keyboard_8h.html#a334af1e1c4cd5b099bd370ff49a4c698">kbd_GetLine</a> (int max_line_length)</td></tr>
-<tr class="memdesc:a334af1e1c4cd5b099bd370ff49a4c698"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads all characters that are typed into the keyboard until the newline character.  <a href="#a334af1e1c4cd5b099bd370ff49a4c698">More...</a><br /></td></tr>
-<tr class="separator:a334af1e1c4cd5b099bd370ff49a4c698"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5b7c135dca7ae3e88ae8f1f87788a981"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="keyboard_8h.html#a5b7c135dca7ae3e88ae8f1f87788a981">KBD_GetLine</a> (int max_line_length)</td></tr>
+<tr class="memdesc:a5b7c135dca7ae3e88ae8f1f87788a981"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads all characters that are typed into the keyboard until the newline character.  <a href="#a5b7c135dca7ae3e88ae8f1f87788a981">More...</a><br /></td></tr>
+<tr class="separator:a5b7c135dca7ae3e88ae8f1f87788a981"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Keyboard library function prototypes. </p>
@@ -126,12 +126,12 @@ Functions</h2></td></tr>
 <dl class="section date"><dt>Date</dt><dd>12 July 2013</dd></dl>
 <p>This headers contains the various keyboard management functions defined in the library. These typically involve reading from the keyboard in various ways </p><dl class="section see"><dt>See also</dt><dd><a href="http://devel.stuartmathews.com/stulibc">http://devel.stuartmathews.com/stulibc</a> </dd></dl>
 </div><h2 class="groupheader">Function Documentation</h2>
-<a class="anchor" id="a334af1e1c4cd5b099bd370ff49a4c698"></a>
+<a class="anchor" id="a5b7c135dca7ae3e88ae8f1f87788a981"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">char* kbd_GetLine </td>
+          <td class="memname">char* KBD_GetLine </td>
           <td>(</td>
           <td class="paramtype">int&#160;</td>
           <td class="paramname"><em>max_line_length</em></td><td>)</td>
@@ -141,7 +141,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Reads all characters that are typed into the keyboard until the newline character. </p>
-<p>This function waits for each character that is type into the keyboard as it receives it. This is saves it into a memory location, allocated by the function of at most <code>max_line_length</code> characters. This memory location is returned as a pointer to it. It also ensures that if no newline character is ever typed in, it then will only read at most <code>max_line_length</code> characters and therefore promises that the returned string is at most <code>max_line_length</code> in size. Here is a typical example of how to use it: </p><div class="fragment"><div class="line"><span class="keywordtype">char</span>* buffer = <a class="code" href="keyboard_8c.html#a334af1e1c4cd5b099bd370ff49a4c698">kbd_GetLine</a>(80);</div>
+<p>This function waits for each character that is type into the keyboard as it receives it. This is saves it into a memory location, allocated by the function of at most <code>max_line_length</code> characters. This memory location is returned as a pointer to it. It also ensures that if no newline character is ever typed in, it then will only read at most <code>max_line_length</code> characters and therefore promises that the returned string is at most <code>max_line_length</code> in size. Here is a typical example of how to use it: </p><div class="fragment"><div class="line"><span class="keywordtype">char</span>* buffer = kbd_GetLine(80);</div>
 <div class="line">printf(<span class="stringliteral">&quot;The following line was obtained from the keyboard: %s\n&quot;</span>,buffer);</div>
 <div class="line">free(buffer);</div>
 </div><!-- fragment --> <dl class="params"><dt>Parameters</dt><dd>
@@ -164,7 +164,7 @@ Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="keyboard_8h.html">keyboard.h</a></li>
-    <li class="footer">Generated on Sat Jul 12 2014 21:33:47 for StuLibC by
+    <li class="footer">Generated on Mon Jul 21 2014 20:43:41 for StuLibC by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.7 </li>
   </ul>

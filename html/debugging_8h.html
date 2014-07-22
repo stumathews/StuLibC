@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('debugging_8h.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Macros</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Macros</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -102,19 +102,322 @@ $(document).ready(function(){initNavTree('debugging_8h.html','');});
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#enum-members">Enumerations</a> &#124;
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">debugging.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
+<p>Debugging library prototypes.  
+<a href="#details">More...</a></p>
+<div class="textblock"><code>#include &lt;stdio.h&gt;</code><br />
+</div>
 <p><a href="debugging_8h_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:a11717da96dc4e4a5f79371318448f82b"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="debugging_8h.html#a11717da96dc4e4a5f79371318448f82b">Severity</a> { <a class="el" href="debugging_8h.html#a11717da96dc4e4a5f79371318448f82ba70738aaa4c8f849a690a17a70bf785e8">MINOR</a>, 
+<a class="el" href="debugging_8h.html#a11717da96dc4e4a5f79371318448f82ba50d1448013c6f17125caee18aa418af7">NORMAL</a>, 
+<a class="el" href="debugging_8h.html#a11717da96dc4e4a5f79371318448f82bacda21a4a072f2261f6d4ab596599f8b0">CRITICAL</a>, 
+<a class="el" href="debugging_8h.html#a11717da96dc4e4a5f79371318448f82baa876f4fb4e5f7f0c5c48fcf66c9ce7ce">UNSPECIFIED</a>
+ }</td></tr>
+<tr class="separator:a11717da96dc4e4a5f79371318448f82b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a93da9d1504194c8fffc5e3d73afe38fb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="debugging_8h.html#a93da9d1504194c8fffc5e3d73afe38fb">DBG_WriteLineToFile</a> (char *message, char *filename, enum <a class="el" href="debugging_8h.html#a11717da96dc4e4a5f79371318448f82b">Severity</a> severity)</td></tr>
+<tr class="memdesc:a93da9d1504194c8fffc5e3d73afe38fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes a debug line to file.  <a href="#a93da9d1504194c8fffc5e3d73afe38fb">More...</a><br /></td></tr>
+<tr class="separator:a93da9d1504194c8fffc5e3d73afe38fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0d9446d8f705e3bf5bbdbae2ccc73498"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="debugging_8h.html#a0d9446d8f705e3bf5bbdbae2ccc73498">DBG_WriteLineToFileExtra</a> (char *prefix, char *message, char *suffix, char *filename, enum <a class="el" href="debugging_8h.html#a11717da96dc4e4a5f79371318448f82b">Severity</a> severity)</td></tr>
+<tr class="memdesc:a0d9446d8f705e3bf5bbdbae2ccc73498"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes a message to a file.  <a href="#a0d9446d8f705e3bf5bbdbae2ccc73498">More...</a><br /></td></tr>
+<tr class="separator:a0d9446d8f705e3bf5bbdbae2ccc73498"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa75767c48377b3b42fe7eda808e23540"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="debugging_8h.html#aa75767c48377b3b42fe7eda808e23540">DBG_GetSeverityAsString</a> (enum <a class="el" href="debugging_8h.html#a11717da96dc4e4a5f79371318448f82b">Severity</a> severity)</td></tr>
+<tr class="memdesc:aa75767c48377b3b42fe7eda808e23540"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a string representation of the severity enumeration.  <a href="#aa75767c48377b3b42fe7eda808e23540">More...</a><br /></td></tr>
+<tr class="separator:aa75767c48377b3b42fe7eda808e23540"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac5b5ed8781dbabf2c99cb3e68781d567"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="debugging_8h.html#ac5b5ed8781dbabf2c99cb3e68781d567">DBG_WriteLineToStream</a> (char *message, FILE *stream, enum <a class="el" href="debugging_8h.html#a11717da96dc4e4a5f79371318448f82b">Severity</a> severity)</td></tr>
+<tr class="separator:ac5b5ed8781dbabf2c99cb3e68781d567"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5a7dc90353d4123fa4e6b55f1622cb58"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="debugging_8h.html#a5a7dc90353d4123fa4e6b55f1622cb58">DBG_LogIfToStream</a> (int condition, FILE *stream, char *message, char *otherwise)</td></tr>
+<tr class="separator:a5a7dc90353d4123fa4e6b55f1622cb58"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8fb734e684c3713574babda6baaae4fc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="debugging_8h.html#a8fb734e684c3713574babda6baaae4fc">DBG_LogIf</a> (int condition, char *message, char *otherwise)</td></tr>
+<tr class="separator:a8fb734e684c3713574babda6baaae4fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Debugging library prototypes. </p>
+<dl class="section author"><dt>Author</dt><dd>Stuart Mathews </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>19 July 2013</dd></dl>
+<p>This header contains the function and type declarations for dealing with debugging functionality in the library. This includes tracing to logs, and reporting. </p><dl class="section see"><dt>See also</dt><dd><a href="http://devel.stuartmathews.com/stulibc">http://devel.stuartmathews.com/stulibc</a> </dd></dl>
+</div><h2 class="groupheader">Enumeration Type Documentation</h2>
+<a class="anchor" id="a11717da96dc4e4a5f79371318448f82b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="debugging_8h.html#a11717da96dc4e4a5f79371318448f82b">Severity</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a class="anchor" id="a11717da96dc4e4a5f79371318448f82ba70738aaa4c8f849a690a17a70bf785e8"></a>MINOR&#160;</td><td class="fielddoc">
+<p>Not very important </p>
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="a11717da96dc4e4a5f79371318448f82ba50d1448013c6f17125caee18aa418af7"></a>NORMAL&#160;</td><td class="fielddoc">
+<p>Normal </p>
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="a11717da96dc4e4a5f79371318448f82bacda21a4a072f2261f6d4ab596599f8b0"></a>CRITICAL&#160;</td><td class="fielddoc">
+<p>Catestrophic </p>
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="a11717da96dc4e4a5f79371318448f82baa876f4fb4e5f7f0c5c48fcf66c9ce7ce"></a>UNSPECIFIED&#160;</td><td class="fielddoc">
+<p>Unsure </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+<h2 class="groupheader">Function Documentation</h2>
+<a class="anchor" id="aa75767c48377b3b42fe7eda808e23540"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char* DBG_GetSeverityAsString </td>
+          <td>(</td>
+          <td class="paramtype">enum <a class="el" href="debugging_8h.html#a11717da96dc4e4a5f79371318448f82b">Severity</a>&#160;</td>
+          <td class="paramname"><em>severity</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns a string representation of the severity enumeration. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">severity</td><td>enum Severity </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>char* the enumeration value as a string. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a8fb734e684c3713574babda6baaae4fc"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void DBG_LogIf </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>condition</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>message</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>otherwise</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a5a7dc90353d4123fa4e6b55f1622cb58"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void DBG_LogIfToStream </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>condition</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">FILE *&#160;</td>
+          <td class="paramname"><em>stream</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>message</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>otherwise</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a93da9d1504194c8fffc5e3d73afe38fb"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void DBG_WriteLineToFile </td>
+          <td>(</td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>message</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>filename</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">enum <a class="el" href="debugging_8h.html#a11717da96dc4e4a5f79371318448f82b">Severity</a>&#160;</td>
+          <td class="paramname"><em>severity</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Writes a debug line to file. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">message</td><td>char* message to write </td></tr>
+    <tr><td class="paramname">filename</td><td>char* file to write it to </td></tr>
+    <tr><td class="paramname">severity</td><td>enum Severity the severity of the debug line </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
+<dl class="section remark"><dt>Remarks</dt><dd>The current date and time is prepended to message. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a0d9446d8f705e3bf5bbdbae2ccc73498"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void DBG_WriteLineToFileExtra </td>
+          <td>(</td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>prefix</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>message</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>suffix</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>filename</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">enum <a class="el" href="debugging_8h.html#a11717da96dc4e4a5f79371318448f82b">Severity</a>&#160;</td>
+          <td class="paramname"><em>severity</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Writes a message to a file. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">prefix</td><td>char* A prefix to tag the message if any or null </td></tr>
+    <tr><td class="paramname">message</td><td>char* the message to write </td></tr>
+    <tr><td class="paramname">suffix</td><td>char* the suffix to add to the message or null </td></tr>
+    <tr><td class="paramname">filename</td><td>char* the file to write the message to </td></tr>
+    <tr><td class="paramname">severity</td><td>SEVERITY An indication of the error </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
+<dl class="section remark"><dt>Remarks</dt><dd>Adds the date and time to all messages. And appends to the end of </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">filename</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="ac5b5ed8781dbabf2c99cb3e68781d567"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void DBG_WriteLineToStream </td>
+          <td>(</td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>message</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">FILE *&#160;</td>
+          <td class="paramname"><em>stream</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">enum <a class="el" href="debugging_8h.html#a11717da96dc4e4a5f79371318448f82b">Severity</a>&#160;</td>
+          <td class="paramname"><em>severity</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="debugging_8h.html">debugging.h</a></li>
-    <li class="footer">Generated on Sat Jul 12 2014 21:33:47 for StuLibC by
+    <li class="footer">Generated on Mon Jul 21 2014 20:43:41 for StuLibC by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.7 </li>
   </ul>

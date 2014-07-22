@@ -7,10 +7,12 @@
 
 var indexSectionsWithContent =
 {
-  0: "cdfkmpst",
-  1: "cdfkmpst",
-  2: "km",
-  3: "s"
+  0: "bcdefiklmnprstu",
+  1: "cdefklmpst",
+  2: "cdfiklmrst",
+  3: "s",
+  4: "cmnu",
+  5: "belms"
 };
 
 var indexSectionNames =
@@ -18,7 +20,9 @@ var indexSectionNames =
   0: "all",
   1: "files",
   2: "functions",
-  3: "defines"
+  3: "enums",
+  4: "enumvalues",
+  5: "defines"
 };
 
 function convertToId(search)

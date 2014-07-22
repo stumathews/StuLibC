@@ -9,11 +9,25 @@
  * @see http://devel.stuartmathews.com/stulibc
  */
 
- #ifndef STULIBC_DEBUGGING_H
- #define STULIBC_DEBUGGING_H
+#ifndef STULIBC_DEBUGGING_H
+#define STULIBC_DEBUGGING_H
+
+#define debug(m,f,s) DBG_WriteLineToFile((m),(f),(s))
+#define debugif(c,m,s) DBG_LogIf((c),(m),(s))
+#define debugf(m,f,s) DBG_WriteLineToFile((m),(f),(s))
+#define debugs(m,f,s) DBG_WriteLineToStream((m),(f),(s))
+
 #include <stdio.h>
+
+
  // Debugging functionality like writing to trace files, log files etc.
- enum Severity { MINOR, NORMAL, CRITICAL, UNSPECIFIED  };
+ enum Severity
+ {
+    MINOR,/**< Not very important */
+    NORMAL, /**< Normal */
+    CRITICAL, /**< Catestrophic  */
+    UNSPECIFIED /**< Unsure */
+ };
 
 
 /** @brief Writes a debug line to file.
@@ -46,7 +60,8 @@ void DBG_WriteLineToFile(char* message, char* filename, enum Severity severity);
   *
   */
  char* DBG_GetSeverityAsString(enum Severity severity);
-
  void DBG_WriteLineToStream(char* message, FILE* stream, enum Severity severity);
+ void DBG_LogIfToStream( int condition, FILE* stream, char* message, char* otherwise);
+ void DBG_LogIf(int condition, char* message, char* otherwise);
 
  #endif // STULIBC_DEBUGGING_H

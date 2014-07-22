@@ -2,12 +2,12 @@
 1404973152 source:c:\users\stuart\documents\source code\stulibc\screen.c
 	<stdio.h>
 
-1405197126 source:c:\users\stuart\documents\source code\stulibc\keyboard.c
+1405846792 source:c:\users\stuart\documents\source code\stulibc\keyboard.c
 	<stdio.h>
 	<string.h>
 	<stdlib.h>
 
-1405808304 source:c:\users\stuart\documents\source code\stulibc\program\main.c
+1406012917 source:c:\users\stuart\documents\source code\stulibc\program\main.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -18,9 +18,9 @@
 	"../libstring.h"
 	"../logging.h"
 
-1405196815 c:\users\stuart\documents\source code\stulibc\keyboard.h
+1405846804 c:\users\stuart\documents\source code\stulibc\keyboard.h
 
-1405807551 source:c:\users\stuart\documents\source code\stulibc\debugging.c
+1406012580 source:c:\users\stuart\documents\source code\stulibc\debugging.c
 	"debugging.h"
 	"timing.h"
 	"filemanagement.h"
@@ -29,10 +29,10 @@
 	<string.h>
 	<stdio.h>
 
-1405807522 c:\users\stuart\documents\source code\stulibc\debugging.h
+1406021007 c:\users\stuart\documents\source code\stulibc\debugging.h
 	<stdio.h>
 
-1405788660 c:\users\stuart\documents\source code\stulibc\timing.h
+1405974070 c:\users\stuart\documents\source code\stulibc\timing.h
 	<time.h>
 
 1405795425 source:c:\users\stuart\documents\source code\stulibc\timing.c
@@ -42,7 +42,7 @@
 	"filemanagement.h"
 	<stdio.h>
 
-1405798520 c:\users\stuart\documents\source code\stulibc\filemanagement.h
+1405971346 c:\users\stuart\documents\source code\stulibc\filemanagement.h
 	<stdio.h>
 
 1405804003 source:c:\users\stuart\documents\source code\stulibc\safetychecking.c
@@ -51,7 +51,7 @@
 	<stdlib.h>
 	<stdio.h>
 
-1405802550 c:\users\stuart\documents\source code\stulibc\safetychecking.h
+1405971587 c:\users\stuart\documents\source code\stulibc\safetychecking.h
 
 1405784392 c:\users\stuart\documents\source code\stulibc\string.h
 
@@ -59,14 +59,15 @@
 	"libstring.h"
 	<string.h>
 
-1405788628 c:\users\stuart\documents\source code\stulibc\libstring.h
+1405846988 c:\users\stuart\documents\source code\stulibc\libstring.h
 
-1405808189 source:c:\users\stuart\documents\source code\stulibc\logging.c
+1406012529 source:c:\users\stuart\documents\source code\stulibc\logging.c
 	"logging.h"
 	<stdio.h>
+	<stdarg.h>
 	"timing.h"
 	"filemanagement.h"
 
-1405807355 c:\users\stuart\documents\source code\stulibc\logging.h
+1406012911 c:\users\stuart\documents\source code\stulibc\logging.h
 	<stdio.h>
 

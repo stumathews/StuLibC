@@ -1,5 +1,5 @@
 /**
- * @file file_mgmt.h
+ * @file filemanagement.h
  * @brief File management library prototypes.
  * @author Stuart Mathews
  * @date 19 July 2013

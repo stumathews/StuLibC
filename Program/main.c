@@ -8,11 +8,15 @@
 #include "../libstring.h"
 #include "../logging.h"
 
+
 int main()
 {
-    LOG_It("Entering atmosphere...");
-    LOG_If( 1> 0, "one is greater than zero", "simple conditional check");
-    LOG_It("All systems shutdown.");
+    log("Entering atmosphere...","spce shuttle log");
+    logif( 1> 0, "one is greater than zero", "simple conditional check");
+    log("All systems shutdown.","space shuttle log");
     DBG_WriteLineToFile("Goodbye captain.","crew.log", NORMAL);
+    debugif(1,"It is true","boolean expression");
+    log("hello world","general message");
+
     return 0;
 }

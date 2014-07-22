@@ -32,6 +32,6 @@
  * @note Be sure to free the memory that is allocated to the returned string, once you're done with it.
  * @warning Not freeing the memory will result in memory leaks.
  */
-char* kbd_GetLine(int max_line_length);
+char* KBD_GetLine(int max_line_length);
 
 #endif

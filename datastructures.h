@@ -1,5 +1,5 @@
 /**
- * @file data_structures.h
+ * @file datastructures.h
  * @brief Data structure library function prototypes.
  * @author Stuart Mathews
  * @date 12 July 2013

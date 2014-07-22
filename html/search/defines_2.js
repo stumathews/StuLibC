@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['stulibc_5fmemory_5fmanagement_5fh',['STULIBC_MEMORY_MANAGEMENT_H',['../memory_8h.html#aa525cbfc660bd72c9cb9dbfbee62a545',1,'memory.h']]]
+  ['log_5fmax_5fline_5flength',['LOG_MAX_LINE_LENGTH',['../logging_8c.html#ac3536661fc39d32d1f6d0d27022dad5a',1,'logging.c']]]
 ];

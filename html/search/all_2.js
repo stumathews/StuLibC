@@ -1,4 +1,12 @@
 var searchData=
 [
-  ['file_5fmgmt_2eh',['file_mgmt.h',['../file__mgmt_8h.html',1,'']]]
+  ['datastructures_2eh',['datastructures.h',['../datastructures_8h.html',1,'']]],
+  ['dbg_5fgetseverityasstring',['DBG_GetSeverityAsString',['../debugging_8c.html#aa75767c48377b3b42fe7eda808e23540',1,'DBG_GetSeverityAsString(enum Severity severity):&#160;debugging.c'],['../debugging_8h.html#aa75767c48377b3b42fe7eda808e23540',1,'DBG_GetSeverityAsString(enum Severity severity):&#160;debugging.c']]],
+  ['dbg_5flogif',['DBG_LogIf',['../debugging_8c.html#a8fb734e684c3713574babda6baaae4fc',1,'DBG_LogIf(int condition, char *message, char *otherwise):&#160;debugging.c'],['../debugging_8h.html#a8fb734e684c3713574babda6baaae4fc',1,'DBG_LogIf(int condition, char *message, char *otherwise):&#160;debugging.c']]],
+  ['dbg_5flogiftostream',['DBG_LogIfToStream',['../debugging_8c.html#a5a7dc90353d4123fa4e6b55f1622cb58',1,'DBG_LogIfToStream(int condition, FILE *stream, char *message, char *otherwise):&#160;debugging.c'],['../debugging_8h.html#a5a7dc90353d4123fa4e6b55f1622cb58',1,'DBG_LogIfToStream(int condition, FILE *stream, char *message, char *otherwise):&#160;debugging.c']]],
+  ['dbg_5fwritelinetofile',['DBG_WriteLineToFile',['../debugging_8c.html#a93da9d1504194c8fffc5e3d73afe38fb',1,'DBG_WriteLineToFile(char *message, char *filename, enum Severity severity):&#160;debugging.c'],['../debugging_8h.html#a93da9d1504194c8fffc5e3d73afe38fb',1,'DBG_WriteLineToFile(char *message, char *filename, enum Severity severity):&#160;debugging.c']]],
+  ['dbg_5fwritelinetofileextra',['DBG_WriteLineToFileExtra',['../debugging_8c.html#a0d9446d8f705e3bf5bbdbae2ccc73498',1,'DBG_WriteLineToFileExtra(char *prefix, char *message, char *suffix, char *filename, enum Severity severity):&#160;debugging.c'],['../debugging_8h.html#a0d9446d8f705e3bf5bbdbae2ccc73498',1,'DBG_WriteLineToFileExtra(char *prefix, char *message, char *suffix, char *filename, enum Severity severity):&#160;debugging.c']]],
+  ['dbg_5fwritelinetostream',['DBG_WriteLineToStream',['../debugging_8c.html#ac5b5ed8781dbabf2c99cb3e68781d567',1,'DBG_WriteLineToStream(char *message, FILE *stream, enum Severity severity):&#160;debugging.c'],['../debugging_8h.html#ac5b5ed8781dbabf2c99cb3e68781d567',1,'DBG_WriteLineToStream(char *message, FILE *stream, enum Severity severity):&#160;debugging.c']]],
+  ['debugging_2ec',['debugging.c',['../debugging_8c.html',1,'']]],
+  ['debugging_2eh',['debugging.h',['../debugging_8h.html',1,'']]]
 ];
