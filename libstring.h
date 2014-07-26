@@ -9,8 +9,12 @@
  * @see http://devel.stuartmathews.com/stulibc
  */
 
- #ifndef STULIBC_STRING_H
- #define STULIBC_STRING_H
+/** \page libstring Dealing with strings in C
+This is a narative on this part of the library
+*/
+
+#ifndef STULIBC_STRING_H
+#define STULIBC_STRING_H
 
 
 /** @brief Converts an integer into a string
@@ -39,4 +43,4 @@ void itoa(int n, char s[]);
  */
 void reverse(char s[]);
 
- #endif // STULIBC_STRING_H
+#endif // STULIBC_STRING_H

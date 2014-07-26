@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['max_5fdbg_5fline_5flength',['MAX_DBG_LINE_LENGTH',['../debugging_8c.html#aa96a13d5973c53a94aac74a2867e8df7',1,'debugging.c']]],
-  ['max_5flog_5fline_5flength',['MAX_LOG_LINE_LENGTH',['../safetychecking_8c.html#a43f19e1d5da308ddbff79999da33c7f1',1,'safetychecking.c']]]
+  ['log',['log',['../logging_8h.html#a8466edf03bc5e8ad2dd5f25b334df662',1,'logging.h']]],
+  ['log_5fmax_5fline_5flength',['LOG_MAX_LINE_LENGTH',['../logging_8c.html#ac3536661fc39d32d1f6d0d27022dad5a',1,'logging.c']]],
+  ['logif',['logif',['../logging_8h.html#a370a2f519b550a94188b0a8520e69391',1,'logging.h']]]
 ];

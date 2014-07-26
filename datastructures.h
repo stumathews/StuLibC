@@ -9,6 +9,10 @@
  * This includes things like creating and maintaining linked-lists, b-tress etc..
  * @see http://devel.stuartmathews.com/stulibc
  */
+
+/** \page datastructures Data structures and algorithms
+This is a narative on this part of the library
+*/
 #ifndef DATA_STRUCTURES_H
 #define DATA_STRUCTURES_H
 

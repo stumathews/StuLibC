@@ -8,6 +8,11 @@
  * This includes allocating dynamic memory to working with memory locations such as manipulating blocks of memory.
  * @see http://devel.stuartmathews.com/stulibc
  */
+
+/** \page memory Memory managment functionality
+This is a narative on this part of the library
+*/
+
 #ifndef STULIBC_MEMORY_MANAGMENT_H
 #define STULIBC_MEMORY_MANAGEMENT_H
 

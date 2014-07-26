@@ -1,5 +1,9 @@
 var debugging_8h =
 [
+    [ "debug", "debugging_8h.html#ac9f263ea26629418b3c24cfe50dbd4a3", null ],
+    [ "debugf", "debugging_8h.html#ab1f49f5f1dcc2baa277a4a10194ba39f", null ],
+    [ "debugif", "debugging_8h.html#a06617b48ea7dd4c1c4626d12e2041de4", null ],
+    [ "debugs", "debugging_8h.html#aec133fb9f1680ea5285edb731acfc321", null ],
     [ "Severity", "debugging_8h.html#a11717da96dc4e4a5f79371318448f82b", [
       [ "MINOR", "debugging_8h.html#a11717da96dc4e4a5f79371318448f82ba70738aaa4c8f849a690a17a70bf785e8", null ],
       [ "NORMAL", "debugging_8h.html#a11717da96dc4e4a5f79371318448f82ba50d1448013c6f17125caee18aa418af7", null ],

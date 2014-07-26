@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['reverse',['reverse',['../libstring_8c.html#aa8a9a8836962d890b4939c112fd29190',1,'reverse(char s[]):&#160;libstring.c'],['../libstring_8h.html#aa8a9a8836962d890b4939c112fd29190',1,'reverse(char s[]):&#160;libstring.c']]]
+  ['main',['main',['../program_8c.html#a3c04138a5bfe5d72780bb7e82a18e627',1,'program.c']]]
 ];

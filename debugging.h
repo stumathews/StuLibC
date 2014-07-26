@@ -9,6 +9,10 @@
  * @see http://devel.stuartmathews.com/stulibc
  */
 
+/** \page debugging Debugging your program
+This is a narative on this part of the library
+*/
+
 #ifndef STULIBC_DEBUGGING_H
 #define STULIBC_DEBUGGING_H
 
@@ -20,14 +24,14 @@
 #include <stdio.h>
 
 
- // Debugging functionality like writing to trace files, log files etc.
- enum Severity
- {
+// Debugging functionality like writing to trace files, log files etc.
+enum Severity
+{
     MINOR,/**< Not very important */
     NORMAL, /**< Normal */
     CRITICAL, /**< Catestrophic  */
     UNSPECIFIED /**< Unsure */
- };
+};
 
 
 /** @brief Writes a debug line to file.
@@ -40,28 +44,28 @@
  */
 void DBG_WriteLineToFile(char* message, char* filename, enum Severity severity);
 
- /** @brief Writes a message to a file.
-  *
-  * @param prefix char* A prefix to tag the message if any or null
-  * @param message char* the message to write
-  * @param suffix char* the suffix to add to the message or null
-  * @param filename char* the file to write the message to
-  * @param severity SEVERITY An indication of the error
-  * @return void
-  * @remarks Adds the date and time to all messages. And appends to the end of @param filename
-  *
-  */
- void DBG_WriteLineToFileExtra(char* prefix, char* message,char* suffix, char* filename, enum Severity severity);
+/** @brief Writes a message to a file.
+ *
+ * @param prefix char* A prefix to tag the message if any or null
+ * @param message char* the message to write
+ * @param suffix char* the suffix to add to the message or null
+ * @param filename char* the file to write the message to
+ * @param severity SEVERITY An indication of the error
+ * @return void
+ * @remarks Adds the date and time to all messages. And appends to the end of @param filename
+ *
+ */
+void DBG_WriteLineToFileExtra(char* prefix, char* message,char* suffix, char* filename, enum Severity severity);
 
- /** @brief Returns a string representation of the severity enumeration
-  *
-  * @param severity enum Severity
-  * @return char* the enumeration value as a string.
-  *
-  */
- char* DBG_GetSeverityAsString(enum Severity severity);
- void DBG_WriteLineToStream(char* message, FILE* stream, enum Severity severity);
- void DBG_LogIfToStream( int condition, FILE* stream, char* message, char* otherwise);
- void DBG_LogIf(int condition, char* message, char* otherwise);
+/** @brief Returns a string representation of the severity enumeration
+ *
+ * @param severity enum Severity
+ * @return char* the enumeration value as a string.
+ *
+ */
+char* DBG_GetSeverityAsString(enum Severity severity);
+void DBG_WriteLineToStream(char* message, FILE* stream, enum Severity severity);
+void DBG_LogIfToStream( int condition, FILE* stream, char* message, char* otherwise);
+void DBG_LogIf(int condition, char* message, char* otherwise);
 
- #endif // STULIBC_DEBUGGING_H
+#endif // STULIBC_DEBUGGING_H

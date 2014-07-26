@@ -9,6 +9,11 @@
  * @see http://devel.stuartmathews.com/stulibc
  */
 
+/** \page testing Testing and unit testing
+This is a narative on this part of the library
+*/
+
+
 #ifndef STULIBC_TESTING_H
 #define STULIBC_TESTING_H
 

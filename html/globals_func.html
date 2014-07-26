@@ -47,6 +47,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li class="current"><a href="files.html"><span>Files</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
@@ -85,6 +86,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="#index_c"><span>c</span></a></li>
       <li><a href="#index_d"><span>d</span></a></li>
+      <li><a href="#index_e"><span>e</span></a></li>
       <li><a href="#index_f"><span>f</span></a></li>
       <li><a href="#index_i"><span>i</span></a></li>
       <li><a href="#index_k"><span>k</span></a></li>
@@ -115,7 +117,7 @@ $(document).ready(function(){initNavTree('globals_func.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Macros</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -138,6 +140,10 @@ $(document).ready(function(){initNavTree('globals_func.html','');});
 <li>CHK_LogIf()
 : <a class="el" href="safetychecking_8h.html#a08845cdcbb7a5466596a59e7461096ff">safetychecking.h</a>
 </li>
+<li>CNS_Say()
+: <a class="el" href="console_8c.html#a2d39abc61f9a2e12508f5293634933cf">console.c</a>
+, <a class="el" href="console_8h.html#a2d39abc61f9a2e12508f5293634933cf">console.h</a>
+</li>
 </ul>
 
 
@@ -147,24 +153,32 @@ $(document).ready(function(){initNavTree('globals_func.html','');});
 , <a class="el" href="debugging_8h.html#aa75767c48377b3b42fe7eda808e23540">debugging.h</a>
 </li>
 <li>DBG_LogIf()
-: <a class="el" href="debugging_8c.html#a8fb734e684c3713574babda6baaae4fc">debugging.c</a>
-, <a class="el" href="debugging_8h.html#a8fb734e684c3713574babda6baaae4fc">debugging.h</a>
+: <a class="el" href="debugging_8h.html#a8fb734e684c3713574babda6baaae4fc">debugging.h</a>
+, <a class="el" href="debugging_8c.html#a8fb734e684c3713574babda6baaae4fc">debugging.c</a>
 </li>
 <li>DBG_LogIfToStream()
 : <a class="el" href="debugging_8c.html#a5a7dc90353d4123fa4e6b55f1622cb58">debugging.c</a>
 , <a class="el" href="debugging_8h.html#a5a7dc90353d4123fa4e6b55f1622cb58">debugging.h</a>
 </li>
 <li>DBG_WriteLineToFile()
-: <a class="el" href="debugging_8c.html#a93da9d1504194c8fffc5e3d73afe38fb">debugging.c</a>
-, <a class="el" href="debugging_8h.html#a93da9d1504194c8fffc5e3d73afe38fb">debugging.h</a>
+: <a class="el" href="debugging_8h.html#a93da9d1504194c8fffc5e3d73afe38fb">debugging.h</a>
+, <a class="el" href="debugging_8c.html#a93da9d1504194c8fffc5e3d73afe38fb">debugging.c</a>
 </li>
 <li>DBG_WriteLineToFileExtra()
-: <a class="el" href="debugging_8c.html#a0d9446d8f705e3bf5bbdbae2ccc73498">debugging.c</a>
-, <a class="el" href="debugging_8h.html#a0d9446d8f705e3bf5bbdbae2ccc73498">debugging.h</a>
+: <a class="el" href="debugging_8h.html#a0d9446d8f705e3bf5bbdbae2ccc73498">debugging.h</a>
+, <a class="el" href="debugging_8c.html#a0d9446d8f705e3bf5bbdbae2ccc73498">debugging.c</a>
 </li>
 <li>DBG_WriteLineToStream()
 : <a class="el" href="debugging_8c.html#ac5b5ed8781dbabf2c99cb3e68781d567">debugging.c</a>
 , <a class="el" href="debugging_8h.html#ac5b5ed8781dbabf2c99cb3e68781d567">debugging.h</a>
+</li>
+</ul>
+
+
+<h3><a class="anchor" id="index_e"></a>- e -</h3><ul>
+<li>ENC_btea()
+: <a class="el" href="encryption_8c.html#ab880fb1f23cef3b818f275aa8e6a5b0b">encryption.c</a>
+, <a class="el" href="encryption_8h.html#ab880fb1f23cef3b818f275aa8e6a5b0b">encryption.h</a>
 </li>
 </ul>
 
@@ -246,7 +260,7 @@ $(document).ready(function(){initNavTree('globals_func.html','');});
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Mon Jul 21 2014 20:43:42 for StuLibC by
+    <li class="footer">Generated on Sat Jul 26 2014 09:45:28 for StuLibC by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.7 </li>
   </ul>

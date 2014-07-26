@@ -31,12 +31,19 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="../console.c">
+			<Option compilerVar="CC" />
+		</Unit>
 		<Unit filename="../console.h" />
 		<Unit filename="../datastructures.h" />
 		<Unit filename="../debugging.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="../debugging.h" />
+		<Unit filename="../documentation.h" />
+		<Unit filename="../encryption.c">
+			<Option compilerVar="CC" />
+		</Unit>
 		<Unit filename="../encryption.h" />
 		<Unit filename="../filemanagement.c">
 			<Option compilerVar="CC" />
@@ -54,6 +61,7 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="../logging.h" />
+		<Unit filename="../logging_tests.h" />
 		<Unit filename="../memory.h" />
 		<Unit filename="../safetychecking.c">
 			<Option compilerVar="CC" />

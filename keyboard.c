@@ -20,8 +20,8 @@ char* KBD_GetLine(int max_line_length)
     int c, chars_read = 0;
     char* buf = (char*) malloc( sizeof(char) * max_line_length );
 
-	while( (c = getchar()) != EOF && (c != '\n') && (chars_read < max_line_length) )
-		buf[chars_read++] = c;
+    while( (c = getchar()) != EOF && (c != '\n') && (chars_read < max_line_length) )
+        buf[chars_read++] = c;
 
     return buf;
 

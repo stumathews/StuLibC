@@ -1,10 +1,13 @@
 var files =
 [
-    [ "console.h", "console_8h.html", null ],
+    [ "console.c", "console_8c.html", "console_8c" ],
+    [ "console.h", "console_8h.html", "console_8h" ],
     [ "datastructures.h", "datastructures_8h.html", null ],
     [ "debugging.c", "debugging_8c.html", "debugging_8c" ],
     [ "debugging.h", "debugging_8h.html", "debugging_8h" ],
-    [ "encryption.h", "encryption_8h.html", null ],
+    [ "documentation.h", "documentation_8h.html", null ],
+    [ "encryption.c", "encryption_8c.html", "encryption_8c" ],
+    [ "encryption.h", "encryption_8h.html", "encryption_8h" ],
     [ "filemanagement.c", "filemanagement_8c.html", "filemanagement_8c" ],
     [ "filemanagement.h", "filemanagement_8h.html", "filemanagement_8h" ],
     [ "keyboard.c", "keyboard_8c.html", "keyboard_8c" ],

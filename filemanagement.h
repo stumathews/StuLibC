@@ -8,6 +8,10 @@
  * This includes writing text to files, binary data to files and records etc.
  * @see http://devel.stuartmathews.com/stulibc
  */
+
+/** \page filemanagement File management and writing to files
+This is a narative on this part of the library
+*/
 #ifndef FILE_H
 #define FILE_H
 

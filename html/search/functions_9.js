@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['tm_5fgetdatetimestr',['TM_GetDateTimeStr',['../timing_8c.html#ad0711371c6c67a4500968bdb3f17669c',1,'TM_GetDateTimeStr():&#160;timing.c'],['../timing_8h.html#ad0711371c6c67a4500968bdb3f17669c',1,'TM_GetDateTimeStr():&#160;timing.c']]]
+  ['str_5ffromint',['STR_FromInt',['../libstring_8c.html#a7e9b1f9067f7868de581107082c7bfb7',1,'STR_FromInt(int number):&#160;libstring.c'],['../libstring_8h.html#a7e9b1f9067f7868de581107082c7bfb7',1,'STR_FromInt(int number):&#160;libstring.c']]]
 ];

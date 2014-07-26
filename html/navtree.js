@@ -1,6 +1,19 @@
 var NAVTREE =
 [
   [ "StuLibC", "index.html", [
+    [ "Start stulibc - library of useful c functions", "index.html", null ],
+    [ "Using console functionality", "console.html", null ],
+    [ "Data structures and algorithms", "datastructures.html", null ],
+    [ "Debugging your program", "debugging.html", null ],
+    [ "Encryption services", "encryption.html", null ],
+    [ "File management and writing to files", "filemanagement.html", null ],
+    [ "Interacting with the keyboard.", "keyboard.html", null ],
+    [ "Dealing with strings in C", "libstring.html", null ],
+    [ "Logging things", "logging.html", null ],
+    [ "Memory managment functionality", "memory.html", null ],
+    [ "Trying to be safe in your program", "safetychecking.html", null ],
+    [ "Testing and unit testing", "testing.html", null ],
+    [ "Timing functionality", "timing.html", null ],
     [ "Files", null, [
       [ "File List", "files.html", "files" ],
       [ "Globals", "globals.html", [
@@ -16,7 +29,7 @@ var NAVTREE =
 
 var NAVTREEINDEX =
 [
-"console_8h.html"
+"console.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

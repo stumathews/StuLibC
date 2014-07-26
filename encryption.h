@@ -9,11 +9,15 @@
  * @see http://devel.stuartmathews.com/stulibc
  */
 
+/** \page encryption Encryption services
+This is a narative on this part of the library
+*/
+
 #ifndef STULIBC_ENCRYPTION_H
 #define STULIBC_ENCRYPTION_H
 #include <stdint.h>
-#define DELTA 0x9e3779b9
-#define MX (((z>>5^y<<2) + (y>>3^z<<4)) ^ ((sum^y) + (key[(p&3)^e] ^ z)))
+
+#define MX (z>>5^y<<2)+(y>>3^z<<4)^(sum^y)+(k[p&3^e]^z) ;
 
 /** @brief Corrected Block TEA (often referred to as XXTEA) is a block cipher.
    * The cipher's designers were Roger Needham and David Wheeler of the Cambridge Computer Laboratory.
@@ -24,6 +28,6 @@
    * @return void
    * @remarks if n is zero result is 1 and no coding or decoding takes place, otherwise the result is zero.assumes 32 bit 'long' and same endian coding and decoding
    */
-void btea(uint32_t *v, int n, uint32_t const key[4]);
+long ENC_btea( long * v, long n , long * k );
 
 #endif // STULIBC_ENCRYPTION_H

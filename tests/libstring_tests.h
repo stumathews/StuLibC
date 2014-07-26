@@ -1,0 +1,5 @@
+
+#ifndef STULIBC_STRING_TESTS_H
+#define STULIBC_STRING_TESTS_H
+
+#endif // STULIBC_STRING_H

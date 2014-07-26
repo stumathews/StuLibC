@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['kbd_5fgetline',['KBD_GetLine',['../keyboard_8c.html#a5b7c135dca7ae3e88ae8f1f87788a981',1,'KBD_GetLine(int max_line_length):&#160;keyboard.c'],['../keyboard_8h.html#a5b7c135dca7ae3e88ae8f1f87788a981',1,'KBD_GetLine(int max_line_length):&#160;keyboard.c']]]
+  ['itoa',['itoa',['../libstring_8c.html#af749add1ff19b6ff96a62f35ebb49b7e',1,'itoa(int n, char s[]):&#160;libstring.c'],['../libstring_8h.html#af749add1ff19b6ff96a62f35ebb49b7e',1,'itoa(int n, char s[]):&#160;libstring.c']]]
 ];

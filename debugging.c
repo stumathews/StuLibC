@@ -29,13 +29,14 @@ void DBG_LogIfToStream( int condition, FILE* stream, char* message, char* otherw
     if(condition)
         DBG_WriteLineToStream(message,stream,UNSPECIFIED);
     else
-    DBG_WriteLineToStream(otherwise,stream,UNSPECIFIED);
+        DBG_WriteLineToStream(otherwise,stream,UNSPECIFIED);
 }
 
 void DBG_WriteLineToFileExtra(char* prefix, char* message,char* suffix, char* filename, enum Severity severity)
 {
     int ok = LOG_If( (strlen(message) == 0), "Debug message is empty", "argument passed DBG_WriteLineToFileExtra()" );
-    if(ok != 0){
+    if(ok != 0)
+    {
         return;
     }
 
@@ -61,7 +62,7 @@ char* DBG_GetSeverityAsString(enum Severity severity)
     switch(severity)
     {
     case MINOR:
-        return "Minor";
+            return "Minor";
     case CRITICAL:
         return "Critical";
     case NORMAL:
@@ -74,8 +75,8 @@ char* DBG_GetSeverityAsString(enum Severity severity)
     }
 }
 
- void DBG_WriteLineToStream(char* message, FILE* stream, enum Severity severity)
- {
+void DBG_WriteLineToStream(char* message, FILE* stream, enum Severity severity)
+{
     int result;
 
     result = LOG_If( message == NULL || strlen(message) == 0, "Debug message is empty", "argument passed DBG_WriteLineToFile()" );
@@ -88,6 +89,6 @@ char* DBG_GetSeverityAsString(enum Severity severity)
 
     if(ferror(stream))
         fclose(stream);
- }
+}
 
 

@@ -47,6 +47,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li class="current"><a href="files.html"><span>Files</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
@@ -92,7 +93,7 @@ $(document).ready(function(){initNavTree('libstring_8h_source.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Macros</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -107,18 +108,18 @@ $(document).ready(function(){initNavTree('libstring_8h_source.html','');});
 </div><!--header-->
 <div class="contents">
 <a href="libstring_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor"> #ifndef STULIBC_STRING_H</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor"> #define STULIBC_STRING_H</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keywordtype">char</span>* <a class="code" href="libstring_8h.html#a7e9b1f9067f7868de581107082c7bfb7">STR_FromInt</a>(<span class="keywordtype">int</span> number);</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="keywordtype">void</span> <a class="code" href="libstring_8h.html#af749add1ff19b6ff96a62f35ebb49b7e">itoa</a>(<span class="keywordtype">int</span> n, <span class="keywordtype">char</span> s[]);</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="keywordtype">void</span> <a class="code" href="libstring_8h.html#aa8a9a8836962d890b4939c112fd29190">reverse</a>(<span class="keywordtype">char</span> s[]);</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="preprocessor"> #endif // STULIBC_STRING_H</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor"> #ifndef STULIBC_STRING_H</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor"> #define STULIBC_STRING_H</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="keywordtype">char</span>* <a class="code" href="libstring_8h.html#a7e9b1f9067f7868de581107082c7bfb7">STR_FromInt</a>(<span class="keywordtype">int</span> number);</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="keywordtype">void</span> <a class="code" href="libstring_8h.html#af749add1ff19b6ff96a62f35ebb49b7e">itoa</a>(<span class="keywordtype">int</span> n, <span class="keywordtype">char</span> s[]);</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="keywordtype">void</span> <a class="code" href="libstring_8h.html#aa8a9a8836962d890b4939c112fd29190">reverse</a>(<span class="keywordtype">char</span> s[]);</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="preprocessor"> #endif // STULIBC_STRING_H</span></div>
 <div class="ttc" id="libstring_8h_html_af749add1ff19b6ff96a62f35ebb49b7e"><div class="ttname"><a href="libstring_8h.html#af749add1ff19b6ff96a62f35ebb49b7e">itoa</a></div><div class="ttdeci">void itoa(int n, char s[])</div><div class="ttdoc">from K&R2 book, converts a int a string </div><div class="ttdef"><b>Definition:</b> libstring.c:12</div></div>
 <div class="ttc" id="libstring_8h_html_a7e9b1f9067f7868de581107082c7bfb7"><div class="ttname"><a href="libstring_8h.html#a7e9b1f9067f7868de581107082c7bfb7">STR_FromInt</a></div><div class="ttdeci">char * STR_FromInt(int number)</div><div class="ttdoc">Converts an integer into a string. </div><div class="ttdef"><b>Definition:</b> libstring.c:4</div></div>
 <div class="ttc" id="libstring_8h_html_aa8a9a8836962d890b4939c112fd29190"><div class="ttname"><a href="libstring_8h.html#aa8a9a8836962d890b4939c112fd29190">reverse</a></div><div class="ttdeci">void reverse(char s[])</div><div class="ttdoc">reverse string </div><div class="ttdef"><b>Definition:</b> libstring.c:29</div></div>
@@ -128,7 +129,7 @@ $(document).ready(function(){initNavTree('libstring_8h_source.html','');});
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="libstring_8h.html">libstring.h</a></li>
-    <li class="footer">Generated on Mon Jul 21 2014 20:43:41 for StuLibC by
+    <li class="footer">Generated on Sat Jul 26 2014 09:45:28 for StuLibC by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.7 </li>
   </ul>

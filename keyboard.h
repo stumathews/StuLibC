@@ -9,6 +9,10 @@
  * @see http://devel.stuartmathews.com/stulibc
  */
 
+/** \page keyboard Interacting with the keyboard.
+This is a narative on this part of the library
+*/
+
 #ifndef SCREEN_H
 #define SCREEN_H
 

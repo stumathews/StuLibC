@@ -8,6 +8,11 @@
  * This includes ensuring bounds are not overflowed, and that where restrictions are enforced, these are upheld.
  * @see http://devel.stuartmathews.com/stulibc
  */
+
+/** \page safetychecking Trying to be safe in your program
+This is a narative on this part of the library
+*/
+
 #ifndef SAFETY_CHECKING_H
 #define SAFETY_CHECKING_H
 

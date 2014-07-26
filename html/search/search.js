@@ -9,10 +9,11 @@ var indexSectionsWithContent =
 {
   0: "bcdefiklmnprstu",
   1: "cdefklmpst",
-  2: "cdfiklmrst",
+  2: "cdefiklmrst",
   3: "s",
   4: "cmnu",
-  5: "belms"
+  5: "bdelms",
+  6: "defilmstu"
 };
 
 var indexSectionNames =
@@ -22,7 +23,8 @@ var indexSectionNames =
   2: "functions",
   3: "enums",
   4: "enumvalues",
-  5: "defines"
+  5: "defines",
+  6: "pages"
 };
 
 function convertToId(search)
