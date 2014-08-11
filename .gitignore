@@ -5,3 +5,6 @@ Program/bin
 .*
 *.exe
 *.dll
+*.gch
+*.so*
+main
