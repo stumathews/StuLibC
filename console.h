@@ -15,9 +15,10 @@ This is a narative on this part of the library
 
 #ifndef STULIBC_CONSOLE_H
 #define STULIBC_CONSOLE_H
+#include "common.h"
 
 /* Functions that do useful things wit the console */
 
-void CNS_Say(char* message);
+LIBRARY_API void CNS_Say(char* message);
 
 #endif

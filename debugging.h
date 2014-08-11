@@ -22,6 +22,7 @@ This is a narative on this part of the library
 #define debugs(m,f,s) DBG_WriteLineToStream((m),(f),(s))
 
 #include <stdio.h>
+#include "common.h"
 
 
 // Debugging functionality like writing to trace files, log files etc.
@@ -42,7 +43,7 @@ enum Severity
  * @return void
  * @remarks The current date and time is prepended to message.
  */
-void DBG_WriteLineToFile(char* message, char* filename, enum Severity severity);
+LIBRARY_API void DBG_WriteLineToFile(char* message, char* filename, enum Severity severity);
 
 /** @brief Writes a message to a file.
  *

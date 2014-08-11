@@ -1,16 +1,16 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "../keyboard.h"
-#include "../debugging.h"
-#include "../filemanagement.h"
-#include "../safetychecking.h"
-#include "../libstring.h"
-#include "../logging.h"
-#include "../encryption.h"
+#include "keyboard.h"
+#include "debugging.h"
+#include "filemanagement.h"
+#include "safetychecking.h"
+#include "libstring.h"
+#include "logging.h"
+#include "encryption.h"
 
 #ifndef USE_AS_LIBRARY
-#include "../tests/tests.h"
+#include "tests/tests.h"
 
 int main() // This is a test harness for the library
 {
