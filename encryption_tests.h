@@ -1,5 +1,0 @@
-
-#ifndef STULIBC_ENCRYPTION_TESTS_H
-#define STULIBC_ENCRYPTION_TESTS_H
-
-#endif
