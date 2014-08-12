@@ -1,9 +1,10 @@
 #ifndef STULIBC_CONSOLE_TESTS_H
 #define STULIBC_CONSOLE_TESTS_H
-
-void test_CNS_Say()
+#include "console.h"
+void test_CNS_Print()
 {
-    CNS_Say("Hi");
+    CNS_Print("Hi");
+    console("Hello");
 }
 
 #endif

@@ -24,7 +24,7 @@ int LOG_If(int condition_result, char* message, char* context)
 
 void LOG(char* message, FILE* stream, char* context)
 {
-    sprintf(buffer,DEFAULT_LOG_FMT,TM_GetDateTimeStr(), message,context);
+    sprintf(buffer,DEFAULT_LOG_FMT,TIM_GetDateTimeStr(), message,context);
     FILE_AppendTextToStream(buffer,stream);
 }
 

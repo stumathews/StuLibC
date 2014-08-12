@@ -1,7 +1,7 @@
 #include "timing.h"
 
 #define buf_size 80
-char* TM_GetDateTimeStr()
+char* TIM_GetDateTimeStr()
 {
     time_t rawtime;
     struct tm* timeinfo;
@@ -12,5 +12,5 @@ char* TM_GetDateTimeStr()
     timeinfo = localtime(&rawtime);
     if(strftime(buffer,buf_size,"%x/%Y %X", timeinfo))
         return buffer;
-    //else return "unable to obtain date";
+    else return "unable to obtain date";
 }

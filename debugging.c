@@ -40,7 +40,7 @@ void DBG_WriteLineToFileExtra(char* prefix, char* message,char* suffix, char* fi
         return;
     }
 
-    sprintf(line_buffer,"%s\t[%s] %s\t%s\t%s\n", TM_GetDateTimeStr(),DBG_GetSeverityAsString(severity), (prefix?prefix:""), message, (suffix?suffix:""));
+    sprintf(line_buffer,"%s\t[%s] %s\t%s\t%s\n", TIM_GetDateTimeStr(),DBG_GetSeverityAsString(severity), (prefix?prefix:""), message, (suffix?suffix:""));
     FILE_AppendText(line_buffer,filename);
 }
 
@@ -53,7 +53,7 @@ void DBG_WriteLineToFile( char* message, char* filename, enum Severity severity)
     if( result == ERROR )
         return;
 
-    sprintf(line_buffer,"%s\t[%s] %s\n", TM_GetDateTimeStr(), DBG_GetSeverityAsString(severity), message);
+    sprintf(line_buffer,"%s\t[%s] %s\n", TIM_GetDateTimeStr(), DBG_GetSeverityAsString(severity), message);
     FILE_AppendText(line_buffer, filename);
 }
 
@@ -84,7 +84,7 @@ void DBG_WriteLineToStream(char* message, FILE* stream, enum Severity severity)
     if( result == ERROR )
         return;
 
-    sprintf(line_buffer,"%s\t[%s] %s\n", TM_GetDateTimeStr(), DBG_GetSeverityAsString(severity), message);
+    sprintf(line_buffer,"%s\t[%s] %s\n", TIM_GetDateTimeStr(), DBG_GetSeverityAsString(severity), message);
     fputs(message,stream);
 
     if(ferror(stream))

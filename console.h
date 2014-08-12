@@ -18,8 +18,9 @@ This is a narative on this part of the library
 #include "common.h"
 #include <stdio.h>
 
+#define console(message) CNS_Print((message))
 /* Functions that do useful things wit the console */
 
-LIBRARY_API void CNS_Say(char* message);
+LIBRARY_API void CNS_Print(char* message);
 
 #endif

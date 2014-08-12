@@ -13,7 +13,10 @@ void run_timing_tests() {}
 
 void run_console_tests()
 {
-    test_CNS_Say();
+    puts("Running console tests...");
+
+    char name[7] = "stuart\0";
+    console(name);
 }
 
 

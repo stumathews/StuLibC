@@ -1,4 +1,5 @@
 /**
+
  * @file timing.h
  * @brief Timing library prototypes.
  * @author Stuart Mathews
@@ -17,6 +18,6 @@ This is a narative on this part of the library
 #define TIMING_H
 #include <time.h>
 
-char* TM_GetDateTimeStr();
+char* TIM_GetDateTimeStr();
 
 #endif

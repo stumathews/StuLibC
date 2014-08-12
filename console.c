@@ -1,6 +1,6 @@
 #include "console.h"
 
-void CNS_Say(char* message)
+void CNS_Print(char* message)
 {
     puts(message);
 }

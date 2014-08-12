@@ -21,4 +21,5 @@ clean:
 	rm  *.o
 	rm  arch/win32/*.o
 	rm *.exe
-	m *.dll 
+	rm *.dll
+	rm *.lib 
