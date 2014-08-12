@@ -1,8 +1,14 @@
 CC=gcc
-CFLAGS=-I. -I arch\win32
-OBJS=main.o console.o datastructures.o debugging.o encryption.o filemanagement.o keyboard.o libstring.o logging.o memory.o safetychecking.o testing.o timing.o 
-DEPS=main.c console.h datastructures.h debugging.h encryption.h filemanagement.h keyboard.h libstring.h logging.h memory.h safetychecking.h testing.h timing.h 
-LIBEXT=
+CFLAGS=-I. -I arch\win32 -I datastructures -I encryption -I parsing -I strings
+OBJS=main.o console.o datastructures.o debugging.o encryption.o filemanagement.o \
+ keyboard.o libstring.o logging.o memory.o safetychecking.o testing.o timing.o \
+ strings/substring.o encryption/isaac.o encryption/vigenere.o datastructures\simple_hashtable.o \
+ encryption\caesar.o
+DEPS=main.c console.h datastructures.h debugging.h encryption.h filemanagement.h keyboard.h \
+libstring.h logging.h memory.h safetychecking.h testing.h timing.h datastructures\binary_tree.h \
+encryption\vigenere.h encryption\isaac.h strings\tokenizer.h strings\substring.h datastructures\simple_hashtable.h \
+encryption\caesar.h
+
 
 # .c files depend on .h files (these changes should recompile .c files)
 %.o: %.c $(DEPS)
@@ -11,12 +17,15 @@ LIBEXT=
 main: $(OBJS)
 	$(CC) -o $@ $^ $(CFLAGS)
 
+	
+
 #Make Win32 run-time library
 stulibc.dll: $(OBJS)
 	$(CC) -shared -Wl,-soname,$@ -o $@ $^ -Wl,--out-implib,stulibc.lib $(CFLAGS)
 	
 
 
+.PHONY: clean
 clean:
 	rm  *.o
 	rm  arch/win32/*.o

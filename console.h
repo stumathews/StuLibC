@@ -19,8 +19,11 @@ This is a narative on this part of the library
 #include <stdio.h>
 
 #define console(message) CNS_Print((message))
+#define console_printline(message) CNS_PrintLine((message))
 /* Functions that do useful things wit the console */
 
-LIBRARY_API void CNS_Print(char* message);
+LIBRARY_API void CNS_PrintLine(char* message);
+void CNS_Print( char* message );
 
+void table(const char *title, const char *mode);
 #endif

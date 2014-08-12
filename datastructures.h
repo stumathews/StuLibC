@@ -18,4 +18,13 @@ This is a narative on this part of the library
 
 // Links lists and common data structures including routines and algorithms for them
 
+#define ARRAY_CONCAT(TYPE, A, An, B, Bn) (TYPE *)array_concat((const void *)(A), (An), (const void *)(B), (Bn), sizeof(TYPE));
+
+
+
+void quick_sort (int *a, int n);
+void bubble_sort(int *a, int n);
+void insertion_sort(int *a, const size_t n);
+void *array_concat(const void *a, size_t an, const void *b, size_t bn, size_t s);
+
 #endif

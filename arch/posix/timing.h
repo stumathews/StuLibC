@@ -14,11 +14,11 @@
 This is a narative on this part of the library
 */
 
-#ifndef TIMING_H
-#define TIMING_H
+#ifndef TIMING_POSIX_H
+#define TIMING_POSIX_H
 #include <time.h>
 #include <stdio.h>
 
-char* TIM_GetDateTimeStr();
+double TIM_time_it(int (*action)(int), int arg);
 
 #endif

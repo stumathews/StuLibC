@@ -23,6 +23,7 @@ int main() // This is a test harness for the library
     run_logging_tests();
     run_safetychecking_tests();
     run_timing_tests();
+    run_datastructure_tests();
 }
 
 #endif
