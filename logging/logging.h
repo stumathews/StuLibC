@@ -15,6 +15,7 @@ This is a narative on this part of the library
 
 #ifndef STULIBC_LOGGING_H
 #define STULIBC_LOGGING_H
+
 #include <stdio.h>
 
 #define log(x,c) LOG_It(x,c)

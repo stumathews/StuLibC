@@ -1,17 +1,16 @@
 #include "debugging.h"
-#include "timing.h"
-#include "filemanagement.h"
-#include "safetychecking.h"
-#include "logging.h"
+#include "..\timing\timing.h"
+#include "..\filemanagement\filemanagement.h"
+#include "..\safety\safetychecking.h"
+#include "..\logging\logging.h"
 #include <string.h>
 #include <stdio.h>
 
 #define MAX_DBG_LINE_LENGTH 512
-static char* DEFAULT_DEBUG_FILENAME = "debug.txt";
-static char line_buffer[MAX_DBG_LINE_LENGTH];
 #define ERROR 1
 
-
+static char* DEFAULT_DEBUG_FILENAME = "debug.txt";
+static char line_buffer[MAX_DBG_LINE_LENGTH];
 
 void DBG_LogIf(int condition, char* message, char* otherwise)
 {

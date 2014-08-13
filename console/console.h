@@ -15,15 +15,15 @@ This is a narative on this part of the library
 
 #ifndef STULIBC_CONSOLE_H
 #define STULIBC_CONSOLE_H
-#include "common.h"
+
+#include "..\common.h"
 #include <stdio.h>
 
-#define console(message) CNS_Print((message))
-#define console_printline(message) CNS_PrintLine((message))
-/* Functions that do useful things wit the console */
+#define console(message) CNS_Print((char*)(message))
+#define console_printline(message) CNS_PrintLine((char*)(message))
 
 LIBRARY_API void CNS_PrintLine(char* message);
-void CNS_Print( char* message );
+LIBRARY_API void CNS_Print( char* message );
+LIBRARY_API void table(const char *title, const char *mode);
 
-void table(const char *title, const char *mode);
 #endif

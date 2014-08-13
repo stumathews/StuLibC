@@ -9,3 +9,4 @@ Program/bin
 *.so*
 main
 *.lib
+/Default/

@@ -1,13 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "keyboard.h"
-#include "debugging.h"
-#include "filemanagement.h"
-#include "safetychecking.h"
-#include "libstring.h"
-#include "logging.h"
-#include "encryption.h"
+#include "keyboard\keyboard.h"
+#include "debugging\debugging.h"
+#include "filemanagement\filemanagement.h"
+#include "safety\safetychecking.h"
+#include "strings\libstring.h"
+#include "logging\logging.h"
+#include "encryption\encryption.h"
 
 #ifndef USE_AS_LIBRARY
 #include "tests/tests.h"

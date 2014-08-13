@@ -10,7 +10,7 @@
  */
 
 /** \page debugging Debugging your program
-This is a narative on this part of the library
+Debugging functionality like writing to trace files, log files etc.
 */
 
 #ifndef STULIBC_DEBUGGING_H
@@ -22,10 +22,9 @@ This is a narative on this part of the library
 #define debugs(m,f,s) DBG_WriteLineToStream((m),(f),(s))
 
 #include <stdio.h>
-#include "common.h"
+#include "..\common.h"
 
 
-// Debugging functionality like writing to trace files, log files etc.
 enum Severity
 {
     MINOR,/**< Not very important */

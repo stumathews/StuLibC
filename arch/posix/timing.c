@@ -1,5 +1,5 @@
 #include "timing.h"
-
+#ifdef _Win32
 #define buf_size 80
 
 
@@ -27,3 +27,4 @@ double TIM_time_it(int (*action)(int), int arg)
   long elaps_ns = tsf.tv_nsec - tsi.tv_nsec;
   return elaps_s + ((double)elaps_ns) / 1.0e9;
 }
+#endif

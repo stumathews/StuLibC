@@ -1,8 +1,9 @@
 #ifndef DATA_STRUCTURES_TESTS_H
 #define DATA_STRUCTURES_TESTS_H
-#include "../datastructures/binary_tree.h"
-#include "../datastructures.h"
-#include "../datastructures/simple_hashtable.h"
+
+#include "..\datastructures\binary_tree.h"
+#include "..\datastructures\datastructures.h"
+#include "..\datastructures\simple_hashtable.h"
 
 void test_bubble_sort()
 {

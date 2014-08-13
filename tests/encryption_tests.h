@@ -1,6 +1,6 @@
-
 #ifndef STULIBC_ENCRYPTION_TESTS_H
 #define STULIBC_ENCRYPTION_TESTS_H
+
 #include "../encryption/vigenere.h"
 #include "../encryption/isaac.h"
 #include "../encryption/caesar.h"

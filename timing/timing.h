@@ -16,6 +16,7 @@ This is a narative on this part of the library
 
 #ifndef TIMING_H
 #define TIMING_H
+
 #include <time.h>
 #include <stdio.h>
 

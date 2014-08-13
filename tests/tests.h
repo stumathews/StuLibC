@@ -1,11 +1,12 @@
 #ifndef STULIBC_TESTS_H
 #define STULIBC_TESTS_H
+
 #include "console_tests.h"
 #include "timing_tests.h"
 #include "libstring_tests.h"
 #include "encryption_tests.h"
 #include "datastructures_tests.h"
-#include "../libstring.h"
+#include "..\strings\libstring.h"
 
 void run(char* message, void (*test_fn)())
 {

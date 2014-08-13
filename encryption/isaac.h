@@ -1,3 +1,5 @@
+#ifndef STULIBC_ISSAC_H
+#define STULIBC_ISSAC_H
 /* Known to compile and work with tcc in win32 & gcc on Linux (with warnings)
 ------------------------------------------------------------------------------
 readable.c: My random number generator, ISAAC.
@@ -43,4 +45,4 @@ void iSeed(char *seed, int flag);
 // XOR encrypt on random stream. Output: ASCII string
 char* Vernam(char *msg);
 
-
+#endif

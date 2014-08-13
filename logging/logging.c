@@ -1,8 +1,8 @@
 #include "logging.h"
 #include <stdio.h>
 #include <stdarg.h>
-#include "timing.h"
-#include "filemanagement.h"
+#include "..\timing\timing.h"
+#include "..\filemanagement\filemanagement.h"
 
 #define LOG_MAX_LINE_LENGTH 160
 

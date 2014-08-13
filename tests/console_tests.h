@@ -1,6 +1,7 @@
 #ifndef STULIBC_CONSOLE_TESTS_H
 #define STULIBC_CONSOLE_TESTS_H
-#include "..\console.h"
+
+#include "..\console\console.h"
 
 void test_CNS_Print()
 {
