@@ -45,4 +45,10 @@ void FILE_AppendTextToStream(char* text, FILE* stream);
 
 // binary reading/writing/serialisation
 
+#include <stdlib.h>
+#include <stdio.h>
+
+long FILE_GetFileSize(const char *filename);
+
+
 #endif

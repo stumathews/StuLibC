@@ -18,4 +18,9 @@ This is a narative on this part of the library
 
 // Common memory related functions like allocating memory or filling memory and freeing it etc.
 
+#define MEM_allocate(size) malloc((size)
+#define MEM_resize(ptr,size) realloc( (ptr),(size))
+#define MEM_zero_allocate(nelem,elsize) calloc((nelem),(elsize))
+#define MEM_free(ptr) free((ptr))
+
 #endif

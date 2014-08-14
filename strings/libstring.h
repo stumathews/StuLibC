@@ -14,6 +14,20 @@ This is a narative on this part of the library
 */
 
 #ifndef STULIBC_STRING_H
+/**
+ * @file xxxx.h
+ * @brief xxxx function prototypes.
+ * @author Stuart Mathews
+ * @date 19 July 2013
+ *
+ * This headers contains the xxx functions defined in the library.
+ * These typically involve xxx
+ * @see http://devel.stuartmathews.com/stulibc
+ */
+
+/** \page xxxx Using xxxx functionality
+xxxx
+*/
 #define STULIBC_STRING_H
 
 #include <stdio.h>
@@ -37,6 +51,7 @@ This is a narative on this part of the library
 
 size_t byte_length(char* string);
 void upper_case(char *src);
+void lower_case(char*s);
 char* rtrim(const char *s);
 char* ltrim(const char *s);
 char* trim(const char *s);
@@ -46,5 +61,6 @@ int doesContain(const char* container, const char* target);
 char* concat(const char* s1, const char* s2);
 void compare(const char*a, const char*b);
 void comparecase(const char*a, const char*b);
+int isEmpty(char* string);
 
 #endif // STULIBC_STRING_H

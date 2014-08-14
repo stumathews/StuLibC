@@ -1,16 +1,16 @@
 /**
- * @file Console.h
- * @brief Console function prototypes.
+ * @file xxxx.h
+ * @brief xxxx function prototypes.
  * @author Stuart Mathews
  * @date 19 July 2013
  *
- * This headers contains the various console management functions defined in the library.
- * These typically involve reading and writing to and from the console in various ways
+ * This headers contains the xxx functions defined in the library.
+ * These typically involve xxx
  * @see http://devel.stuartmathews.com/stulibc
  */
 
-/** \page console Using console functionality
-This is a narative on this part of the library
+/** \page xxxx Using xxxx functionality
+xxxx
 */
 
 #ifndef STULIBC_CONSOLE_H

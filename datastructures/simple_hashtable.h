@@ -1,3 +1,17 @@
+/**
+ * @file simple_hashtable.h
+ * @brief hash table function prototypes.
+ * @author Stuart Mathews
+ * @date 19 July 2013
+ *
+ * This headers contains the hash table functions defined in the library.
+ * @see http://devel.stuartmathews.com/stulibc
+ */
+
+/** \page HashTables Using hashtable functionality
+tbd
+*/
+
 #ifndef STULIBC_SIMPLE_HASHTABLE_H
 #define STULIBC_SIMPLE_HASHTABLE_H
 

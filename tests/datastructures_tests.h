@@ -82,5 +82,65 @@ void test_simple_hashtable()
 	printf("a => %s\n", hash_lookup(hash, "a"));
 }
 
+void test_queue()
+{
+	int i, n;
+	    queue q = q_new();
+
+	    for (i = 0; i < 100000000; i++) {
+	        n = rand();
+	        if (n > RAND_MAX / 2) {
+	        //  printf("+ %d\n", n);
+	            enqueue(q, n);
+	        } else {
+	            if (!dequeue(q, &n)) {
+	            //  printf("empty\n");
+	                continue;
+	            }
+	        //  printf("- %d\n", n);
+	        }
+	    }
+	    while (dequeue(q, &n));// printf("- %d\n", n);
+}
+
+void test_priority_queue()
+{
+	int i, p;
+	  const char *c, *tasks[] ={
+	    "Clear drains", "Feed cat", "Make tea", "Solve RC tasks", "Tax return" };
+	  int pri[] = { 3, 4, 5, 1, 2 };
+
+	  /* make two queues */
+	  pri_queue q = priq_new(0), q2 = priq_new(0);
+
+	  /* push all 5 tasks into q */
+	  for (i = 0; i < 5; i++)
+	    priq_push(q, tasks[i], pri[i]);
+
+	  /* pop them and print one by one */
+	  while ((c = priq_pop(q, &p)))
+	    printf("%d: %s\n", p, c);
+
+	  /* put a million random tasks in each queue */
+	  for (i = 0; i < 1 << 20; i++) {
+	    p = rand() / ( RAND_MAX / 5 );
+	    priq_push(q, tasks[p], pri[p]);
+
+	    p = rand() / ( RAND_MAX / 5 );
+	    priq_push(q2, tasks[p], pri[p]);
+	  }
+
+	  printf("\nq has %d items, q2 has %d items\n", priq_size(q), priq_size(q2));
+
+	  /* merge q2 into q; q2 is empty */
+	  priq_combine(q, q2);
+	  printf("After merge, q has %d items, q2 has %d items\n",
+	    priq_size(q), priq_size(q2));
+
+	  /* pop q until it's empty */
+	  for (i = 0; (c = priq_pop(q, 0)); i++);
+	  printf("Popped %d items out of q\n", i);
+}
+
 
 #endif

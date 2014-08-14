@@ -24,10 +24,13 @@ void run_encryption_tests()
 	run("test_vigenere_cipher...",test_vigenere_cipher);
 	run("test_isaac_cipher...",test_isaac_cipher);
 	run("test_caesar_cipher...",test_caesar_cipher);
+	run("test_md5...",test_md5);
+	run("test_crc32...",test_crc32);
 
 }
 void run_filemanagement_tests()
 {
+	run( "test_FILE_GetFileSize...",test_FILE_GetFileSize);
 
 }
 void run_keyboard_tests()
@@ -74,6 +77,8 @@ void run_datastructure_tests()
 {
 	run("test_array_concat...",test_array_concat);
 	run("test_simple_hashtable...",test_simple_hashtable);
+	run("test_queue...",test_queue);
+	run("test_priority_queue...",test_priority_queue);
 }
 
 

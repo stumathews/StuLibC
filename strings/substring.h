@@ -1,3 +1,17 @@
+/**
+ * @file substring.h
+ * @brief String substring functionality.
+ * @author Stuart Mathews
+ * @date 19 July 2013
+ *
+ * This headers contains the substring functions defined in the library.
+ * These typically involve checking for the existance of strings within other strings.
+ * @see http://devel.stuartmathews.com/stulibc
+ */
+
+/** \page Substring Using substring functionality
+TBD
+*/
 #ifndef STUIBC_STUBSTRING_H
 #define STUIBC_STUBSTRING_H
 

@@ -1,3 +1,17 @@
+/**
+ * @file Vigenère.h
+ * @brief a Vigenère cypher, both encryption and decryption
+ * @author Stuart Mathews
+ * @date 19 July 2013
+ *
+ * This headers contains the Vigenère functions defined in the library.
+ * Vigenère cypher, both encryption and decryption
+ * @see http://devel.stuartmathews.com/stulibc
+ */
+
+/** \page xxxx Using xxxx functionality
+xxxx
+*/
 #ifndef STULIBC_VIGENERE_H
 #define STULIBC_VIGENERE_H
 

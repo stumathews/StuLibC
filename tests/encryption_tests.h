@@ -4,6 +4,7 @@
 #include "../encryption/vigenere.h"
 #include "../encryption/isaac.h"
 #include "../encryption/caesar.h"
+#include "../encryption/md5.h"
 
 void test_vigenere_cipher()
 {
@@ -60,6 +61,29 @@ void test_caesar_cipher()
 		printf("Encrypted: %s\n", str);
 		decaesar(str);
 		printf("Decrypted: %s\n", str);
+}
+
+void test_md5()
+{
+	 int j,k;
+	    const char *msg = "The quick brown fox jumps over the lazy dog.";
+	    unsigned *d = md5(msg, strlen(msg));
+	    WBunion u;
+
+	    printf("= 0x");
+	    for (j=0;j<4; j++){
+	        u.w = d[j];
+	        for (k=0;k<4;k++) printf("%02x",u.b[k]);
+	    }
+	    printf("\n");
+}
+
+void test_crc32()
+{
+	const char *s = "The quick brown fox jumps over the lazy dog";
+		printf("%" PRIX32 "\n", rc_crc32(0, s, strlen(s)));
+
+}
 }
 
 #endif

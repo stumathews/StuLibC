@@ -12,6 +12,14 @@ void upper_case(char *src)
         }
 }
 
+void lower_case(char*s)
+{
+	while(*s)
+	    {
+	        *s=tolower(*s);
+	        s++;
+	    }
+}
 
 
 char *rtrim(const char *s)
@@ -77,6 +85,11 @@ char* concat(const char *s1, const char *s2)
   strcpy(s0, s1);
   strcat(s0, s2);
   return s0;
+}
+
+int isEmpty(char* string)
+{
+	return (str[0] == '\0') ? true: false;
 }
 
 

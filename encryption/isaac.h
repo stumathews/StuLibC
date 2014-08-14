@@ -1,12 +1,22 @@
-#ifndef STULIBC_ISSAC_H
-#define STULIBC_ISSAC_H
-/* Known to compile and work with tcc in win32 & gcc on Linux (with warnings)
-------------------------------------------------------------------------------
-readable.c: My random number generator, ISAAC.
+/**
+ * @file isaac.h
+ * @brief isaac function prototypes.
+ * @author Stuart Mathews
+ * @date 19 July 2013
+ *
+ * This headers contains the isaac functions defined in the library.
 (c) Bob Jenkins, March 1996, Public Domain
 You may use this code in any way you wish, and it is free.  No warrantee.
 ------------------------------------------------------------------------------
+ * @see http://devel.stuartmathews.com/stulibc
+ */
+
+/** \page issac Using issac encryption functionality
+xxxx
 */
+#ifndef STULIBC_ISSAC_H
+#define STULIBC_ISSAC_H
+
 #include <stdio.h>
 #include <stddef.h>
 
