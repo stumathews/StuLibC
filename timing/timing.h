@@ -22,4 +22,6 @@ This is a narative on this part of the library
 
 char* TIM_GetDateTimeStr();
 
+/* Calculate day of week in proleptic Gregorian calendar. Sunday == 0. */
+int TIM_DayOfWeek( int year, int month, int day);
 #endif

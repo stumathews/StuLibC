@@ -79,6 +79,8 @@ void run_datastructure_tests()
 	run("test_simple_hashtable...",test_simple_hashtable);
 	run("test_queue...",test_queue);
 	run("test_priority_queue...",test_priority_queue);
+	run("test_linked_list",test_linked_list);
+	run("test_double_linked_list",test_double_linked_list);
 }
 
 

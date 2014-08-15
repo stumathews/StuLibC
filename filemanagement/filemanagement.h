@@ -49,6 +49,7 @@ void FILE_AppendTextToStream(char* text, FILE* stream);
 #include <stdio.h>
 
 long FILE_GetFileSize(const char *filename);
-
-
+void FILE_Delete(const char* filename);
+void FILE_Rename(const char* originalname, const char* newname);
+long FILE_GetFileSize( const char* filename);
 #endif

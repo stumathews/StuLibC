@@ -28,9 +28,22 @@ long FILE_GetFileSize(const char *filename)
   return result;
 }
 
-int main(void)
+void FILE_Delete(const char* filename)
 {
-  printf("%ld\n", getFileSize("input.txt"));
-  printf("%ld\n", getFileSize("/input.txt"));
-  return 0;
+	remove(filename);
+}
+
+void FILE_Rename(const char* originalname, const char* newname)
+{
+	rename(original, newname);
+}
+
+long FILE_GetFileSize( const char* filename)
+{
+	long result;
+	FILE *fh = fopen(filename, "rb");
+	fseek(fh, 0, SEEK_END);
+	result = ftell(fh);
+	fclose(fh);
+	return result;
 }

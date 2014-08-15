@@ -92,5 +92,13 @@ int isEmpty(char* string)
 	return (str[0] == '\0') ? true: false;
 }
 
+int isNumeric( const char*s )
+{
+	if (s == NULL || *s == '\0' || isspace(*s))
+	      return 0;
+	    char * p;
+	    strtod (s, &p);
+	    return *p == '\0';
+}
 
 

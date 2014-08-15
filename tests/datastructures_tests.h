@@ -142,5 +142,59 @@ void test_priority_queue()
 	  printf("Popped %d items out of q\n", i);
 }
 
+void test_linked_list()
+{
+	link *a, *b, *c;
+	a = malloc(sizeof(link));
+	b = malloc(sizeof(link));
+	c = malloc(sizeof(link));
+	a->data = 1;
+	b->data = 2;
+	c->data = 3;
+
+	 insert_append (a, b);
+
+	 insert_append (a, c);
+
+	 free (a);
+	  free (b);
+	  free (c);
+}
+
+void test_double_linked_list()
+{
+	struct IntNode {
+	  struct MNode node;
+	  int data;
+	};
+
+	int i;
+	    LIST lista;
+	    struct IntNode *m;
+	    NODE n;
+
+	    lista = newList();
+	    if ( lista != NULL )
+	    {
+	      for(i=0; i < 5; i++)
+	      {
+	          m = malloc(sizeof(struct IntNode));
+	          if ( m != NULL )
+	          {
+	             m->data = rand()%64;
+	             addTail(lista, (NODE)m);
+	          }
+	      }
+	      while( !isEmpty(lista) )
+	      {
+	            m = (struct IntNode *)remTail(lista);
+	            printf("%d\n", m->data);
+	            free(m);
+	      }
+	      free(lista);
+	    }
+
+}
+
 
 #endif

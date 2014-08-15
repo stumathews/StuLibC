@@ -62,5 +62,6 @@ char* concat(const char* s1, const char* s2);
 void compare(const char*a, const char*b);
 void comparecase(const char*a, const char*b);
 int isEmpty(char* string);
+int isNumeric( const char*s );
 
 #endif // STULIBC_STRING_H
