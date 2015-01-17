@@ -39,7 +39,7 @@ void MEM_DeAlloc(void* buffer, char* buffer_name)
   }
   else
   {
-    //free(buffer);
+    free(buffer);
   }
 }
 
