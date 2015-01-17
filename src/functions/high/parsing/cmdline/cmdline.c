@@ -108,14 +108,17 @@ DBG("tmpArgname is %s\n",tmpArgName);
         pipe_line[ARG_NAME] = tmpArgName;
 DBG("arname pipe line is %s\n",pipe_line[ARG_NAME]);
         //check if the name is attached to a value indicated by a value indicator.(help=something)
-        if(STR_Contains("=",tmpArg) && !STR_EndsWith("=",tmpArg)) {
+        if( STR_Contains("=",tmpArg)){
 DBG("After STR_Contains...\n");
+	 if( !STR_EndsWith("=",tmpArg)) {
+DBG("After STR_CEndsWith...\n");
             char* tmpValue = (char*) malloc(SIZEOFCHAR * (strlen(tmpArg) - strlen(indicator) - 1)); // extract the value as in "something" from help=something
             pipe_line[VALUE] = STR_FromLast("=",tmpArg,tmpValue);
             tmpArgName = STR_Without("=", tmpArgName);
             tmpArgName = STR_Without(pipe_line[VALUE], tmpArgName);
             pipe_line[ARG_NAME] = tmpArgName;
             return finish_pipe();
+	 }
         }
         if(!STR_IsNullOrEmpty(STR_BeginsWithEither(indicators, tmpNextArg)))  // if the next argument that will be sent to us is a arg indicator, then this pipe is finished.
             return finish_pipe();

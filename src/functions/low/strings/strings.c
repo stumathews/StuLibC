@@ -73,7 +73,7 @@ bool STR_Contains(char* lookfor, char* orig)
     //Saftychecking candidates
     if( lookfor == null || strlen(lookfor) == 0 ) ERR("Bad juju 1\n");
     if( orig == null || strlen(orig) == 0 ) ERR("Bad juju 1\n");
-    return (strstr(orig, lookfor) != NULL) ? true:false;
+    return (strstr((const char*)orig, (const char*)lookfor) != NULL) ? true:false;
 }
 
 bool STR_EndsWith(char* endsWith, char* string)
