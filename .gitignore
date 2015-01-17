@@ -8,4 +8,7 @@ Program/bin
 *.so*
 main
 *.lib
+[*.lo]
 /Default/
+*~
+[*.la]
