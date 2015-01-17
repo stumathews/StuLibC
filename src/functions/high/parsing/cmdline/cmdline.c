@@ -72,7 +72,7 @@ void CMD_AddArgument(struct Argument* argument) // public interface that the use
 
 
 enum EnumPipeParts {ARG_INDICATOR, ARG_NAME,VALUE_INDICATOR,VALUE};// pipe line ["--","StoreSomething","=","2"]
-char* pipe_line[3]; // [ARG_INDICATOR, ARG_NAME, VALUE]
+char* pipe_line[3] = {"","","",""}; // [ARG_INDICATOR, ARG_NAME, VALUE]
 
 bool finish_pipe() // to to read method that returns true which means the pipe is finished.
 {
@@ -92,7 +92,6 @@ bool push_into_pipe(char* arg, char* next_part)   // determine what type of part
     short nextArgLength = strlen(next_part);
     char* tmpArg = (char*) malloc(SIZEOFCHAR * argLength +1);
     char* tmpNextArg = (char*) malloc(SIZEOFCHAR * nextArgLength +1);
-DBG("Push into pipe()\n");
     // Prepare space
     strcpy(tmpArg, arg);
     strcpy(tmpNextArg, next_part);
@@ -101,24 +100,17 @@ DBG("Push into pipe()\n");
     // Determine if this is the beginning of a new argument
     indicator = STR_BeginsWithEither(indicators,tmpArg);
     if(!(STR_IsNullOrEmpty(indicator))) {
-DBG("Check for indicator...\n");
         pipe_line[ARG_INDICATOR] = indicator;
         char* tmpArgName = STR_Without(indicator, tmpArg); // such that --help becomes help or help=something
-DBG("tmpArgname is %s\n",tmpArgName);
         pipe_line[ARG_NAME] = tmpArgName;
-DBG("arname pipe line is %s\n",pipe_line[ARG_NAME]);
         //check if the name is attached to a value indicated by a value indicator.(help=something)
-        if( STR_Contains("=",tmpArg)){
-DBG("After STR_Contains...\n");
-	 if( !STR_EndsWith("=",tmpArg)) {
-DBG("After STR_CEndsWith...\n");
+        if( STR_Contains("=\0",tmpArg) &&  !STR_EndsWith("=\0",tmpArg)) {
             char* tmpValue = (char*) malloc(SIZEOFCHAR * (strlen(tmpArg) - strlen(indicator) - 1)); // extract the value as in "something" from help=something
             pipe_line[VALUE] = STR_FromLast("=",tmpArg,tmpValue);
             tmpArgName = STR_Without("=", tmpArgName);
             tmpArgName = STR_Without(pipe_line[VALUE], tmpArgName);
             pipe_line[ARG_NAME] = tmpArgName;
             return finish_pipe();
-	 }
         }
         if(!STR_IsNullOrEmpty(STR_BeginsWithEither(indicators, tmpNextArg)))  // if the next argument that will be sent to us is a arg indicator, then this pipe is finished.
             return finish_pipe();
@@ -143,7 +135,7 @@ void CMD_Parse(int argc,char** argv)
         if(push_into_pipe(argv[i],peek_next) == true) { // if pipe full(true), interpret argunent and find it in stored list of registered arguments(in-memory map)
             struct Argument* argument = find(pipe_line[ARG_NAME]);
             if(argument != NULL) { // we found a matching registerd argument.
-                char* value = "";
+                char* value = NULL;
                 if(pipe_line[VALUE] != NULL)
                     value = pipe_line[VALUE]; // get the argument's value out of the pipe line...
                 if(argument->isValueMandatory && STR_IsNullOrEmpty(pipe_line[VALUE])) {
@@ -151,6 +143,7 @@ void CMD_Parse(int argc,char** argv)
                     continue;
                 }
                 if(argument->handler == NULL) continue;
+		DBG("pipe_line[VALUE] = '%s'",pipe_line[VALUE]);
                 argument->handler(value); // fire off the user's event for handling this argument
             } else {
                 DBG("Could not find argument Pipe [%s|%s|%s|%s]\n", pipe_line[ARG_INDICATOR],pipe_line[ARG_NAME],pipe_line[VALUE_INDICATOR],pipe_line[VALUE]);
