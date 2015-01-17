@@ -15,7 +15,7 @@ bool needvaluearg_function_ran_ok = false;
 
 void help(char* value)
 {
- if( !STR_IsNullOrEmpty(value) )
+ if( STR_IsNullOrEmpty(value) )
  {    
 //  DBG("Im the handler function for help(), arg is %s\n",value);
   help_function_ran_ok = true;
