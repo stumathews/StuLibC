@@ -1,6 +1,0 @@
-
-#ifndef STULIBC_TESTS_DEBUGGING_H
-#define STULIBC_TESTS_DEBUGGING_H
-
-
-#endif

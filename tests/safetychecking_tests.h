@@ -1,4 +1,0 @@
-#ifndef SAFETY_CHECKING_TESTS_H
-#define SAFETY_CHECKING_TESTS_H
-
-#endif
