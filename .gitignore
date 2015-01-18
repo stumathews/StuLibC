@@ -1,15 +1,28 @@
+# ignore these files
+
+# object files
 *.o
+
+# windows binaries
 Program/bin
-*.log
-.*
 *.exe
 *.dll
+# generated log files
+*.log
+
+# hidden files
+.*
 *.gch
+
+# other and shared library binary files
 *.so*
-main
 *.lib
 [*.lo]
-/Default/
+*.la
+*.out
+
+# vim backup files
 *~
-[*.la]
-[*.out]
+# everything else i dont want
+main
+/Default/
