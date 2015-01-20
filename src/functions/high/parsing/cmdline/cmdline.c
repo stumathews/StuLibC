@@ -49,7 +49,7 @@ struct Argument* find(char* name)// find the argument that was registered - ie t
     return found;
 }
 
-void storeArgument(struct Argument* argument) // stores the argument in memory map
+void CMD_AddArgument(struct Argument* argument) // public interface that the user calls to register an argument
 {
     if(last_alloc_memory == NULL) {
         last_alloc_memory = (struct memory*) malloc(sizeof(struct memory));
@@ -63,11 +63,6 @@ void storeArgument(struct Argument* argument) // stores the argument in memory m
         tmp->next = NULL;
         last_alloc_memory = tmp;
     }
-}
-
-void CMD_AddArgument(struct Argument* argument) // public interface that the user calls to register an argument
-{
-    storeArgument(argument);
 }
 
 

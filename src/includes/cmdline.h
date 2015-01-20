@@ -40,13 +40,6 @@ struct Argument
  *
  */
 LIBRARY_API void CMD_AddArgument( struct Argument* argument );
-/** \brief Add an argument to be tracked.
- *
- * \param arguments[] struct NewArgument* NULL terminated array of arguments
- * \return LIBRARY_API void
- *
- */
-LIBRARY_API void CMD_AddArguments( struct Argument* arguments[]);
 /** \brief Parses the provided cmd line arguments and executes the argument handlers for them.
  *
  * \param argc int the number of argument strings passed in
