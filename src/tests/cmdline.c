@@ -50,6 +50,11 @@ void needvaluearg(char* value)
     }
 }
 
+void two_part_function(char* value)
+{
+	DBG("I'm in the --two-part function\n");
+}
+
 
 struct Argument* createNewArgument( char* name, char* description, bool isMandatory, bool isValueMandatory, void (*handler)(char* arg))
 {
@@ -70,6 +75,7 @@ void test_CMD_AddArgument()
     struct Argument* arg4 = createNewArgument("setit2", "set it", true, true, setit2);
     struct Argument* arg5 = createNewArgument("part1", "setup part one to something", true, true, part1);
     struct Argument* arg6 = createNewArgument("needvaluearg", "setup part one to something", true, true, needvaluearg);
+    struct Argument* arg7 = createNewArgument("two-part", "hyphenated arg name", true, true, two_part_function);
 
 
     CMD_AddArgument(arg1);
@@ -78,6 +84,7 @@ void test_CMD_AddArgument()
     CMD_AddArgument(arg4);
     CMD_AddArgument(arg5);
     CMD_AddArgument(arg6);
+    CMD_AddArgument(arg7);
 
 
 }
@@ -89,7 +96,7 @@ void test_CMD_Parse()
 {
 DBG("In test_CND_Parse\n");
 
-    char* arguments[] = {"--help","-exit","/name=1","-setit2=one","-part1","part1_answer","--needvaluearg","",NULL};
+    char* arguments[] = {"--two-part","--help","-exit","/name=1","-setit2=one","-part1","part1_answer","--needvaluearg","",NULL};
 
     int num_args = 0;
     for( num_args = 0; arguments[num_args] != NULL; num_args++);
