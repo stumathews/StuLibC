@@ -30,6 +30,7 @@ This is a narative on this part of the library
 #define MEM_compare(cs,ct,n) memcmp((cs),(ct),(n))
 #define MEM_get_first_char(cs,c,n) memchr((cs),(c),(n))
 #define MEM_set(s,c,n) memset((s),(c),(n))
+#define alloc(s) MEM_Alloc((s)) 
 
 /** \brief Detect empty pointers returned by malloc
  *

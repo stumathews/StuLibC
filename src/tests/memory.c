@@ -15,6 +15,8 @@ void test_Alloc()
   // try and deallocate a buffer not tracked/created by MEM_Alloc
   int* ptr = malloc( sizeof(int) );
   assert(  MEM_DeAlloc(ptr,"ptr") == false);
+  int* a = alloc(SIZEOFINT);
+  assert( MEM_DeAlloc( a, "a") == true);
 }
 
 void test_DeAlloc()
