@@ -17,6 +17,9 @@ void test_Alloc()
   assert(  MEM_DeAlloc(ptr,"ptr") == false);
   int* a = alloc(SIZEOFINT);
   assert( MEM_DeAlloc( a, "a") == true);
+  for( int i = 0; i < 10;i++)
+  { alloc( SIZEOFINT); }
+print_tracked();
 }
 
 void test_DeAlloc()

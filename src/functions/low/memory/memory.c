@@ -60,6 +60,24 @@ void* MEM_Alloc(size_t size)
     DBG("MEM_Alloc(): Could not allocate buffer.\n");
 }
 
+void print_tracked()
+{
+  DBG("Printing all tracked buffers:\n");
+  struct Address* addr = first;
+  bool found = false;
+  int count = 0;
+  while( addr != NULL )
+  { 
+    count++;
+    if( addr == first)
+      DBG("(%d)%p",count,addr->mem_loc);
+    else
+     DBG("->(%d)%p",count,addr->mem_loc);
+    addr = addr->next;
+  }
+printf("\n");
+}
+
 bool MEM_DeAlloc(void* buffer, char* buffer_name)
 {
   struct Address* addr = first;
