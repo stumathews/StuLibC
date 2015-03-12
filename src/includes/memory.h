@@ -16,6 +16,7 @@ This is a narative on this part of the library
 #ifndef STULIBC_MEMORY_MANAGEMENT_H
 #define STULIBC_MEMORY_MANAGEMENT_H
 #include <stdlib.h>
+#include <stdbool.h>
 #include <constants.h>
 
 // Common memory related functions like allocating memory or filling memory and freeing it etc.
@@ -47,7 +48,7 @@ LIBRARY_API void MEM_CheckAllocated( void* buffer, char* buffer_name, char* file
  * \return LIBRARY_API void
  *
  */
-LIBRARY_API void MEM_DeAlloc(void* buffer, char* buffer_name);
+LIBRARY_API bool MEM_DeAlloc(void* buffer, char* buffer_name);
 #define MEM_Alloc(a) Alloc(a)
 /** \brief Allocate a size amount of memory
  *

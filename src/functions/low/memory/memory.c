@@ -23,10 +23,29 @@ This is a narative on this part of the library
 struct Address {
 	void* mem_loc;
 	struct Address* next;
-} mem_addrs = {};
+} *mem_addrs, *first;
 
 void track_buffer(void* buffer)
 {
+  // track this buffer as being allocated by MEM_Alloc.
+  if( mem_addrs == NULL )
+  {
+    mem_addrs = malloc( sizeof( struct Address ));
+    mem_addrs->mem_loc = buffer;
+    mem_addrs->next = NULL;
+    first = mem_addrs;
+    DBG("allocating buffer %p\n", buffer);
+  }
+  else
+  {
+    DBG("allocating new buffer %p\n", buffer);
+    struct Address *tmp = malloc( sizeof(struct Address));
+    tmp->mem_loc = buffer;
+    tmp->next = NULL;
+    
+    mem_addrs->next = tmp;
+    mem_addrs = tmp;
+  }
   
 }
 
@@ -34,7 +53,6 @@ void* MEM_Alloc(size_t size)
 {
   void* buffer = malloc(size);
   track_buffer(buffer);
-DBG("Allocated buffer %p\n",buffer);
   if( buffer != NULL ){
     return buffer;
   }
@@ -42,17 +60,39 @@ DBG("Allocated buffer %p\n",buffer);
     DBG("MEM_Alloc(): Could not allocate buffer.\n");
 }
 
-void MEM_DeAlloc(void* buffer, char* buffer_name)
+bool MEM_DeAlloc(void* buffer, char* buffer_name)
 {
+  struct Address* addr = first;
+  bool found = false;
+  while( addr != NULL )
+  { 
+    DBG("Trackded buffer %p\n",addr->mem_loc);
+    if(addr->mem_loc == buffer)
+    {
+     found = true;
+     // remove this link
+     break;	
+    }
+    addr = addr->next;
+  }
   if( buffer == NULL )
   {
     DBG("Attempted to deallocated null pointer, '%s'. ignored.",buffer_name);
-    return;
+    return false;
   }
   else
   {
     DBG("Attemping to free pointer %p\n", buffer);
-    free(buffer);
+    if( found )
+    {
+      free(buffer);
+      return true;
+    }
+    else
+    {
+      DBG("Wont dealloc a buffer that wasnt created by MEM_Alloc\n");
+      return false;
+    }
   }
 }
 
