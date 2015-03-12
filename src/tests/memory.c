@@ -10,26 +10,13 @@ int number = 25;
 
 void test_Alloc()
 {
-DBG("Entering test_Alloc()\n");
   aIntPtr = MEM_Alloc( SIZEOFINT);
-DBG("performing first assert\n");
   assert( aIntPtr != NULL );
-
-  aIntPtr = &number;
-  assert( *aIntPtr == number );
-  assert( &number == aIntPtr );
 }
 
 void test_DeAlloc()
 {
-  DBG("1");
-  int address = (int) aIntPtr;
-  DBG("2");
-  int value = (int) *aIntPtr;
-  DBG("3");
-
   MEM_DeAlloc(aIntPtr,"aIntPtr");
-  DBG("4");
 }
   
 

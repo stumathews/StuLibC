@@ -20,9 +20,21 @@ This is a narative on this part of the library
 #include <stdlib.h>
 #include <memory.h>
 
+struct Address {
+	void* mem_loc;
+	struct Address* next;
+} mem_addrs = {};
+
+void track_buffer(void* buffer)
+{
+  
+}
+
 void* MEM_Alloc(size_t size)
 {
   void* buffer = malloc(size);
+  track_buffer(buffer);
+DBG("Allocated buffer %p\n",buffer);
   if( buffer != NULL ){
     return buffer;
   }
@@ -39,6 +51,7 @@ void MEM_DeAlloc(void* buffer, char* buffer_name)
   }
   else
   {
+    DBG("Attemping to free pointer %p\n", buffer);
     free(buffer);
   }
 }
