@@ -12,14 +12,24 @@ void test_Alloc()
 {
   aIntPtr = MEM_Alloc( SIZEOFINT);
   assert( aIntPtr != NULL );
+  
   // try and deallocate a buffer not tracked/created by MEM_Alloc
   int* ptr = malloc( sizeof(int) );
-  assert(  MEM_DeAlloc(ptr,"ptr") == false);
+  assert( MEM_DeAlloc(ptr,"ptr") == false);
+  
   int* a = alloc(SIZEOFINT);
   assert( MEM_DeAlloc( a, "a") == true);
+ 
+  int* b = alloc(SIZEOFINT);
+  int* c = alloc(SIZEOFINT);
+  // create 10 random buffers 
   for( int i = 0; i < 10;i++)
-  { alloc( SIZEOFINT); }
-print_tracked();
+  { 
+      void* buffer = alloc( SIZEOFINT);
+  }
+  assert(  MEM_GetTrackedCount() == 13);
+  print_tracked();
+
 }
 
 void test_DeAlloc()

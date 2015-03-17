@@ -59,4 +59,6 @@ LIBRARY_API bool MEM_DeAlloc(void* buffer, char* buffer_name);
  *
  */
 LIBRARY_API void* MEM_Alloc(size_t size);
+
+LIBRARY_API int MEM_GetTrackedCount();
 #endif
