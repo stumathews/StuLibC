@@ -29,7 +29,6 @@ void test_Alloc()
   }
   assert(  MEM_GetTrackedCount() == 13);
   print_tracked();
-
 }
 
 void test_DeAlloc()

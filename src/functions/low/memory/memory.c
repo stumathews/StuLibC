@@ -1,20 +1,6 @@
-/**
- * @file memory.h
- * @brief Memory function prototypes.
- * @author Stuart Mathews
- * @date 19 July 2013
- *
- * This headers contains the various memory management functions defined in the library.
- * These typically involve interating with memory
- * @see http://devel.stuartmathews.com/stulibc
- */
-
-/** \page memory memory functionality
-This is a narative on this part of the library
-*/
-
 #ifndef STULIBC_MEMORY_H
 #define STULIBC_MEMORY_H
+
 #include <stdio.h>
 #include <debugging.h>
 #include <stdlib.h>
@@ -26,9 +12,9 @@ struct Address {
     struct Address* previous;
 } *mem_addrs, *first = NULL;
 
+// track this buffer as being allocated by MEM_Alloc.
 static void track_buffer(void* buffer)
 {
-      // track this buffer as being allocated by MEM_Alloc.
       if( mem_addrs == NULL )
       {
         mem_addrs = malloc( sizeof( struct Address ));
@@ -43,6 +29,7 @@ static void track_buffer(void* buffer)
         while( mem_addrs->next != NULL )
             mem_addrs= mem_addrs->next;
 
+        // Append the buffer to the end of the list
         struct Address *tmp = malloc( sizeof(struct Address));
         tmp->mem_loc = buffer;
         tmp->next = NULL;
@@ -86,9 +73,10 @@ void print_tracked()
   struct Address* addr = first;
   bool found = false;
   int count = 0;
+
   if( first == NULL )
   {
-    DBG("no tracked buffers\n"); return;
+    DBG("No tracked buffers.\n"); return;
   }
   while( addr != NULL )
   { 
@@ -96,10 +84,8 @@ void print_tracked()
     DBG("(%d)%p\n",count,addr->mem_loc);
     addr = addr->next;
   }
-  printf("\n");
 }
 
-// removes current link
 static void remove_link(struct Address* current)
 {
     if( current == first )
@@ -108,7 +94,8 @@ static void remove_link(struct Address* current)
         current = first = NULL;
         return;
     }
-    //previous-current-next
+
+    //Note: doubly linked list structure is represented as : previous-current-next
     struct Address* previous = current->previous;
     struct Address* next = current->next;
     if( previous != NULL)
@@ -117,6 +104,24 @@ static void remove_link(struct Address* current)
         next->previous = current->previous;
 
     free(current);
+}
+
+static struct Address* find( void* buffer)
+{
+  struct Address* addr = first;
+
+  // find this buffer in our tracked list of buffers...
+  while( addr != NULL )
+  { 
+    if(addr->mem_loc == buffer)
+    {
+     return  addr;
+     break;	
+    }
+    addr = addr->next;
+  }
+
+  return NULL;
 }
 
 bool MEM_DeAlloc(void* buffer, char* buffer_name)
@@ -143,40 +148,35 @@ bool MEM_DeAlloc(void* buffer, char* buffer_name)
     DBG("Attempted to deallocated null pointer, '%s'. ignored.",buffer_name);
     return false;
   }
-  else
+
+  if( !found )
   {
-    if( found )
-    {
-      if( found_buffer != NULL )
-      {
-          free(buffer);
-          remove_link(found_buffer);
-      }
-      else
-      {
-        DBG("found buffer unexpectantly set to NULL. ");
-        return false;
-      }
-      return true;
-    }
-    else
-    {
-      DBG("Wont dealloc a buffer that wasnt created by MEM_Alloc\n");
-      return false;
-    }
+    DBG("Wont dealloc a buffer that wasnt created by MEM_Alloc\n");
+    return false;
   }
+
+  if( found_buffer == NULL )
+  {
+     DBG("found buffer unexpectantly set to NULL. ");
+     return false;
+  }
+    
+   
+  free(buffer);
+  remove_link(found_buffer);
+  return true;
 }
 
-void MEM_CheckAllocated( void* buffer,char* name, char* filename, int line)
+bool MEM_CheckAllocated( void* buffer,char* name, char* filename, int line)
 {
-  if( buffer != NULL ){
-    // we dont have to report anything as nothing seems to be allocated
-    return;
-  }
-  else
+
+  struct Address* tracked_buffer = find( buffer);
+  if( buffer != NULL )
   {
-    DBG("Memory could not be allocated for buffer named '%s' in source file %s:%d", name, filename, line);
+    return true;
   }
+
+  return false;
 }
 
 #endif

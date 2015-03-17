@@ -32,16 +32,16 @@ This is a narative on this part of the library
 #define MEM_set(s,c,n) memset((s),(c),(n))
 #define alloc(s) MEM_Alloc((s)) 
 
-/** \brief Detect empty pointers returned by malloc
+/** \brief Detect empty pointers
  *
  * \param buffer void* pointer to the pointer returned by malloc
  * \param buffer_name char* the identifier of this buffer (include purpose)
  * \param filename char* the filename that this pointer is used in.(use __file__)
  * \param line int the line that this occures on (use __LINE__)
- * \return LIBRARY_API void
+ * \return LIBRARY_API bool true if is allocated or false if not
  *
  */
-LIBRARY_API void MEM_CheckAllocated( void* buffer, char* buffer_name, char* filename, int line);
+LIBRARY_API bool MEM_CheckAllocated( void* buffer, char* buffer_name, char* filename, int line);
 /** \brief Calls free() on the provided buffer, provided the buffer can be freed.
  *
  * \param buffer void*
@@ -60,5 +60,10 @@ LIBRARY_API bool MEM_DeAlloc(void* buffer, char* buffer_name);
  */
 LIBRARY_API void* MEM_Alloc(size_t size);
 
+/** \brief Gets the number of tracked buffers by the library.
+ *
+ * \return LIBRARY_API int, the count of the number of tracked buffers
+ *
+ */
 LIBRARY_API int MEM_GetTrackedCount();
 #endif
