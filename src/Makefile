@@ -123,7 +123,9 @@ LTLIBRARIES = $(lib_LTLIBRARIES)
 libstu_la_LIBADD =
 am_libstu_la_OBJECTS = debugging.lo timing.lo safetychecking.lo \
 	logging.lo files.lo console.lo errors.lo strings.lo testing.lo \
-	cmdline.lo memory.lo
+	cmdline.lo memory.lo error.lo readcrlf.lo readline.lo readn.lo \
+	readvrec.lo set_address.lo tcp_client.lo tcp_server.lo \
+	udp_client.lo udp_server.lo
 libstu_la_OBJECTS = $(am_libstu_la_OBJECTS)
 AM_V_lt = $(am__v_lt_$(V))
 am__v_lt_ = $(am__v_lt_$(AM_DEFAULT_VERBOSITY))
@@ -320,9 +322,10 @@ libstu_la_SOURCES = functions/low/debugging/debugging.c \
                     functions/low/strings/strings.c \
                     functions/low/testing/testing.c \
                     functions/high/parsing/cmdline/cmdline.c \
-                    functions/low/memory/memory.c
+                    functions/low/memory/memory.c \
+					etcp/error.c etcp/readcrlf.c etcp/readline.c etcp/readn.c etcp/readvrec.c etcp/set_address.c \
+					etcp/tcp_client.c etcp/tcp_server.c etcp/udp_client.c etcp/udp_server.c
 
-#                    functions/low/networking/wincompat.c
 libstu_la_LDFLAGS = -no-undefined -version-info 0:0:0
 all: all-am
 
@@ -406,14 +409,24 @@ distclean-compile:
 include ./$(DEPDIR)/cmdline.Plo
 include ./$(DEPDIR)/console.Plo
 include ./$(DEPDIR)/debugging.Plo
+include ./$(DEPDIR)/error.Plo
 include ./$(DEPDIR)/errors.Plo
 include ./$(DEPDIR)/files.Plo
 include ./$(DEPDIR)/logging.Plo
 include ./$(DEPDIR)/memory.Plo
+include ./$(DEPDIR)/readcrlf.Plo
+include ./$(DEPDIR)/readline.Plo
+include ./$(DEPDIR)/readn.Plo
+include ./$(DEPDIR)/readvrec.Plo
 include ./$(DEPDIR)/safetychecking.Plo
+include ./$(DEPDIR)/set_address.Plo
 include ./$(DEPDIR)/strings.Plo
+include ./$(DEPDIR)/tcp_client.Plo
+include ./$(DEPDIR)/tcp_server.Plo
 include ./$(DEPDIR)/testing.Plo
 include ./$(DEPDIR)/timing.Plo
+include ./$(DEPDIR)/udp_client.Plo
+include ./$(DEPDIR)/udp_server.Plo
 
 .c.o:
 	$(AM_V_CC)$(COMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
@@ -512,6 +525,76 @@ memory.lo: functions/low/memory/memory.c
 #	$(AM_V_CC)source='functions/low/memory/memory.c' object='memory.lo' libtool=yes \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
 #	$(AM_V_CC_no)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o memory.lo `test -f 'functions/low/memory/memory.c' || echo '$(srcdir)/'`functions/low/memory/memory.c
+
+error.lo: etcp/error.c
+	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT error.lo -MD -MP -MF $(DEPDIR)/error.Tpo -c -o error.lo `test -f 'etcp/error.c' || echo '$(srcdir)/'`etcp/error.c
+	$(AM_V_at)$(am__mv) $(DEPDIR)/error.Tpo $(DEPDIR)/error.Plo
+#	$(AM_V_CC)source='etcp/error.c' object='error.lo' libtool=yes \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o error.lo `test -f 'etcp/error.c' || echo '$(srcdir)/'`etcp/error.c
+
+readcrlf.lo: etcp/readcrlf.c
+	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT readcrlf.lo -MD -MP -MF $(DEPDIR)/readcrlf.Tpo -c -o readcrlf.lo `test -f 'etcp/readcrlf.c' || echo '$(srcdir)/'`etcp/readcrlf.c
+	$(AM_V_at)$(am__mv) $(DEPDIR)/readcrlf.Tpo $(DEPDIR)/readcrlf.Plo
+#	$(AM_V_CC)source='etcp/readcrlf.c' object='readcrlf.lo' libtool=yes \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o readcrlf.lo `test -f 'etcp/readcrlf.c' || echo '$(srcdir)/'`etcp/readcrlf.c
+
+readline.lo: etcp/readline.c
+	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT readline.lo -MD -MP -MF $(DEPDIR)/readline.Tpo -c -o readline.lo `test -f 'etcp/readline.c' || echo '$(srcdir)/'`etcp/readline.c
+	$(AM_V_at)$(am__mv) $(DEPDIR)/readline.Tpo $(DEPDIR)/readline.Plo
+#	$(AM_V_CC)source='etcp/readline.c' object='readline.lo' libtool=yes \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o readline.lo `test -f 'etcp/readline.c' || echo '$(srcdir)/'`etcp/readline.c
+
+readn.lo: etcp/readn.c
+	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT readn.lo -MD -MP -MF $(DEPDIR)/readn.Tpo -c -o readn.lo `test -f 'etcp/readn.c' || echo '$(srcdir)/'`etcp/readn.c
+	$(AM_V_at)$(am__mv) $(DEPDIR)/readn.Tpo $(DEPDIR)/readn.Plo
+#	$(AM_V_CC)source='etcp/readn.c' object='readn.lo' libtool=yes \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o readn.lo `test -f 'etcp/readn.c' || echo '$(srcdir)/'`etcp/readn.c
+
+readvrec.lo: etcp/readvrec.c
+	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT readvrec.lo -MD -MP -MF $(DEPDIR)/readvrec.Tpo -c -o readvrec.lo `test -f 'etcp/readvrec.c' || echo '$(srcdir)/'`etcp/readvrec.c
+	$(AM_V_at)$(am__mv) $(DEPDIR)/readvrec.Tpo $(DEPDIR)/readvrec.Plo
+#	$(AM_V_CC)source='etcp/readvrec.c' object='readvrec.lo' libtool=yes \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o readvrec.lo `test -f 'etcp/readvrec.c' || echo '$(srcdir)/'`etcp/readvrec.c
+
+set_address.lo: etcp/set_address.c
+	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT set_address.lo -MD -MP -MF $(DEPDIR)/set_address.Tpo -c -o set_address.lo `test -f 'etcp/set_address.c' || echo '$(srcdir)/'`etcp/set_address.c
+	$(AM_V_at)$(am__mv) $(DEPDIR)/set_address.Tpo $(DEPDIR)/set_address.Plo
+#	$(AM_V_CC)source='etcp/set_address.c' object='set_address.lo' libtool=yes \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o set_address.lo `test -f 'etcp/set_address.c' || echo '$(srcdir)/'`etcp/set_address.c
+
+tcp_client.lo: etcp/tcp_client.c
+	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT tcp_client.lo -MD -MP -MF $(DEPDIR)/tcp_client.Tpo -c -o tcp_client.lo `test -f 'etcp/tcp_client.c' || echo '$(srcdir)/'`etcp/tcp_client.c
+	$(AM_V_at)$(am__mv) $(DEPDIR)/tcp_client.Tpo $(DEPDIR)/tcp_client.Plo
+#	$(AM_V_CC)source='etcp/tcp_client.c' object='tcp_client.lo' libtool=yes \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o tcp_client.lo `test -f 'etcp/tcp_client.c' || echo '$(srcdir)/'`etcp/tcp_client.c
+
+tcp_server.lo: etcp/tcp_server.c
+	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT tcp_server.lo -MD -MP -MF $(DEPDIR)/tcp_server.Tpo -c -o tcp_server.lo `test -f 'etcp/tcp_server.c' || echo '$(srcdir)/'`etcp/tcp_server.c
+	$(AM_V_at)$(am__mv) $(DEPDIR)/tcp_server.Tpo $(DEPDIR)/tcp_server.Plo
+#	$(AM_V_CC)source='etcp/tcp_server.c' object='tcp_server.lo' libtool=yes \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o tcp_server.lo `test -f 'etcp/tcp_server.c' || echo '$(srcdir)/'`etcp/tcp_server.c
+
+udp_client.lo: etcp/udp_client.c
+	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT udp_client.lo -MD -MP -MF $(DEPDIR)/udp_client.Tpo -c -o udp_client.lo `test -f 'etcp/udp_client.c' || echo '$(srcdir)/'`etcp/udp_client.c
+	$(AM_V_at)$(am__mv) $(DEPDIR)/udp_client.Tpo $(DEPDIR)/udp_client.Plo
+#	$(AM_V_CC)source='etcp/udp_client.c' object='udp_client.lo' libtool=yes \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o udp_client.lo `test -f 'etcp/udp_client.c' || echo '$(srcdir)/'`etcp/udp_client.c
+
+udp_server.lo: etcp/udp_server.c
+	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT udp_server.lo -MD -MP -MF $(DEPDIR)/udp_server.Tpo -c -o udp_server.lo `test -f 'etcp/udp_server.c' || echo '$(srcdir)/'`etcp/udp_server.c
+	$(AM_V_at)$(am__mv) $(DEPDIR)/udp_server.Tpo $(DEPDIR)/udp_server.Plo
+#	$(AM_V_CC)source='etcp/udp_server.c' object='udp_server.lo' libtool=yes \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o udp_server.lo `test -f 'etcp/udp_server.c' || echo '$(srcdir)/'`etcp/udp_server.c
 
 mostlyclean-libtool:
 	-rm -f *.lo

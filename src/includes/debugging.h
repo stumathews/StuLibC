@@ -34,12 +34,11 @@ Debugging functionality like writing to trace files, log files etc.
       fprintf(stderr, "%s-%d: ", __FILE__, __LINE__);  \
 } while (0)
 #endif
-
 #define assertm(m,c) do {\
     DBG("START: %s:",(m)); \
     assert((c)); \
-    DBG("RESULT:%s: PASSED\n",(m)); \    
-}while (0)
+    DBG("RESULT:%s: PASSED\n",(m)); \
+} while (0)
 
 /** \brief The severity of the aspect of debugging being identified.
  */
