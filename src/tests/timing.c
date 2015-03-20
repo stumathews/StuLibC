@@ -17,25 +17,17 @@ void test_TIME_GetCPUTimeTaken()
   for( int i = 0; i< loop1_max; i++ )
   {
     increase_me += i*increase_me;
-    putchar('.');
-    if( (i % 100) == 0) putchar('\n');
+    if( (i % 100) == 0);
   }
   clock_t endTime = TIME_StopCPURecord();
   clock_t timeTaken = TIME_GetCPUTimeTakenInSeconds( startTime, endTime);
   
   
   clock_t startTime2 = TIME_StartCPURecord();
-  for( int i = 0; i< loop2_max; i++ )
-  {
-    increase_me += i*increase_me;
-    putchar('.');
-    if( (i % 100) == 0) putchar('\n');
-  }
-  putchar('\n');
   clock_t endTime2 = TIME_StopCPURecord();
   clock_t timeTaken2 = TIME_GetCPUTimeTakenInSeconds( startTime2, endTime2);
-  printf("It has taken %d seconds(and %d units) to complete %d loop operation.\n", timeTaken, TIME_GetCPUTimeTakenInUnits(startTime,endTime), loop1_max);
-  printf("It has taken %d seconds(and %d units) to complete that %d loop operation.\n", timeTaken2, TIME_GetCPUTimeTakenInUnits(startTime2, endTime2), loop2_max);
+  DBG("It has taken %d seconds(and %d units) to complete %d loop operation.\n", timeTaken, TIME_GetCPUTimeTakenInUnits(startTime,endTime), loop1_max);
+  DBG("It has taken %d seconds(and %d units) to complete that %d loop operation.\n", timeTaken2, TIME_GetCPUTimeTakenInUnits(startTime2, endTime2), loop2_max);
 
 
 

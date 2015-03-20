@@ -4,7 +4,7 @@
 
 bool IsAgeValid(int* age )
 {
-DBG("chec,ing my age...\n");
+	DBG("chec,ing my age...\n");
   // my age is 25;
   if( *age != 25 )
     return true;
