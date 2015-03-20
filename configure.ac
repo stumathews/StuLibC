@@ -17,5 +17,9 @@ case "$host" in
 	  fi
 	  ;;
 esac
+AC_ARG_WITH(inspect,
+								    [  --with-inspect           Inspect test suite errors],
+										[ AC_DEFINE(INSPECT_ERRORS, 1, "Inspect test suite errors")],
+										[ AC_DEFINE(INSPECT_ERRORS, 0, "Inspect test suite errors")])
 AC_SUBST(LIBSTU_DLL_IMPORT)
 AC_OUTPUT(Makefile src/Makefile doc/Makefile examples/Makefile man/Makefile scripts/Makefile src/tests/Makefile)
