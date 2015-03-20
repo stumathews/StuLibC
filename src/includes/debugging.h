@@ -38,7 +38,7 @@ Debugging functionality like writing to trace files, log files etc.
 #define assertm(m,c) do {\
     DBG("START: %s:",(m)); \
     assert((c)); \
-    DBG("RESULT:%s: PASSED\n",(m)); \    
+    DBG("RESULT:%s: PASSED\n",(m)); \
 }while (0)
 
 /** \brief The severity of the aspect of debugging being identified.
