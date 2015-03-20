@@ -31,7 +31,7 @@ Debugging functionality like writing to trace files, log files etc.
 #else
 #define DBG(format, ...) do {\
 			char buffer[256];\
-			sprintf( buffer,256,  "ERR: %s-%d:" format , __FILE__, __LINE__,##__VA_ARGS__);  \
+			snprintf( buffer,256,  "ERR: %s-%d:" format , __FILE__, __LINE__,##__VA_ARGS__);  \
 			DBG_Log(buffer);\
 } while (0)
 #endif
