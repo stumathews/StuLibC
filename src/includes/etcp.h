@@ -35,8 +35,26 @@ typedef void ( *tofunc_t )( void * );
  *
  */
 void error( int status, int err, char* fmt, ... );
-int readn( SOCKET, char *, size_t );
-int readvrec( SOCKET, char *, size_t );
+
+/** \brief Read and wait for len bytes on socket
+ *
+ * \param s SOCKET socket to read data from
+ * \param buf char* address of memeory to store len bytes of data
+ * \param len size_t the length of data to read/wait for 
+ * \return int number of bytes read, or -1 on error 
+ *
+ */
+int readn( SOCKET s, char* buf, size_t len );
+
+/** \brief Read variable records (expects first data read to be size of remaining data)
+ *
+ * \param s SOCKET socket to read data from
+ * \param buf char* address of memeory to store len bytes of data
+ * \param len size_t the length of data to read/wait for 
+ * \return int number of bytes read, or -1 on error 
+ *
+ */
+int readvrec( SOCKET s, char* buf, size_t len );
 int readcrlf( SOCKET, char *, size_t );
 int readline( SOCKET, char *, size_t );
 

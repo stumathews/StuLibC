@@ -1,5 +1,4 @@
 #include <etcp.h>
-#include <skel.h>
 
 char *program_name;
 

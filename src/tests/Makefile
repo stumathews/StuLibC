@@ -82,7 +82,8 @@ bin_PROGRAMS = cmdline$(EXEEXT) debugging$(EXEEXT) strings$(EXEEXT) \
 	files$(EXEEXT) testing$(EXEEXT) errors$(EXEEXT) \
 	logging$(EXEEXT) timing$(EXEEXT) memory$(EXEEXT) \
 	safetychecking$(EXEEXT) uselib$(EXEEXT) tcpclient$(EXEEXT) \
-	tcpserver$(EXEEXT) udpserver$(EXEEXT) udpclient$(EXEEXT)
+	tcpserver$(EXEEXT) udpserver$(EXEEXT) udpclient$(EXEEXT) \
+	vrs$(EXEEXT) vrc$(EXEEXT)
 subdir = src/tests
 DIST_COMMON = $(srcdir)/Makefile.in $(srcdir)/Makefile.am \
 	$(top_srcdir)/depcomp $(top_srcdir)/test-driver
@@ -145,6 +146,12 @@ udpserver_DEPENDENCIES = $(top_builddir)/src/libstu.la
 am_uselib_OBJECTS = uselib.$(OBJEXT)
 uselib_OBJECTS = $(am_uselib_OBJECTS)
 uselib_DEPENDENCIES = $(top_builddir)/src/libstu.la
+am_vrc_OBJECTS = vrc.$(OBJEXT)
+vrc_OBJECTS = $(am_vrc_OBJECTS)
+vrc_DEPENDENCIES = $(top_builddir)/src/libstu.la
+am_vrs_OBJECTS = vrs.$(OBJEXT)
+vrs_OBJECTS = $(am_vrs_OBJECTS)
+vrs_DEPENDENCIES = $(top_builddir)/src/libstu.la
 AM_V_P = $(am__v_P_$(V))
 am__v_P_ = $(am__v_P_$(AM_DEFAULT_VERBOSITY))
 am__v_P_0 = false
@@ -184,13 +191,13 @@ SOURCES = $(cmdline_SOURCES) $(debugging_SOURCES) $(errors_SOURCES) \
 	$(safetychecking_SOURCES) $(strings_SOURCES) \
 	$(tcpclient_SOURCES) $(tcpserver_SOURCES) $(testing_SOURCES) \
 	$(timing_SOURCES) $(udpclient_SOURCES) $(udpserver_SOURCES) \
-	$(uselib_SOURCES)
+	$(uselib_SOURCES) $(vrc_SOURCES) $(vrs_SOURCES)
 DIST_SOURCES = $(cmdline_SOURCES) $(debugging_SOURCES) \
 	$(errors_SOURCES) $(files_SOURCES) $(logging_SOURCES) \
 	$(memory_SOURCES) $(safetychecking_SOURCES) $(strings_SOURCES) \
 	$(tcpclient_SOURCES) $(tcpserver_SOURCES) $(testing_SOURCES) \
 	$(timing_SOURCES) $(udpclient_SOURCES) $(udpserver_SOURCES) \
-	$(uselib_SOURCES)
+	$(uselib_SOURCES) $(vrc_SOURCES) $(vrs_SOURCES)
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
     n|no|NO) false;; \
@@ -553,6 +560,10 @@ tcpclient_SOURCES = tcpclient.c
 tcpclient_LDADD = $(top_builddir)/src/libstu.la 
 udpclient_SOURCES = udpclient.c
 udpclient_LDADD = $(top_builddir)/src/libstu.la 
+vrc_SOURCES = vrc.c
+vrc_LDADD = $(top_builddir)/src/libstu.la 
+vrs_SOURCES = vrs.c
+vrs_LDADD = $(top_builddir)/src/libstu.la 
 safetychecking_SOURCES = safetychecking.c
 safetychecking_LDADD = $(top_builddir)/src/libstu.la
 memory_SOURCES = memory.c
@@ -726,6 +737,14 @@ uselib$(EXEEXT): $(uselib_OBJECTS) $(uselib_DEPENDENCIES) $(EXTRA_uselib_DEPENDE
 	@rm -f uselib$(EXEEXT)
 	$(AM_V_CCLD)$(LINK) $(uselib_OBJECTS) $(uselib_LDADD) $(LIBS)
 
+vrc$(EXEEXT): $(vrc_OBJECTS) $(vrc_DEPENDENCIES) $(EXTRA_vrc_DEPENDENCIES) 
+	@rm -f vrc$(EXEEXT)
+	$(AM_V_CCLD)$(LINK) $(vrc_OBJECTS) $(vrc_LDADD) $(LIBS)
+
+vrs$(EXEEXT): $(vrs_OBJECTS) $(vrs_DEPENDENCIES) $(EXTRA_vrs_DEPENDENCIES) 
+	@rm -f vrs$(EXEEXT)
+	$(AM_V_CCLD)$(LINK) $(vrs_OBJECTS) $(vrs_LDADD) $(LIBS)
+
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
 
@@ -747,6 +766,8 @@ include ./$(DEPDIR)/timing.Po
 include ./$(DEPDIR)/udpclient.Po
 include ./$(DEPDIR)/udpserver.Po
 include ./$(DEPDIR)/uselib.Po
+include ./$(DEPDIR)/vrc.Po
+include ./$(DEPDIR)/vrs.Po
 
 .c.o:
 	$(AM_V_CC)$(COMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
@@ -1069,6 +1090,20 @@ udpserver.log: udpserver$(EXEEXT)
 udpclient.log: udpclient$(EXEEXT)
 	@p='udpclient$(EXEEXT)'; \
 	b='udpclient'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
+vrs.log: vrs$(EXEEXT)
+	@p='vrs$(EXEEXT)'; \
+	b='vrs'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
+vrc.log: vrc$(EXEEXT)
+	@p='vrc$(EXEEXT)'; \
+	b='vrc'; \
 	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \

@@ -14,7 +14,9 @@ bin_PROGRAMS	= cmdline \
 				  tcpclient \
                   tcpserver \
 				  udpserver \
-				  udpclient
+				  udpclient \
+				  vrs \
+				  vrc
 
 #Build a test harness program
 
@@ -40,6 +42,12 @@ tcpclient_LDADD = $(top_builddir)/src/libstu.la
 
 udpclient_SOURCES = udpclient.c
 udpclient_LDADD = $(top_builddir)/src/libstu.la 
+
+vrc_SOURCES = vrc.c
+vrc_LDADD = $(top_builddir)/src/libstu.la 
+
+vrs_SOURCES = vrs.c
+vrs_LDADD = $(top_builddir)/src/libstu.la 
 
 safetychecking_SOURCES = safetychecking.c
 safetychecking_LDADD = $(top_builddir)/src/libstu.la

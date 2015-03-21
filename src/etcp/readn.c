@@ -10,7 +10,6 @@ int readn( SOCKET fd, char *bp, size_t len)
 	while ( cnt > 0 )
 	{
 		rc = recv( fd, bp, cnt, 0 );
-/*@.bp*/
 		if ( rc < 0 )				/* read error? */
 		{
 			if ( errno == EINTR )	/* interrupted? */
