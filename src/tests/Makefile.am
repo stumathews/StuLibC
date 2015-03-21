@@ -10,8 +10,11 @@ bin_PROGRAMS	= cmdline \
                   timing \
                   memory \
                   safetychecking \
-                  uselib
- #                 tcpserver
+                  uselib \
+				  tcpclient \
+                  tcpserver \
+				  udpserver \
+				  udpclient
 
 #Build a test harness program
 
@@ -26,8 +29,17 @@ uselib.o: uselib.c
 TESTS=$(check_PROGRAMS)
 check_PROGRAMS= $(bin_PROGRAMS)
 
-#tcpserver_SOURCES = tcpserver.c wincompat.c
-#tcpserver_LDADD = $(top_builddir)/src/libstu.la 
+tcpserver_SOURCES = tcpserver.c
+tcpserver_LDADD = $(top_builddir)/src/libstu.la 
+
+udpserver_SOURCES = udpserver.c
+udpserver_LDADD = $(top_builddir)/src/libstu.la 
+
+tcpclient_SOURCES = tcpclient.c
+tcpclient_LDADD = $(top_builddir)/src/libstu.la 
+
+udpclient_SOURCES = udpclient.c
+udpclient_LDADD = $(top_builddir)/src/libstu.la 
 
 safetychecking_SOURCES = safetychecking.c
 safetychecking_LDADD = $(top_builddir)/src/libstu.la

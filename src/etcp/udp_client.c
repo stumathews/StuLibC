@@ -1,8 +1,7 @@
 #include <etcp.h>
 
 /* udp_client - set up a UDP client */
-SOCKET udp_client( char *hname, char *sname,
-	struct sockaddr_in *sap )
+SOCKET udp_client( char *hname, char *sname, struct sockaddr_in *sap )
 {
 	SOCKET s;
 

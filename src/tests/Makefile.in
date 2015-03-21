@@ -81,7 +81,8 @@ host_triplet = @host@
 bin_PROGRAMS = cmdline$(EXEEXT) debugging$(EXEEXT) strings$(EXEEXT) \
 	files$(EXEEXT) testing$(EXEEXT) errors$(EXEEXT) \
 	logging$(EXEEXT) timing$(EXEEXT) memory$(EXEEXT) \
-	safetychecking$(EXEEXT) uselib$(EXEEXT)
+	safetychecking$(EXEEXT) uselib$(EXEEXT) tcpclient$(EXEEXT) \
+	tcpserver$(EXEEXT) udpserver$(EXEEXT) udpclient$(EXEEXT)
 subdir = src/tests
 DIST_COMMON = $(srcdir)/Makefile.in $(srcdir)/Makefile.am \
 	$(top_srcdir)/depcomp $(top_srcdir)/test-driver
@@ -123,12 +124,24 @@ safetychecking_DEPENDENCIES = $(top_builddir)/src/libstu.la
 am_strings_OBJECTS = strings.$(OBJEXT)
 strings_OBJECTS = $(am_strings_OBJECTS)
 strings_DEPENDENCIES = $(top_builddir)/src/libstu.la
+am_tcpclient_OBJECTS = tcpclient.$(OBJEXT)
+tcpclient_OBJECTS = $(am_tcpclient_OBJECTS)
+tcpclient_DEPENDENCIES = $(top_builddir)/src/libstu.la
+am_tcpserver_OBJECTS = tcpserver.$(OBJEXT)
+tcpserver_OBJECTS = $(am_tcpserver_OBJECTS)
+tcpserver_DEPENDENCIES = $(top_builddir)/src/libstu.la
 am_testing_OBJECTS = testing.$(OBJEXT)
 testing_OBJECTS = $(am_testing_OBJECTS)
 testing_DEPENDENCIES = $(top_builddir)/src/libstu.la
 am_timing_OBJECTS = timing.$(OBJEXT)
 timing_OBJECTS = $(am_timing_OBJECTS)
 timing_DEPENDENCIES = $(top_builddir)/src/libstu.la
+am_udpclient_OBJECTS = udpclient.$(OBJEXT)
+udpclient_OBJECTS = $(am_udpclient_OBJECTS)
+udpclient_DEPENDENCIES = $(top_builddir)/src/libstu.la
+am_udpserver_OBJECTS = udpserver.$(OBJEXT)
+udpserver_OBJECTS = $(am_udpserver_OBJECTS)
+udpserver_DEPENDENCIES = $(top_builddir)/src/libstu.la
 am_uselib_OBJECTS = uselib.$(OBJEXT)
 uselib_OBJECTS = $(am_uselib_OBJECTS)
 uselib_DEPENDENCIES = $(top_builddir)/src/libstu.la
@@ -169,11 +182,15 @@ am__v_CCLD_1 =
 SOURCES = $(cmdline_SOURCES) $(debugging_SOURCES) $(errors_SOURCES) \
 	$(files_SOURCES) $(logging_SOURCES) $(memory_SOURCES) \
 	$(safetychecking_SOURCES) $(strings_SOURCES) \
-	$(testing_SOURCES) $(timing_SOURCES) $(uselib_SOURCES)
+	$(tcpclient_SOURCES) $(tcpserver_SOURCES) $(testing_SOURCES) \
+	$(timing_SOURCES) $(udpclient_SOURCES) $(udpserver_SOURCES) \
+	$(uselib_SOURCES)
 DIST_SOURCES = $(cmdline_SOURCES) $(debugging_SOURCES) \
 	$(errors_SOURCES) $(files_SOURCES) $(logging_SOURCES) \
 	$(memory_SOURCES) $(safetychecking_SOURCES) $(strings_SOURCES) \
-	$(testing_SOURCES) $(timing_SOURCES) $(uselib_SOURCES)
+	$(tcpclient_SOURCES) $(tcpserver_SOURCES) $(testing_SOURCES) \
+	$(timing_SOURCES) $(udpclient_SOURCES) $(udpserver_SOURCES) \
+	$(uselib_SOURCES)
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
     n|no|NO) false;; \
@@ -528,9 +545,14 @@ uselib_LDADD = $(top_builddir)/src/libstu.la
 # Build tests - directly linking (not using the above @LIBSTU_DLL_IMPORT@
 TESTS = $(check_PROGRAMS)
 check_PROGRAMS = $(bin_PROGRAMS)
-
-#tcpserver_SOURCES = tcpserver.c wincompat.c
-#tcpserver_LDADD = $(top_builddir)/src/libstu.la 
+tcpserver_SOURCES = tcpserver.c
+tcpserver_LDADD = $(top_builddir)/src/libstu.la 
+udpserver_SOURCES = udpserver.c
+udpserver_LDADD = $(top_builddir)/src/libstu.la 
+tcpclient_SOURCES = tcpclient.c
+tcpclient_LDADD = $(top_builddir)/src/libstu.la 
+udpclient_SOURCES = udpclient.c
+udpclient_LDADD = $(top_builddir)/src/libstu.la 
 safetychecking_SOURCES = safetychecking.c
 safetychecking_LDADD = $(top_builddir)/src/libstu.la
 memory_SOURCES = memory.c
@@ -676,6 +698,14 @@ strings$(EXEEXT): $(strings_OBJECTS) $(strings_DEPENDENCIES) $(EXTRA_strings_DEP
 	@rm -f strings$(EXEEXT)
 	$(AM_V_CCLD)$(LINK) $(strings_OBJECTS) $(strings_LDADD) $(LIBS)
 
+tcpclient$(EXEEXT): $(tcpclient_OBJECTS) $(tcpclient_DEPENDENCIES) $(EXTRA_tcpclient_DEPENDENCIES) 
+	@rm -f tcpclient$(EXEEXT)
+	$(AM_V_CCLD)$(LINK) $(tcpclient_OBJECTS) $(tcpclient_LDADD) $(LIBS)
+
+tcpserver$(EXEEXT): $(tcpserver_OBJECTS) $(tcpserver_DEPENDENCIES) $(EXTRA_tcpserver_DEPENDENCIES) 
+	@rm -f tcpserver$(EXEEXT)
+	$(AM_V_CCLD)$(LINK) $(tcpserver_OBJECTS) $(tcpserver_LDADD) $(LIBS)
+
 testing$(EXEEXT): $(testing_OBJECTS) $(testing_DEPENDENCIES) $(EXTRA_testing_DEPENDENCIES) 
 	@rm -f testing$(EXEEXT)
 	$(AM_V_CCLD)$(LINK) $(testing_OBJECTS) $(testing_LDADD) $(LIBS)
@@ -683,6 +713,14 @@ testing$(EXEEXT): $(testing_OBJECTS) $(testing_DEPENDENCIES) $(EXTRA_testing_DEP
 timing$(EXEEXT): $(timing_OBJECTS) $(timing_DEPENDENCIES) $(EXTRA_timing_DEPENDENCIES) 
 	@rm -f timing$(EXEEXT)
 	$(AM_V_CCLD)$(LINK) $(timing_OBJECTS) $(timing_LDADD) $(LIBS)
+
+udpclient$(EXEEXT): $(udpclient_OBJECTS) $(udpclient_DEPENDENCIES) $(EXTRA_udpclient_DEPENDENCIES) 
+	@rm -f udpclient$(EXEEXT)
+	$(AM_V_CCLD)$(LINK) $(udpclient_OBJECTS) $(udpclient_LDADD) $(LIBS)
+
+udpserver$(EXEEXT): $(udpserver_OBJECTS) $(udpserver_DEPENDENCIES) $(EXTRA_udpserver_DEPENDENCIES) 
+	@rm -f udpserver$(EXEEXT)
+	$(AM_V_CCLD)$(LINK) $(udpserver_OBJECTS) $(udpserver_LDADD) $(LIBS)
 
 uselib$(EXEEXT): $(uselib_OBJECTS) $(uselib_DEPENDENCIES) $(EXTRA_uselib_DEPENDENCIES) 
 	@rm -f uselib$(EXEEXT)
@@ -702,8 +740,12 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/memory.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/safetychecking.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/strings.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/tcpclient.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/tcpserver.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/testing.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/timing.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/udpclient.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/udpserver.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/uselib.Po@am__quote@
 
 .c.o:
@@ -1003,6 +1045,34 @@ uselib.log: uselib$(EXEEXT)
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
 	"$$tst" $(AM_TESTS_FD_REDIRECT)
+tcpclient.log: tcpclient$(EXEEXT)
+	@p='tcpclient$(EXEEXT)'; \
+	b='tcpclient'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
+tcpserver.log: tcpserver$(EXEEXT)
+	@p='tcpserver$(EXEEXT)'; \
+	b='tcpserver'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
+udpserver.log: udpserver$(EXEEXT)
+	@p='udpserver$(EXEEXT)'; \
+	b='udpserver'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
+udpclient.log: udpclient$(EXEEXT)
+	@p='udpclient$(EXEEXT)'; \
+	b='udpclient'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
 .test.log:
 	@p='$<'; \
 	$(am__set_b); \
@@ -1179,7 +1249,6 @@ uninstall-am: uninstall-binPROGRAMS
 	recheck tags tags-am uninstall uninstall-am \
 	uninstall-binPROGRAMS
 
- #                 tcpserver
 
 uselib.o: uselib.c
 	$(COMPILE) @LIBSTU_DLL_IMPORT@ -c uselib.c

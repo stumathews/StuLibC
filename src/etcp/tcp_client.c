@@ -7,12 +7,14 @@ SOCKET tcp_client( char *hname, char *sname )
 	SOCKET s;
 
 	set_address( hname, sname, &peer, "tcp" );
+    // obtain a socket
 	s = socket( AF_INET, SOCK_STREAM, 0 );
 	if ( !isvalidsock( s ) )
 		error( 1, errno, "socket call failed" );
-
-	if ( connect( s, ( struct sockaddr * )&peer,
-		 sizeof( peer ) ) )
+    
+    // Connect returns on a successfull connection and thereafter socket can be used 
+    // as an established connection to send/recv network data
+	if ( connect( s, ( struct sockaddr * )&peer,sizeof( peer ) ) )
 		error( 1, errno, "connect failed" );
 
 	return s;

@@ -9,17 +9,7 @@
 #include <stdio.h>
 #include <stdarg.h>
 #include <string.h>
-#include <netdb.h>
-#include <signal.h>
-#include <fcntl.h>
-#include <sys/socket.h>
-#include <sys/wait.h>
-#include <sys/time.h>
-#include <sys/resource.h>
-#include <sys/stat.h>
-#include <netinet/in.h>
-#include <arpa/inet.h>
-#include "skel.h"
+#include <skel.h>
 
 #define TRUE			1
 #define FALSE			0
@@ -35,15 +25,57 @@ extern char *program_name;		/* for error */
 
 typedef void ( *tofunc_t )( void * );
 
-void error( int, int, char*, ... );
+/** \brief Print a diagnostic and optionally quit
+ *
+ * \param status int status number
+ * \param err int error number
+ * \param fmt char* format of error string
+ * \param ... aditional arguments that match the format string
+ * \return void 
+ *
+ */
+void error( int status, int err, char* fmt, ... );
 int readn( SOCKET, char *, size_t );
 int readvrec( SOCKET, char *, size_t );
 int readcrlf( SOCKET, char *, size_t );
 int readline( SOCKET, char *, size_t );
-int tcp_server( char *, char * );
-int tcp_client( char *, char * );
-int udp_server( char *, char * );
-int udp_client( char *, char *, struct sockaddr_in * );
+
+/** \brief Set up for tcp server: get tcp socket, bound to hname:sname and returns socket.
+ *
+ * \param hname char* hostname that we'll bind the socket to
+ * \param sname char* the port number for the socket
+ * \return socket configuured to listen on hname host and sname port 
+ *
+ */
+int tcp_server( char* hname, char* sname );
+
+/** \brief Set up for tcp client socket, then connect to it and return socket
+ *
+ * \param hname char* hostname that we'll bind the socket to
+ * \param sname char* the port number for the socket
+ * \return socket that represents the established connection  
+ *
+ */
+int tcp_client( char* hname, char* sname );
+
+/** \brief Set up for udp server: get udp socket bound to hname:sname
+ *
+ * \param hname char* hostname that we'll bind the socket to
+ * \param sname char* the port number for the socket
+ * \return socket that represents hname host and sname port 
+ *
+ */
+int udp_server( char* hname, char* sname );
+
+/** \brief Set up for udp client: get a udp socket and fill address to use(this never blocks)
+ *
+ * \param hname char* hostname that we'll bind the socket to
+ * \param sname char* the port number for the socket
+ * \param addr struct sockaddr_in* address to use
+ * \return a raw simple udp socket  
+ *
+ */
+int udp_client( char* hname, char* sname, struct sockaddr_in* sap );
 int tselect( int, fd_set *, fd_set *, fd_set *);
 unsigned int timeout( tofunc_t, void *, int );
 void untimeout( unsigned int );
@@ -52,5 +84,15 @@ void *smballoc( void );
 void smbfree( void * );
 void smbsend( SOCKET, void * );
 void *smbrecv( SOCKET );
-void set_address( char *, char *, struct sockaddr_in *, char * );
+
+/** \brief fill in a sockaddr_in structure
+ *
+ * \param hname char* hostname string
+ * \param sname char* port number as string
+ * \param sap struct sockaddr_in* address structure to fill
+ * \param protocol char* the protocol to set in the address structure
+ * \return void the pointer sap will be filled up and available to caller
+ *
+ */
+void set_address( char* hname, char* sname, struct sockaddr_in* sap, char* protocol );
 #endif  /* __ETCP_H__ */

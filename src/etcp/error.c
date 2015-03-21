@@ -2,7 +2,6 @@
 
 char *program_name;
 
-/* error - print a diagnostic and optionally quit */
 void error( int status, int err, char *fmt, ... )
 {
 	va_list ap;

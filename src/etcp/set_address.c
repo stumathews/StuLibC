@@ -1,8 +1,6 @@
 #include <etcp.h>
 
-/* set_address - fill in a sockaddr_in structure */
-void set_address( char *hname, char *sname,
-	struct sockaddr_in *sap, char *protocol )
+void set_address( char *hname, char *sname,	struct sockaddr_in *sap, char *protocol )
 {
 	struct servent *sp;
 	struct hostent *hp;
