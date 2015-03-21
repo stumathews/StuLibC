@@ -29,7 +29,7 @@ uselib.o: uselib.c
 # Build tests - directly linking (not using the above @LIBSTU_DLL_IMPORT@
 
 TESTS=$(check_PROGRAMS)
-check_PROGRAMS= $(bin_PROGRAMS)
+check_PROGRAMS= cmdline debugging strings files testing errors logging timing memory safetychecking uselib
 
 tcpserver_SOURCES = tcpserver.c
 tcpserver_LDADD = $(top_builddir)/src/libstu.la 
