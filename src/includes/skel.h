@@ -1,3 +1,16 @@
+
+/**
+ * @file skel.h
+ * @brief tcp/ip abstraction layer
+ * @author Stuart Mathews
+ * @date 22 march 2015
+ *
+ * This header contains the function and type declarations for the common networking functions in the library.
+ * It allows winodws and linux platforms to use the same interface for these common routines, but diffirent implementations
+ * @see http://devel.stuartmathews.com/stulibc
+ */
+
+
 #ifndef __SKEL_H__
 #define __SKEL_H__
 

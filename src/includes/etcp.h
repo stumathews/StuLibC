@@ -1,3 +1,19 @@
+
+/**
+ * @file etcp.h
+ * @brief Networking library routines.
+ * @author Stuart Mathews
+ * @date 22 March 2015
+ *
+ * This header contains the function and type declarations for dealing with low level networking functionality in the library.
+ * This includes reading and writing to sockets and tcp and udp client and server routines
+ * @see http://devel.stuartmathews.com/stulibc
+ */
+
+/** \page networking Adding networking functionality to your program
+ This includes reading and writing to sockets and tcp and udp client and server routines
+*/
+
 #ifndef __ETCP_H__
 #define __ETCP_H__
 
@@ -94,6 +110,7 @@ int udp_server( char* hname, char* sname );
  *
  */
 int udp_client( char* hname, char* sname, struct sockaddr_in* sap );
+
 int tselect( int, fd_set *, fd_set *, fd_set *);
 unsigned int timeout( tofunc_t, void *, int );
 void untimeout( unsigned int );
