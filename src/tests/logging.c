@@ -32,7 +32,7 @@ void test_LOG_LogToStream()
    // read from stream for message
   assert( FILE_ContainsString( stream, "message" ));
   
-fclose(stream);
+  fclose(stream);
   FILE_Delete(filename);
 }
 

@@ -3,7 +3,9 @@
 
 int main( int argc, char** argv)
 {
-	CNS_PrintLine("hello world!");
+#if INSPECT_ERRORS
+	CNS_PrintLine("CNS_PrintLine: hello world!");
+#endif
 
 	return 0;
 }
