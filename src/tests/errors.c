@@ -5,8 +5,9 @@
 
 void test_ERR_Print()
 {
-
-  ERR_Print("Hello this is a test error", YES);
+#if INSPECT_ERRORS
+			 	ERR_Print("ERR_Print: Hello this is a test error", YES);
+#endif
 }
 int main(int argc, char** argv )
 {

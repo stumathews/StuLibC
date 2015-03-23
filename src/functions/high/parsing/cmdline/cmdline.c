@@ -138,7 +138,7 @@ void CMD_Parse(int argc,char** argv)
                     continue;
                 }
                 if(argument->handler == NULL) continue;
-		DBG("pipe_line[VALUE] = '%s'",pipe_line[VALUE]);
+								DBG("pipe_line[VALUE] = '%s'",pipe_line[VALUE]);
                 argument->handler(value); // fire off the user's event for handling this argument
             } else {
                 DBG("Could not find argument Pipe [%s|%s|%s|%s]\n", pipe_line[ARG_INDICATOR],pipe_line[ARG_NAME],pipe_line[VALUE_INDICATOR],pipe_line[VALUE]);

@@ -24,14 +24,15 @@ Debugging functionality like writing to trace files, log files etc.
 #include <constants.h>
 #include <stdio.h>
 
-#ifndef NDEBUG
+#if INSPECT_ERRORS
 #define DBG(format, ...) do {\
-      fprintf(stderr, "%s-%d: ", __FILE__, __LINE__);  \
-      printf((format), ##__VA_ARGS__); \
+      fprintf(stderr, "ERR: %s-%d:" format , __FILE__, __LINE__,##__VA_ARGS__);  \
 } while (0)
 #else
 #define DBG(format, ...) do {\
-      fprintf(stderr, "%s-%d: ", __FILE__, __LINE__);  \
+			char buffer[256];\
+			snprintf( buffer,256,  "ERR: %s-%d:" format , __FILE__, __LINE__,##__VA_ARGS__);  \
+			DBG_Log(buffer);\
 } while (0)
 #endif
 #define assertm(m,c) do {\
