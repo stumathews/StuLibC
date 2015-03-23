@@ -26,3 +26,5 @@ Program/bin
 # everything else i dont want
 main
 /Default/
+*.in
+Makefile
