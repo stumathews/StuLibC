@@ -26,12 +26,12 @@ Debugging functionality like writing to trace files, log files etc.
 
 #if INSPECT_ERRORS
 #define DBG(format, ...) do {\
-      fprintf(stderr, "%s() ERR: %s-%d:" format , __func__, __FILE__, __LINE__,##__VA_ARGS__);  \
+      fprintf(stderr, "DBG: %s-%d %s(): " format "\n", __FILE__, __LINE__,__func__,##__VA_ARGS__);  \
 } while (0)
 #else
 #define DBG(format, ...) do {\
 			char buffer[256];\
-			snprintf( buffer,256,  "%s() ERR: %s-%d:" format , __func__, __FILE__, __LINE__,##__VA_ARGS__);  \
+			snprintf( buffer,256,  "DBG : %s-%d %s():" format "\n", __FILE__, __LINE__,__func__,##__VA_ARGS__);  \
 			DBG_Log(buffer);\
 } while (0)
 #endif

@@ -22,7 +22,12 @@ This is a narative on this part of the library
 #include <files.h>
 #include <constants.h>
 
-#define log(x,c) LOG_log(x,c)
+#define LOG(format, ...) do {\
+			char buffer[256];\
+			snprintf( buffer,256,  "LOG: %s-%d %s(): " format , __FILE__, __LINE__, __func__,##__VA_ARGS__);  \
+			printf( "LOG: %s-%d %s(): " format "\n" , __FILE__, __LINE__,__func__,##__VA_ARGS__);  \
+            LOG_Log(buffer); \
+} while (0)
 #define logif(cr,m,c) LOG_If(cr,m,c)
 
 /** \brief Logs a message to the standard log file if the condition is true
