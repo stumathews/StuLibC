@@ -26,9 +26,8 @@
 #include <stdarg.h>
 #include <string.h>
 #include <skel.h>
+#include <constants.h>
 
-#define TRUE			1
-#define FALSE			0
 #define NLISTEN			5		/* max waiting connections */
 #define NSMB			5		/* number shared memory bufs */
 #define SMBUFSZ			256		/* size of shared memory buf */
