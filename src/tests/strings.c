@@ -20,6 +20,14 @@ void test_append()
     if( errors ) exit(1);
 }
 
+void test_STR_IsAlpha()
+{
+    char* alpha = "abcdefghijklmnopqstuvwxyz";
+    char* nonalpha = "abcdefghijklmnopqstuvwxyz1";
+    assert( STR_IsAlpha(alpha, strlen(alpha)));
+    assert( !STR_IsAlpha(nonalpha, strlen(nonalpha)) );
+}
+
 void test_createString()
 {
     int errors = 0;
@@ -138,10 +146,11 @@ int main(int argc, char** argv)
         test_STR_Without,"test_STR_Without",
         test_STR_Contains, "test_STR_Contains",
         test_STR_EndsWith, "test_STR_EndsWith",
-        test_STR_FromLast, "test_STR_FromLast"
+        test_STR_FromLast, "test_STR_FromLast",
+        test_STR_IsAlpha, "test_STR_IsAlpha"
 
     };
-    run_tests(tests,9);
+    run_tests(tests,10);
 
     return 0;
 };
