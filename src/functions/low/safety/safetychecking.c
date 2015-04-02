@@ -37,7 +37,26 @@ void CHK_ExitIf(int condition_result, char* message, char* resultContext)
     if(condition_result)
     {
         sprintf(buffer,COMMON_CHK_RESULT_FORMAT,message, resultContext);
-        FILE_AppendText(buffer, DEFAULT_FILE_NAME);
+        ERR(buffer, DEFAULT_FILE_NAME);
         exit(1);
     }
+}
+
+void CHK_str( char* string, enum StringChecks checks, char* functionName)
+{
+	if( (checks & IS_NOT_EMPTY) && (STR_IsNullOrEmpty(string)) )
+	{
+		DBG("Condition IS_NOT_EMPTY failed on string '%s' in caller funcion '%s'()",string, functionName);
+		exit(1);	
+	}
+	
+	if ( checks & CHARS_ONLY )
+	{
+		DBG("CHARS_ONLY");
+	}
+	
+	if ( checks & ALL_LOWER )
+	{
+		DBG("CHARS_ONLY");
+	}	
 }

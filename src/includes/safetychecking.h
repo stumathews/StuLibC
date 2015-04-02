@@ -27,6 +27,13 @@ typedef void (*FixIntRoutine)(int*);
  */
 typedef bool (*IsIntValidRoutine)(int*);
 
+enum StringChecks {IS_NOT_EMPTY = 2, CHARS_ONLY = 4, ALL_LOWER = 8};
+#define CHECK_STRING( string, checks ) do { \
+	CHK_str( (string), (checks), __func__); \
+} while (0)
+void CHK_str( char* string, enum StringChecks checks, char* functionName);
+
+
 
 /** \brief Runs a provided data validation routine and its fix routine on provided data
  *
@@ -50,5 +57,6 @@ LIBRARY_API void CHK_int(IsIntValidRoutine func_IsDataValid, int* data, char* da
 void CHK_ExitIf(int condition, char* message, char* resultContext);
 //int CHK_LogIf(int condition, char* message, char* resultContext);
 //void CHK_Log(char* functionName,int lineNumber, char* resultContext);
+
 
 #endif
