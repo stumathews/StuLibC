@@ -1,4 +1,4 @@
-#Build the library
+#Build the library from source files
 
 lib_LTLIBRARIES = libstu.la
 libstu_la_SOURCES = functions/low/debugging/debugging.c \
