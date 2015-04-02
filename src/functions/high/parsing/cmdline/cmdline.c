@@ -38,7 +38,7 @@ void print_memory_map() // debugging utility to print pipe_line
 
 struct Argument* find(char* name)// find the argument that was registered - ie that is tracked in the memory storage
 {
-    CHECK_STRING(name, IS_NOT_EMPTY);
+    CHECK_STRING(name, IS_NOT_EMPTY | CHARS_ONLY);
 
     struct memory* node = first_alloc_memory;
     struct Argument* found = NULL;
