@@ -122,6 +122,6 @@ LIBRARY_API char* STR_EndsWithEither( char* endsWithPossibilities[], char* strin
  */
 LIBRARY_API char* STR_FromLast( char* last, char* string, char* resultBuffer);
 
-
+LIBRARY_API bool STR_IsAlpha( char* string, int len);
 
 #endif // STULIBC_STRING_H

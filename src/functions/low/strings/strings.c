@@ -8,6 +8,7 @@
 #include <debugging.h>
 #include <stdbool.h>
 #include <memory.h>
+#include <ctype.h>
 
 
 char* STR_CreateString(char* string)
@@ -131,5 +132,23 @@ bool STR_IsNullOrEmpty(char* string)
         return true;
     else
         return false;
+}
+
+bool STR_IsAlpha(char* string, int size)
+{
+	bool isAlphaString = true;
+	DBG("Entering %s() with string as '%s' and size is %d",__func__, string, size);
+	for( int i = 0; i < size ; i++)
+	{
+		DBG("testing char '%c'",string[i]);
+		
+		if( !(islower(string[i]) || isupper(string[i])) )
+		{
+		 	isAlphaString = false; break;
+		}		
+							
+	}
+	return isAlphaString;
+
 }
 
