@@ -38,7 +38,7 @@ void print_memory_map() // debugging utility to print pipe_line
 
 struct Argument* find(char* name)// find the argument that was registered - ie that is tracked in the memory storage
 {
-    CHECK_STRING(name, IS_NOT_EMPTY | CHARS_ONLY);
+    CHECK_STRING_BASICS(name);
 
     struct memory* node = first_alloc_memory;
     struct Argument* found = NULL;
@@ -86,15 +86,20 @@ static void clear_pipe() // reset pipe array structure/variable
 
 bool push_into_pipe(char* arg, char* next_part)   // determine what type of part this is. Returns true if a fully formed pipe is created.
 {
+    CHECK_STRING( arg, IS_NOT_EMPTY );
+    CHECK_STRING( next_part, IS_NOT_EMPTY);
+
     short argLength = strlen(arg);
     short nextArgLength = strlen(next_part);
     char* tmpArg = (char*) malloc(SIZEOFCHAR * argLength +1);
     char* tmpNextArg = (char*) malloc(SIZEOFCHAR * nextArgLength +1);
+    
     // Prepare space
     strcpy(tmpArg, arg);
     strcpy(tmpNextArg, next_part);
     char* indicator = NULL;
     char* indicators[] = {"--","-","/",NULL};
+    
     // Determine if this is the beginning of a new argument
     indicator = STR_BeginsWithEither(indicators,tmpArg);
     if(!(STR_IsNullOrEmpty(indicator))) {
@@ -130,6 +135,10 @@ void CMD_Parse(int argc,char** argv)
     for(int i = 0; i < argc; i++) {
         struct Argument* arg = NULL;
         char* peek_next = i+1 < argc ? argv[i+1]:"";
+        
+        if( strcmp(peek_next,"") == 0 )
+        	continue;
+        	
         if(push_into_pipe(argv[i],peek_next) == true) { // if pipe full(true), interpret argunent and find it in stored list of registered arguments(in-memory map)
             struct Argument* argument = find(pipe_line[ARG_NAME]);
             if(argument != NULL) { // we found a matching registerd argument.
