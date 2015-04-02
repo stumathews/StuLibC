@@ -28,7 +28,7 @@ void test_CHK_int()
 int main( int argc, char* argv[])
 {
   struct TestDefinition tests[] = {
-    test_CHK_int, "CHK_int"
+    test_CHK_int, "CHK_int",
   };
   run_tests(tests,1);
   return 0;
