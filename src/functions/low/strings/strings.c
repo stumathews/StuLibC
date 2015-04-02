@@ -9,6 +9,7 @@
 #include <stdbool.h>
 #include <memory.h>
 #include <ctype.h>
+#include <safetychecking.h>
 
 
 char* STR_CreateString(char* string)
@@ -136,6 +137,8 @@ bool STR_IsNullOrEmpty(char* string)
 
 bool STR_IsAlpha(char* string, int size)
 {
+	CHECK_STRING( string, IS_NOT_EMPTY );
+	
 	bool isAlphaString = true;
 	DBG("Entering %s() with string as '%s' and size is %d",__func__, string, size);
 	for( int i = 0; i < size ; i++)
