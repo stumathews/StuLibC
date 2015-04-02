@@ -4,6 +4,7 @@
 #include <logging.h>
 #include <stdarg.h>
 #include <assert.h>
+#include <safetychecking.h>
 
 #define MAX_DBG_LINE_LENGTH 512
 #define ERROR 1
@@ -13,6 +14,8 @@ static char line_buffer[MAX_DBG_LINE_LENGTH];
 
 void DBG_Log(char* message)
 {
+  CHECK_STRING( message, IS_NOT_EMPTY );
+  
   DBG_WriteLineToFile(message, DEFAULT_DEBUG_FILENAME, UNSPECIFIED);
 }
 
@@ -30,10 +33,16 @@ char* DBG_GetDefaultLogFileName()
 
 void DBG_LogIf(int condition, char* message, char* otherwise)
 {
+	CHECK_STRING( message, IS_NOT_EMPTY );
     if(condition)
+    {
         DBG_WriteLineToFile(message,DEFAULT_DEBUG_FILENAME,UNSPECIFIED);
+    }
     else
+    {
+    	CHECK_STRING( otherwise, IS_NOT_EMPTY );
         DBG_WriteLineToFile(otherwise,DEFAULT_DEBUG_FILENAME,UNSPECIFIED);
+    }
 }
 
 // What we need is a DBG_LogIfSeverity() so that other DBG_LogIf() doesn't need to automatically
@@ -41,14 +50,25 @@ void DBG_LogIf(int condition, char* message, char* otherwise)
 
 void DBG_LogIfToStream( int condition, FILE* stream, char* message, char* otherwise)
 {
+	CHECK_STRING( message, IS_NOT_EMPTY );
     if(condition)
+    {
         DBG_WriteLineToStream(message,stream,UNSPECIFIED);
+    }
     else
+    {
+    	CHECK_STRING( otherwise, IS_NOT_EMPTY );
         DBG_WriteLineToStream(otherwise,stream,UNSPECIFIED);
+    }
 }
 
 void DBG_WriteLineToFileExtra(char* prefix, char* message,char* suffix, char* filename, enum Severity severity)
 {
+	CHECK_STRING( message, IS_NOT_EMPTY );
+	CHECK_STRING( prefix, IS_NOT_EMPTY );
+	CHECK_STRING( suffix, IS_NOT_EMPTY );
+	CHECK_STRING( filename, IS_NOT_EMPTY );
+
     int ok = LOG_If( (strlen(message) == 0), "Debug message is empty" );
     if(ok != 0)
     {
@@ -61,6 +81,10 @@ void DBG_WriteLineToFileExtra(char* prefix, char* message,char* suffix, char* fi
 
 void DBG_WriteLineToFile( char* message, char* filename, enum Severity severity)
 {
+
+	CHECK_STRING( message, IS_NOT_EMPTY );
+	CHECK_STRING( filename, IS_NOT_EMPTY );
+	
     int result;
 
     result = LOG_If( message == NULL || strlen(message) == 0, "Debug message is empty");
@@ -92,6 +116,8 @@ char* DBG_GetSeverityAsString(enum Severity severity)
 
 void DBG_WriteLineToStream(char* message, FILE* stream, enum Severity severity)
 {
+	CHECK_STRING( message, IS_NOT_EMPTY );
+	
     int result;
 
     result = LOG_If( message == NULL || strlen(message) == 0, "Debug message is empty" );
@@ -108,6 +134,7 @@ void DBG_WriteLineToStream(char* message, FILE* stream, enum Severity severity)
 
 void DBG_Fail( char* message )
 {
+  CHECK_STRING( message, IS_NOT_EMPTY );
   DBG("Assertion failed: %s\n", message);
   DBG_Log(message);
 
