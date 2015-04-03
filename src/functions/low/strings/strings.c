@@ -14,7 +14,9 @@
 
 char* STR_CreateString(char* string)
 {
-    char* str = (char*) malloc(strlen(string) + 1);
+    //char* str = (char*) malloc(strlen(string) + 1);
+    char* str = MEM_Alloc( strlen(string) + 1 );
+
     MEM_CheckAllocated(str,"str", __FILE__,__LINE__);
     strcpy(str, string);
     // this seems wrong, allocated memory and assuming the caller will free it
