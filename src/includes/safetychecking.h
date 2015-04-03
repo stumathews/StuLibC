@@ -29,10 +29,10 @@ typedef bool (*IsIntValidRoutine)(int*);
 
 enum StringChecks {IS_NOT_EMPTY = 2, CHARS_ONLY = 4, ALL_LOWER = 8};
 #define CHECK_STRING( string, checks ) do { \
-	CHK_str( (string), (checks), __func__); \
+	CHK_str( (char*)(string), (checks), (char*)__func__); \
 } while (0)
 #define CHECK_STRING_BASICS( string ) do { \
-	CHK_str( (string), IS_NOT_EMPTY | CHARS_ONLY, __func__); \
+	CHK_str( (string), IS_NOT_EMPTY | CHARS_ONLY, (char*)__func__); \
 } while (0)
 void CHK_str( char* string, enum StringChecks checks, char* functionName);
 
