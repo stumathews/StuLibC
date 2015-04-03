@@ -47,6 +47,8 @@ void* MEM_Alloc(size_t size)
   if( buffer != NULL )
   {
     track_buffer(buffer);
+    DBG("Tracked new buffer %p", buffer);
+    DBG("Currently %d tracked buffers.", MEM_GetTrackedCount());
     return buffer;
   }
   else
@@ -122,6 +124,25 @@ static struct Address* find( void* buffer)
   }
 
   return NULL;
+}
+
+bool MEM_DeAllocAll()
+{
+  struct Address* addr = first;
+  int count = 0;
+
+  while( addr != NULL )
+  { 
+        free(addr->mem_loc);
+        struct Address* toRemove = addr;
+        addr = addr->next;
+        remove_link(toRemove);
+        count++;
+  }
+
+  DBG("Deallocated %d tracked buffers.", count);
+
+  return true;
 }
 
 bool MEM_DeAlloc(void* buffer, char* buffer_name)
