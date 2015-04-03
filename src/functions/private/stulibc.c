@@ -1,11 +1,11 @@
 #include <stulibc.h>
 
-LIBRARY_API LIB_Init()
+LIBRARY_API void LIB_Init()
 {
 
 }
 
-LIBRARY_API LIB_Uninit()
+LIBRARY_API void LIB_Uninit()
 {
     MEM_DeAllocAll();
 }
