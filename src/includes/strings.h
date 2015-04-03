@@ -122,6 +122,13 @@ LIBRARY_API char* STR_EndsWithEither( char* endsWithPossibilities[], char* strin
  */
 LIBRARY_API char* STR_FromLast( char* last, char* string, char* resultBuffer);
 
+/** \brief Determines if the string contains alphabetic characters
+ *
+ * \param string char* the string that needs to be checked
+ * \param len int the length of the string
+ * \return LIBRARY_API bool true if string contains only alphabetic characters
+ *
+ */
 LIBRARY_API bool STR_IsAlpha( char* string, int len);
 
 #endif // STULIBC_STRING_H

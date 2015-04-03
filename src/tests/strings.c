@@ -1,6 +1,7 @@
 #include <strings.h>
 #include <assert.h>
 #include <testing.h>
+#include <stulibc.h>
 
 void test_append()
 {
@@ -151,6 +152,8 @@ int main(int argc, char** argv)
 
     };
     run_tests(tests,10);
+
+    LIB_Uninit();
 
     return 0;
 };
