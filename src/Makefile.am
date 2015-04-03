@@ -1,7 +1,8 @@
 #Build the library from source files
 
 lib_LTLIBRARIES = libstu.la
-libstu_la_SOURCES = functions/low/debugging/debugging.c \
+libstu_la_SOURCES = functions/private/stulibc.c \
+					functions/low/debugging/debugging.c \
 		    functions/low/timing/timing.c \
 		    functions/low/safety/safetychecking.c \
 		    functions/low/logging/logging.c \

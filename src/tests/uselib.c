@@ -1,5 +1,5 @@
 
-#include <libstu.h>
+#include <stulibc.h>
 
 int main( int argc, char** argv)
 {
