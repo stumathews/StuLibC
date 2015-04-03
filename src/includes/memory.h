@@ -51,6 +51,11 @@ LIBRARY_API bool MEM_CheckAllocated( void* buffer, char* buffer_name, char* file
  */
 LIBRARY_API bool MEM_DeAlloc(void* buffer, char* buffer_name);
 #define MEM_Alloc(a) Alloc(a)
+
+// Not a library function to be used externally only internall by LIB_Uninit()
+void MEM_DeAllocAll();
+
+
 /** \brief Allocate a size amount of memory
  *
  * \param size size_t

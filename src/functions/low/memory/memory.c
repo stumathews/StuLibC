@@ -126,7 +126,7 @@ static struct Address* find( void* buffer)
   return NULL;
 }
 
-bool MEM_DeAllocAll()
+void MEM_DeAllocAll()
 {
   struct Address* addr = first;
   int count = 0;
@@ -141,8 +141,6 @@ bool MEM_DeAllocAll()
   }
 
   DBG("Deallocated %d tracked buffers.", count);
-
-  return true;
 }
 
 bool MEM_DeAlloc(void* buffer, char* buffer_name)
