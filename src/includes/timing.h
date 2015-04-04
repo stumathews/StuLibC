@@ -27,12 +27,12 @@ This is a narative on this part of the library
  *
  */
 LIBRARY_API clock_t TIME_StartCPURecord();
-/** \brief Returns the current time as indicated by a clock_t data structure
- *
- * \return LIBRARY_API clock_t
+/** \brief Calculates the time in seconds between startTime and now
+ * \param startTime clock_t the time to start from
+ * \return LIBRARY_API clock_t the number of seconds between now and startTime
  *
  */
-LIBRARY_API clock_t TIME_StopCPURecord();
+LIBRARY_API clock_t TIME_StopCPURecord(clock_t startTime);
 /** \brief Calculates the time in seconds between to points in time
  *
  * \param startTime clock_t start point in time
@@ -50,9 +50,17 @@ LIBRARY_API clock_t TIME_GetCPUTimeTakenInSeconds(clock_t startTime, clock_t end
  */
 LIBRARY_API clock_t TIME_GetCPUTimeTakenInUnits(clock_t startTime, clock_t endTime);
 
+/** \brief Returns the time and date as a string 
+ *
+ * \return char* string date and time format
+ */
+LIBRARY_API char* TIM_GetDateTimeStr();
 
-char* TIM_GetDateTimeStr();
-
-/* Calculate day of week in proleptic Gregorian calendar. Sunday == 0. */
-int TIM_DayOfWeek( int year, int month, int day);
+/** \brief Calculate day of week in proleptic Gregorian calendar. Sunday == 0.
+ *  \param year int year
+ *  \param month int month
+ *  \param day int day
+ *  \return int numeric representation of the day of the week (sunday=0, monday = 1 etc...)
+ */
+LIBRARY_API int TIM_DayOfWeek( int year, int month, int day);
 #endif
