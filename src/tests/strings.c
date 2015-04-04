@@ -43,8 +43,8 @@ void test_createString()
     if( strcmp( string1, dynamic_string1 ) != 0) errors++;
     if( strcmp( string2, dynamic_string2 ) != 0) errors++;
     if( errors ) exit(1);
-    free( dynamic_string1);
-    free( dynamic_string2);
+//    free( dynamic_string1);
+  //  free( dynamic_string2);
 
 }
 
@@ -152,7 +152,7 @@ int main(int argc, char** argv)
 
     };
     run_tests(tests,10);
-
+    DBG("about to LIB_Unint()");
     LIB_Uninit();
 
     return 0;

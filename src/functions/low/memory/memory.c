@@ -15,6 +15,7 @@ struct Address {
 // track this buffer as being allocated by MEM_Alloc.
 static void track_buffer(void* buffer)
 {
+      DBG("track_buffer enter");
       if( mem_addrs == NULL )
       {
         mem_addrs = malloc( sizeof( struct Address ));
@@ -38,6 +39,7 @@ static void track_buffer(void* buffer)
         mem_addrs->next = tmp;
 
       }
+      DBG("track_buffer exit");
 }
 
 void* MEM_Alloc(size_t size)
@@ -88,6 +90,7 @@ void print_tracked()
   }
 }
 
+// frees the struct from memeory
 static void remove_link(struct Address* current)
 {
     if( current == first )
@@ -133,6 +136,7 @@ void MEM_DeAllocAll()
 
   while( addr != NULL )
   { 
+      DBG("DealoccingAll:  buffer %p", addr->mem_loc);
         free(addr->mem_loc);
         struct Address* toRemove = addr;
         addr = addr->next;
@@ -180,7 +184,7 @@ bool MEM_DeAlloc(void* buffer, char* buffer_name)
      return false;
   }
     
-   
+    DBG("happy ro dealloc %p", buffer);   
   free(buffer);
   remove_link(found_buffer);
   return true;

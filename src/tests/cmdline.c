@@ -75,7 +75,10 @@ void test_CMD_AddArgument()
     struct Argument* arg4 = createNewArgument("setit2", "set it", true, true, setit2);
     struct Argument* arg5 = createNewArgument("part1", "setup part one to something", true, true, part1);
     struct Argument* arg6 = createNewArgument("needvaluearg", "setup part one to something", true, true, needvaluearg);
+    DBG("hello");
     struct Argument* arg7 = createNewArgument("two-part", "hyphenated arg name", true, true, two_part_function);
+    DBG("hello2");
+
 
 
     CMD_AddArgument(arg1);

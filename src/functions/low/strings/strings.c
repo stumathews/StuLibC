@@ -59,7 +59,7 @@ char* STR_Without(char* without, char* source)
     // "Stuart Mathews" becomes "Stuart" without " Mathews"
     short withoutLength = strlen(without);
     short sourceLength = strlen(source);
-    char* buffer = (char*) malloc(sizeof(char) * (sourceLength +1));
+    char* buffer = (char*) Alloc(sizeof(char) * (sourceLength +1));
     MEM_CheckAllocated(buffer, "buffer", __FILE__,__LINE__);
     strcpy(buffer, source);
     char* occurance;
@@ -98,7 +98,7 @@ char* STR_FromLast(char* lookfor, char* string, char* result_buffer)
 {
     short lookForLength = strlen(lookfor);
     short stringLength = strlen(string);
-    char* buffer = (char*) malloc(sizeof(char) * (stringLength +1));
+    char* buffer = (char*) Alloc(sizeof(char) * (stringLength +1));
     MEM_CheckAllocated(buffer,"buffer",__FILE__, __LINE__);
     // copy into a backup buffer for local modification
     strcpy(buffer,string);
@@ -117,7 +117,7 @@ char* STR_FromLast(char* lookfor, char* string, char* result_buffer)
 
 char* STR_Join(char* s1, char* s2)
 {
-  char *s0 = malloc(strlen(s1)+strlen(s2)+1);
+  char *s0 = Alloc(strlen(s1)+strlen(s2)+1);
   strcpy(s0, s1);
   strcat(s0, s2);
    return s0;
@@ -145,8 +145,6 @@ bool STR_IsAlpha(char* string, int size)
 	DBG("Entering %s() with string as '%s' and size is %d",__func__, string, size);
 	for( int i = 0; i < size ; i++)
 	{
-		DBG("testing char '%c'",string[i]);
-		
 		if( !(islower(string[i]) || isupper(string[i])) )
 		{
 		 	isAlphaString = false; break;

@@ -55,12 +55,14 @@ struct Argument* find(char* name)// find the argument that was registered - ie t
 void CMD_AddArgument(struct Argument* argument) // public interface that the user calls to register an argument
 {
     if(last_alloc_memory == NULL) {
-        last_alloc_memory = (struct memory*) malloc(sizeof(struct memory));
+        DBG("Alloc'ing");
+        last_alloc_memory = (struct memory*) Alloc(sizeof(struct memory));
         last_alloc_memory->argument = argument;
         last_alloc_memory->next = NULL;
         first_alloc_memory = last_alloc_memory;
+        DBG("done allocing");
     } else {
-        struct memory* tmp = (struct memory*) malloc(sizeof(struct memory));
+        struct memory* tmp = (struct memory*) Alloc(sizeof(struct memory));
         last_alloc_memory->next = tmp;
         tmp->argument = argument;
         tmp->next = NULL;
@@ -91,8 +93,8 @@ bool push_into_pipe(char* arg, char* next_part)   // determine what type of part
 
     short argLength = strlen(arg);
     short nextArgLength = strlen(next_part);
-    char* tmpArg = (char*) malloc(SIZEOFCHAR * argLength +1);
-    char* tmpNextArg = (char*) malloc(SIZEOFCHAR * nextArgLength +1);
+    char* tmpArg = (char*) Alloc(SIZEOFCHAR * argLength +1);
+    char* tmpNextArg = (char*) Alloc(SIZEOFCHAR * nextArgLength +1);
     
     // Prepare space
     strcpy(tmpArg, arg);
@@ -108,7 +110,7 @@ bool push_into_pipe(char* arg, char* next_part)   // determine what type of part
         pipe_line[ARG_NAME] = tmpArgName;
         //check if the name is attached to a value indicated by a value indicator.(help=something)
         if( STR_Contains("=\0",tmpArg) &&  !STR_EndsWith("=\0",tmpArg)) {
-            char* tmpValue = (char*) malloc(SIZEOFCHAR * (strlen(tmpArg) - strlen(indicator) - 1)); // extract the value as in "something" from help=something
+            char* tmpValue = (char*) Alloc(SIZEOFCHAR * (strlen(tmpArg) - strlen(indicator) - 1)); // extract the value as in "something" from help=something
             pipe_line[VALUE] = STR_FromLast("=",tmpArg,tmpValue);
             tmpArgName = STR_Without("=", tmpArgName);
             tmpArgName = STR_Without(pipe_line[VALUE], tmpArgName);
