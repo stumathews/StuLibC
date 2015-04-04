@@ -9,9 +9,9 @@ clock_t TIME_StartCPURecord()
   return clock();
 }
 
-clock_t TIME_StopCPURecord()
+clock_t TIME_StopCPURecord(clock_t startTime)
 {
-  return TIME_StartCPURecord(); // just returns a clock_t structure representing the current time.
+  return TIME_GetCPUTimeTakenInSeconds( startTime, TIME_StartCPURecord());
 }
 
 clock_t TIME_GetCPUTimeTakenInSeconds(clock_t startTime, clock_t endTime)
