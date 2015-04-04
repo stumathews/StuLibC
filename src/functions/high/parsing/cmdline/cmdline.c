@@ -6,6 +6,7 @@
 #include <debugging.h>
 #include <memory.h>
 #include <safetychecking.h>
+#include <ctype.h>
 
 struct memory { // In memory linked list holding all registered arguments user submits via addArgument*() functions
     struct Argument* argument;
@@ -14,6 +15,12 @@ struct memory { // In memory linked list holding all registered arguments user s
 
 struct memory* last_alloc_memory = NULL;
 struct memory* first_alloc_memory = NULL;
+static const char* indicators[] = {"--","-","/",NULL};
+
+char* CMD_GetIndicators()
+{
+    return (char**) indicators;
+}
 
 void CMD_Uninit() // Frees the im-memory linked list holing all registered arguments.
 {
@@ -25,11 +32,16 @@ void CMD_Uninit() // Frees the im-memory linked list holing all registered argum
     }
 }
 
-void print_memory_map() // debugging utility to print pipe_line
+void CMD_ShowUsages(char* tagline) // debugging utility to print pipe_line
 {
     struct memory* node = first_alloc_memory;
     struct Argument* found = NULL;
+    printf("%s\n",tagline);
+    printf( "Options:\n");
     while(node!=NULL) {
+    char* display_name = (!STR_IsNullOrEmpty(node->argument->display) ? node->argument->display :  node->argument->name);
+    char* description = node->argument->description;
+        printf("  --%-23s%s\n", display_name, description);
         DBG("Name:%s, Description: %s\n",node->argument->name, node->argument->description);
         node = node->next;
         if(node == NULL) DBG("Last node reached.\n");
@@ -86,10 +98,22 @@ static void clear_pipe() // reset pipe array structure/variable
     pipe_line[VALUE] = NULL;
 }
 
+struct Argument* CMD_CreateNewArgument( char* name, char* display, char* description, bool isMandatory, bool isValueMandatory, void (*handler)(char* arg))
+{
+    struct Argument* newArgument = (struct Argument*) malloc( sizeof(struct Argument) );
+    strcpy(newArgument->name,name);
+    strcpy(newArgument->display, display);
+    strcpy(newArgument->description,description);
+    newArgument->isMandatory = isMandatory;
+    newArgument->isValueMandatory = isValueMandatory;
+    newArgument->handler = handler;
+    return newArgument;
+}
+
 bool push_into_pipe(char* arg, char* next_part)   // determine what type of part this is. Returns true if a fully formed pipe is created.
 {
     CHECK_STRING( arg, IS_NOT_EMPTY );
-    CHECK_STRING( next_part, IS_NOT_EMPTY);
+    //CHECK_STRING( next_part, IS_NOT_EMPTY);
 
     short argLength = strlen(arg);
     short nextArgLength = strlen(next_part);
@@ -104,9 +128,13 @@ bool push_into_pipe(char* arg, char* next_part)   // determine what type of part
     
     // Determine if this is the beginning of a new argument
     indicator = STR_BeginsWithEither(indicators,tmpArg);
-    if(!(STR_IsNullOrEmpty(indicator))) {
+    DBG("indicator is %s", indicator);
+    
+    if(!(STR_IsNullOrEmpty(indicator))) 
+    {
         pipe_line[ARG_INDICATOR] = indicator;
         char* tmpArgName = STR_Without(indicator, tmpArg); // such that --help becomes help or help=something
+        DBG("arg is %s", tmpArgName);
         pipe_line[ARG_NAME] = tmpArgName;
         //check if the name is attached to a value indicated by a value indicator.(help=something)
         if( STR_Contains("=\0",tmpArg) &&  !STR_EndsWith("=\0",tmpArg)) {
@@ -117,10 +145,18 @@ bool push_into_pipe(char* arg, char* next_part)   // determine what type of part
             pipe_line[ARG_NAME] = tmpArgName;
             return finish_pipe();
         }
-        if(!STR_IsNullOrEmpty(STR_BeginsWithEither(indicators, tmpNextArg)))  // if the next argument that will be sent to us is a arg indicator, then this pipe is finished.
+        DBG("tmpNextArgs is %s", tmpNextArg);
+       
+        if(!STR_IsNullOrEmpty(STR_BeginsWithEither(indicators, tmpNextArg)) || STR_IsNullOrEmpty(tmpNextArg))  // if the next argument that will be sent to us is a arg indicator, then this pipe is finished.
+        {
+            DBG("Finishing pipe");
             return finish_pipe();
+        }
         else
+        {
+            DBG("pip not finished");
             return false;
+        }
     } else { // this is a value, this indicates the end of a pipe, thus it is finished
         pipe_line[VALUE] = tmpArg;
         return finish_pipe();
@@ -134,31 +170,60 @@ void print_pipe_line()
 
 void CMD_Parse(int argc,char** argv)
 {
-    for(int i = 0; i < argc; i++) {
+    for(int i = 0; i < argc; i++) 
+    {
+        DBG("parsing %s\n", argv[i]);
+        
         struct Argument* arg = NULL;
         char* peek_next = i+1 < argc ? argv[i+1]:"";
-        
-        if( strcmp(peek_next,"") == 0 )
-        	continue;
-        	
-        if(push_into_pipe(argv[i],peek_next) == true) { // if pipe full(true), interpret argunent and find it in stored list of registered arguments(in-memory map)
-            struct Argument* argument = find(pipe_line[ARG_NAME]);
-            if(argument != NULL) { // we found a matching registerd argument.
-                char* value = NULL;
-                if(pipe_line[VALUE] != NULL)
-                    value = pipe_line[VALUE]; // get the argument's value out of the pipe line...
-                if(argument->isValueMandatory && STR_IsNullOrEmpty(pipe_line[VALUE])) {
-                    DBG("Argument '%s' expects a value but none was provided.\n",argument->name);
-                    continue;
-                }
-                if(argument->handler == NULL) continue;
-								DBG("pipe_line[VALUE] = '%s'",pipe_line[VALUE]);
-                argument->handler(value); // fire off the user's event for handling this argument
-            } else {
-                DBG("Could not find argument Pipe [%s|%s|%s|%s]\n", pipe_line[ARG_INDICATOR],pipe_line[ARG_NAME],pipe_line[VALUE_INDICATOR],pipe_line[VALUE]);
-            }
-            clear_pipe();// move on to getting the next argument from cmdline
+        char* arg_name = argv[i];
+
+        // skip to next argument if this is empty
+        if( strcmp(arg_name,"") == 0 ) continue;
+       
+        bool pushResult = push_into_pipe(arg_name, peek_next);
+        bool isPipeReady = pushResult == true;
+
+        if(isPipeReady) 
+        { 
+            // gets the argument from the pipe and finds it in the registered arguments. Also runs the argument handler
+            interpretArgInPipe(arg);
         }
     }
 }
 
+void interpretArgInPipe(struct Argument* arg)
+{
+    // if ipe full(true), interpret argunent and find it in stored list of registered arguments(in-memory map)
+    struct Argument* argument = find(pipe_line[ARG_NAME]);
+    if(argument != NULL) 
+    {
+        // we found a matching registerd argument.
+        char* value = NULL;
+        if(pipe_line[VALUE] != NULL)
+            value = pipe_line[VALUE]; // get the argument's value out of the pipe line...
+             
+            if(argument->isValueMandatory && STR_IsNullOrEmpty(pipe_line[VALUE]))
+            {
+                printf("Error: Argument '%s' expects a value but none was provided.\n",argument->name);
+                return;
+            }
+                
+            if(argument->handler != NULL)
+            {
+                DBG("pipe_line[VALUE] = '%s'",pipe_line[VALUE]);
+
+                argument->handler(value); // fire off the user's event for handling this argument
+            }
+            else
+            {
+                return;
+            }
+    } 
+    else
+    {
+        DBG("Could not find argument Pipe [%s|%s|%s|%s]\n", pipe_line[ARG_INDICATOR],pipe_line[ARG_NAME],pipe_line[VALUE_INDICATOR],pipe_line[VALUE]);
+    }
+
+    clear_pipe();// move on to getting the next argument from cmdline
+}

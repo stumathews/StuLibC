@@ -18,6 +18,7 @@ void help(char* value)
  if( STR_IsNullOrEmpty(value) )
  {    
   help_function_ran_ok = true;
+  printf("help!\n");
  }
 }
 
@@ -75,12 +76,7 @@ void test_CMD_AddArgument()
     struct Argument* arg4 = createNewArgument("setit2", "set it", true, true, setit2);
     struct Argument* arg5 = createNewArgument("part1", "setup part one to something", true, true, part1);
     struct Argument* arg6 = createNewArgument("needvaluearg", "setup part one to something", true, true, needvaluearg);
-    DBG("hello");
     struct Argument* arg7 = createNewArgument("two-part", "hyphenated arg name", true, true, two_part_function);
-    DBG("hello2");
-
-
-
     CMD_AddArgument(arg1);
     CMD_AddArgument(arg2);
     CMD_AddArgument(arg3);
@@ -88,7 +84,6 @@ void test_CMD_AddArgument()
     CMD_AddArgument(arg5);
     CMD_AddArgument(arg6);
     CMD_AddArgument(arg7);
-
 
 }
 void test_CMD_AddArguments()
@@ -99,7 +94,7 @@ void test_CMD_Parse()
 {
 DBG("In test_CND_Parse\n");
 
-    char* arguments[] = {"--two-part","--help","-exit","/name=1","-setit2=one","-part1","part1_answer","--needvaluearg","",NULL};
+    char* arguments[] = {"--help","--two-part","-exit","/name=1","-setit2=one","-part1","part1_answer","--needvaluearg","",NULL};
 
     int num_args = 0;
     for( num_args = 0; arguments[num_args] != NULL; num_args++);
@@ -117,13 +112,20 @@ DBG("just after Parse\n");
     assert(needvaluearg_function_ran_ok == false); // we dont expect this function to run as no argument is provided
 }
 
+void test_CMD_ShowUsages()
+{
+    CMD_ShowUsages("Usage: test");
+}
+
 int main(int argc, char* argv[])
 {
     struct TestDefinition tests[] = { test_CMD_AddArguments, "test_CMD_ADDArguments",
         test_CMD_AddArgument, "test_CMD_ADDArgument",
-        test_CMD_Parse, "test_CMD_Parse"
+        test_CMD_Parse, "test_CMD_Parse",
+        test_CMD_ShowUsages, "test_CMD_ShowUsages"
+
     };
-    run_tests(tests,3);
+   run_tests(tests,4);
 
     CMD_Uninit();
     return 0;

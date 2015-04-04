@@ -18,7 +18,8 @@ bin_PROGRAMS	= cmdline \
 				  vrs \
 				  vrc \
 				  listen \
-				  say
+				  say \
+				  cmd
 
 #Build a test harness program
 
@@ -41,6 +42,9 @@ listen_LDADD = $(top_builddir)/src/libstu.la
 
 say_SOURCES = standalone/say.c
 say_LDADD = $(top_builddir)/src/libstu.la 
+
+cmd_SOURCES = standalone/cmd.c
+cmd_LDADD = $(top_builddir)/src/libstu.la 
 
 udpserver_SOURCES = udpserver.c
 udpserver_LDADD = $(top_builddir)/src/libstu.la 
