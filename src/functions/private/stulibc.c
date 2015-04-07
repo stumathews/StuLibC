@@ -9,4 +9,5 @@ LIBRARY_API void LIB_Uninit()
 {
     DBG("Uninitializing library.");
     MEM_DeAllocAll();
+    CMD_Uninit();
 }
