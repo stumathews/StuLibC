@@ -101,7 +101,7 @@ DBG("In test_CND_Parse\n");
     ;
 
 DBG("just before Parse()\n");
-    CMD_Parse(num_args,arguments);
+    CMD_Parse(num_args,arguments,false);
 
 DBG("just after Parse\n");
     assert(help_function_ran_ok == true);

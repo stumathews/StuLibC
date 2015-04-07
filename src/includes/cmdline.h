@@ -45,10 +45,11 @@ LIBRARY_API void CMD_AddArgument( struct Argument* argument );
  *
  * \param argc int the number of argument strings passed in
  * \param argv char** the pointer to an array of strings that represent the raw string arguments
+ * \param skip_first_arg bool indicates if we should skip processing the first arg - in most cases is the name of a program
  * \return LIBRARY_API void
  *
  */
-LIBRARY_API void CMD_Parse(int argc, char** argv);
+LIBRARY_API void CMD_Parse(int argc, char** argv, bool skip_first_arg);
 
 /** \brief Shows a tag line and then all the arguments registered
  *

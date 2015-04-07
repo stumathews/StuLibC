@@ -228,10 +228,14 @@ void print_pipe_line()
 }
 
 // Take each argument string passed in put it into the pipe line so as incrementally create a full argument such as "--help=something" into its seperate parts
-void CMD_Parse(int argc,char** argv)
+void CMD_Parse(int argc,char** argv, bool skip_first_arg)
 {
     for(int i = 0; i < argc; i++) 
     {
+        
+        if( skip_first_arg && i == 0 )
+            continue;
+
         struct Argument* arg = NULL;
         char* peek_next = i+1 < argc ? argv[i+1]:"";
         char* arg_name = argv[i];
@@ -291,6 +295,7 @@ void interpretArgInPipe()
     else
     {
         DBG("Could not find argument Pipe [%s|%s|%s|%s]\n", pipe_line[ARG_INDICATOR],pipe_line[ARG_NAME],pipe_line[VALUE_INDICATOR],pipe_line[VALUE]);
+        printf("Could find argument '%s'\n", pipe_line[ARG_NAME]);
     }
 
     clear_pipe();// move on to getting the next argument from cmdline, and clear the contents of the assembly line(pipeline)

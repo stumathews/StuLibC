@@ -32,13 +32,15 @@ int main( int argc, char** argv )
     if( argc > 1 )
     {
         // Parse and execute handler functions for arguments provided in argv
-        CMD_Parse(argc, argv);
+        CMD_Parse(argc, argv,true);
     }
     else
     {
         // Prints usage with tagline
         CMD_ShowUsages(tagline);
     }
+
+//    LIB_Uninit();
 
 }
 
