@@ -29,7 +29,7 @@ void test_Alloc()
       void* buffer = alloc( SIZEOFINT);
   }
   assert(  MEM_GetTrackedCount() == 13);
-  print_tracked();
+  //print_tracked();
 }
 
 void test_DeAlloc()

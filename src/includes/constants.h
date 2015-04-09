@@ -32,11 +32,13 @@ The constants we use are here
 # define LIBRARY_API	extern
 #endif
 
-
+/*not sure i like this, perhaps if WINDOWS_H exits is a better option...*/
+#if HAVE_WINSOCK2_H == 0
 #define true 1
 #define TRUE true
 #define false 0
 #define FALSE false
+#endif
 
 #define null NULL
 

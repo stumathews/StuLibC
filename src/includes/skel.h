@@ -18,7 +18,7 @@
  * Basic abstraction layer routines for tcp programming across linux and windows
  * */
 
-#ifndef HAVE_WINSOCK2_H
+#ifdef HAVE_WINSOCK2_H
 
 /* UNIX version */
 
@@ -33,10 +33,7 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 
-#define INIT()			( program_name = \
-						strrchr( argv[ 0 ], '/' ) ) ? \
-						program_name++ : \
-						( program_name = argv[ 0 ] )
+#define INIT()			( )
 #define EXIT(s)			exit( s )
 #define CLOSE(s)		if ( close( s ) ) error( 1, errno, \
 						"close failed" )
@@ -49,6 +46,7 @@ typedef int SOCKET;
 
 #include <winsock2.h>
 #include <windows.h>
+#include <Ws2tcpip.h>
 
 struct timezone
 {
@@ -69,6 +67,27 @@ typedef unsigned int u_int32_t;
 #define bzero(b,n)		memset( ( b ), 0, ( n ) )
 #define sleep(t)		Sleep( ( t ) * 1000 )
 #define WINDOWS
+
+
+inline void init( char **argv )
+{
+	WSADATA wsadata;
+	
+	WSAStartup( MAKEWORD( 2, 2 ), &wsadata );
+}
+
+/* inet_aton - version of inet_aton for SVr4 and Windows */
+inline int inet_aton( char *cp, struct in_addr *pin )
+{
+    int rc;
+	 
+	rc = inet_addr( cp );
+	if ( rc == -1 && strcmp( cp, "255.255.255.255" ) )
+		return 0;
+	pin->s_addr = rc;
+	return 1;
+}
+
 
 #endif /* HAVE_WINSOCK2_H */
 
