@@ -32,11 +32,10 @@
 #define NSMB			5		/* number shared memory bufs */
 #define SMBUFSZ			256		/* size of shared memory buf */
 
-extern char *program_name;		/* for error */
-
 #ifdef __SVR4
 #define bzero(b,n)	memset( ( b ), 0, ( n ) )
 #endif 
+
 
 typedef void ( *tofunc_t )( void * );
 
@@ -49,7 +48,7 @@ typedef void ( *tofunc_t )( void * );
  * \return void 
  *
  */
-void error( int status, int err, char* fmt, ... );
+LIBRARY_API void error( int status, int err, char* fmt, ... );
 
 /** \brief Read and wait for len bytes on socket
  *
@@ -59,7 +58,7 @@ void error( int status, int err, char* fmt, ... );
  * \return int number of bytes read, or -1 on error 
  *
  */
-int readn( SOCKET s, char* buf, size_t len );
+LIBRARY_API int readn( SOCKET s, char* buf, size_t len );
 
 /** \brief Read variable records (expects first data read to be size of remaining data)
  *
@@ -69,9 +68,9 @@ int readn( SOCKET s, char* buf, size_t len );
  * \return int number of bytes read, or -1 on error 
  *
  */
-int readvrec( SOCKET s, char* buf, size_t len );
-int readcrlf( SOCKET, char *, size_t );
-int readline( SOCKET, char *, size_t );
+LIBRARY_API int readvrec( SOCKET s, char* buf, size_t len );
+LIBRARY_API int readcrlf( SOCKET, char *, size_t );
+LIBRARY_API int readline( SOCKET, char *, size_t );
 
 /** \brief Set up for tcp server: get tcp socket, bound to hname:sname and returns socket.
  *
@@ -80,7 +79,7 @@ int readline( SOCKET, char *, size_t );
  * \return socket configuured to listen on hname host and sname port 
  *
  */
-int tcp_server( char* hname, char* sname );
+LIBRARY_API SOCKET tcp_server( char* hname, char* sname );
 
 /** \brief Set up for tcp client socket, then connect to it and return socket
  *
@@ -89,7 +88,7 @@ int tcp_server( char* hname, char* sname );
  * \return socket that represents the established connection  
  *
  */
-int tcp_client( char* hname, char* sname );
+LIBRARY_API SOCKET tcp_client( char* hname, char* sname );
 
 /** \brief Set up for udp server: get udp socket bound to hname:sname
  *
@@ -98,7 +97,7 @@ int tcp_client( char* hname, char* sname );
  * \return socket that represents hname host and sname port 
  *
  */
-int udp_server( char* hname, char* sname );
+LIBRARY_API SOCKET udp_server( char* hname, char* sname );
 
 /** \brief Set up for udp client: get a udp socket and fill address to use(this never blocks)
  *
@@ -108,7 +107,7 @@ int udp_server( char* hname, char* sname );
  * \return a raw simple udp socket  
  *
  */
-int udp_client( char* hname, char* sname, struct sockaddr_in* sap );
+LIBRARY_API SOCKET udp_client( char* hname, char* sname, struct sockaddr_in* sap );
 
 int tselect( int, fd_set *, fd_set *, fd_set *);
 unsigned int timeout( tofunc_t, void *, int );
@@ -128,5 +127,6 @@ void *smbrecv( SOCKET );
  * \return void the pointer sap will be filled up and available to caller
  *
  */
-void set_address( char* hname, char* sname, struct sockaddr_in* sap, char* protocol );
+LIBRARY_API void set_address( char* hname, char* sname, struct sockaddr_in* sap, char* protocol );
+
 #endif  /* __ETCP_H__ */
