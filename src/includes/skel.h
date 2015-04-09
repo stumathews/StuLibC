@@ -18,7 +18,7 @@
  * Basic abstraction layer routines for tcp programming across linux and windows
  * */
 
-#ifdef HAVE_WINSOCK2_H
+#ifndef HAVE_WINSOCK2_H
 
 /* UNIX version */
 
@@ -33,7 +33,7 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 
-#define INIT()			( )
+#define INIT()			
 #define EXIT(s)			exit( s )
 #define CLOSE(s)		if ( close( s ) ) error( 1, errno, \
 						"close failed" )
