@@ -9,7 +9,7 @@ AC_PROG_LIBTOOL
 AC_CHECK_HEADERS([sys/socket.h])
 AC_CHECK_HEADERS([winsock2.h])
 AC_CHECK_HEADERS([windows.h])
-AC_CHECK_LIB([w2_32],[main])
+AC_CHECK_LIB([ws2_32],[main])
 LIBSTU_DLL_IMPORT=
 case "$host" in
 	*-*-cygwin | *-*-mingw )
