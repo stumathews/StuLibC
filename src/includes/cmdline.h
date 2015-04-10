@@ -33,6 +33,8 @@ struct Argument
 
 };
 
+enum ParseResult { EXPECTED_VALUE, NO_HANDLER, PARSE_SUCCESS  };
+
 /** \brief Add a single argument to be tracked by the library.
  *
  * \param argument struct NewArgument* a single argument
@@ -49,7 +51,7 @@ LIBRARY_API void CMD_AddArgument( struct Argument* argument );
  * \return LIBRARY_API void
  *
  */
-LIBRARY_API void CMD_Parse(int argc, char** argv, bool skip_first_arg);
+LIBRARY_API enum ParseResult CMD_Parse(int argc, char** argv, bool skip_first_arg);
 
 /** \brief Shows a tag line and then all the arguments registered
  *
