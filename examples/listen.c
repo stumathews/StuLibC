@@ -1,6 +1,4 @@
-#include <etcp.h>
-#include <logging.h>
-#include <debugging.h>
+#include <stulibc.h>
 
 char *program_name;
 
@@ -11,10 +9,22 @@ static void server( SOCKET s, struct sockaddr_in *peerp )
     int rc =  readline(s, buf,256);
     LOG("Received data:%s",buf);
 }
+static char port[20] = {0};
+
+void setPortNumber(char* arg)
+{
+    CHECK_STRING(arg, IS_NOT_EMPTY);
+    strncpy( port, arg, strlen(arg));
+}
 
 /* main - TCP setup, listen, and accept */
 int main( int argc, char **argv )
 {
+    LIB_Init();
+
+    struct Argument* portNumber = CMD_CreateNewArgument("port","port <number>","Set the port that the server will listen on", true, true, setPortNumber);
+    CMD_AddArgument(portNumber);
+
 	struct sockaddr_in local;
 	struct sockaddr_in peer;
 	char *hname;
@@ -28,11 +38,21 @@ int main( int argc, char **argv )
     FD_SET(s, &readfds);
     struct timeval timeout = {.tv_sec = 60, .tv_usec=0}; 
 
+    if( argc > 1 )
+        CMD_Parse(argc,argv,true);
+    else
+    {
+        CMD_ShowUsages("listen <options>");
+        exit(0);
+    }
+
+
 	INIT();
 
     // get a socket, bound to this address thats configured to listen.
     // NB: This is always ever non-blocking 
-    s = tcp_server("localhost","9000");
+
+    s = tcp_server("localhost",port);
 
 
 	do
@@ -43,12 +63,12 @@ int main( int argc, char **argv )
         if( res == 0 )
         {
             LOG( "timeout");
-            error(1,errno,"timeout!");
+            netError(1,errno,"timeout!");
         }
         else if( res == -1 )
         {
             LOG("Select error!");
-            error(1,errno,"select error!!");
+            netError(1,errno,"select error!!");
         }
         else
         {
@@ -67,11 +87,13 @@ int main( int argc, char **argv )
         DBG("done");
 
 		if ( !isvalidsock( s1 ) )
-			error( 1, errno, "accept failed" );
+			netError( 1, errno, "accept failed" );
 
         // do network functionality on this socket that now represents a connection with the peer (client) 
 		server( s1, &peer );
 		CLOSE( s1 );
 	} while ( 1 );
+
+    LIB_Uninit();
 	EXIT( 0 );
 }

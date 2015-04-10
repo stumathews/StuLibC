@@ -79,6 +79,9 @@ etc.
 #include <constants.h>
 #include <memory.h>
 #include <cmdline.h>
+#include <etcp.h>
+#include <logging.h>
+#include <safetychecking.h>
 // .. include others for an all-includeive #incude <libstu.h> to pull in all functions
 
 LIBRARY_API void LIB_Init();

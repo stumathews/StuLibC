@@ -13,7 +13,7 @@ int main( int argc, char **argv )
 	s = tcp_server( "localhost", "9000" );
 	s1 = accept( s, ( struct sockaddr * )&peer, &peerlen );
 	if ( !isvalidsock( s1 ) )
-		error( 1, errno, "accept failed" );
+		netError( 1, errno, "accept failed" );
 
     // connection made and accepted, keep reading on the socket
     // and writing to stdout the data we get
@@ -25,9 +25,9 @@ int main( int argc, char **argv )
         // the data will be written into buf
 		n = readvrec( s1, buf, sizeof( buf ) );
 		if ( n < 0 )
-			error( 0, errno, "readvrec returned error" );
+			netError( 0, errno, "readvrec returned error" );
 		else if ( n == 0 )
-			error( 1, 0, "client disconnected\n" );
+			netError( 1, 0, "client disconnected\n" );
 		else
 			write( 1, buf, n ); // Write the bytes that were put into buf
 	}

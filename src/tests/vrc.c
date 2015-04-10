@@ -25,7 +25,7 @@ int main( int argc, char **argv )
 
         // send the length and data to the server
 		if ( send( s, ( char * )&packet, n + sizeof( packet.reclen ), 0 ) < 0 )
-			error( 1, errno, "send failure" );
+			netError( 1, errno, "send failure" );
 	}
 	EXIT( 0 );
 }

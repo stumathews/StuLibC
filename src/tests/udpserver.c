@@ -15,11 +15,11 @@ static void server( SOCKET s, struct sockaddr_in *localp )
 
         // receive 1 bit from client/peer
         if( recvfrom( s, buf, sizeof(buf),0, (struct sockaddr*) &peer, &peerlen) < 0)
-            error(1, errno, "recvfrom failed");
+            netError(1, errno, "recvfrom failed");
 
         // send string data to peer(client) 
         if( sendto( s, "Hello World\n",13,0, (struct sockaddr*) &peer, peerlen) < 0)
-            error( 1, errno, "sendto failed");
+            netError( 1, errno, "sendto failed");
     }
 }
 

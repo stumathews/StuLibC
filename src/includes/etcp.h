@@ -48,7 +48,7 @@ typedef void ( *tofunc_t )( void * );
  * \return void 
  *
  */
-LIBRARY_API void error( int status, int err, char* fmt, ... );
+LIBRARY_API void netError( int status, int err, char* fmt, ... );
 
 /** \brief Read and wait for len bytes on socket
  *

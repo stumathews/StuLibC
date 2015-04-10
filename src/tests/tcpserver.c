@@ -32,7 +32,7 @@ int main( int argc, char **argv )
         // wait/block on this listening socket...
 		s1 = accept( s, ( struct sockaddr * )&peer, &peerlen );
 		if ( !isvalidsock( s1 ) )
-			error( 1, errno, "accept failed" );
+			netError( 1, errno, "accept failed" );
         // do network functionality on this socket that now represents a connection with the peer (client) 
 		server( s1, &peer );
 		CLOSE( s1 );

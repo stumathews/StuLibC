@@ -3,7 +3,7 @@
 
 char *program_name;
 
-void error( int status, int err, char *fmt, ... )
+void netError( int status, int err, char *fmt, ... )
 {
 	va_list ap;
 
