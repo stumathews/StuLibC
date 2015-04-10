@@ -10,7 +10,7 @@ int main( int argc, char **argv )
 	char buf[ 10 ];
 
 	INIT();
-	s = tcp_server( "localhost", "9000" );
+	s = netTcpServer( "localhost", "9000" );
 	s1 = accept( s, ( struct sockaddr * )&peer, &peerlen );
 	if ( !isvalidsock( s1 ) )
 		netError( 1, errno, "accept failed" );
@@ -23,7 +23,7 @@ int main( int argc, char **argv )
         // it will be at most 10 bytes long
         // and we'll wait for it to be that if its not...
         // the data will be written into buf
-		n = readvrec( s1, buf, sizeof( buf ) );
+		n = netReadVRec( s1, buf, sizeof( buf ) );
 		if ( n < 0 )
 			netError( 0, errno, "readvrec returned error" );
 		else if ( n == 0 )

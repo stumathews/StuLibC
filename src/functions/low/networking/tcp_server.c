@@ -1,7 +1,7 @@
 #include <etcp.h>
 
 /* tcp_server - set up for a TCP server */
-SOCKET tcp_server( char *hname, char *sname )
+SOCKET netTcpServer( char *hname, char *sname )
 {
     // This will hold the address that the server will use to listen on
 	struct sockaddr_in local;
@@ -10,7 +10,7 @@ SOCKET tcp_server( char *hname, char *sname )
 	const int on = 1;
 
     // Construct the address : fill in the sockaddr_in structure
-	set_address( hname, sname, &local, "tcp" );
+	netSetAddress( hname, sname, &local, "tcp" );
     
     // Obtain a socket for the server
 	s = socket( AF_INET, SOCK_STREAM, 0 );
@@ -30,7 +30,7 @@ SOCKET tcp_server( char *hname, char *sname )
     // set listen state  on the socket, which is now bound to the address mentioned in sockaddr_in
     // Note: This only sets the socket state to listening, this doesn't block;
 	if ( listen( s, NLISTEN ) )
-		error( 1, errno, "listen failed" );
+		netError( 1, errno, "listen failed" );
 
     // Socket  
 	return s;

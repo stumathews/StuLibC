@@ -6,7 +6,7 @@ static char port[20] = {0};
 static void server( SOCKET s, struct sockaddr_in *peerp )
 {
     char buf[256];
-    int rc =  readline(s, buf,256);
+    int rc =  netReadLine(s, buf,256);
     LOG("Received data:%s",buf);
 }
 
@@ -56,7 +56,7 @@ int main( int argc, char **argv )
     // get a socket, bound to this address thats configured to listen.
     // NB: This is always ever non-blocking 
 
-    s = tcp_server("localhost",port);
+    s = netTcpServer("localhost",port);
 
 
 	do

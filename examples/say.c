@@ -43,7 +43,7 @@ int main( int argc, char **argv )
 	INIT();
     
     // Establish a connection(calls connect) and return the socket that represents that connection.
-	s = tcp_client("localhost",port);
+	s = netTcpClient("localhost",port);
     // call blocking network functions
     LOG("about to write");
 	client( s, &peer );

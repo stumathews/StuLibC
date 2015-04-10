@@ -12,7 +12,7 @@ int main( int argc, char **argv )
 
 	INIT();
 
-	s = tcp_client( "localhost", "9000" );
+	s = netTcpClient( "localhost", "9000" );
     // for each string we get from the keyboard, send it to the server. Put it into buffer
 	while ( fgets( packet.buf, sizeof( packet.buf ), stdin ) != NULL )
 	{

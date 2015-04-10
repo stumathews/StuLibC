@@ -35,7 +35,7 @@ int main( int argc, char **argv )
 	INIT();
 
     // get a raw udp socket for this address (NB: rmeember this is alwaysi ever non-blocking)
-    s = udp_client( "localhost", "9000", &peer);
+    s = netUdpClient( "localhost", "9000", &peer);
 
     // send/get data from upd socket (blocking functions)
 	client( s, &peer );

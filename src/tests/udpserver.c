@@ -34,7 +34,7 @@ int main( int argc, char **argv )
 	INIT();
 
     // get udp socket bound this this address
-    s = udp_server( hname, sname );
+    s = netUdpServer( hname, sname );
     // server loop
 	server( s, &local );
 	EXIT( 0 );

@@ -24,7 +24,7 @@ int main( int argc, char **argv )
 
     // get a socket, bound to this address thats configured to listen.
     // NB: This is always ever non-blocking 
-    s = tcp_server("localhost","9000");
+    s = netTcpServer("localhost","9000");
 
 	do
 	{

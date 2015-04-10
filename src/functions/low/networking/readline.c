@@ -1,7 +1,7 @@
 #include <etcp.h>
 
 /* readline - read a newline terminated record */
-int readline( SOCKET fd, char *bufptr, size_t len )
+int netReadLine( SOCKET fd, char *bufptr, size_t len )
 {
 	char *bufx = bufptr;
 	static char *bp;
