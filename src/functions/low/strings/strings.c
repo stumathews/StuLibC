@@ -131,7 +131,10 @@ char* STR_AppendStrings(char* first, char* second)
 
 bool STR_IsNullOrEmpty(char* string)
 {
-    if(string == NULL || strlen(string) == 0)
+    if( string == NULL )
+	return true;
+
+    if( strlen(string) == 0)
         return true;
     else
         return false;
