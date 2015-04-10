@@ -9,6 +9,8 @@ void exitf();
 
 char* logfilename = "cmd.log";
 
+void deletelog(char*);
+
 int main( int argc, char** argv )
 {
     LIB_Init();
@@ -20,6 +22,7 @@ int main( int argc, char** argv )
     struct Argument* arg1 = CMD_CreateNewArgument("help","", "Print usage", false, false, help);
     struct Argument* arg2 = CMD_CreateNewArgument("forward","", "Moves forward", false, false, forward); 
     struct Argument* arg3 = CMD_CreateNewArgument("forward-by","forward-by <number>", "Moves forward by num", false, true, forwardby);
+    struct Argument* arg5 = CMD_CreateNewArgument("delete-log","", "Deletes the log ", false, false, deletelog);
     struct Argument arg4 = (struct Argument){ 
                                               .name = "exit",
                                               .display="",
@@ -33,6 +36,7 @@ int main( int argc, char** argv )
     CMD_AddArgument(arg2);
     CMD_AddArgument(arg3);
     CMD_AddArgument(&arg4);
+    CMD_AddArgument(arg5);
 
     
 
@@ -80,4 +84,9 @@ void exitf()
 {
     DBG_WriteLineToFile("Showing exitf command", logfilename, MINOR);
     printf("Exit!\n");
+}
+
+void deletelog(char* arg)
+{
+    FILE_Delete( logfilename );
 }

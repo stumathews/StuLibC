@@ -1,23 +1,21 @@
 #include <stulibc.h>
 
 char *program_name;
+static char port[20] = {0};
 
-/* server - place holder for server */
 static void server( SOCKET s, struct sockaddr_in *peerp )
 {
     char buf[256];
     int rc =  readline(s, buf,256);
     LOG("Received data:%s",buf);
 }
-static char port[20] = {0};
 
-void setPortNumber(char* arg)
+static void setPortNumber(char* arg)
 {
     CHECK_STRING(arg, IS_NOT_EMPTY);
     strncpy( port, arg, strlen(arg));
 }
 
-/* main - TCP setup, listen, and accept */
 int main( int argc, char **argv )
 {
     LIB_Init();
@@ -39,7 +37,13 @@ int main( int argc, char **argv )
     struct timeval timeout = {.tv_sec = 60, .tv_usec=0}; 
 
     if( argc > 1 )
-        CMD_Parse(argc,argv,true);
+    {
+        enum ParseResult result = CMD_Parse(argc,argv,true);
+        if( result != PARSE_SUCCESS )
+            return 1;
+
+    
+    }
     else
     {
         CMD_ShowUsages("listen <options>");
