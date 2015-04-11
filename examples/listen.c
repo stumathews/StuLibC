@@ -7,7 +7,16 @@ static void server( SOCKET s, struct sockaddr_in *peerp )
 {
     char buf[256];
     int rc =  netReadLine(s, buf,256);
-    LOG("Received data:%s",buf);
+    PRINT("Received data:%s",buf);
+    for( int i = 0; i < 255;i++)
+    {
+        printf("[%d: %c]",i, buf[i]);
+
+        if( buf[i] == '\0')
+            printf("[\\0]");
+        else if( buf[i] == '\n' )
+            printf("[\\n]");
+    }
 }
 
 static void setPortNumber(char* arg)
@@ -33,7 +42,6 @@ int main( int argc, char **argv )
 	const int on = 1;
     fd_set readfds;
     FD_ZERO( &readfds);
-    FD_SET(s, &readfds);
     struct timeval timeout = {.tv_sec = 60, .tv_usec=0}; 
 
     if( argc > 1 )
@@ -58,6 +66,7 @@ int main( int argc, char **argv )
 
     s = netTcpServer("localhost",port);
 
+    FD_SET(s, &readfds);
 
 	do
 	{
