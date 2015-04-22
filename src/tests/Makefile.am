@@ -16,7 +16,8 @@ bin_PROGRAMS	= cmdline \
 				  udpserver \
 				  udpclient \
 				  vrs \
-				  vrc 
+				  vrc \
+                  stack 
 
 #Build a test harness program
 
@@ -29,7 +30,10 @@ uselib.o: uselib.c
 # Build tests - directly linking (not using the above @LIBSTU_DLL_IMPORT@
 
 TESTS=$(check_PROGRAMS)
-check_PROGRAMS= cmdline debugging strings files testing errors logging timing memory safetychecking uselib
+check_PROGRAMS= cmdline debugging strings files testing errors logging timing memory safetychecking uselib stack
+
+stack_SOURCES = stack.c
+stack_LDADD = $(top_builddir)/src/libstu.la 
 
 tcpserver_SOURCES = tcpserver.c
 tcpserver_LDADD = $(top_builddir)/src/libstu.la 
