@@ -2,7 +2,6 @@
 
 Stack* newStack(int size)
 {
-    /* NYI: better error checks */
     if (size < 5){
         size = 5;
     }
@@ -28,18 +27,18 @@ int getMax(Stack* stack)
 {
     return stack->max;
 }
+
 int isEmpty(Stack* stack)
 {
     if(stack->counter == 0)
         return 1;
     return 0;
 }
+
 void** resizeContainer(Stack* stack)
 {
-    /* NYI: error checks */
     void** tmpContainer = malloc(sizeof(void**) * stack->max * 2);
     memcpy( tmpContainer, stack->container, sizeof(void**)*stack->max);
-//    bcopy(stack->container, tmpContainer, sizeof(void**)*stack->max);
     stack->max *= 2;
     return tmpContainer;
 }
@@ -50,6 +49,7 @@ void trace(Stack* stack)
     for(i = stack->counter - 1; i >= 0; i--)
     printf("%d: %p \n", i, stack->container[i]);
 }
+
 int search(void* value, Stack* stack)
 {
     int i;
