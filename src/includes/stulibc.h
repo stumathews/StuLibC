@@ -82,6 +82,10 @@ etc.
 #include <etcp.h>
 #include <logging.h>
 #include <safetychecking.h>
+#include <stack.h>
+#include <testing.h>
+#include <stdio.h>
+#include <stdlib.h> 
 // .. include others for an all-includeive #incude <libstu.h> to pull in all functions
 
 LIBRARY_API void LIB_Init();
