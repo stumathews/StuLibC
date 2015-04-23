@@ -66,24 +66,24 @@ void help()
 void forward() 
 { 
     DBG_WriteLineToFile("Showing forward command", logfilename, MINOR);
-    printf("formward!\n"); 
+    PRINT("formward!\n"); 
 }
 
 void forwardby( char* arg )
 {
     DBG_WriteLineToFile("Showing forward by command", logfilename, MINOR);
     int num = atoi(arg);
-    printf("formward by %s\n", arg);
+    PRINT("formward by %s\n", arg);
     for( int i = 0; i < num-1;i++)
     {
-        printf("%d\t", i);
+        PRINT("%d\t", i);
     }
 }
 
 void exitf()
 {
     DBG_WriteLineToFile("Showing exitf command", logfilename, MINOR);
-    printf("Exit!\n");
+    PRINT("Exit!\n");
 }
 
 void deletelog(char* arg)
