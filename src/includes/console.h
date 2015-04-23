@@ -26,6 +26,8 @@ these are the console handling routines
 			snprintf( buffer,256,  "DBG : %s-%d stulic::%s(): " format "\n", __FILE__, __LINE__,__func__,##__VA_ARGS__);  \
             printf("%s\n",buffer); \
 } while (0)
+
+
 /** \brief Prints a line of text to the console, including the newline character
  *
  * \param message char*
