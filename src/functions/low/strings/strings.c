@@ -130,14 +130,20 @@ char* STR_AppendStrings(char* first, char* second)
 
 
 bool STR_IsNullOrEmpty(char* string)
-{
+{ 
     if( string == NULL )
-	return true;
-
-    if( strlen(string) == 0)
+    {
+        DBG("%s is == NULL\n",string);
         return true;
-    else
-        return false;
+    }
+
+    if( *string == '\0')
+    {
+        DBG("*string %s is == '\\0'\n",*string);
+	    return true;
+    }
+    DBG("All str empty or null checks failed\n");
+    return false;
 }
 
 bool STR_IsAlpha(char* string, int size)
