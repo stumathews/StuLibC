@@ -258,6 +258,7 @@ enum ParseResult CMD_Parse(int argc,char** argv, bool skip_first_arg)
                 continue;
         }
     }
+    return PARSE_SUCCESS;
 }
 
 // gets the argument from the pipe and finds it in the registered arguments. Also runs the argument handler
