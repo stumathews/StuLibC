@@ -44,10 +44,13 @@ void CHK_ExitIf(int condition_result, char* message, char* resultContext)
 
 void CHK_str( char* string, enum StringChecks checks, char* functionName)
 {
-	if( (checks & IS_NOT_EMPTY) && (STR_IsNullOrEmpty(string)) )
+	if( checks & IS_NOT_EMPTY) 
 	{
+		if(STR_IsNullOrEmpty(string))
+		{
 		DBG("Condition IS_NOT_EMPTY failed on string '%s' in caller funcion '%s'()",string, functionName);
 		exit(1);	
+		}
 	}
 	
 	if ( checks & CHARS_ONLY )
