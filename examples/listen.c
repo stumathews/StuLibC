@@ -8,15 +8,6 @@ static void server( SOCKET s, struct sockaddr_in *peerp )
     char buf[256];
     int rc =  netReadLine(s, buf,256);
     PRINT("Received data:%s",buf);
-    for( int i = 0; i < 255;i++)
-    {
-        printf("[%d: %c]",i, buf[i]);
-
-        if( buf[i] == '\0')
-            printf("[\\0]");
-        else if( buf[i] == '\n' )
-            printf("[\\n]");
-    }
 }
 
 static void setPortNumber(char* arg)
@@ -48,7 +39,10 @@ int main( int argc, char **argv )
     {
         enum ParseResult result = CMD_Parse(argc,argv,true);
         if( result != PARSE_SUCCESS )
+        {
+            PRINT("There was a problem parsing: %d \n", result);
             return 1;
+        }
 
     
     }
@@ -58,12 +52,10 @@ int main( int argc, char **argv )
         exit(0);
     }
 
-
 	INIT();
 
     // get a socket, bound to this address thats configured to listen.
     // NB: This is always ever non-blocking 
-
     s = netTcpServer("localhost",port);
 
     FD_SET(s, &readfds);
@@ -102,6 +94,7 @@ int main( int argc, char **argv )
 		if ( !isvalidsock( s1 ) )
 			netError( 1, errno, "accept failed" );
 
+        PRINT("getting socket\n");
         // do network functionality on this socket that now represents a connection with the peer (client) 
 		server( s1, &peer );
 		CLOSE( s1 );
