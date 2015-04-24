@@ -21,6 +21,13 @@ void test_append()
     if( errors ) exit(1);
 }
 
+void test_STR_Reverse()
+{
+    char beautiful[] = "BEAUTIFUL";
+    STR_Reverse(beautiful);
+    assert( strcmp("LUFITUAEB",beautiful) == 0 );
+}
+
 void test_STR_IsAlpha()
 {
     char* alpha = "abcdefghijklmnopqstuvwxyz";
@@ -148,10 +155,10 @@ int main(int argc, char** argv)
         test_STR_Contains, "test_STR_Contains",
         test_STR_EndsWith, "test_STR_EndsWith",
         test_STR_FromLast, "test_STR_FromLast",
-        test_STR_IsAlpha, "test_STR_IsAlpha"
-
+        test_STR_IsAlpha, "test_STR_IsAlpha",
+        test_STR_Reverse, "test_STR_Reverse"
     };
-    run_tests(tests,10);
+    run_tests(tests,11);
     DBG("about to LIB_Unint()");
     LIB_Uninit();
 

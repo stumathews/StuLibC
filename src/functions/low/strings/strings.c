@@ -160,4 +160,17 @@ bool STR_IsAlpha(char* string, int size)
 	return isAlphaString;
 
 }
+char* STR_Reverse(char* string )
+{
+    int length = strlen(string);
+
+    int i;
+    for( i = 0 ; i < (length/2); i++)
+    {
+        char tmp = string[i];        
+        int rightpos = (length-1)-i;
+        string[i] = string[rightpos];
+        string[rightpos] = tmp;
+    }
+}
 

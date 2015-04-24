@@ -131,4 +131,12 @@ LIBRARY_API char* STR_FromLast( char* last, char* string, char* resultBuffer);
  */
 LIBRARY_API bool STR_IsAlpha( char* string, int len);
 
+/** \brief Reverse a string
+ * 
+ * \param string char* the string to reverse
+ * \return the reversed string
+ */
+LIBRARY_API char* STR_Reverse( char* string );
+
+
 #endif // STULIBC_STRING_H
