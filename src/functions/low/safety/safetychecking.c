@@ -46,9 +46,10 @@ void CHK_str( char* string, enum StringChecks checks, char* functionName)
 {
 	if( checks & IS_NOT_EMPTY) 
 	{
-		if(STR_IsNullOrEmpty(string))
+		if(STR_IsNullOrEmpty(string) == true)
 		{
-		DBG("Condition IS_NOT_EMPTY failed on string '%s' in caller funcion '%s'()",string, functionName);
+		    DBG("Condition IS_NOT_EMPTY failed on string"
+                " '%s' in caller funcion '%s'()",string, functionName);
 		exit(1);	
 		}
 	}

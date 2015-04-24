@@ -63,7 +63,7 @@ typedef unsigned int u_int32_t;
 #define EXIT(s)			do { WSACleanup(); exit( ( s ) ); } \
 						while ( 0 )
 #define CLOSE(s)		if ( closesocket( s ) ) \
-							error( 1, errno, "close failed" )
+							netError( 1, errno, "close failed" )
 #define errno			( GetLastError() )
 #define set_errno(e)	SetLastError( ( e ) )
 #define isvalidsock(s)	( ( s ) != SOCKET_ERROR )

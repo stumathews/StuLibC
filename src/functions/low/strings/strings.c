@@ -133,16 +133,13 @@ bool STR_IsNullOrEmpty(char* string)
 { 
     if( string == NULL )
     {
-        DBG("%s is == NULL\n",string);
         return true;
     }
 
-    if( *string == '\0')
+    if( string[0] == '\0')
     {
-        DBG("*string %s is == '\\0'\n",*string);
 	    return true;
     }
-    DBG("All str empty or null checks failed\n");
     return false;
 }
 

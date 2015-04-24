@@ -16,13 +16,13 @@ static void client( SOCKET s, struct sockaddr_in *peerp )
     // to send to and get from the address mentioned by *peerp
 
     if( sendto( s, "",1,0, (struct sockaddr*) peerp, peerlen) < 0 )
-        error( 1, errno, "sendto failed" );
+        netError( 1, errno, "sendto failed" );
 
     rc = recvfrom( s, buf, sizeof(buf), 0, (struct sockaddr*) peerp, &peerlen );
     if( rc >= 0 )
         write(1, buf, rc);
     else
-        error( 1, errno, "recvfrom failed");
+        netError( 1, errno, "recvfrom failed");
 
 }
 

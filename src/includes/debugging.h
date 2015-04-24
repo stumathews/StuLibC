@@ -32,7 +32,7 @@ Debugging functionality like writing to trace files, log files etc.
 #define DBG(format, ...) do {\
 			char buffer[256];\
 			snprintf( buffer,256,  "DBG : %s-%d stulic::%s(): " format "\n", __FILE__, __LINE__,__func__,##__VA_ARGS__);  \
-			DBG_Log(buffer);\
+            DBG_Log(buffer);\
 } while (0)
 #endif
 #define assertm(m,c) do {\

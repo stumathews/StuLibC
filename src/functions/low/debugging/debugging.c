@@ -14,7 +14,7 @@ static char line_buffer[MAX_DBG_LINE_LENGTH];
 
 void DBG_Log(char* message)
 {
-  CHECK_STRING( message, IS_NOT_EMPTY );
+  //CHECK_STRING( message, IS_NOT_EMPTY );
   
   DBG_WriteLineToFile(message, DEFAULT_DEBUG_FILENAME, UNSPECIFIED);
 }

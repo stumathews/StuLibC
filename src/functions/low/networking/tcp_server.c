@@ -15,17 +15,17 @@ SOCKET netTcpServer( char *hname, char *sname )
     // Obtain a socket for the server
 	s = socket( AF_INET, SOCK_STREAM, 0 );
 	if ( !isvalidsock( s ) )
-		error( 1, errno, "socket call failed" );
+		netError( 1, errno, "socket call failed" );
     
     // Configure the socket so we can use it as a server socket
 	if ( setsockopt( s, SOL_SOCKET, SO_REUSEADDR,
 		( char * )&on, sizeof( on ) ) )
-		error( 1, errno, "setsockopt failed" );
+		netError( 1, errno, "setsockopt failed" );
 
     // Bind the address to the socket
 	if ( bind( s, ( struct sockaddr * ) &local,
 		 sizeof( local ) ) )
-		error( 1, errno, "bind failed" );
+		netError( 1, errno, "bind failed" );
 
     // set listen state  on the socket, which is now bound to the address mentioned in sockaddr_in
     // Note: This only sets the socket state to listening, this doesn't block;

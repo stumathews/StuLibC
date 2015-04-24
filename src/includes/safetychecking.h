@@ -34,9 +34,13 @@ enum StringChecks {IS_NOT_EMPTY = 2, CHARS_ONLY = 4, ALL_LOWER = 8};
 #define CHECK_STRING_BASICS( string ) do { \
 	CHK_str( (string), IS_NOT_EMPTY | CHARS_ONLY, (char*)__func__); \
 } while (0)
-void CHK_str( char* string, enum StringChecks checks, char* functionName);
 
-
+/** \brief Runs a prefedined check on a string
+ * \param string char* The string that needs to be checked
+ * \param checks enum StringChecks the check you'd liked performed
+ * \param functionName char* the function that this check is being called from
+ */
+LIBRARY_API void CHK_str( char* string, enum StringChecks checks, char* functionName);
 
 /** \brief Runs a provided data validation routine and its fix routine on provided data
  *

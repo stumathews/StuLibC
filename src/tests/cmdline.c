@@ -18,7 +18,7 @@ void help(char* value)
  if( STR_IsNullOrEmpty(value) )
  {    
   help_function_ran_ok = true;
-  printf("help!\n");
+  DBG("help!\n");
  }
 }
 
@@ -121,11 +121,10 @@ int main(int argc, char* argv[])
 {
     struct TestDefinition tests[] = { test_CMD_AddArguments, "test_CMD_ADDArguments",
         test_CMD_AddArgument, "test_CMD_ADDArgument",
-        test_CMD_Parse, "test_CMD_Parse",
-        test_CMD_ShowUsages, "test_CMD_ShowUsages"
+        test_CMD_Parse, "test_CMD_Parse"
 
     };
-   run_tests(tests,4);
+   run_tests(tests,3);
 
     CMD_Uninit();
     return 0;
