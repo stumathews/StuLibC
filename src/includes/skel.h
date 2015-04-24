@@ -13,6 +13,7 @@
 
 #ifndef __SKEL_H__
 #define __SKEL_H__
+#include <constants.h>
 
 /*
  * Basic abstraction layer routines for tcp programming across linux and windows
@@ -42,7 +43,9 @@
 
 typedef int SOCKET;
 
-#else
+#endif
+
+#ifdef HAVE_WINSOCK2_H 
 
 #include <winsock2.h>
 #include <windows.h>
