@@ -94,7 +94,7 @@ void test_CMD_Parse()
 {
 DBG("In test_CND_Parse\n");
 
-    char* arguments[] = {"--help","--two-part","-exit","/name=1","-setit2=one","-part1","part1_answer","--needvaluearg","",NULL};
+    char* arguments[] = {"--help","--two-part","part2","-exit","/name=1","-setit2=one","-part1","part1_answer","--needvaluearg","",NULL};
 
     int num_args = 0;
     for( num_args = 0; arguments[num_args] != NULL; num_args++);

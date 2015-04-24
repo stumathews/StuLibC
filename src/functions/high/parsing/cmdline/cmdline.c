@@ -19,6 +19,7 @@ struct memory* last_alloc_memory = NULL;
 struct memory* first_alloc_memory = NULL;
 
 static const char* indicators[] = {"--","-","/",NULL};
+enum ParseResult interpretArgInPipe();
 
 char* CMD_GetIndicators()
 {
@@ -228,7 +229,7 @@ void print_pipe_line()
 }
 
 // Take each argument string passed in put it into the pipe line so as incrementally create a full argument such as "--help=something" into its seperate parts
-void CMD_Parse(int argc,char** argv, bool skip_first_arg)
+enum ParseResult CMD_Parse(int argc,char** argv, bool skip_first_arg)
 {
     for(int i = 0; i < argc; i++) 
     {
@@ -250,13 +251,17 @@ void CMD_Parse(int argc,char** argv, bool skip_first_arg)
         if(isPipeReady) 
         { 
             // gets the argument from the pipe and finds it in the registered arguments. Also runs the argument handler
-            interpretArgInPipe();
+            enum ParseResult parseResult = interpretArgInPipe();
+            if( parseResult == EXPECTED_VALUE )
+                return EXPECTED_VALUE;
+            else if ( parseResult == NO_HANDLER || parseResult == PARSE_SUCCESS )
+                continue;
         }
     }
 }
 
 // gets the argument from the pipe and finds it in the registered arguments. Also runs the argument handler
-void interpretArgInPipe()
+enum ParseResult interpretArgInPipe()
 {
     // Generally, if pipeline is full(true), interpret argunent and 
     // find it in stored list of registered arguments(in-memory map)...
@@ -278,7 +283,7 @@ void interpretArgInPipe()
             else
             {
                 printf("Error: Argument '%s' expects a value but none was provided.\n",argument->name);
-                return;
+                return EXPECTED_VALUE;
             }
         }
         // run the value        
@@ -289,7 +294,7 @@ void interpretArgInPipe()
         else
         {
             DBG("No handler could be run for argument %s%s",pipe_line[ARG_INDICATOR],argument->name);
-            return;
+            return NO_HANDLER;
         }
     } 
     else
@@ -299,4 +304,5 @@ void interpretArgInPipe()
     }
 
     clear_pipe();// move on to getting the next argument from cmdline, and clear the contents of the assembly line(pipeline)
+    return PARSE_SUCCESS;
 }

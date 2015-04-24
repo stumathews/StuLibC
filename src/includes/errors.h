@@ -30,7 +30,6 @@ This is a narative on this part of the library
       exit(1); \
 } while (0)
 #endif
-#define error( e, l)  ERR_Print( (e) , (l) )
 /** \brief Prints a standard error heading string attached to provided message and any last error message identified by the system and logs it.
  *
  * \param error const char* the message to log

@@ -1,7 +1,7 @@
 #include <etcp.h>
 
 /* readvrec - read a variable record */
-int readvrec( SOCKET fd, char *bp, size_t len )
+int netReadVRec( SOCKET fd, char *bp, size_t len )
 {
 	u_int32_t reclen;
 	int rc;

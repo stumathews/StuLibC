@@ -33,6 +33,12 @@ struct Argument
 
 };
 
+/**
+ * Enumeration that represents the result of the parsing of a single registed command line argument
+ */
+enum ParseResult { EXPECTED_VALUE, NO_HANDLER, PARSE_SUCCESS  };
+
+
 /** \brief Add a single argument to be tracked by the library.
  *
  * \param argument struct NewArgument* a single argument
@@ -40,6 +46,7 @@ struct Argument
  *
  */
 LIBRARY_API void CMD_AddArgument( struct Argument* argument );
+
 
 /** \brief Parses the provided cmd line arguments and executes the argument handlers for them.
  *
@@ -49,13 +56,16 @@ LIBRARY_API void CMD_AddArgument( struct Argument* argument );
  * \return LIBRARY_API void
  *
  */
-LIBRARY_API void CMD_Parse(int argc, char** argv, bool skip_first_arg);
+LIBRARY_API enum ParseResult CMD_Parse(int argc, char** argv, bool skip_first_arg);
+
 
 /** \brief Shows a tag line and then all the arguments registered
  *
  *  \param tagline char* first line to show in the usages - normall should include the program name
  */
 LIBRARY_API void CMD_ShowUsages(char* tagline);
+
+
 /** \brief Convenience function that creates a Argument structure from a function call
  * \param name char* name of argument
  * \param display char* the display of the argument when showing usages
@@ -65,6 +75,8 @@ LIBRARY_API void CMD_ShowUsages(char* tagline);
  * \param handler void (*)(char* arg) function to call then this argument is found, an optional argument is allowed
  */
 LIBRARY_API struct Argument* CMD_CreateNewArgument( char* name, char* display, char* description, bool isMandatory, bool isValueMandatory, void (*handler)(char* arg));
+
+
 /** \brief Uninitialises the cmd handling routine.
  *  Its recommended that you call this when you're finished with CMD_Parse.
  * \return LIBRARY_API void

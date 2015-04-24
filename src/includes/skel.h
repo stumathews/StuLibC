@@ -36,7 +36,7 @@
 
 #define INIT()			
 #define EXIT(s)			exit( s )
-#define CLOSE(s)		if ( close( s ) ) error( 1, errno, \
+#define CLOSE(s)		if ( close( s ) ) netError( 1, errno, \
 						"close failed" )
 #define set_errno(e)	errno = ( e )
 #define isvalidsock(s)	( ( s ) >= 0 )

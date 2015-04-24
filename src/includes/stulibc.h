@@ -79,6 +79,9 @@ etc.
 #include <constants.h>
 #include <memory.h>
 #include <cmdline.h>
+#include <etcp.h>
+#include <logging.h>
+#include <safetychecking.h>
 #include <stack.h>
 #include <testing.h>
 #include <stdio.h>

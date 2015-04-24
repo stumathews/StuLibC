@@ -1,7 +1,7 @@
 #include <etcp.h>
 
 /* readcrlf - read a CR/LF terminated line */
-int readcrlf( SOCKET s, char *buf, size_t len )
+int netReadcrlf( SOCKET s, char *buf, size_t len )
 {
 	char *bufx = buf;
 	int rc;
