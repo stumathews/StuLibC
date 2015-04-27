@@ -1,7 +1,7 @@
 #include <etcp.h>
 
 /* readn - read exactly n bytes */
-int readn( SOCKET fd, char *bp, size_t len)
+int netReadn( SOCKET fd, char *bp, size_t len)
 {
 	int cnt;
 	int rc;

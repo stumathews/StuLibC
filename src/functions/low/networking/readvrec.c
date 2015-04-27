@@ -8,7 +8,7 @@ int netReadVRec( SOCKET fd, char *bp, size_t len )
 
 	/* Retrieve the length of the record */
 
-	rc = readn( fd, ( char * )&reclen, sizeof( u_int32_t ) );
+	rc = netReadn( fd, ( char * )&reclen, sizeof( u_int32_t ) );
 	if ( rc != sizeof( u_int32_t ) )
 		return rc < 0 ? -1 : 0;
 	reclen = ntohl( reclen );
@@ -21,7 +21,7 @@ int netReadVRec( SOCKET fd, char *bp, size_t len )
 
 		while ( reclen > 0 )
 		{
-			rc = readn( fd, bp, len );
+			rc = netReadn( fd, bp, len );
 			if ( rc != len )
 				return rc < 0 ? -1 : 0;
 			reclen -= len;
@@ -34,7 +34,7 @@ int netReadVRec( SOCKET fd, char *bp, size_t len )
 
 	/* Retrieve the record itself */
 
-	rc = readn( fd, bp, reclen );
+	rc = netReadn( fd, bp, reclen );
 	if ( rc != reclen )
 		return rc < 0 ? -1 : 0;
 	return rc;
