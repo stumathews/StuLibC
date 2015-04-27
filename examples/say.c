@@ -7,8 +7,11 @@ char *program_name;
 // peerp represents the server that the connection was established with
 static void client( SOCKET s, struct sockaddr_in *peerp )
 {
-    char* msg = "Hello World";
-    int rc = send( s, msg,strlen(msg),0);
+    char* buf[265];
+//    int got = netReadLine( s, buf,256);
+//    PRINT("%s\n",buf);
+ //   LOG( "GOT %d bytes",got);
+    int rc = send( s, "Hello World\n",13,0);
     LOG( "send out %d bytes",rc);
 }
 

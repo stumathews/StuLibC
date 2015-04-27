@@ -6,15 +6,25 @@ static char port[20] = {0};
 static void server( SOCKET s, struct sockaddr_in *peerp )
 {
     char buf[256];
+    memset( &buf, 0,256); 
+    int sent = send(s, "I'm ready\n",11,0);
+
+    fd_set readfds;
+    FD_ZERO( &readfds);
+    FD_SET(s, &readfds);
+    struct timeval timeout1 = {.tv_sec = 60, .tv_usec=0}; 
+
+    PRINT("OK data available. receiving...\n");
     int rc =  netReadLine(s, buf,256);
-    if( rc <= 0 )
+
+    if( rc > 0 )
     {
-        printf("prinf:%s\n",buf);
-        PRINT("PRINTReceived data:%s\n",buf);
+        PRINT("PRINT:%s\n",buf);
     }
     else
     {
         PRINT("problem with readline\n");
+        PRINT("bad  rc = %d\n",rc);
     }
 }
 static void setPortNumber(char* arg)
