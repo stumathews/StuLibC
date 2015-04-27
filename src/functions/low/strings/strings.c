@@ -42,13 +42,13 @@ char* STR_BeginsWithEither(char* possibilities[], char* string)
 
 char* STR_EndsWithEither(char* endsWithPossibilities[], char* string)
 {
-DBG("Enter STR_EndsWithEither()\n");
+    DBG("Enter STR_EndsWithEither()\n");
     // loop through all the possibilities
     for(int i = 0; endsWithPossibilities[i] != NULL; i++) {
         if(STR_EndsWith(endsWithPossibilities[i], string) == true)
             return endsWithPossibilities[i];
     }
-DBG("Finish STR_EndsWithEither()\n");
+    DBG("Finish STR_EndsWithEither()\n");
     return "";
 }
 
@@ -117,10 +117,10 @@ char* STR_FromLast(char* lookfor, char* string, char* result_buffer)
 
 char* STR_Join(char* s1, char* s2)
 {
-  char *s0 = Alloc(strlen(s1)+strlen(s2)+1);
-  strcpy(s0, s1);
-  strcat(s0, s2);
-   return s0;
+    char *s0 = Alloc(strlen(s1)+strlen(s2)+1);
+    strcpy(s0, s1);
+    strcat(s0, s2);
+    return s0;
 }
 
 char* STR_AppendStrings(char* first, char* second)
@@ -138,26 +138,26 @@ bool STR_IsNullOrEmpty(char* string)
 
     if( string[0] == '\0')
     {
-	    return true;
+        return true;
     }
     return false;
 }
 
 bool STR_IsAlpha(char* string, int size)
 {
-	CHECK_STRING( string, IS_NOT_EMPTY );
-	
-	bool isAlphaString = true;
-	DBG("Entering %s() with string as '%s' and size is %d",__func__, string, size);
-	for( int i = 0; i < size ; i++)
-	{
-		if( !(islower(string[i]) || isupper(string[i])) )
-		{
-		 	isAlphaString = false; break;
-		}		
-							
-	}
-	return isAlphaString;
+    CHECK_STRING( string, IS_NOT_EMPTY );
+
+    bool isAlphaString = true;
+    DBG("Entering %s() with string as '%s' and size is %d",__func__, string, size);
+    for( int i = 0; i < size ; i++)
+    {
+        if( !(islower(string[i]) || isupper(string[i])) )
+        {
+            isAlphaString = false; break;
+        }		
+
+    }
+    return isAlphaString;
 
 }
 char* STR_Reverse(char* string )
