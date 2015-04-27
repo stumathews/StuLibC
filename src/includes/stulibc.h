@@ -87,6 +87,7 @@ etc.
 #include <stdio.h>
 #include <stdlib.h> 
 #include <string.h>
+#include <list.h>
 // .. include others for an all-includeive #incude <libstu.h> to pull in all functions
 
 LIBRARY_API void LIB_Init();

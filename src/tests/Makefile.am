@@ -17,7 +17,8 @@ bin_PROGRAMS	= cmdline \
 				  udpclient \
 				  vrs \
 				  vrc \
-                  stack 
+                  stack \
+                  list
 
 #Build a test harness program
 
@@ -34,6 +35,9 @@ check_PROGRAMS= cmdline debugging strings files testing errors logging timing me
 
 stack_SOURCES = stack.c
 stack_LDADD = $(top_builddir)/src/libstu.la 
+
+list_SOURCES = list.c
+list_LDADD = $(top_builddir)/src/libstu.la 
 
 tcpserver_SOURCES = tcpserver.c
 tcpserver_LDADD = $(top_builddir)/src/libstu.la 
