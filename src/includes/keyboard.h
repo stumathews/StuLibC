@@ -9,7 +9,7 @@
  * @see http://devel.stuartmathews.com/stulibc
  */
 
-/** \page keyboard Interacting with the keyboard.
+/** \page keyboard Keyboard
 This is a narative on this part of the library
 */
 

@@ -10,9 +10,15 @@
  * @see http://devel.stuartmathews.com/stulibc
  */
 
-/** \page networking Adding networking functionality to your program
+/** \page networking Networking
  This includes reading and writing to sockets and tcp and udp client and server routines
-*/
+ */
+
+/** \example say.c
+ * This is an example of how to use the netTcpClient
+ * This starts off by using the cmd line parsing routines to get the desired port number to send data do.
+ * Then it sends out the string Hello World to that port
+ */
 
 #ifndef __ETCP_H__
 #define __ETCP_H__

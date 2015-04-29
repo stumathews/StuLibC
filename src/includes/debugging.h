@@ -9,8 +9,9 @@
  * @see http://devel.stuartmathews.com/stulibc
  */
 
-/** \page debugging Debugging your program
+/** \page debugging Debugging
 Debugging functionality like writing to trace files, log files etc.
+\include debugging.h
 */
 
 #ifndef STULIBC_DEBUGGING_H

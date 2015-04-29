@@ -9,7 +9,7 @@
  * @see http://devel.stuartmathews.com/stulibc
  */
 
-/** \page safetychecking Trying to be safe in your program
+/** \page safetychecking Safety
 bounds checking on data structures and other sanity checks
 */
 

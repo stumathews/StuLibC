@@ -1,5 +1,5 @@
 /**
- * @file list.c
+ * @file list.h
  * @brief List handling routines
  * @author Stuart Mathews
  * @date 27 April 2015
@@ -8,7 +8,7 @@
  * @see http://devel.stuartmathews.com/stulibc
  */
 
-/** \page list Handling lists
+/** \page list Lists
 Works with lists as a data structure to help you store information in an expanding way.
 */
 #ifndef LIST_H
@@ -42,6 +42,12 @@ LIBRARY_API void LIST_Insert( LinkedList* list, void* data);
  */
 LIBRARY_API void LIST_Init( LinkedList* list);
 
+/** \brief Uses provided print function to print the contents of the list
+ *  
+ *  The function needs tp be compatible with the data within the linked list.
+ *  \param list struct* list* the list to print
+ *  \return void
+ */
 LIBRARY_API void LIST_Print( LinkedList* list);
 
 

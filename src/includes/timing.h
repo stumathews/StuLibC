@@ -10,7 +10,7 @@
  * @see http://devel.stuartmathews.com/stulibc
  */
 
-/** \page timing Timing functionality
+/** \page timing Timing
 This is a narative on this part of the library
 */
 

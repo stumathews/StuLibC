@@ -9,7 +9,7 @@
  * @see http://devel.stuartmathews.com/stulibc
  */
 
-/** \page logging Logging things
+/** \page logging Logging
 This is a narative on this part of the library
 */
 

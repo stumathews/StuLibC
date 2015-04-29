@@ -8,7 +8,7 @@
  * @see http://devel.stuartmathews.com/stulibc
  */
 
-/** \page cmdline Handling command line arguments
+/** \page cmdline Command Line
 Command line arguments and dealing with these in a structured way
 */
 #ifndef CMDLINE_H

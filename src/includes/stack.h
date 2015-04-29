@@ -1,3 +1,16 @@
+/**
+ * @file stack.h
+ * @brief Generic stack data structure handling routines
+ * @author Stuart Mathews
+ * @date 10 January 2014
+ *
+ * This header contains the function and type declarations for dealing with generic stack datastructures in the library.
+ * @see http://devel.stuartmathews.com/stulibc
+ */
+
+/** \page stack Stacks
+Generic stacks and how they are used in the library
+*/
 #ifndef STACK_H
 #define STACK_H
 #include <stulibc.h>

@@ -8,7 +8,7 @@
  * @see http://devel.stuartmathews.com/stulibc
  */
 
-/** \page console Console handling in the library
+/** \page console Console
 these are the console handling routines
 */
 

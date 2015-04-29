@@ -9,7 +9,7 @@
  * @see http://devel.stuartmathews.com/stulibc
  */
 
-/** \page memory Memory managment functionality
+/** \page memory Memory
 This is a narative on this part of the library
 */
 

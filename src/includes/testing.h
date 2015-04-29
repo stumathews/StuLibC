@@ -9,7 +9,7 @@
  * @see http://devel.stuartmathews.com/stulibc
  */
 
-/** \page testing Testing and unit testing
+/** \page testing Testing
 This is a narative on this part of the library
 */
 

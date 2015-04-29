@@ -9,7 +9,7 @@
  * @see http://devel.stuartmathews.com/stulibc
  */
 
-/** \page Errors Using error handling functionality
+/** \page Errors Error handling
 This is a narative on this part of the library
 */
 

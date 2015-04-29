@@ -9,7 +9,7 @@
  * @see http://devel.stuartmathews.com/stulibc
  */
 
-/** \page libstring Dealing with strings in C
+/** \page libstring Strings
 This is a narative on this part of the library
 */
 

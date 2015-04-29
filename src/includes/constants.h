@@ -8,7 +8,7 @@
  * @see http://devel.stuartmathews.com/stulibc
  */
 
-/** \page constants Constants in the library
+/** \page constants Constants
 The constants we use are here
 */
 #ifndef LIBSTU_COMMON_H

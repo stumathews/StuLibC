@@ -9,7 +9,7 @@
  * @see http://devel.stuartmathews.com/stulibc
  */
 
-/** \page filemanagement File management and writing to files
+/** \page filemanagement File management
 This is a narative on this part of the library
 */
 #ifndef FILE_H

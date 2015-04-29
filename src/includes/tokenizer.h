@@ -9,9 +9,6 @@
  * @see http://devel.stuartmathews.com/stulibc
  */
 
-/** \page tokenizer Using string tokenizer functionality
-This functionality hinges on the ability to provide a string, a delimiter and have a callabck function called for each token found ie between the delimiters.
-*/
 #ifndef STULIBC_TOKENIZER_H
 #define STULIBC_TOKENIZER_H
 
