@@ -165,10 +165,12 @@ etc.
 #include <string.h>
 #include <list.h>
 #include <linuxlist.h>
+#include <stdbool.h>
 // .. include others for an all-includeive #incude <libstu.h> to pull in all functions
 
 LIBRARY_API void LIB_Init();
 LIBRARY_API void LIB_Uninit();
+bool LIB_IsInit();
 
 
 #endif
