@@ -10,6 +10,7 @@
 
 /** \page console Console
 these are the console handling routines
+\include console.h
 */
 
 #ifndef STULIBC_CONSOLE_H

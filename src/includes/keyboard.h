@@ -11,6 +11,7 @@
 
 /** \page keyboard Keyboard
 This is a narative on this part of the library
+\include keyboard.h
 */
 
 #ifndef SCREEN_H

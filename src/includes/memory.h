@@ -11,6 +11,7 @@
 
 /** \page memory Memory
 This is a narative on this part of the library
+\include memory.h
 */
 
 #ifndef STULIBC_MEMORY_MANAGEMENT_H

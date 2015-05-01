@@ -10,7 +10,8 @@
  */
 
 /** \page testing Testing
-This is a narative on this part of the library
+Contains the function and type declarations for dealing testing functionality in the libraryto implement generic unit testing and generic assertions etc..
+\include testing.h
 */
 
 

@@ -11,6 +11,7 @@
 
 /** \page Errors Error handling
 This is a narative on this part of the library
+\include errors.h
 */
 
 #ifndef STULIBC_ERRORS_H

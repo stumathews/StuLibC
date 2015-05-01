@@ -10,6 +10,8 @@
 
 /** \page list Lists
 Works with lists as a data structure to help you store information in an expanding way.
+\include list.h
+\include linuxlist.h
 */
 #ifndef LIST_H
 #define LIST_H

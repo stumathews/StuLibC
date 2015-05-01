@@ -11,6 +11,7 @@
 
 /** \page safetychecking Safety
 bounds checking on data structures and other sanity checks
+\include safetychecking.h
 */
 
 #ifndef SAFETY_CHECKING_H

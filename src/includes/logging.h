@@ -11,6 +11,7 @@
 
 /** \page logging Logging
 This is a narative on this part of the library
+\include logging.h
 */
 
 #ifndef STULIBC_LOGGING_H

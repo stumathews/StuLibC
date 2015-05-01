@@ -12,7 +12,10 @@
 
 /** \page networking Networking
  This includes reading and writing to sockets and tcp and udp client and server routines
+ \include etcp.h
+ \include skel.h
  */
+
 
 /** \example say.c
  * This is an example of how to use the netTcpClient

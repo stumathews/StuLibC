@@ -11,6 +11,7 @@
 
 /** \page libstring Strings
 This is a narative on this part of the library
+\include strings.h
 */
 
 #ifndef STULIBC_STRING_H

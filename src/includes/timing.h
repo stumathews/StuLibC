@@ -12,6 +12,7 @@
 
 /** \page timing Timing
 This is a narative on this part of the library
+\include timing.h
 */
 
 #ifndef TIMING_H

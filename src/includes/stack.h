@@ -10,6 +10,7 @@
 
 /** \page stack Stacks
 Generic stacks and how they are used in the library
+\include stack.h
 */
 #ifndef STACK_H
 #define STACK_H
