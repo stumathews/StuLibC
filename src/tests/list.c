@@ -50,27 +50,29 @@ void testLinuxList()
 
     struct MyLinuxList myList;
 
-    INIT_LIST_HEAD( &myList.list );
-
-    struct MyLinuxList* next = (struct MyLinuxList*) malloc( sizeof( struct MyLinuxList ));
+    INIT_LIST_HEAD( &myList.list );    
 	struct list_head *pos, *q;
 
-	// Add a new item
-	list_add( &(next->list), &(myList.list));
+	struct MyLinuxList* tmp;
 
-	// List each time
+	for (int i = 0; i < 20; i++)
+	{
+		tmp = (struct MyLinuxList*) malloc(sizeof(struct MyLinuxList));
+		tmp->myNumber = i;
+		list_add(&(tmp->list), &(myList.list));
+	}
+	
     list_for_each(pos, &myList.list){
-		next = list_entry(pos, struct MyLinuxList, list);
-        printf("number is %d\n", next->myNumber);
+		tmp = list_entry(pos, struct MyLinuxList, list);
+		printf("number is %d\n", tmp->myNumber);
     }
 
-	// Delete each item
     list_for_each_safe(pos, q, &myList.list)
 	{
-		next = list_entry(pos, struct MyLinuxList, list);
-        printf("freeing item myNumber= %d\n", next->myNumber);
+		tmp = list_entry(pos, struct MyLinuxList, list);
+		printf("freeing item myNumber= %d\n", tmp->myNumber);
         list_del(pos);
-        free(next);
+		free(tmp);
     }
 
 }
