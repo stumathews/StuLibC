@@ -40,21 +40,23 @@ void testStringList()
     LIST_Print( &myStringList );
 }
 
+struct MyLinuxList
+{
+	int myNumber;
+	struct list_head list;
+};
+struct MyLinuxList myList = {0};
+
 void testLinuxList()
 {
-    struct MyLinuxList
-    {
-        int myNumber;
-        struct list_head list;
-    };
+   
 
-    struct MyLinuxList myList;
-
-    INIT_LIST_HEAD( &myList.list );    
+    
 	struct list_head *pos, *q;
-
 	struct MyLinuxList* tmp;
 
+    INIT_LIST_HEAD( &myList.list );    
+	
 	for (int i = 0; i < 20; i++)
 	{
 		tmp = (struct MyLinuxList*) malloc(sizeof(struct MyLinuxList));
@@ -66,7 +68,7 @@ void testLinuxList()
 		tmp = list_entry(pos, struct MyLinuxList, list);
 		printf("number is %d\n", tmp->myNumber);
     }
-
+		
     list_for_each_safe(pos, q, &myList.list)
 	{
 		tmp = list_entry(pos, struct MyLinuxList, list);

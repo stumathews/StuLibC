@@ -18,7 +18,15 @@ This is a narative on this part of the library
 #include <stdlib.h>
 #include <stdbool.h>
 #include <constants.h>
+#include <linuxlist.h>
 
+/**
+* Container that holds a raw memory buffer/location
+*/
+struct Address {
+	void* mem_loc;
+	struct list_head list;
+};
 // Common memory related functions like allocating memory or filling memory and freeing it etc.
 
 #define MEM_allocate(size) malloc((size)
