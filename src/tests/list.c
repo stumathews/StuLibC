@@ -9,8 +9,9 @@ void strPrint( struct node* myNode )
     PRINT( "%s\n",(char*)(myNode->data));
 }
 
-int main( int argc, char** argv )
+void testIntList()
 {
+
     struct list myList;
     int x = 0, y = 1, z = 2;
 
@@ -20,7 +21,10 @@ int main( int argc, char** argv )
     LIST_Insert( &myList, &z );
     myList.fnPrint = printMe;
     PRINT("LIst size is %d\n", myList.size);
-    LIST_Print( &myList );
+}
+
+void testStringList()
+{
 
     LinkedList myStringList;
     char* one = "one";
@@ -34,5 +38,51 @@ int main( int argc, char** argv )
 
     myStringList.fnPrint = strPrint;
     LIST_Print( &myStringList );
-    
+}
+
+void testLinuxList()
+{
+    struct MyLinuxList
+    {
+        int myNumber;
+        struct list_head list;
+    };
+
+    struct MyLinuxList myList;
+
+    INIT_LIST_HEAD( &myList.list );
+
+    struct MyLinuxList* next = (struct MyLinuxList*) malloc( sizeof( struct MyLinuxList ));
+	struct list_head *pos, *q;
+
+	// Add a new item
+	list_add( &(next->list), &(myList.list));
+
+	// List each time
+    list_for_each(pos, &myList.list){
+		next = list_entry(pos, struct MyLinuxList, list);
+        printf("number is %d\n", next->myNumber);
+    }
+
+	// Delete each item
+    list_for_each_safe(pos, q, &myList.list)
+	{
+		next = list_entry(pos, struct MyLinuxList, list);
+        printf("freeing item myNumber= %d\n", next->myNumber);
+        list_del(pos);
+        free(next);
+    }
+
+}
+
+int main( int argc, char** argv )
+{
+   struct TestDefinition tests[] = 
+   {
+        testIntList,"testIntList",
+        testStringList,"testStringList",
+        testLinuxList, "testLinuxList"
+   };
+   run_tests(tests,3);
+   return 0;
 }

@@ -24,7 +24,8 @@ libstu_la_SOURCES = functions/private/stulibc.c \
 			functions/low/networking/udp_client.c \
 			functions/low/networking/udp_server.c \
             functions/high/structures/stack.c \
-            functions/high/structures/list.c
+            functions/high/structures/list.c \
+            functions/high/structures/linuxlist.c
 libstu_la_LDFLAGS = -no-undefined -version-info 0:0:0
 
 
