@@ -40,11 +40,13 @@ void test_DeAlloc()
 
 int main(int argc, char* argv[] )
 {
+  LIB_Init();
   struct TestDefinition tests[] = {
     test_Alloc, "MEM_Alloc()",
     test_DeAlloc, "MEM_DeAlloc()",
   };
 
   run_tests(tests,2);
+  LIB_Uninit();
   return 0;
 }

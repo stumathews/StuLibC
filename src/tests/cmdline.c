@@ -119,6 +119,8 @@ void test_CMD_ShowUsages()
 
 int main(int argc, char* argv[])
 {
+	LIB_Init();
+
     struct TestDefinition tests[] = { test_CMD_AddArguments, "test_CMD_ADDArguments",
         test_CMD_AddArgument, "test_CMD_ADDArgument",
         test_CMD_Parse, "test_CMD_Parse"
@@ -126,6 +128,6 @@ int main(int argc, char* argv[])
     };
    run_tests(tests,3);
 
-    CMD_Uninit();
+	LIB_Uninit();
     return 0;
 }

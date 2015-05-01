@@ -32,13 +32,6 @@ struct list_head {
 	(ptr)->next = (ptr); (ptr)->prev = (ptr); \
 } while (0)
 
-/*
- * Insert a new entry between two known consecutive entries. 
- *
- * This is only for internal list manipulation where we know
- * the prev/next entries already!
- */
-static void __list_add(struct list_head *new, struct list_head *prev, struct list_head *next);
 
 /**
  * list_add - add a new entry
@@ -60,14 +53,6 @@ LIBRARY_API void list_add(struct list_head *new, struct list_head *head);
  */
 LIBRARY_API void list_add_tail(struct list_head *new, struct list_head *head);
 
-/*
- * Delete a list entry by making the prev/next entries
- * point to each other.
- *
- * This is only for internal list manipulation where we know
- * the prev/next entries already!
- */
-static void __list_del(struct list_head *prev, struct list_head *next);
 
 /**
  * list_del - deletes entry from list.
@@ -100,7 +85,6 @@ LIBRARY_API void list_move_tail(struct list_head *list,struct list_head *head);
  */
 LIBRARY_API int list_empty(struct list_head *head);
 
-static void __list_splice(struct list_head *list,struct list_head *head);
 
 /**
  * list_splice - join two lists

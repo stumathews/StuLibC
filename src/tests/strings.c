@@ -145,6 +145,7 @@ void test_STR_FromLast()
 
 int main(int argc, char** argv)
 {
+	LIB_Init();
     struct TestDefinition tests[] = {
         test_append,"test_append()",
         test_createString,"test_createString",
