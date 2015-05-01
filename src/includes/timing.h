@@ -13,6 +13,65 @@
 /** \page timing Timing
 This is a narative on this part of the library
 \include timing.h
+
+\section install_sec Installation
+
+\subsection step1 Step 1: Opening the box
+
+\subsection step2 Step 2: Configuring it
+
+This tells you about the installation.
+
+#This is a level 1 header
+
+
+##This is a level 2 header
+###This is a level 3 header
+
+> This is a block quote
+> spanning multiple lines
+
+here are some lists
+
+- Item 1
+
+More text for this item.
+
+- Item 2
++ nested list item.
++ another nested item.
+- Item 3
+
+This a normal paragraph. but this is an `inline code fragment`
+
+This is a code block
+
+We continue with a normal paragraph again.
+
+Here is some more code
+
+*single asterisks*
+
+_single underscores_
+
+**double asterisks**
+
+__double underscores__
+
+[The link text](@ref MyClass)
+
+[The link text](http://example.net/)
+[The link text](http://example.net/ "Link title")
+[The link text](/relative/path/to/index.html "Link title")
+[The link text](somefile.html)
+Now for some code, but in colour:
+
+~~~~~~~~~~~~~~~{.c}
+int func(int a,int b) { return a*b; }
+~~~~~~~~~~~~~~~
+
+etc.
+
 */
 
 #ifndef TIMING_H

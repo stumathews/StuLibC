@@ -33,7 +33,7 @@ The intention is also to have it as portable as possible to work in Linux and Wi
 This will mean that the library can build unchanged across these platforms.
 Where OS specific functionality is needed in the library, this should be disabled/enabled based on the platform we are builing on.
 
-##Library functionality coverage
+\section functionality_coverage Functionality coverage
 I've broken down the library down into functional areas. This encompases a low-level API such as moving/managing memory.
 
 ##Basic, low-level routines
@@ -45,11 +45,10 @@ I've broken down the library down into functional areas. This encompases a low-l
 - [String management](@ref libstring)
 - [Timing functions](@ref timing)
 - [Validation and testing routines](@ref testing)
-- Not yet implemented/TODO
-  + Data structures
-  + Encryption
-  + Compression
-  + IPC
+- Data structures
+- Encryption
+- Compression
+- IPC
 
 ##Higher-level routines
 - Graphics
@@ -65,7 +64,7 @@ I've broken down the library down into functional areas. This encompases a low-l
 - Windowed applications/forms
 - Application design and patterns
 
-##Resources
+\section esources Resources
 This is currently hosted on my [devel server](http://devel.stuartmathews.com/projects/my-c-library)
 
  */
