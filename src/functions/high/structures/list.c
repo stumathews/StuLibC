@@ -1,4 +1,5 @@
 #include <list.h>
+#include <console.h>
 
 void LIST_Insert( LinkedList* list, void* data )
 {

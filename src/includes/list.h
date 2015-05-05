@@ -15,7 +15,8 @@ Works with lists as a data structure to help you store information in an expandi
 */
 #ifndef LIST_H
 #define LIST_H
-#include <stulibc.h>
+#include <constants.h>
+#include <stdio.h>
 
 
 typedef struct node {

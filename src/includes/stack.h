@@ -14,7 +14,9 @@ Generic stacks and how they are used in the library
 */
 #ifndef STACK_H
 #define STACK_H
-#include <stulibc.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <constants.h>
 
 typedef struct Stack Stack;
 
