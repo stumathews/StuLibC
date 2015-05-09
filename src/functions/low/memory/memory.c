@@ -11,11 +11,19 @@ struct Address mem_addrs;
 struct Address* tmp;
 struct list_head *pos, *q;
 
+void MEM_Init()
+{
+    INIT_LIST_HEAD(&mem_addrs.list);
+}
+void MEM_Uninit()
+{
+    MEM_DeAllocAll();
+}
 
 // track this buffer as being allocated by MEM_Alloc.
 static void track_buffer(void* buffer)
 {
-	DBG("Allocating buffer %d\n", buffer);
+  DBG("Allocating buffer %d\n", buffer);
   struct Address* tmp = (struct Address*) malloc(sizeof(struct Address));
   tmp->mem_loc = buffer;
   DBG("Allocating buffer %d to list\n", buffer);

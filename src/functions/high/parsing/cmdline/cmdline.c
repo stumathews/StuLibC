@@ -7,6 +7,7 @@
 #include <memory.h>
 #include <safetychecking.h>
 #include <ctype.h>
+#include <linuxlist.h>
 
 // In memory linked list holding all registered arguments user submits via addArgument*() functions
 struct memory 
@@ -14,6 +15,13 @@ struct memory
     struct Argument* argument;
     struct memory* next;
 };
+
+struct MandatoryArgList {
+    char* arg_name;
+    struct list_head list;
+};
+
+struct MandatoryArgList mandatory_args;
 
 struct memory* last_alloc_memory = NULL;
 struct memory* first_alloc_memory = NULL;
@@ -26,6 +34,10 @@ char* CMD_GetIndicators()
     return (char**) indicators;
 }
 
+void CMD_Init()
+{
+    INIT_LIST_HEAD( &mandatory_args.list );
+}
 // Frees the im-memory linked list holing all registered arguments.
 void CMD_Uninit() 
 {
@@ -109,6 +121,13 @@ void CMD_AddArgument(struct Argument* argument)
 
         // Set the last registered argument
         last_alloc_memory = tmp;
+    }
+
+    // Ok we have a new argument, lets see if its a mandatory one, and if so add it to known mandatoryargs list
+    if( last_alloc_memory->argument->isMandatory )
+    {
+        struct MandatoryArgList* tmp = malloc( sizeof( struct MandatoryArgList ) );
+        list_add( &(tmp->list), &(mandatory_args.list));
     }
 }
 

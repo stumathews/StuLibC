@@ -41,6 +41,9 @@ struct Address {
 #define MEM_set(s,c,n) memset((s),(c),(n))
 #define alloc(s) MEM_Alloc((s)) 
 
+void MEM_Uninit();
+void MEM_Init();
+
 /** \brief Detect empty pointers
  *
  * \param buffer void* pointer to the pointer returned by malloc
