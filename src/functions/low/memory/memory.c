@@ -23,12 +23,9 @@ void MEM_Uninit()
 // track this buffer as being allocated by MEM_Alloc.
 static void track_buffer(void* buffer)
 {
-  DBG("Allocating buffer %d\n", buffer);
   struct Address* tmp = (struct Address*) malloc(sizeof(struct Address));
   tmp->mem_loc = buffer;
-  DBG("Allocating buffer %d to list\n", buffer);
   list_add(&(tmp->list), &(mem_addrs.list));
-  DBG("done\n", buffer);
 }
 
 void* MEM_Alloc(size_t size)
@@ -38,8 +35,6 @@ void* MEM_Alloc(size_t size)
   if( buffer != NULL )
   {
     track_buffer(buffer);
-    DBG("Tracked new buffer %p", buffer);
-    DBG("Currently %d tracked buffers.", MEM_GetTrackedCount());
     return buffer;
   }
   else
@@ -102,7 +97,6 @@ void MEM_DeAllocAll()
 	int count = 0;
 	list_for_each_safe(pos, q, &mem_addrs.list){
 		tmp = list_entry(pos, struct Address, list);
-		DBG("freeing buffer %d\n", tmp->mem_loc);
 		list_del(pos);
 		free(tmp);
 		count++;
@@ -118,7 +112,6 @@ bool MEM_DeAlloc(void* buffer, char* buffer_name)
 		tmp = list_entry(pos, struct Address, list);
 		if (buffer == tmp->mem_loc)
 		{
-			DBG("freeing buffer %d\n", tmp->mem_loc);
 			if (tmp->mem_loc == NULL)
 			{
 				DBG("found buffer unexpectantly set to NULL. ");

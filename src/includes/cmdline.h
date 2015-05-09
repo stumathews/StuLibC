@@ -41,7 +41,7 @@ struct Argument
 /**
  * Enumeration that represents the result of the parsing of a single registed command line argument
  */
-enum ParseResult { EXPECTED_VALUE, NO_HANDLER, PARSE_SUCCESS  };
+enum ParseResult { EXPECTED_VALUE, NO_HANDLER, PARSE_SUCCESS, MANDATORY_MISSING  };
 
 
 /** \brief Add a single argument to be tracked by the library.

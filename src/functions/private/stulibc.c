@@ -24,6 +24,7 @@ LIBRARY_API void LIB_Uninit()
         MEM_Uninit();
 		CMD_Uninit();
 		IsLibraryInitialized = false;
+		DBG("Uninitialized library.");
 	}
 }
 

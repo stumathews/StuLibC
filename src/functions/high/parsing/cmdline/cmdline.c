@@ -8,6 +8,7 @@
 #include <safetychecking.h>
 #include <ctype.h>
 #include <linuxlist.h>
+#include <console.h>
 
 // In memory linked list holding all registered arguments user submits via addArgument*() functions
 struct memory 
@@ -127,6 +128,7 @@ void CMD_AddArgument(struct Argument* argument)
     if( last_alloc_memory->argument->isMandatory )
     {
         struct MandatoryArgList* tmp = malloc( sizeof( struct MandatoryArgList ) );
+        tmp->arg_name = last_alloc_memory->argument->name;
         list_add( &(tmp->list), &(mandatory_args.list));
     }
 }
@@ -250,6 +252,51 @@ void print_pipe_line()
 // Take each argument string passed in put it into the pipe line so as incrementally create a full argument such as "--help=something" into its seperate parts
 enum ParseResult CMD_Parse(int argc,char** argv, bool skip_first_arg)
 {
+    //
+    struct list_head *pos, *q;
+    struct MandatoryArgList* tmp = malloc( sizeof( struct MandatoryArgList ));
+
+
+    list_for_each( pos, &mandatory_args.list){
+        tmp = list_entry( pos, struct MandatoryArgList, list );
+        bool found = false;
+        // Look for this mandatory arg in all the args:
+
+        for(int i = 0; i < argc; i++) 
+        {
+
+            if( skip_first_arg && i == 0 )
+                continue;
+
+            struct Argument* arg = NULL;
+            char* peek_next = i+1 < argc ? argv[i+1]:"";
+            char* arg_name = argv[i];
+
+            // skip to next argument if this is empty
+            if( strcmp(arg_name,"") == 0 ) continue;
+
+            // Push this string into the pipe line and check if this completes the argument/pipline: 
+            bool pushResult = push_into_pipe(arg_name, peek_next);
+            bool isPipeReady = (pushResult == true);
+
+            if(isPipeReady) 
+            { 
+                if( strcmp( tmp->arg_name,pipe_line[ARG_NAME]) == 0 )
+                {
+                    found = true;
+                    break;
+                }
+            }
+        }
+        if(!found)
+        {
+            printf("Error: Mandatory Argument '%s' no provided.\n",tmp->arg_name);
+            return MANDATORY_MISSING;
+        }
+    }
+
+
+    //
     for(int i = 0; i < argc; i++) 
     {
         
@@ -279,6 +326,7 @@ enum ParseResult CMD_Parse(int argc,char** argv, bool skip_first_arg)
     }
     return PARSE_SUCCESS;
 }
+
 
 // gets the argument from the pipe and finds it in the registered arguments. Also runs the argument handler
 enum ParseResult interpretArgInPipe()
