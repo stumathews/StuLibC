@@ -95,6 +95,7 @@ This is currently hosted on my [devel server](http://devel.stuartmathews.com/pro
 
 LIBRARY_API void LIB_Init();
 LIBRARY_API void LIB_Uninit();
+void LIB_Check_Init();
 bool LIB_IsInit();
 
 

@@ -6,6 +6,7 @@
 #include <stdlib.h>
 #include <memory.h>
 #include <linuxlist.h>
+#include <stulibc.h> // for LIB_*
 
 struct Address mem_addrs;
 struct Address* tmp;
@@ -30,6 +31,8 @@ static void track_buffer(void* buffer)
 
 void* MEM_Alloc(size_t size)
 {
+  LIB_Check_Init();
+
   void* buffer = malloc(size);
 
   if( buffer != NULL )

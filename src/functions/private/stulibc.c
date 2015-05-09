@@ -9,11 +9,21 @@ LIBRARY_API void LIB_Init()
 	if (!LIB_IsInit())
 	{
 		DBG("Initializing library");
-        CMD_Init();
         MEM_Init();
+        CMD_Init();
 		DBG("Initialized library");
 		IsLibraryInitialized = true;
 	}
+}
+
+void LIB_Check_Init()
+{
+  if( !LIB_IsInit() )
+  { 
+      PRINT("Library was not initialized. Recovering.\n");
+      LIB_Init(); 
+  }
+
 }
 
 LIBRARY_API void LIB_Uninit()

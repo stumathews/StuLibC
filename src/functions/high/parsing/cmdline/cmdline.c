@@ -249,10 +249,9 @@ void print_pipe_line()
     DBG("Pipe [%s|%s|%s|%s]\n", pipe_line[ARG_INDICATOR],pipe_line[ARG_NAME],pipe_line[VALUE_INDICATOR],pipe_line[VALUE]);
 }
 
-// Take each argument string passed in put it into the pipe line so as incrementally create a full argument such as "--help=something" into its seperate parts
-enum ParseResult CMD_Parse(int argc,char** argv, bool skip_first_arg)
+enum ParseResult ensure_mandatory_args_present( int argc, char** argv,bool skip_first_arg)
 {
-    //
+
     struct list_head *pos, *q;
     struct MandatoryArgList* tmp = malloc( sizeof( struct MandatoryArgList ));
 
@@ -288,15 +287,22 @@ enum ParseResult CMD_Parse(int argc,char** argv, bool skip_first_arg)
                 }
             }
         }
+
         if(!found)
         {
-            printf("Error: Mandatory Argument '%s' no provided.\n",tmp->arg_name);
+            printf("Error: Mandatory Argument '%s' not provided.\n",tmp->arg_name);
             return MANDATORY_MISSING;
         }
     }
+    return PARSE_SUCCESS;
+}
+// Take each argument string passed in put it into the pipe line so as incrementally create a full argument such as "--help=something" into its seperate parts
+enum ParseResult CMD_Parse(int argc,char** argv, bool skip_first_arg)
+{
+    // inefficient
+    enum ParseResult man_ret =  ensure_mandatory_args_present( argc, argv, skip_first_arg);
+    if( man_ret != PARSE_SUCCESS) return man_ret;
 
-
-    //
     for(int i = 0; i < argc; i++) 
     {
         
