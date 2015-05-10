@@ -8,6 +8,7 @@ LIBRARY_API void LIB_Init()
 {
 	if (!LIB_IsInit())
 	{
+        INIT();
 		DBG("Initializing library");
         MEM_Init();
         CMD_Init();
@@ -33,6 +34,7 @@ LIBRARY_API void LIB_Uninit()
 		DBG("Uninitializing library.");
         MEM_Uninit();
 		CMD_Uninit();
+        EXIT(0);
 		IsLibraryInitialized = false;
 		DBG("Uninitialized library.");
 	}
