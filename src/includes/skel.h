@@ -59,7 +59,7 @@ struct timezone
 typedef unsigned int u_int32_t;
 
 #define EMSGSIZE		WSAEMSGSIZE
-#define INIT()			init( argv );
+#define INIT()			init();
 #define EXIT(s)			do { WSACleanup(); exit( ( s ) ); } \
 						while ( 0 )
 #define CLOSE(s)		if ( closesocket( s ) ) \
@@ -72,7 +72,7 @@ typedef unsigned int u_int32_t;
 #define WINDOWS
 
 
-inline void init( char **argv )
+inline void init( )
 {
 	WSADATA wsadata;
 	
