@@ -72,24 +72,8 @@ typedef unsigned int u_int32_t;
 #define WINDOWS
 
 
-inline void init( )
-{
-	WSADATA wsadata;
-	
-	WSAStartup( MAKEWORD( 2, 2 ), &wsadata );
-}
-
-/* inet_aton - version of inet_aton for SVr4 and Windows */
-inline int inet_aton( char *cp, struct in_addr *pin )
-{
-    int rc;
-	 
-	rc = inet_addr( cp );
-	if ( rc == -1 && strcmp( cp, "255.255.255.255" ) )
-		return 0;
-	pin->s_addr = rc;
-	return 1;
-}
+LIBRARY_API void init( );
+LIBRARY_API int inet_aton( char *cp, struct in_addr *pin );
 
 
 #endif /* HAVE_WINSOCK2_H */

@@ -71,9 +71,7 @@ This is currently hosted on my [devel server](http://devel.stuartmathews.com/pro
 
 #ifndef LIBSTU_H
 #define LIBSTU_H
-#if HAVE_CONFIG_H
 #include <config.h>
-#endif
 #include <debugging.h>
 #include <console.h>
 #include <errors.h>
