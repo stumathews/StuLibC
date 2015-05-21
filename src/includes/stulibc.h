@@ -88,6 +88,7 @@ This is currently hosted on my [devel server](http://devel.stuartmathews.com/pro
 #include <stdio.h>
 #include <stdlib.h> 
 #include <string.h>
+#include <strings.h>
 #include <list.h>
 #include <linuxlist.h>
 #include <stdbool.h>

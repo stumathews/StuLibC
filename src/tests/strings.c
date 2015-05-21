@@ -21,6 +21,12 @@ void test_append()
     if( errors ) exit(1);
 }
 
+void test_STR_Equals()
+{
+    assert( STR_Equals("one","one") == true );
+    assert( STR_Equals("one","two") == false );
+}
+
 void test_STR_Reverse()
 {
     char beautiful[] = "BEAUTIFUL";
@@ -157,9 +163,10 @@ int main(int argc, char** argv)
         test_STR_EndsWith, "test_STR_EndsWith",
         test_STR_FromLast, "test_STR_FromLast",
         test_STR_IsAlpha, "test_STR_IsAlpha",
-        test_STR_Reverse, "test_STR_Reverse"
+        test_STR_Reverse, "test_STR_Reverse",
+        test_STR_Equals, "test_STR_Equals"
     };
-    run_tests(tests,11);
+    run_tests(tests,12);
     DBG("about to LIB_Unint()");
     LIB_Uninit();
 
