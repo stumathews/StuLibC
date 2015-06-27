@@ -32,7 +32,7 @@ enum ParseResult interpretArgInPipe();
 
 char* CMD_GetIndicators()
 {
-    return (char**) indicators;
+    return (char*) indicators;
 }
 
 void CMD_Init()
@@ -153,7 +153,7 @@ void CMD_AddArgument(struct Argument* argument)
 enum EnumPipeParts { ARG_INDICATOR, ARG_NAME,VALUE_INDICATOR,VALUE} ;     // pipe line ["--","StoreSomething","=","2"]
 
 // Main pipe line aka the current pipe
-char* pipe_line[3] = {"","","","",""}; // [ARG_INDICATOR, ARG_NAME, VALUE]
+char* pipe_line[] = {"","","","",""}; // [ARG_INDICATOR, ARG_NAME, VALUE]
 
 // Convenience function to indicate the the pipe is finished - make the code more readable to retrn finish_pipe() instead of true
 bool finish_pipe()

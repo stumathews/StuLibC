@@ -9,10 +9,10 @@ libstu_la_SOURCES = functions/private/stulibc.c \
 		    functions/low/file/files.c \
 		    functions/low/console/console.c \
 		    functions/low/error/errors.c \
-            	    functions/low/strings/strings.c \
-           	    functions/low/testing/testing.c \
-            	    functions/high/parsing/cmdline/cmdline.c \
-            		functions/low/memory/memory.c \
+            functions/low/strings/strings.c \
+           	functions/low/testing/testing.c \
+            functions/high/parsing/cmdline/cmdline.c \
+            functions/low/memory/memory.c \
 			functions/low/networking/error.c \
 			functions/low/networking/readcrlf.c \
 			functions/low/networking/readline.c \
@@ -23,6 +23,7 @@ libstu_la_SOURCES = functions/private/stulibc.c \
 			functions/low/networking/tcp_server.c \
 			functions/low/networking/udp_client.c \
 			functions/low/networking/udp_server.c \
+			functions/low/networking/wincompat.c \
             functions/high/structures/stack.c \
             functions/high/structures/list.c \
             functions/high/structures/linuxlist.c 

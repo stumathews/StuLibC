@@ -59,12 +59,12 @@ struct timezone
 typedef unsigned int u_int32_t;
 
 #define EMSGSIZE		WSAEMSGSIZE
-#define INIT()			init();
+#define INIT()			do { WSADATA wsaData; WSAStartup(MAKEWORD(2,2), &wsaData); } while(0);
 #define EXIT(s)			do { WSACleanup(); exit( ( s ) ); } \
 						while ( 0 )
 #define CLOSE(s)		if ( closesocket( s ) ) \
 							netError( 1, errno, "close failed" )
-#define errno			( GetLastError() )
+#define errorno			( GetLastError() )
 #define set_errno(e)	SetLastError( ( e ) )
 #define isvalidsock(s)	( ( s ) != SOCKET_ERROR )
 #define bzero(b,n)		memset( ( b ), 0, ( n ) )
@@ -73,7 +73,7 @@ typedef unsigned int u_int32_t;
 
 
 LIBRARY_API void init( );
-LIBRARY_API int inet_aton( char *cp, struct in_addr *pin );
+LIBRARY_API int inet_aton( const char *cp, struct in_addr *pin );
 
 
 #endif /* HAVE_WINSOCK2_H */

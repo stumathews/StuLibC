@@ -88,6 +88,12 @@ LIBRARY_API struct Argument* CMD_CreateNewArgument( char* name, char* display, c
  *
  */
 LIBRARY_API void CMD_Uninit();
+/** \brief Initialises the cmd handling routine.
+ *  Its recommended that you call this before using CMD_Parse().
+ * \return LIBRARY_API void
+ *
+ */
+LIBRARY_API void CMD_Init();
 
 #endif
 

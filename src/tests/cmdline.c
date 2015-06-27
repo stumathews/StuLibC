@@ -5,6 +5,7 @@
 #include <string.h>
 #include <strings.h>
 #include <assert.h>
+#include <stulibc.h>
 
 bool help_function_ran_ok = false;
 bool exitf_function_ran_ok = false;

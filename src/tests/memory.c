@@ -4,6 +4,7 @@
 #include <testing.h>
 #include <assert.h>
 #include <debugging.h>
+#include <stulibc.h>
 
 int* aIntPtr = NULL;
 int number = 25;
