@@ -1,5 +1,7 @@
 #Build the library from source files
 
+AM_CPPFLAGS = -Wall -Werror
+
 lib_LTLIBRARIES = libstu.la
 libstu_la_SOURCES = functions/private/stulibc.c \
 	  	    functions/low/debugging/debugging.c \

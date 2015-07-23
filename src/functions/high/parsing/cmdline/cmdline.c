@@ -41,7 +41,6 @@ void CMD_Uninit()
 void CMD_ShowUsages(char* tagline) // debugging utility to print pipe_line
 {
     struct memory* node = first_alloc_memory;
-    struct Argument* found = NULL;
     
     // Prints out the first line, the tag line
     printf("%s\n",tagline);
@@ -239,7 +238,7 @@ void print_pipe_line()
 enum ParseResult ensure_mandatory_args_present( int argc, char** argv,bool skip_first_arg)
 {
 
-    struct list_head *pos, *q;
+    struct list_head *pos;
     struct MandatoryArgList* tmp = malloc( sizeof( struct MandatoryArgList ));
 
 
@@ -254,7 +253,6 @@ enum ParseResult ensure_mandatory_args_present( int argc, char** argv,bool skip_
             if( skip_first_arg && i == 0 )
                 continue;
 
-            struct Argument* arg = NULL;
             char* peek_next = i+1 < argc ? argv[i+1]:"";
             char* arg_name = argv[i];
 
@@ -296,7 +294,6 @@ enum ParseResult CMD_Parse(int argc,char** argv, bool skip_first_arg)
         if( skip_first_arg && i == 0 )
             continue;
 
-        struct Argument* arg = NULL;
         char* peek_next = i+1 < argc ? argv[i+1]:"";
         char* arg_name = argv[i];
 

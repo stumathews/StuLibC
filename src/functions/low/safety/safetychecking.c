@@ -3,6 +3,7 @@
 #include <errors.h>
 #include <debugging.h>
 #include <assert.h>
+#include <strings.h>
 
 #define MAX_LOG_LINE_LENGTH 255
 
