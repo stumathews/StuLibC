@@ -1,6 +1,6 @@
 #Build the library from source files
-
-AM_CPPFLAGS = -Wall -Werror
+#Uncomment this to check warnings and treat them as errors
+#AM_CPPFLAGS = -Wall -Werror
 
 lib_LTLIBRARIES = libstu.la
 libstu_la_SOURCES = functions/private/stulibc.c \
