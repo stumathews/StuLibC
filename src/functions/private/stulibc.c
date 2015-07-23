@@ -10,9 +10,11 @@ LIBRARY_API void LIB_Init()
 	{
         INIT();
 		DBG("Initializing library");
+
         MEM_Init();
         CMD_Init();
-		DBG("Initialized library");
+		
+        DBG("Initialized library");
 		IsLibraryInitialized = true;
 	}
 }

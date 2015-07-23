@@ -10,24 +10,11 @@
 #include <linuxlist.h>
 #include <console.h>
 
-// In memory linked list holding all registered arguments user submits via addArgument*() functions
-struct memory 
-{ 
-    struct Argument* argument;
-    struct memory* next;
-};
-
-struct MandatoryArgList {
-    char* arg_name;
-    struct list_head list;
-};
-
 struct MandatoryArgList mandatory_args;
-
 struct memory* last_alloc_memory = NULL;
 struct memory* first_alloc_memory = NULL;
-
 static const char* indicators[] = {"--","-","/",NULL};
+
 enum ParseResult interpretArgInPipe();
 
 char* CMD_GetIndicators()
@@ -322,7 +309,8 @@ enum ParseResult CMD_Parse(int argc,char** argv, bool skip_first_arg)
 
         if(isPipeReady) 
         { 
-            // gets the argument from the pipe and finds it in the registered arguments. Also runs the argument handler
+            // gets the argument from the pipe and finds it in the registered arguments. 
+            // Also runs the argument handler
             enum ParseResult parseResult = interpretArgInPipe();
             if( parseResult == EXPECTED_VALUE )
                 return EXPECTED_VALUE;

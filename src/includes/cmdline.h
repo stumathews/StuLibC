@@ -20,6 +20,7 @@ Here is a quick example
 #define CMDLINE_H
 #include <constants.h>
 #include <stdbool.h>
+#include <linuxlist.h>
 
 /** \brief Data structure representing a argument name
  */
@@ -36,6 +37,18 @@ struct Argument
     bool isValueMandatory; // value must be given
     void (*handler)(char*); //function to call 
 
+};
+
+// In memory linked list holding all registered arguments user submits via addArgument*() functions
+struct memory 
+{ 
+    struct Argument* argument;
+    struct memory* next;
+};
+
+struct MandatoryArgList {
+    char* arg_name;
+    struct list_head list;
 };
 
 /**

@@ -15,7 +15,6 @@ void CHK_int( IsIntValidRoutine func_IsDataValid, int* data, char* data_label, F
 {
   if(!func_IsDataValid(data))
   {
-
     if( func_FixData == NULL)
     {
       ERR("Invalid data '%s' provided: '%d'\n",data_label, *data);

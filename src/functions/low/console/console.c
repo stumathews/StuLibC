@@ -16,13 +16,13 @@ void CNS_Print( char* message )
 void CNS_PrintFile( char* filename )
 {
     CHECK_STRING(filename, IS_NOT_EMPTY);
+    
     if(!FILE_Exists(filename))
     {
         PRINT("File does not exist: %s", filename);
         return;
     }
 
-    //LIBRARY_API void FILE_AppendTextToStream(char* text, FILE* stream);
     FILE* file = fopen( filename, "r");
     char buf[256];
     fread( &buf, sizeof(char), 1,file );
