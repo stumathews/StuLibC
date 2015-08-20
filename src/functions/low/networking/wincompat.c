@@ -1,11 +1,13 @@
 #ifndef STULIBC_WINCOMPAT_H
 #define STULIBC_WINCOMPAT_H
+
+#include <config.h>
 #ifdef HAVE_WINSOCK2_H 
+
 #include <winsock2.h>
 #include <windows.h>
 #include <Ws2tcpip.h>
 #include <stdio.h>
-#include <config.h>
 int inet_aton( const char *cp, struct in_addr *pin )
 {
     int rc;
@@ -17,4 +19,5 @@ int inet_aton( const char *cp, struct in_addr *pin )
 	return 1;
 }
 #endif // HAVE_WINSOCK2_H
+
 #endif

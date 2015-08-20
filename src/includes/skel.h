@@ -72,7 +72,7 @@ typedef unsigned int u_int32_t;
 #define WINDOWS
 
 
-LIBRARY_API void init( );
+LIBRARY_API void init();
 LIBRARY_API int inet_aton( const char *cp, struct in_addr *pin );
 
 
