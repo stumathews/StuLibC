@@ -17,6 +17,7 @@ Generic stacks and how they are used in the library
 #include <stdio.h>
 #include <stdlib.h>
 #include <constants.h>
+#include <string.h>
 
 typedef struct Stack Stack;
 

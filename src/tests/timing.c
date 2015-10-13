@@ -17,7 +17,6 @@ void test_TIME_GetCPUTimeTaken()
   for( int i = 0; i< loop1_max; i++ )
   {
     increase_me += i*increase_me;
-    if( (i % 100) == 0);
   }
   clock_t endTime = TIME_StartCPURecord();
   clock_t timeTaken = TIME_GetCPUTimeTakenInSeconds( startTime, endTime);
@@ -26,8 +25,8 @@ void test_TIME_GetCPUTimeTaken()
   clock_t startTime2 = TIME_StartCPURecord();
   clock_t endTime2 = TIME_StartCPURecord();
   clock_t timeTaken2 = TIME_GetCPUTimeTakenInSeconds( startTime2, endTime2);
-  DBG("It has taken %d seconds(and %d units) to complete %d loop operation.\n", timeTaken, TIME_GetCPUTimeTakenInUnits(startTime,endTime), loop1_max);
-  DBG("It has taken %d seconds(and %d units) to complete that %d loop operation.\n", timeTaken2, TIME_GetCPUTimeTakenInUnits(startTime2, endTime2), loop2_max);
+  DBG("It has taken %lu seconds(and %lu units) to complete %d loop operation.\n", timeTaken, TIME_GetCPUTimeTakenInUnits(startTime,endTime), loop1_max);
+  DBG("It has taken %lu seconds(and %lu units) to complete that %d loop operation.\n", timeTaken2, TIME_GetCPUTimeTakenInUnits(startTime2, endTime2), loop2_max);
 
 
 

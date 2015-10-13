@@ -24,7 +24,6 @@ char* KBD_GetLine(int max_line_length)
         buf[chars_read++] = c;
 
     return buf;
-
 }
 
 #endif // SCREEN_C_INCLUDED

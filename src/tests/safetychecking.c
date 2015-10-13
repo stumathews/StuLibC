@@ -9,7 +9,7 @@ bool IsAgeValid(int* age )
   if( *age != 25 )
     return true;
   else
-    false;
+    return false;
 }
 
 void rectifyAge(int* data)

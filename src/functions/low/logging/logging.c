@@ -31,8 +31,6 @@ void LOG_LogToStream(char* message, FILE* stream)
     FILE_AppendTextToStream(buffer,stream);
 }
 
-
-
 void LOG_Log(char* message)
 {
     FILE* LogFileStream = fopen(DEFAULT_LOG_FILE_NAME,"a");

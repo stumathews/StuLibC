@@ -21,7 +21,6 @@ void MEM_Uninit()
     MEM_DeAllocAll();
 }
 
-// track this buffer as being allocated by MEM_Alloc.
 static void track_buffer(void* buffer)
 {
   struct Address* tmp = (struct Address*) malloc(sizeof(struct Address));
@@ -43,6 +42,7 @@ void* MEM_Alloc(size_t size)
   else
   {
     DBG("MEM_Alloc(): Could not allocate buffer.\n");
+    exit(1);
   }
 }
 
@@ -81,17 +81,16 @@ static struct Address* find( void* buffer)
 {
 	struct Address* tmp;
 	struct list_head *pos;
-	int count = 0;
 
 	tmp = malloc(sizeof(struct Address));
 
-	list_for_each(pos, &mem_addrs.list){
-		tmp = list_entry(pos, struct Address, list);
-		if (tmp->mem_loc == buffer)
-		{
-			return tmp;
-		}		
-	}
+    list_for_each(pos, &mem_addrs.list){
+        tmp = list_entry(pos, struct Address, list);
+        if (tmp->mem_loc == buffer)
+        {
+            return tmp;
+        }		
+    }
 	return NULL;
 }
 
@@ -110,7 +109,6 @@ void MEM_DeAllocAll()
 
 bool MEM_DeAlloc(void* buffer, char* buffer_name)
 {
-	int count = 0;
 	list_for_each_safe(pos, q, &mem_addrs.list){
 		tmp = list_entry(pos, struct Address, list);
 		if (buffer == tmp->mem_loc)
@@ -137,7 +135,7 @@ bool MEM_CheckAllocated( void* buffer,char* name, char* filename, int line)
 {
 
   struct Address* tracked_buffer = find( buffer);
-  if( buffer != NULL )
+  if( tracked_buffer != NULL )
   {
     return true;
   }
