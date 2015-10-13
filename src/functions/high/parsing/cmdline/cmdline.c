@@ -38,15 +38,23 @@ void CMD_Uninit()
     }
 }
 
-void CMD_ShowUsages(char* tagline) // debugging utility to print pipe_line
+void CMD_ShowUsages(char* tagline, char* address, char* description) 
 {
     struct memory* node = first_alloc_memory;
+    struct Argument* found = NULL;
+
+    char* license = "Copyright (C) 2010 Free Software Foundation, Inc.\n\
+                     License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>\n\
+                     This is free software: you are free to change and redistribute it.\n\
+                     There is NO WARRANTY, to the extent permitted by law.\n";
     
     // Prints out the first line, the tag line
-    printf("%s\n",tagline);
+    printf("%s\n\n", license );
+    printf("Usage %s [Options]\n",tagline);
+    printf("%s\n", description );
 
     // Prints ouf the options:
-    printf( "Options:\n");
+    printf( "Options:\n\n");
     
     // Extract the registered arguments detials and print them
     while(node!=NULL) 
@@ -58,6 +66,7 @@ void CMD_ShowUsages(char* tagline) // debugging utility to print pipe_line
         
         node = node->next;
     }
+    printf("\nReport bugs to <%s>.", address );
 }
 
 // Linearly search through the linked list of registered arguments

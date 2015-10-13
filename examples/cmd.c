@@ -50,7 +50,7 @@ int main( int argc, char** argv )
     else
     {
         DBG_WriteLineToFile("Prints usage with tagline", logfilename, MINOR);
-        CMD_ShowUsages(tagline);
+        CMD_ShowUsages(tagline, "stumathews@gmail.com","cmd exmaple");
     }
 
 //    LIB_Uninit();
@@ -60,7 +60,7 @@ int main( int argc, char** argv )
 void help()
 {
     DBG_WriteLineToFile("Showing help.", logfilename, MINOR);
-    CMD_ShowUsages(tagline);
+    CMD_ShowUsages(tagline,"stumathews@gmail.com", "cmd exmaple");
 }
 
 void forward() 

@@ -59,7 +59,7 @@ int main( int argc, char **argv )
     }
     else
     {
-        CMD_ShowUsages("listen <options>");
+        CMD_ShowUsages("listen <options>", "stumathews@gmail.com", "listen example");
         exit(0);
     }
 

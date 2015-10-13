@@ -36,7 +36,7 @@ int main( int argc, char **argv )
         CMD_Parse(argc,argv,true);
     else
     {
-        CMD_ShowUsages("listen <options>");
+        CMD_ShowUsages("say", "stumathews@gmail.com", "say example");
         exit(0);
     }
 	

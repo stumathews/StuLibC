@@ -80,8 +80,10 @@ LIBRARY_API enum ParseResult CMD_Parse(int argc, char** argv, bool skip_first_ar
 /** \brief Shows a tag line and then all the arguments registered
  *
  *  \param tagline char* first line to show in the usages - normall should include the program name
+ *  \param address char* contact email address for utility/project
+ *  \param description char* brief description of utility
  */
-LIBRARY_API void CMD_ShowUsages(char* tagline);
+LIBRARY_API void CMD_ShowUsages(char* tagline, char* address, char* description);
 
 
 /** \brief Convenience function that creates a Argument structure from a function call
