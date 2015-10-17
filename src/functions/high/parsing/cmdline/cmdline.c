@@ -202,7 +202,8 @@ bool push_into_pipe(char* arg, char* next_part)   // determine what type of part
     if(!(STR_IsNullOrEmpty(indicator))) 
     {
         pipe_line[ARG_INDICATOR] = indicator;
-        char* tmpArgName = STR_Without(indicator, tmpArg); // such that --help becomes help or help=something
+		char* result = MEM_Alloc(SIZEOFCHAR * strlen(tmpArg));
+        char* tmpArgName = STR_Without(indicator, tmpArg, result); // such that --help becomes help or help=something
 
         pipe_line[ARG_NAME] = tmpArgName;
 
@@ -212,8 +213,8 @@ bool push_into_pipe(char* arg, char* next_part)   // determine what type of part
             char* tmpValue = (char*) Alloc(SIZEOFCHAR * (strlen(tmpArg) - strlen(indicator) - 1)); // extract the value as in "something" from help=something
         
             pipe_line[VALUE] = STR_FromLast("=",tmpArg,tmpValue);
-            tmpArgName = STR_Without("=", tmpArgName);
-            tmpArgName = STR_Without(pipe_line[VALUE], tmpArgName);
+			result = STR_Without("=", tmpArgName, result);
+			result = STR_Without(pipe_line[VALUE], tmpArgName, result);
             pipe_line[ARG_NAME] = tmpArgName;
         
             return finish_pipe();
