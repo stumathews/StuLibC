@@ -1,0 +1,137 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{A7272625-FFFF-4A1F-A7CE-D4781BDA5778}</ProjectGuid>
+    <Keyword>MakeFileProj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Makefile</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Makefile</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <NMakeBuildCommandLine>make</NMakeBuildCommandLine>
+    <NMakeCleanCommandLine>make clean</NMakeCleanCommandLine>
+    <NMakeReBuildCommandLine>make</NMakeReBuildCommandLine>
+    <NMakePreprocessorDefinitions>WIN32;_DEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
+    <NMakeIncludeSearchPath>src/includes;$(NMakeIncludeSearchPath)</NMakeIncludeSearchPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <NMakeBuildCommandLine>make</NMakeBuildCommandLine>
+    <NMakeCleanCommandLine>make clean</NMakeCleanCommandLine>
+    <NMakeReBuildCommandLine>make</NMakeReBuildCommandLine>
+    <NMakePreprocessorDefinitions>WIN32;NDEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
+    <NMakeIncludeSearchPath>src/includes;$(NMakeIncludeSearchPath)</NMakeIncludeSearchPath>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="examples\cmd.c" />
+    <ClCompile Include="examples\listen.c" />
+    <ClCompile Include="examples\say.c" />
+    <ClCompile Include="examples\server.c" />
+    <ClCompile Include="src\functions\high\parsing\cmdline\cmdline.c" />
+    <ClCompile Include="src\functions\high\structures\list.c" />
+    <ClCompile Include="src\functions\high\structures\stack.c" />
+    <ClCompile Include="src\functions\high\testing\testing.c" />
+    <ClCompile Include="src\functions\low\console\console.c" />
+    <ClCompile Include="src\functions\low\console\keyboard.c" />
+    <ClCompile Include="src\functions\low\debugging\debugging.c" />
+    <ClCompile Include="src\functions\low\error\errors.c" />
+    <ClCompile Include="src\functions\low\file\files.c" />
+    <ClCompile Include="src\functions\low\logging\logging.c" />
+    <ClCompile Include="src\functions\low\memory\memory.c" />
+    <ClCompile Include="src\functions\low\networking\error.c" />
+    <ClCompile Include="src\functions\low\networking\readcrlf.c" />
+    <ClCompile Include="src\functions\low\networking\readline.c" />
+    <ClCompile Include="src\functions\low\networking\readn.c" />
+    <ClCompile Include="src\functions\low\networking\readvrec.c" />
+    <ClCompile Include="src\functions\low\networking\set_address.c" />
+    <ClCompile Include="src\functions\low\networking\skel.c" />
+    <ClCompile Include="src\functions\low\networking\tcp_client.c" />
+    <ClCompile Include="src\functions\low\networking\tcp_server.c" />
+    <ClCompile Include="src\functions\low\networking\udp_client.c" />
+    <ClCompile Include="src\functions\low\networking\udp_server.c" />
+    <ClCompile Include="src\functions\low\networking\wincompat.c" />
+    <ClCompile Include="src\functions\low\safety\safetychecking.c" />
+    <ClCompile Include="src\functions\low\strings\strings.c" />
+    <ClCompile Include="src\functions\low\strings\substring.c" />
+    <ClCompile Include="src\functions\low\testing\testing.c" />
+    <ClCompile Include="src\functions\low\timing\timing.c" />
+    <ClCompile Include="src\functions\private\stulibc.c" />
+    <ClCompile Include="src\tests\cmdline.c" />
+    <ClCompile Include="src\tests\debugging.c" />
+    <ClCompile Include="src\tests\errors.c" />
+    <ClCompile Include="src\tests\files.c" />
+    <ClCompile Include="src\tests\list.c" />
+    <ClCompile Include="src\tests\logging.c" />
+    <ClCompile Include="src\tests\memory.c" />
+    <ClCompile Include="src\tests\safetychecking.c" />
+    <ClCompile Include="src\tests\stack.c" />
+    <ClCompile Include="src\tests\strings.c" />
+    <ClCompile Include="src\tests\tcpclient.c" />
+    <ClCompile Include="src\tests\tcpserver.c" />
+    <ClCompile Include="src\tests\testing.c" />
+    <ClCompile Include="src\tests\timing.c" />
+    <ClCompile Include="src\tests\udpclient.c" />
+    <ClCompile Include="src\tests\udpserver.c" />
+    <ClCompile Include="src\tests\uselib.c" />
+    <ClCompile Include="src\tests\vrc.c" />
+    <ClCompile Include="src\tests\vrs.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\functions\high\structures\linuxlist.c" />
+    <ClInclude Include="src\includes\cmdline.h" />
+    <ClInclude Include="src\includes\config.h" />
+    <ClInclude Include="src\includes\console.h" />
+    <ClInclude Include="src\includes\constants.h" />
+    <ClInclude Include="src\includes\debugging.h" />
+    <ClInclude Include="src\includes\errors.h" />
+    <ClInclude Include="src\includes\etcp.h" />
+    <ClInclude Include="src\includes\files.h" />
+    <ClInclude Include="src\includes\keyboard.h" />
+    <ClInclude Include="src\includes\linuxlist.h" />
+    <ClInclude Include="src\includes\list.h" />
+    <ClInclude Include="src\includes\logging.h" />
+    <ClInclude Include="src\includes\memory.h" />
+    <ClInclude Include="src\includes\safetychecking.h" />
+    <ClInclude Include="src\includes\skel.h" />
+    <ClInclude Include="src\includes\stack.h" />
+    <ClInclude Include="src\includes\strings.h" />
+    <ClInclude Include="src\includes\stulibc.h" />
+    <ClInclude Include="src\includes\substring.h" />
+    <ClInclude Include="src\includes\testing.h" />
+    <ClInclude Include="src\includes\timing.h" />
+    <ClInclude Include="src\includes\tokenizer.h" />
+    <ClInclude Include="src\tests\testhelper.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
