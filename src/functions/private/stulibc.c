@@ -32,10 +32,14 @@ LIBRARY_API void LIB_Uninit()
 	if (LIB_IsInit())
 	{
 		DBG("Uninitializing library.");
-        MEM_Uninit();
-		CMD_Uninit();
 		IsLibraryInitialized = false;
-		DBG("Uninitialized library.");
+				DBG("Uninitialized library.");
+
+		PRINT("Suppressing calls to CMD_Uninit() and MEM_Uninit() as they are broken and should be fixed before reinstating");
+		//CMD_Uninit();
+        //MEM_Uninit();
+
+
 	}
 }
 
