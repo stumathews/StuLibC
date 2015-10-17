@@ -5,7 +5,7 @@ void LIST_Insert( LinkedList* list, void* data )
 {
     if( list->head == NULL )
     {
-        list->head = malloc( sizeof(struct node));
+        list->head = malloc( sizeof(LinkedNode));
         list->head->data = data;
         list->head->next = NULL;
         list->head->previous = NULL;
@@ -14,7 +14,7 @@ void LIST_Insert( LinkedList* list, void* data )
     }
     else
     {
-        struct node* tmpNode = malloc( sizeof(struct node) );
+        struct node* tmpNode = malloc( sizeof(LinkedNode) );
         tmpNode->data = data;
         tmpNode->next = NULL;
         tmpNode->previous = list->tail;
@@ -25,6 +25,18 @@ void LIST_Insert( LinkedList* list, void* data )
     list->size++;
 
 }
+
+void LIST_Deallocate( LinkedList* list )
+{
+    LinkedNode *last = list->tail;
+    while( last != null )
+    {
+        LinkedList *previous = last->previous;
+        list->fnPrint(last);
+        free( last->next );
+    }
+}
+
 
 void LIST_Init( LinkedList* list)
 {
