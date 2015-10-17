@@ -103,19 +103,20 @@ void test_STR_Without()
     char* name = "Stuart Mathews";
     char* arg = "--help";
     short MAX = 20;
-    char* buffer;
+    char* buffer = MEM_Alloc(SIZEOFCHAR * strlen(name));
 
-    buffer = STR_Without( " Mathews", name);
+    buffer = STR_Without( " Mathews", name,buffer);
     assert( strcmp( buffer, "Stuart" ) == 0 );
-    buffer = STR_Without( "--", arg);
+    buffer = STR_Without( "--", arg,buffer);
     assert( strcmp( buffer, "help" ) == 0 );
-    buffer = STR_Without("stuart","peter stuart mathews 1 stuart");
+    buffer = STR_Without("stuart","peter stuart mathews 1 stuart",buffer);
 
     char* test = "peter  mathews 1 ";
+    char* buffer1 = MEM_Alloc(SIZEOFCHAR * strlen(name));
     assert( strcmp( buffer, test ) == 0 );
-    buffer = STR_Without(",,","s,,t,,u,,a,,r,,t");
+    buffer = STR_Without(",,","s,,t,,u,,a,,r,,t",buffer1);
     assert( strcmp( buffer, "stuart" ) == 0 );
-    buffer = STR_Without(",","s,t,u,a,r,t");
+    buffer = STR_Without(",","s,t,u,a,r,t",buffer1);
     assert( strcmp( buffer, "stuart" ) == 0 );
 }
 
