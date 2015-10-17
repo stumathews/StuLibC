@@ -41,7 +41,10 @@ struct Address {
 #define MEM_set(s,c,n) memset((s),(c),(n))
 #define alloc(s) MEM_Alloc((s)) 
 
+// Deinitialises te memory managment function within the library
 void MEM_Uninit();
+
+// Initialises the memory management functions within the library
 void MEM_Init();
 
 /** \brief Detect empty pointers
