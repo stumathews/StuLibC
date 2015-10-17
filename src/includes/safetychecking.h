@@ -62,7 +62,7 @@ LIBRARY_API void CHK_int(IsIntValidRoutine func_IsDataValid, int* data, char* da
  * \return void
  *
  */
-void CHK_ExitIf(int condition, char* message, char* resultContext);
+LIBRARY_API void CHK_ExitIf(int condition, char* message, char* resultContext);
 //int CHK_LogIf(int condition, char* message, char* resultContext);
 //void CHK_Log(char* functionName,int lineNumber, char* resultContext);
 
