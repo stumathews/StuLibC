@@ -53,6 +53,7 @@ LIBRARY_API void LIST_Init( LinkedList* list);
  *  \return void
  */
 LIBRARY_API void LIST_Print( LinkedList* list);
+LIBRARY_API void LIST_Deallocate( LinkedList* list);
 
 
 #define LIST_H

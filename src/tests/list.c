@@ -38,6 +38,9 @@ void testStringList()
 
     myStringList.fnPrint = strPrint;
     LIST_Print( &myStringList );
+    LIST_Deallocate( &myStringList );
+    LIST_Print( &myStringList );
+
 }
 
 struct MyLinuxList
