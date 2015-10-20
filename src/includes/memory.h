@@ -24,7 +24,7 @@ This is a narative on this part of the library
 /**
 * Container that holds a raw memory buffer/location
 */
-struct Address {
+struct TrackedAddress {
 	void* mem_loc;
 	struct list_head list;
 };
