@@ -8,8 +8,11 @@
 #include <linuxlist.h>
 #include <stulibc.h> // for LIB_*
 
-struct Address mem_addrs;
-struct Address* tmp;
+/**
+ * All the tracked memory addresses
+ */
+struct TrackedAddress mem_addrs;
+struct TrackedAddress* tmp;
 struct list_head *pos, *q;
 
 void MEM_Init()
@@ -23,7 +26,7 @@ void MEM_Uninit()
 
 static void track_buffer(void* buffer)
 {
-  struct Address* tmp = (struct Address*) malloc(sizeof(struct Address));
+  struct TrackedAddress* tmp = (struct TrackedAddress*) malloc(sizeof(struct TrackedAddress));
   tmp->mem_loc = buffer;
   list_add(&(tmp->list), &(mem_addrs.list));
 }
@@ -48,44 +51,27 @@ void* MEM_Alloc(size_t size)
 
 int MEM_GetTrackedCount()
 {
-	struct Address* tmp;
+	struct TrackedAddress* tmp;
 	struct list_head *pos;
 	int count = 0;
-	tmp = malloc(sizeof(struct Address));
+	tmp = malloc(sizeof(struct TrackedAddress));
 
 	list_for_each(pos, &mem_addrs.list){
-		tmp = list_entry(pos, struct Address, list);
+		tmp = list_entry(pos, struct TrackedAddress, list);
 		count++;
 	}
   
   return count;
 }
 
-void print_tracked()
+static struct TrackedAddress* find( void* buffer)
 {
-
-	int count = 0;
-
-	tmp = malloc(sizeof(struct Address));
-
-	list_for_each(pos, &mem_addrs.list){
-		tmp = list_entry(pos, struct Address, list);
-		DBG("(%d)%p\n", count++, tmp->mem_loc);
-	}
-
-	if (!count) { DBG("No tracked buffers.\n"); return; }
-}
-
-
-static struct Address* find( void* buffer)
-{
-	struct Address* tmp;
+	struct TrackedAddress* tmp;
 	struct list_head *pos;
 
-	tmp = malloc(sizeof(struct Address));
-
-    list_for_each(pos, &mem_addrs.list){
-        tmp = list_entry(pos, struct Address, list);
+	list_for_each(pos, &mem_addrs.list)
+	{
+        tmp = list_entry(pos, struct TrackedAddress, list);
         if (tmp->mem_loc == buffer)
         {
             return tmp;
@@ -97,8 +83,9 @@ static struct Address* find( void* buffer)
 void MEM_DeAllocAll()
 {
 	int count = 0;
-	list_for_each_safe(pos, q, &mem_addrs.list){
-		tmp = list_entry(pos, struct Address, list);
+	list_for_each_safe(pos, q, &mem_addrs.list)
+	{
+		tmp = list_entry(pos, struct TrackedAddress, list);
 		list_del(pos);
 		free(tmp);
 		count++;
@@ -109,8 +96,9 @@ void MEM_DeAllocAll()
 
 bool MEM_DeAlloc(void* buffer, char* buffer_name)
 {
-	list_for_each_safe(pos, q, &mem_addrs.list){
-		tmp = list_entry(pos, struct Address, list);
+	list_for_each_safe(pos, q, &mem_addrs.list)
+	{
+		tmp = list_entry(pos, struct TrackedAddress, list);
 		if (buffer == tmp->mem_loc)
 		{
 			if (tmp->mem_loc == NULL)
@@ -126,7 +114,6 @@ bool MEM_DeAlloc(void* buffer, char* buffer_name)
 			free(tmp);
 			return true;
 		}
-
 	}  
   return true; // nothing happened.
 }
@@ -134,7 +121,7 @@ bool MEM_DeAlloc(void* buffer, char* buffer_name)
 bool MEM_CheckAllocated( void* buffer,char* name, char* filename, int line)
 {
 
-  struct Address* tracked_buffer = find( buffer);
+  struct TrackedAddress* tracked_buffer = find( buffer);
   if( tracked_buffer != NULL )
   {
     return true;
