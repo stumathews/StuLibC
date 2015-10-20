@@ -1,44 +1,67 @@
 #include <list.h>
 #include <console.h>
 
-void LIST_Insert( LinkedList* list, void* data )
+/*
+ List:
+ 	 -head: Node*
+ 	 -tail: Node*
+ 	 -size
+ 	 -fnPrint
+
+ Node
+ 	 - data
+ 	 - next
+ 	 - previous
+ */
+
+void LIST_Insert( List* list, void* data )
 {
     if( list->head == NULL )
     {
-        list->head = malloc( sizeof(LinkedNode));
-        list->head->data = data;
-        list->head->next = NULL;
-        list->head->previous = NULL;
+        Node *head = malloc( sizeof(Node));
 
-        list->tail = list->head;
+        head->data = data;
+        head->next = NULL;
+        head->previous = NULL;
+
+        list->head = head;
+        list->tail = head;
+
+        head->list = (struct list*) list;
     }
     else
     {
-        struct node* tmpNode = malloc( sizeof(LinkedNode) );
-        tmpNode->data = data;
-        tmpNode->next = NULL;
-        tmpNode->previous = list->tail;
+        Node* newNode = malloc( sizeof(Node) );
+        Node* previous = list->tail;
 
-        list->tail->next = tmpNode;
-        list->tail = tmpNode;
+        newNode->data = data;
+        newNode->next = NULL;
+        newNode->previous = previous;
+        newNode->list = (struct list*) list;
+
+        previous->next = newNode;
+
+        list->tail = newNode;
+
     }
     list->size++;
-
 }
 
-void LIST_Deallocate( LinkedList* list )
+void LIST_Deallocate( List* list )
 {
-    LinkedNode *last = list->tail;
-    while( last != null )
+    Node *node = list->head;
+    while(node != null && list->size > 0)
     {
-        LinkedList *previous = last->previous;
-        list->fnPrint(last);
-        free( last->next );
+        Node* next = node->next;
+        free(node->data);
+        free(node);
+        node = next;
+        list->size--;
     }
 }
 
 
-void LIST_Init( LinkedList* list)
+void LIST_Init( List* list)
 {
     list->head = NULL;
     list->tail = NULL;
@@ -46,11 +69,12 @@ void LIST_Init( LinkedList* list)
     list->fnPrint = NULL;
 }
 
-void LIST_Print( LinkedList* list )
+void LIST_Print( List* list )
 {
     PRINT("Printing the list:\n");
-    LinkedNode* current = list->head;
-    while( current != null )
+    Node* current = list->head;
+
+    while(current != null && list->size > 0)
     {
         list->fnPrint(current);
         current = current->next;

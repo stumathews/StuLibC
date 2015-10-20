@@ -20,13 +20,14 @@ void testIntList()
     LIST_Insert( &myList, &y );
     LIST_Insert( &myList, &z );
     myList.fnPrint = printMe;
+    LIST_Print( &myList );
     PRINT("LIst size is %d\n", myList.size);
 }
 
 void testStringList()
 {
 
-    LinkedList myStringList;
+    List myStringList = {0};
     char* one = "one";
     char* two = "two";
     char* three = "three";
@@ -36,9 +37,14 @@ void testStringList()
     LIST_Insert( &myStringList, two);
     LIST_Insert( &myStringList, three);
 
+    assert( myStringList.size == 3);
+
     myStringList.fnPrint = strPrint;
     LIST_Print( &myStringList );
     LIST_Deallocate( &myStringList );
+
+    assert( myStringList.size == 0);
+
     LIST_Print( &myStringList );
 
 }
@@ -88,8 +94,8 @@ int main( int argc, char** argv )
    {
         testIntList,"testIntList",
         testStringList,"testStringList",
-        testLinuxList, "testLinuxList"
+       // testLinuxList, "testLinuxList"
    };
-   run_tests(tests,3);
+   run_tests(tests,2);
    return 0;
 }
