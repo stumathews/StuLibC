@@ -8,7 +8,6 @@
 
 int* aIntPtr = NULL;
 int number = 25;
-void print_tracked();
 
 void test_Alloc()
 {
