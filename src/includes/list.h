@@ -82,7 +82,13 @@ LIBRARY_API void  LIST_InsertAfter( List* list, void* data, Node* afterThisNode)
  * @return the last item in the list
  */
 LIBRARY_API Node* LIST_Pop(List* list);
-int   LIST_DeleteNode( List* list, Node* nodeToDelete);
+LIBRARY_API int   LIST_DeleteNode( List* list, Node* nodeToDelete);
+/**
+ * Finds the first node in the list with the data provided
+ * @param list
+ * @param data
+ * @return the node that houses that data in the list
+ */
 LIBRARY_API Node* LIST_FindData( List* list, void* data );
 
 /** \brief Zeros a list contents
