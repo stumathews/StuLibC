@@ -1,39 +1,24 @@
 # ignore these files
 
-# object files
 *.o
-
-# windows binaries
+*.lo
 Program/bin
 *.exe
 *.dll
-# generated log files
 *.log
-
-# hidden files
 .*
 *.gch
-
-# other and shared library binary files
 *.so*
 *.lib
 [*.lo]
 *.la
-*.out
-
-# vim backup files
+*.guess
 *~
-# everything else i dont want
 main
 /Default/
 *.in
 Makefile
-# http://www.gnu.org/software/automake
-
 Makefile.in
-
-# http://www.gnu.org/software/autoconf
-
 /autom4te.cache
 /aclocal.m4
 /compile
