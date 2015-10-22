@@ -1,5 +1,6 @@
 #include <list.h>
 #include <console.h>
+#include <stdbool.h>
 
 /*
  List:
@@ -13,38 +14,136 @@
  	 - next
  	 - previous
  */
+void freeNode(Node* node);
 
-void LIST_Insert( List* list, void* data )
+Node* LIST_Pop(List* list)
 {
-    if( list->head == NULL )
-    {
-        Node *head = malloc( sizeof(Node));
+	Node* oldTail = list->tail;
+	oldTail->previous->next = NULL;
+	return oldTail;
+}
 
-        head->data = data;
-        head->next = NULL;
-        head->previous = NULL;
+Node* LIST_Get( List* list, int index)
+{
+	Node *node = list->head;
+	int count = 0;
+	while(node != null && list->size > 0)
+	{
+		Node* next = node->next;
+		if( count == index){
+			return node;
+		}
+		node = next;
+		count++;
+	}
+	return NULL;
+}
 
-        list->head = head;
-        list->tail = head;
+Node* LIST_Push( List* list, void *data)
+{
+	if( list->head == NULL )
+	{
+		Node *head = malloc( sizeof(Node));
 
-        head->list = (struct list*) list;
-    }
-    else
-    {
-        Node* newNode = malloc( sizeof(Node) );
-        Node* previous = list->tail;
+		head->data = data;
+		head->next = NULL;
+		head->previous = NULL;
 
-        newNode->data = data;
-        newNode->next = NULL;
-        newNode->previous = previous;
-        newNode->list = (struct list*) list;
+		list->head = head;
+		list->tail = head;
 
-        previous->next = newNode;
+		head->list = (struct LinkedList*) list;
+		list->size++;
+		return head;
+	}
+	else
+	{
+		Node* newNode = malloc( sizeof(Node) );
+		Node* previous = list->tail;
 
-        list->tail = newNode;
+		newNode->data = data;
+		newNode->next = NULL;
+		newNode->previous = previous;
+		newNode->list = (struct LinkedList*) list;
 
-    }
-    list->size++;
+		previous->next = newNode;
+
+		list->tail = newNode;
+		list->size++;
+		return newNode;
+
+	}
+
+}
+
+int LIST_DeleteNode( List* list, Node* nodeToDelete)
+{
+	Node *node = list->head;
+	bool found = false;
+	while(node != null && list->size > 0)
+	{
+		Node* next = node->next;
+		if (nodeToDelete == node)
+		{
+			found = true;
+			break;
+		}
+		node = next;
+	}
+
+	if(found){
+		Node* previous = nodeToDelete->previous;
+		Node* next = nodeToDelete->next;
+
+		previous->next = next;
+		next->previous = previous;
+
+		freeNode(nodeToDelete);
+		list->size--;
+		return 0;
+	}
+
+	return -1;
+}
+
+Node* LIST_FindData( List* list, void* data )
+{
+	Node *node = list->head;
+	while(node != null && list->size > 0)
+	{
+		Node* next = node->next;
+		if( node->data == data) return node;
+		node = next;
+		list->size--;
+	}
+	return NULL;
+}
+
+void LIST_InsertBefore( List* list, void* data, Node* beforeThisNode)
+{
+	Node* newNode = malloc(sizeof(struct LinkedListNode));
+	newNode->data = data;
+	newNode->list = list;
+	newNode->previous = beforeThisNode->previous;
+	newNode->previous->next = newNode;
+	newNode->next = beforeThisNode;
+
+	beforeThisNode->previous = newNode;
+	list->size++;
+}
+
+void LIST_InsertAfter( List* list, void* data, Node* afterThisNode)
+{
+	struct LinkedListNode* newNode = malloc(sizeof(struct LinkedListNode));
+	newNode->data = data;
+	newNode->list = list;
+	newNode->next = afterThisNode->next;
+	newNode->previous = afterThisNode;
+
+	afterThisNode->next = newNode;
+	newNode->next->previous = newNode;
+	list->size++;
+
 }
 
 void LIST_Deallocate( List* list )
@@ -53,13 +152,16 @@ void LIST_Deallocate( List* list )
     while(node != null && list->size > 0)
     {
         Node* next = node->next;
-        free(node->data);
-        free(node);
+        freeNode(node);
         node = next;
         list->size--;
     }
 }
 
+void freeNode(Node* node){
+	free(node->data);
+	free(node);
+}
 
 void LIST_Init( List* list)
 {
@@ -69,6 +171,7 @@ void LIST_Init( List* list)
     list->fnPrint = NULL;
 }
 
+
 void LIST_Print( List* list )
 {
     PRINT("Printing the list:\n");
@@ -76,7 +179,10 @@ void LIST_Print( List* list )
 
     while(current != null && list->size > 0)
     {
-        list->fnPrint(current);
+    	if( list->fnPrint != NULL)
+    		list->fnPrint(current);
+    	else
+    		PRINTLINE("%d",current->data);
         current = current->next;
     }
 }
