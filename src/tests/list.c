@@ -1,10 +1,10 @@
 #include <stulibc.h>
 
-void printMe( struct node* myNode )
+void printMe( struct LinkedListNode* myNode )
 {
     PRINT( "%d\n",*(int*)(myNode->data));
 }
-void strPrint( struct node* myNode )
+void strPrint( struct LinkedListNode* myNode )
 {
     PRINT( "%s\n",(char*)(myNode->data));
 }
@@ -12,13 +12,13 @@ void strPrint( struct node* myNode )
 void testIntList()
 {
 
-    struct list myList;
+    struct LinkedList myList;
     int x = 0, y = 1, z = 2;
 
     LIST_Init( &myList );
-    LIST_Insert( &myList, &x );
-    LIST_Insert( &myList, &y );
-    LIST_Insert( &myList, &z );
+    LIST_Add( &myList, &x );
+    LIST_Add( &myList, &y );
+    LIST_Add( &myList, &z );
     myList.fnPrint = printMe;
     LIST_Print( &myList );
     PRINT("LIst size is %d\n", myList.size);
@@ -33,9 +33,9 @@ void testStringList()
     char* three = "three";
 
     LIST_Init( &myStringList );
-    LIST_Insert( &myStringList, one);
-    LIST_Insert( &myStringList, two);
-    LIST_Insert( &myStringList, three);
+    LIST_Add( &myStringList, one);
+    LIST_Add( &myStringList, two);
+    LIST_Add( &myStringList, three);
 
     assert( myStringList.size == 3);
 
@@ -88,14 +88,67 @@ void testLinuxList()
 
 }
 
+void testInsertBefore()
+{
+	printf("testInsertBefore:\n");
+	List list = {0};
+	LIST_Init(&list);
+	Node* one = LIST_Add(&list, 1);
+	Node* two = LIST_Add(&list, 2);
+
+	LIST_InsertBefore(&list,3,two);
+	Node* result = LIST_Get(&list,1);
+	assert( result->data == 3 );
+	assert( result->next == two );
+	assert( result->previous == one);
+	LIST_Print(&list);
+	LIST_Deallocate(&list);
+
+}
+
+void testInsertAfter()
+{
+	printf("testInsertAfter:\n");
+	List list = {0};
+	LIST_Init(&list);
+	Node* one = LIST_Add(&list, 1);
+	Node* two = LIST_Add(&list, 2);
+	Node* three = LIST_Add(&list, 3);
+
+	int data = 4;
+	LIST_InsertAfter(&list,data,two);
+	Node* result = LIST_Get(&list,2);
+	assert( result->data == data );
+	assert( result->next == three );
+	assert( result->previous == two);
+	LIST_Print(&list);
+	LIST_Deallocate(&list);
+
+}
+
+void testLIST_Get()
+{
+	const char* strMmathews = "Mathews";
+	List list = {0};
+	LIST_Init(&list);
+	LIST_Push(&list,"Stuart");
+	LIST_Push(&list, strMmathews);
+	Node* mathews = LIST_Get(&list,1);
+	assert( STR_Equals((char*)mathews->data, (char*)strMmathews) == true );
+	LIST_Deallocate(&list);
+}
 int main( int argc, char** argv )
 {
    struct TestDefinition tests[] = 
    {
         testIntList,"testIntList",
         testStringList,"testStringList",
-       // testLinuxList, "testLinuxList"
+        testLinuxList, "testLinuxList",
+		testLIST_Get, "testLIST_Get",
+		testInsertBefore, "testInsertBefore",
+		testInsertAfter,"testInsertAfter"
+
    };
-   run_tests(tests,2);
+   run_tests(tests,6);
    return 0;
 }
