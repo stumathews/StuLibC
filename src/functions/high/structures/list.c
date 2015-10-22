@@ -1,19 +1,18 @@
 #include <list.h>
 #include <console.h>
 #include <stdbool.h>
+#include <memory.h>
 
-/*
- List:
- 	 -head: Node*
- 	 -tail: Node*
- 	 -size
- 	 -fnPrint
-
- Node
- 	 - data
- 	 - next
- 	 - previous
- */
+void LIST_ForEach( List* list,  ActOnNodeFn fn )
+{
+		Node *node = list->head;
+	    while(node != null && list->size > 0)
+	    {
+	        Node* next = node->next;
+	        fn(node);
+	        node = next;
+	    }
+}
 void freeNode(Node* node);
 
 Node* LIST_Pop(List* list)
@@ -52,7 +51,7 @@ Node* LIST_Push( List* list, void *data)
 {
 	if( list->head == NULL )
 	{
-		Node *head = malloc( sizeof(Node));
+		Node *head = MEM_Alloc( sizeof(Node));
 
 		head->data = data;
 		head->next = NULL;
@@ -67,7 +66,7 @@ Node* LIST_Push( List* list, void *data)
 	}
 	else
 	{
-		Node* newNode = malloc( sizeof(Node) );
+		Node* newNode = MEM_Alloc( sizeof(Node) );
 		Node* previous = list->tail;
 
 		newNode->data = data;
@@ -130,7 +129,7 @@ Node* LIST_FindData( List* list, void* data )
 
 void LIST_InsertBefore( List* list, void* data, Node* beforeThisNode)
 {
-	Node* newNode = malloc(sizeof(struct LinkedListNode));
+	Node* newNode = MEM_Alloc(sizeof(struct LinkedListNode));
 	newNode->data = data;
 	newNode->list = list;
 	newNode->previous = beforeThisNode->previous;

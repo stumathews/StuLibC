@@ -9,9 +9,12 @@
  */
 
 /** \page list Lists
-Various linked list implementations. The default one is LIST_* functions and the other is
+Linked list data structure and functionality.
+The default one is LIST_* functions and the other is
 taken from the linux kernel and is more mature.
+Simple List:
 \include list.h
+Advanced List:
 \include linuxlist.h
 */
 #ifndef LIST_H
@@ -20,9 +23,14 @@ taken from the linux kernel and is more mature.
 #include <stdio.h>
 #include <stdlib.h>
 
-#define LIST_Remove( list, node) LIST_DeleteNode(list, node)
-#define LIST_Add( list, data) LIST_Push(list, data)
+#define LIST_Remove( list, node ) LIST_DeleteNode( list, node )
+#define LIST_Add( list, data ) LIST_Push( list, data )
+#define LIST_Clear( list ) LIST_Deallocate( list )
 
+/**
+ * Represents a single node in the list. The node can contain any data.
+ * Each node knows about what list it is in.
+ */
 typedef struct LinkedListNode {
     void* data;
     struct LinkedListNode* next;
@@ -30,21 +38,25 @@ typedef struct LinkedListNode {
     struct LinkedList* list;
 } Node;
 
-
-
 /**
  * Any function that will print the contents of a LinkedListNode
  * @param LinkedListNode
  */
-typedef void (*PrintDataFunc)(Node* LinkedListNode);
+typedef void ( *ActOnNodeFn )( Node* LinkedListNode );
 
+/**
+ * Top level list that holds reference to the head and tail of the list
+ * along with other list overall attributes such as the size
+ */
 typedef struct LinkedList {
     struct LinkedListNode* head;
     struct LinkedListNode* tail;
     int size;
-    PrintDataFunc fnPrint;
+    ActOnNodeFn fnPrint;
     
 } List;
+
+LIBRARY_API void LIST_ForEach( List* list, ActOnNodeFn fn );
 
 /**
  * Gets the n-th item in the linked list
@@ -52,8 +64,7 @@ typedef struct LinkedList {
  * @param n
  * @return
  */
-LIBRARY_API Node* LIST_Get( List* list, int n);
-
+LIBRARY_API Node* LIST_Get( List* list, int n );
 
 /**
  * Adds a new item to the list
@@ -61,7 +72,7 @@ LIBRARY_API Node* LIST_Get( List* list, int n);
  * @param data
  * @return Node* the added node
  */
-LIBRARY_API Node* LIST_Push( List* list, void *data);
+LIBRARY_API Node* LIST_Push( List* list, void *data );
 
 /**
  * Add to the list before a specified node
@@ -69,7 +80,7 @@ LIBRARY_API Node* LIST_Push( List* list, void *data);
  * @param data
  * @param beforeThisNode
  */
-LIBRARY_API void  LIST_InsertBefore( List* list, void* data, Node* beforeThisNode);
+LIBRARY_API void  LIST_InsertBefore( List* list, void* data, Node* beforeThisNode );
 
 /**
  * Adds to the list after the specified node in the list
@@ -77,15 +88,14 @@ LIBRARY_API void  LIST_InsertBefore( List* list, void* data, Node* beforeThisNod
  * @param data
  * @param afterThisNode
  */
-LIBRARY_API void  LIST_InsertAfter( List* list, void* data, Node* afterThisNode);
+LIBRARY_API void  LIST_InsertAfter( List* list, void* data, Node* afterThisNode );
 
 /**
  * Returns the last item in the list and removes it from the list
  * @param list
  * @return the last item in the list
  */
-LIBRARY_API Node* LIST_Pop(List* list);
-
+LIBRARY_API Node* LIST_Pop( List* list );
 
 /**
  * Deletes a node in the list
@@ -93,7 +103,7 @@ LIBRARY_API Node* LIST_Pop(List* list);
  * @param nodeToDelete
  * @return
  */
-LIBRARY_API int   LIST_DeleteNode( List* list, Node* nodeToDelete);
+LIBRARY_API int   LIST_DeleteNode( List* list, Node* nodeToDelete );
 /**
  * Finds the first node in the list with the data provided
  * @param list
@@ -106,7 +116,7 @@ LIBRARY_API Node* LIST_FindData( List* list, void* data );
  *  \param list struct list* the list to initialize
  *  \return nothing
  */
-LIBRARY_API void LIST_Init( List* list);
+LIBRARY_API void LIST_Init( List* list );
 
 /** \brief Uses provided print function to print the contents of the list
  *  
@@ -114,12 +124,12 @@ LIBRARY_API void LIST_Init( List* list);
  *  \param list struct* list* the list to print
  *  \return void
  */
-LIBRARY_API void LIST_Print( List* list);
+LIBRARY_API void LIST_Print( List* list );
 
 /**
  * Deallocates all items in the list and sets the list size to 0
  * @param list the list to free up
  */
-LIBRARY_API void LIST_Deallocate( List* list);
+LIBRARY_API void LIST_Deallocate( List* list );
 
 #endif
