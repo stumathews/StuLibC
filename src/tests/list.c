@@ -90,7 +90,6 @@ void testLinuxList()
 
 void testInsertBefore()
 {
-	printf("testInsertBefore:\n");
 	List list = {0};
 	LIST_Init(&list);
 	Node* one = LIST_Add(&list, 1);
@@ -106,9 +105,23 @@ void testInsertBefore()
 
 }
 
+void testLISTPop()
+{
+	List list = {0};
+	LIST_Init(&list);
+	Node* alpha = LIST_Push(&list, "alpha");
+	Node* beta = LIST_Push(&list, "beta");
+	Node* shouldBeBeta = LIST_Pop(&list);
+	assert( beta == shouldBeBeta);
+	assert( LIST_Get(&list,0) == alpha );
+	assert( list.tail->next == NULL );
+	assert( list.tail == alpha);
+	assert( list.size == 1);
+
+}
+
 void testInsertAfter()
 {
-	printf("testInsertAfter:\n");
 	List list = {0};
 	LIST_Init(&list);
 	Node* one = LIST_Add(&list, 1);
@@ -131,7 +144,7 @@ void testLIST_Get()
 	const char* strMmathews = "Mathews";
 	List list = {0};
 	LIST_Init(&list);
-	LIST_Push(&list,"Stuart");
+	LIST_Push(&list, "Stuart");
 	LIST_Push(&list, strMmathews);
 	Node* mathews = LIST_Get(&list,1);
 	assert( STR_Equals((char*)mathews->data, (char*)strMmathews) == true );
@@ -146,9 +159,10 @@ int main( int argc, char** argv )
         testLinuxList, "testLinuxList",
 		testLIST_Get, "testLIST_Get",
 		testInsertBefore, "testInsertBefore",
-		testInsertAfter,"testInsertAfter"
+		testInsertAfter,"testInsertAfter",
+		testLISTPop, "testLISTPop"
 
    };
-   run_tests(tests,6);
+   run_tests(tests,7);
    return 0;
 }
