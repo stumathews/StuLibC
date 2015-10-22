@@ -139,6 +139,19 @@ void testInsertAfter()
 
 }
 
+void testLIST_FindData()
+{
+	List list = {0};
+	LIST_Init(&list);
+	LIST_Push(&list, 1);
+	LIST_Push(&list, 2);
+	Node* three = LIST_Push(&list, 3);
+	Node* result = LIST_FindData(&list, 3);
+	assert( result == three);
+	assert( list.size == 2);
+
+}
+
 void testLIST_Get()
 {
 	const char* strMmathews = "Mathews";
@@ -160,7 +173,8 @@ int main( int argc, char** argv )
 		testLIST_Get, "testLIST_Get",
 		testInsertBefore, "testInsertBefore",
 		testInsertAfter,"testInsertAfter",
-		testLISTPop, "testLISTPop"
+		testLISTPop, "testLISTPop",
+		testLIST_FindData, "testLIST_FindData"
 
    };
    run_tests(tests,7);

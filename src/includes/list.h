@@ -83,7 +83,7 @@ LIBRARY_API void  LIST_InsertAfter( List* list, void* data, Node* afterThisNode)
  */
 LIBRARY_API Node* LIST_Pop(List* list);
 int   LIST_DeleteNode( List* list, Node* nodeToDelete);
-Node* LIST_FindData( List* list, void* data );
+LIBRARY_API Node* LIST_FindData( List* list, void* data );
 
 /** \brief Zeros a list contents
  *  \param list struct list* the list to initialize
