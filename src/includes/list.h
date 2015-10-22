@@ -76,7 +76,12 @@ LIBRARY_API void  LIST_InsertBefore( List* list, void* data, Node* beforeThisNod
  */
 LIBRARY_API void  LIST_InsertAfter( List* list, void* data, Node* afterThisNode);
 
-Node* LIST_Pop(List* list);
+/**
+ * Returns the last item in the list and removes it from the list
+ * @param list
+ * @return the last item in the list
+ */
+LIBRARY_API Node* LIST_Pop(List* list);
 int   LIST_DeleteNode( List* list, Node* nodeToDelete);
 Node* LIST_FindData( List* list, void* data );
 

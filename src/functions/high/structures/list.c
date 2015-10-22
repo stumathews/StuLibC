@@ -18,8 +18,17 @@ void freeNode(Node* node);
 
 Node* LIST_Pop(List* list)
 {
+	if( list->size == 0 || list->tail == NULL)
+		return NULL;
+
 	Node* oldTail = list->tail;
-	oldTail->previous->next = NULL;
+
+	if( oldTail->previous != NULL){
+		oldTail->previous->next = NULL;
+		list->size--;
+		list->tail = oldTail->previous;
+	}
+
 	return oldTail;
 }
 
