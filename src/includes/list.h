@@ -20,6 +20,7 @@ taken from the linux kernel and is more mature.
 #include <stdio.h>
 #include <stdlib.h>
 
+#define LIST_Remove( list, node) LIST_DeleteNode(list, node)
 #define LIST_Add( list, data) LIST_Push(list, data)
 
 typedef struct LinkedListNode {
@@ -52,6 +53,8 @@ typedef struct LinkedList {
  * @return
  */
 LIBRARY_API Node* LIST_Get( List* list, int n);
+
+
 /**
  * Adds a new item to the list
  * @param list
@@ -82,6 +85,14 @@ LIBRARY_API void  LIST_InsertAfter( List* list, void* data, Node* afterThisNode)
  * @return the last item in the list
  */
 LIBRARY_API Node* LIST_Pop(List* list);
+
+
+/**
+ * Deletes a node in the list
+ * @param list
+ * @param nodeToDelete
+ * @return
+ */
 LIBRARY_API int   LIST_DeleteNode( List* list, Node* nodeToDelete);
 /**
  * Finds the first node in the list with the data provided
@@ -110,17 +121,5 @@ LIBRARY_API void LIST_Print( List* list);
  * @param list the list to free up
  */
 LIBRARY_API void LIST_Deallocate( List* list);
-
-/* TODO:
- * int LIST_Find( List* list, void* value, int )
- * int LIST_Pop( List* list, int )
- * int LIST_Push( List* list, int )
- * int LIST_InsertBefore( List* list, int, Node* beforeMe )
- * int LIST_InsertAfter( List* list, int, Node* afterMe )
- * int LIST_Remove( List* list, void* value, int, all|first|last )
- * sorting a generic list with void*, possible? safe?
- * */
-
-#define LIST_H
 
 #endif
