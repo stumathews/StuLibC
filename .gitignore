@@ -1,4 +1,11 @@
 # ignore these files
+*.txt
+*.hin
+*.status
+*.sub
+libtool
+*.sh
+test-driver
 
 *.o
 *.lo
