@@ -139,6 +139,31 @@ void testInsertAfter()
 
 }
 
+void addTen( Node* node)
+{
+	int* integer = node->data;
+	(*integer)++;
+}
+
+void testLIST_ForEach()
+{
+	List list = {0};
+	LIST_Init(&list);
+	LIST_Add(&list,10);
+	LIST_Add(&list,10);
+	LIST_Add(&list,10);
+	LIST_Add(&list,10);
+	LIST_Add(&list,10);
+	LIST_ForEach(&list, addTen);
+	Node* one = LIST_Get(&list, 0);
+	Node* three = LIST_Get(&list, 3);
+
+	/* random pick:*/
+	assert( one->data == 11);
+	assert( three->data == 11);
+
+}
+
 void testLIST_DeleteNode()
 {
 	List list = {0};
@@ -196,9 +221,10 @@ int main( int argc, char** argv )
 		testInsertAfter,"testInsertAfter",
 		testLISTPop, "testLISTPop",
 		testLIST_FindData, "testLIST_FindData",
-		testLIST_DeleteNode,"testLIST_DeleteNode"
+		testLIST_DeleteNode,"testLIST_DeleteNode",
+		testLIST_ForEach, "testLIST_ForEach"
 
    };
-   run_tests(tests,9);
+   run_tests(tests,10);
    return 0;
 }
