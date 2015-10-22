@@ -37,6 +37,8 @@ void* MEM_Alloc(size_t size)
 
   void* buffer = malloc(size);
 
+  memset(buffer,0,size);
+
   if( buffer != NULL )
   {
     track_buffer(buffer);
