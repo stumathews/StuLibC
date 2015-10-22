@@ -20,27 +20,65 @@ taken from the linux kernel and is more mature.
 #include <stdio.h>
 #include <stdlib.h>
 
+#define LIST_Add( list, data) LIST_Push(list, data)
 
-typedef struct node {
+typedef struct LinkedListNode {
     void* data;
-    struct node* next;
-    struct node* previous; 
-    struct list* list;
+    struct LinkedListNode* next;
+    struct LinkedListNode* previous; 
+    struct LinkedList* list;
 } Node;
 
-typedef void (*PrintDataFunc)(Node* node);
 
-typedef struct list {
-    struct node* head;
-    struct node* tail;
+
+/**
+ * Any function that will print the contents of a LinkedListNode
+ * @param LinkedListNode
+ */
+typedef void (*PrintDataFunc)(Node* LinkedListNode);
+
+typedef struct LinkedList {
+    struct LinkedListNode* head;
+    struct LinkedListNode* tail;
     int size;
     PrintDataFunc fnPrint;
     
 } List;
 
+/**
+ * Gets the n-th item in the linked list
+ * @param list
+ * @param n
+ * @return
+ */
+LIBRARY_API Node* LIST_Get( List* list, int n);
+/**
+ * Adds a new item to the list
+ * @param list
+ * @param data
+ * @return Node* the added node
+ */
+LIBRARY_API Node* LIST_Push( List* list, void *data);
 
-// insert data into list
-LIBRARY_API void LIST_Insert( List* list, void* data); 
+/**
+ * Add to the list before a specified node
+ * @param list
+ * @param data
+ * @param beforeThisNode
+ */
+LIBRARY_API void  LIST_InsertBefore( List* list, void* data, Node* beforeThisNode);
+
+/**
+ * Adds to the list after the specified node in the list
+ * @param list
+ * @param data
+ * @param afterThisNode
+ */
+LIBRARY_API void  LIST_InsertAfter( List* list, void* data, Node* afterThisNode);
+
+Node* LIST_Pop(List* list);
+int   LIST_DeleteNode( List* list, Node* nodeToDelete);
+Node* LIST_FindData( List* list, void* data );
 
 /** \brief Zeros a list contents
  *  \param list struct list* the list to initialize
