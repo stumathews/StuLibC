@@ -139,6 +139,27 @@ void testInsertAfter()
 
 }
 
+void testLIST_DeleteNode()
+{
+	List list = {0};
+	LIST_Init(&list);
+
+	LIST_Add(&list,1);
+	LIST_Add(&list,2);
+	Node* three = LIST_Add(&list,3);
+	Node* four = LIST_Add(&list,4);
+	Node* five = LIST_Add(&list,5);
+	assert( list.size == 5);
+	LIST_DeleteNode(&list, three);
+
+	Node* res1 = LIST_Get(&list, 2);
+	assert( res1 == four );
+	Node* res2 = LIST_Get(&list, 3);
+	assert( res2 == five);
+	assert( list.size == 4);
+
+}
+
 void testLIST_FindData()
 {
 	List list = {0};
@@ -174,9 +195,10 @@ int main( int argc, char** argv )
 		testInsertBefore, "testInsertBefore",
 		testInsertAfter,"testInsertAfter",
 		testLISTPop, "testLISTPop",
-		testLIST_FindData, "testLIST_FindData"
+		testLIST_FindData, "testLIST_FindData",
+		testLIST_DeleteNode,"testLIST_DeleteNode"
 
    };
-   run_tests(tests,7);
+   run_tests(tests,9);
    return 0;
 }
