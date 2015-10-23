@@ -2,6 +2,7 @@
 #include <testing.h>
 #include <assert.h>
 #include <debugging.h>
+#include <safetychecking.h>
 
 
 void test_FILE_Exists()
