@@ -33,13 +33,14 @@ void testStringList()
     char* three = "three";
 
     LIST_Init( &myStringList );
-    LIST_Add( &myStringList, (void*) one);
+    LIST_Add( &myStringList, (void*)one);
     LIST_Add( &myStringList, (void*)two);
     LIST_Add( &myStringList, (void*)three);
 
     assert( myStringList.size == 3);
 
     myStringList.fnPrint = strPrint;
+
     LIST_Print( &myStringList );
     LIST_Deallocate( &myStringList );
 

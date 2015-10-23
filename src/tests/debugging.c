@@ -44,7 +44,8 @@ void test_DBG_LogIf()
 
 int main( int argc, char** argv )
 {
- struct TestDefinition tests[] = {
+ struct TestDefinition tests[] =
+ {
   TEST(test_DBG_WriteLineToFile),
   TEST(test_DBG_WriteLineToFileExtra),
   TEST(test_DBG_LogIf)
