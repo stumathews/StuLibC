@@ -33,9 +33,9 @@ void testStringList()
     char* three = "three";
 
     LIST_Init( &myStringList );
-    LIST_Add( &myStringList, one);
-    LIST_Add( &myStringList, two);
-    LIST_Add( &myStringList, three);
+    LIST_Add( &myStringList, (void*) one);
+    LIST_Add( &myStringList, (void*)two);
+    LIST_Add( &myStringList, (void*)three);
 
     assert( myStringList.size == 3);
 
@@ -92,12 +92,12 @@ void testInsertBefore()
 {
 	List list = {0};
 	LIST_Init(&list);
-	Node* one = LIST_Add(&list, 1);
-	Node* two = LIST_Add(&list, 2);
+	Node* one = LIST_Add(&list, (void*)1);
+	Node* two = LIST_Add(&list, (void*)2);
 
-	LIST_InsertBefore(&list,3,two);
+	LIST_InsertBefore(&list,(void*)3,two);
 	Node* result = LIST_Get(&list,1);
-	assert( result->data == 3 );
+	assert( result->data == (void*)3 );
 	assert( result->next == two );
 	assert( result->previous == one);
 	LIST_Print(&list);
@@ -109,8 +109,8 @@ void testLISTPop()
 {
 	List list = {0};
 	LIST_Init(&list);
-	Node* alpha = LIST_Push(&list, "alpha");
-	Node* beta = LIST_Push(&list, "beta");
+	Node* alpha = LIST_Push(&list,(void*) "alpha");
+	Node* beta = LIST_Push(&list,(void*) "beta");
 	Node* shouldBeBeta = LIST_Pop(&list);
 	assert( beta == shouldBeBeta);
 	assert( LIST_Get(&list,0) == alpha );
@@ -124,14 +124,14 @@ void testInsertAfter()
 {
 	List list = {0};
 	LIST_Init(&list);
-	Node* one = LIST_Add(&list, 1);
-	Node* two = LIST_Add(&list, 2);
-	Node* three = LIST_Add(&list, 3);
+	Node* one = LIST_Add(&list, (void*)1);
+	Node* two = LIST_Add(&list, (void*)2);
+	Node* three = LIST_Add(&list, (void*)3);
 
 	int data = 4;
-	LIST_InsertAfter(&list,data,two);
+	LIST_InsertAfter(&list,(void*)data,two);
 	Node* result = LIST_Get(&list,2);
-	assert( result->data == data );
+	assert( result->data == (void*)data );
 	assert( result->next == three );
 	assert( result->previous == two);
 	LIST_Print(&list);
@@ -149,18 +149,18 @@ void testLIST_ForEach()
 {
 	List list = {0};
 	LIST_Init(&list);
-	LIST_Add(&list,10);
-	LIST_Add(&list,10);
-	LIST_Add(&list,10);
-	LIST_Add(&list,10);
-	LIST_Add(&list,10);
+	LIST_Add(&list,(void*)10);
+	LIST_Add(&list,(void*)10);
+	LIST_Add(&list,(void*)10);
+	LIST_Add(&list,(void*)10);
+	LIST_Add(&list,(void*)10);
 	LIST_ForEach(&list, addTen);
 	Node* one = LIST_Get(&list, 0);
 	Node* three = LIST_Get(&list, 3);
 
 	/* random pick:*/
-	assert( one->data == 11);
-	assert( three->data == 11);
+	assert( one->data == (void*)11);
+	assert( three->data == (void*)11);
 
 }
 
@@ -169,11 +169,11 @@ void testLIST_DeleteNode()
 	List list = {0};
 	LIST_Init(&list);
 
-	LIST_Add(&list,1);
-	LIST_Add(&list,2);
-	Node* three = LIST_Add(&list,3);
-	Node* four = LIST_Add(&list,4);
-	Node* five = LIST_Add(&list,5);
+	LIST_Add(&list,(void*)1);
+	LIST_Add(&list,(void*)2);
+	Node* three = LIST_Add(&list,(void*)3);
+	Node* four = LIST_Add(&list,(void*)4);
+	Node* five = LIST_Add(&list,(void*)5);
 	assert( list.size == 5);
 	LIST_DeleteNode(&list, three);
 
@@ -189,10 +189,10 @@ void testLIST_FindData()
 {
 	List list = {0};
 	LIST_Init(&list);
-	LIST_Push(&list, 1);
-	LIST_Push(&list, 2);
-	Node* three = LIST_Push(&list, 3);
-	Node* result = LIST_FindData(&list, 3);
+	LIST_Push(&list, (void*)1);
+	LIST_Push(&list, (void*)2);
+	Node* three = LIST_Push(&list, (void*)3);
+	Node* result = LIST_FindData(&list, (void*)3);
 	assert( result == three);
 	assert( list.size == 2);
 
@@ -203,8 +203,8 @@ void testLIST_Get()
 	const char* strMmathews = "Mathews";
 	List list = {0};
 	LIST_Init(&list);
-	LIST_Push(&list, "Stuart");
-	LIST_Push(&list, strMmathews);
+	LIST_Push(&list, (void*)"Stuart");
+	LIST_Push(&list, (void*)strMmathews);
 	Node* mathews = LIST_Get(&list,1);
 	assert( STR_Equals((char*)mathews->data, (char*)strMmathews) == true );
 	LIST_Deallocate(&list);
