@@ -12,6 +12,23 @@
 Linked list data structure and functionality.
 The default one is LIST_* functions and the other is
 taken from the linux kernel and is more mature.
+A list looks like this
+ {List
+ 	 head -> node
+ 	 tail -> node
+ 	 size
+ }
+
+ A node looks like this:
+ {Node
+ 	 data
+ 	 previous
+ 	 next
+ 	 list
+  }
+
+  Node(Head) -- Node -- Node -- Node(Tail)
+
 Simple List:
 \include list.h
 Advanced List:
