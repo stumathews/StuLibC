@@ -3,17 +3,18 @@
 #include <stdbool.h>
 #include <memory.h>
 
+void freeNode(Node* node);
+
 void LIST_ForEach( List* list,  ActOnNodeFn fn )
 {
-		Node *node = list->head;
-	    while(node != null && list->size > 0)
-	    {
-	        Node* next = node->next;
-	        fn(node);
-	        node = next;
-	    }
+	Node *node = list->head;
+	while(node != null && list->size > 0)
+	{
+		Node* next = node->next;
+		fn(node);
+		node = next;
+	}
 }
-void freeNode(Node* node);
 
 Node* LIST_Pop(List* list)
 {
