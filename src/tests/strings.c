@@ -154,18 +154,18 @@ int main(int argc, char** argv)
 {
 	LIB_Init();
     struct TestDefinition tests[] = {
-        test_append,"test_append()",
-        test_createString,"test_createString",
-        test_beginsWith, "test_STR_BeginsWith",
-        test_beginsWithEither, "test_STR_BeginsWithEither",
-        test_IsNullOrEmpty,"test_STR_IsNullOrEmpty",
-        test_STR_Without,"test_STR_Without",
-        test_STR_Contains, "test_STR_Contains",
-        test_STR_EndsWith, "test_STR_EndsWith",
-        test_STR_FromLast, "test_STR_FromLast",
-        test_STR_IsAlpha, "test_STR_IsAlpha",
-        test_STR_Reverse, "test_STR_Reverse",
-        test_STR_Equals, "test_STR_Equals"
+        TEST(test_append),
+        TEST(test_createString),
+        TEST(test_beginsWith),
+        TEST(test_beginsWithEither),
+        TEST(test_IsNullOrEmpty),
+        TEST(test_STR_Without),
+        TEST(test_STR_Contains),
+        TEST(test_STR_EndsWith),
+        TEST(test_STR_FromLast),
+        TEST(test_STR_IsAlpha),
+        TEST(test_STR_Reverse),
+        TEST(test_STR_Equals),
     };
     run_tests(tests,12);
     DBG("about to LIB_Unint()");

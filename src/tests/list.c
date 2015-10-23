@@ -213,16 +213,16 @@ int main( int argc, char** argv )
 {
    struct TestDefinition tests[] = 
    {
-        testIntList,"testIntList",
-        testStringList,"testStringList",
-        testLinuxList, "testLinuxList",
-		testLIST_Get, "testLIST_Get",
-		testInsertBefore, "testInsertBefore",
-		testInsertAfter,"testInsertAfter",
-		testLISTPop, "testLISTPop",
-		testLIST_FindData, "testLIST_FindData",
-		testLIST_DeleteNode,"testLIST_DeleteNode",
-		testLIST_ForEach, "testLIST_ForEach"
+        TEST(testIntList),
+		TEST(testStringList),
+		TEST(testLinuxList),
+		TEST(testLIST_Get),
+		TEST(testInsertBefore),
+		TEST(testInsertAfter),
+		TEST(testLISTPop),
+		TEST(testLIST_FindData),
+		TEST(testLIST_DeleteNode),
+		TEST(testLIST_ForEach)
 
    };
    run_tests(tests,10);

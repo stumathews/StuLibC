@@ -92,14 +92,15 @@ void test_FILE_ContainsString()
 
 }
 
+
 int main( int arvc, char** argv )
 {
  struct TestDefinition tests[] = {
-        test_FILE_Exists, "test_FILE_Exists",
-        test_FILE_Delete, "test_FILE_Delete",
-        test_FILE_Rename, "test_FILE_Rename",
-        test_FILE_ContainsString, "test_FILE_ContainsString()",
-		test_FILE_read_ini, "test_FILE_read_ini()"
+		TEST(test_FILE_Exists),
+		TEST(test_FILE_Delete),
+		TEST(test_FILE_Rename),
+		TEST(test_FILE_ContainsString),
+		TEST(test_FILE_read_ini),
   };
  run_tests(tests,5);
   DBG_DeleteLog();

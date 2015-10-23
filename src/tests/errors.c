@@ -11,7 +11,7 @@ void test_ERR_Print()
 }
 int main(int argc, char** argv )
 {
-  struct TestDefinition tests[] = {test_ERR_Print,"test_ERR_Print"};
+  struct TestDefinition tests[] = { TEST(test_ERR_Print)};
   run_tests(tests,1);
   LOG_DeleteLog();
   return 0;

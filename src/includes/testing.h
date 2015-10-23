@@ -21,6 +21,8 @@ Contains the function and type declarations for dealing testing functionality in
 #include <assert.h>
 #include <debugging.h>
 
+#define TEST(name) name, #name
+
 /** \brief Represents a function to run to test something indicated by name
  */
 struct TestDefinition

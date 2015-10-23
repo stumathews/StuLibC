@@ -54,11 +54,11 @@ void test_LOG_GetDefaultLogFileName()
 int main( int argc, char** argv)
 {
   struct TestDefinition tests[] = {
-  test_LOG_If,"test_LOG_If()",
-  test_LOG_Log,"test_LOG_Log()",
-  test_LOG_LogToStream,"test_LOG_LogToStream()",
-  test_LOG_DeleteLog,"test_LOG_DeleteLog()",
-  test_LOG_GetDefaultLogFileName,"test_LOG_GetDefaultLogFileName()"
+  TEST(test_LOG_If),
+  TEST(test_LOG_Log),
+  TEST(test_LOG_LogToStream),
+  TEST(test_LOG_DeleteLog),
+  TEST(test_LOG_GetDefaultLogFileName),
   };
   
   run_tests(tests,5);  

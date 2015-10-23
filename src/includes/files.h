@@ -42,6 +42,7 @@ This describes the function prototypes
 #include <constants.h>
 #include <stdbool.h>
 
+
 /** \brief Appends characters to the end of a named file
   \param text char* The text to be appended to the file.
   \param filename char* The filename of the file.

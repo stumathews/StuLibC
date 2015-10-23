@@ -123,8 +123,8 @@ int main(int argc, char* argv[])
 	LIB_Init();
 
     struct TestDefinition tests[] = { test_CMD_AddArguments, "test_CMD_ADDArguments",
-        test_CMD_AddArgument, "test_CMD_ADDArgument",
-        test_CMD_Parse, "test_CMD_Parse"
+    		TEST(test_CMD_AddArgument),
+			TEST(test_CMD_Parse)
 
     };
    run_tests(tests,3);

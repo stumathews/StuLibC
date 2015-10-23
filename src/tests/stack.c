@@ -43,7 +43,7 @@ void test_AllInOneTests()
 int main( int argc, char** argv)
 {
   struct TestDefinition tests[] = {
-      test_AllInOneTests,"test_AllInOneTests"
+      TEST(test_AllInOneTests)
   };
   
   run_tests(tests,1);  
