@@ -3,7 +3,13 @@
 #include <stdbool.h>
 #include <memory.h>
 
-void freeNode(Node* node);
+static void freeNode(Node* node);
+static void increase_list_size_by_one(List* list) {
+	list->size++;
+}
+static void decrease_list_size_by_one(List* list) {
+	list->size--;
+}
 
 void LIST_ForEach( List* list,  ActOnNodeFn fn )
 {
@@ -25,21 +31,21 @@ Node* LIST_Pop(List* list)
 
 	if( oldTail->previous != NULL){
 		oldTail->previous->next = NULL;
-		list->size--;
+		decrease_list_size_by_one(list);
 		list->tail = oldTail->previous;
 	}
 
 	return oldTail;
 }
 
-Node* LIST_Get( List* list, int index)
+Node* LIST_Get( List* list, int zero_index)
 {
 	Node *node = list->head;
 	int count = 0;
 	while(node != null && list->size > 0)
 	{
 		Node* next = node->next;
-		if( count == index){
+		if( count == zero_index){
 			return node;
 		}
 		node = next;
@@ -48,8 +54,12 @@ Node* LIST_Get( List* list, int index)
 	return NULL;
 }
 
+
+
 Node* LIST_Push( List* list, void *data)
 {
+	Node *created = NULL;
+
 	if( list->head == NULL )
 	{
 		Node *head = MEM_Alloc( sizeof(Node));
@@ -62,8 +72,8 @@ Node* LIST_Push( List* list, void *data)
 		list->tail = head;
 
 		head->list = (struct LinkedList*) list;
-		list->size++;
-		return head;
+
+		created = head;
 	}
 	else
 	{
@@ -78,12 +88,14 @@ Node* LIST_Push( List* list, void *data)
 		previous->next = newNode;
 
 		list->tail = newNode;
-		list->size++;
-		return newNode;
 
+		created = newNode;
 	}
-
+	increase_list_size_by_one(list);
+	return created;
 }
+
+
 
 int LIST_DeleteNode( List* list, Node* nodeToDelete)
 {
@@ -108,7 +120,7 @@ int LIST_DeleteNode( List* list, Node* nodeToDelete)
 		next->previous = previous;
 
 		freeNode(nodeToDelete);
-		list->size--;
+		decrease_list_size_by_one(list);
 		return 0;
 	}
 
@@ -123,7 +135,6 @@ Node* LIST_FindData( List* list, void* data )
 		Node* next = node->next;
 		if( node->data == data) return node;
 		node = next;
-		list->size--;
 	}
 	return NULL;
 }
@@ -138,12 +149,12 @@ void LIST_InsertBefore( List* list, void* data, Node* beforeThisNode)
 	newNode->next = beforeThisNode;
 
 	beforeThisNode->previous = newNode;
-	list->size++;
+	increase_list_size_by_one(list);
 }
 
 void LIST_InsertAfter( List* list, void* data, Node* afterThisNode)
 {
-	struct LinkedListNode* newNode = malloc(sizeof(struct LinkedListNode));
+	struct LinkedListNode* newNode = MEM_Alloc(sizeof(struct LinkedListNode));
 	newNode->data = data;
 	newNode->list = list;
 	newNode->next = afterThisNode->next;
@@ -151,7 +162,7 @@ void LIST_InsertAfter( List* list, void* data, Node* afterThisNode)
 
 	afterThisNode->next = newNode;
 	newNode->next->previous = newNode;
-	list->size++;
+	increase_list_size_by_one(list);
 
 }
 
@@ -163,7 +174,7 @@ void LIST_Deallocate( List* list )
         Node* next = node->next;
         freeNode(node);
         node = next;
-        list->size--;
+        decrease_list_size_by_one(list);
     }
 }
 
