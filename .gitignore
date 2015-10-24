@@ -6,6 +6,14 @@
 libtool
 *.sh
 test-driver
+doc/docbook/*
+doc/html/*
+doc/man*/*
+doc/latex/**
+doc/rtf/**
+doc/xml/**
+man*/**
+doc/def/**
 
 *.o
 *.lo
