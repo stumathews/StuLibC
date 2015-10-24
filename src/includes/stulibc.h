@@ -1,4 +1,3 @@
-
 /**
  * @file stulibc.h
  * @brief Main include file
@@ -13,6 +12,8 @@
 Make it easy to consume the library functionality by just including one file. This file.
 \include stulibc.h
 */
+
+
 /*! \mainpage libstuc - library of useful c routines
 ~~~~~~~~~~~~~~~{.c}
          _         _ _ _           
@@ -24,9 +25,10 @@ Make it easy to consume the library functionality by just including one file. Th
     Stuart's Librray of C Functions
 ~~~~~~~~~~~~~~~
 \section intro_sec Introduction
+
 This is my library of useful c routines. The purposes of this library are:
 - Write common and useful functions that I can reuse in other programs.
-- I just need to link to the library.
+- Make it so that I just need to link to the library in order to use the functionality provided.
 - Use this as reference material for future code lookups to help me remember how to do a certain thing
 
 The intention is also to have it as portable as possible to work in Linux and Windows.
@@ -34,18 +36,20 @@ This will mean that the library can build unchanged across these platforms.
 Where OS specific functionality is needed in the library, this should be disabled/enabled based on the platform we are builing on.
 
 \section functionality_coverage Functionality coverage
+
 I've broken down the library down into functional areas. This encompases a low-level API such as moving/managing memory.
 
 ##Basic, low-level routines
+- Storing and managing data
+ - [Lists](@ref list)
 - [Writing to files](@ref filemanagement) 
-- [Screen/Console](@ref console)
-- [Memory management](@ref memory)
-- [Safety checking](@ref safetychecking)
-- [Debugging routines](@ref debugging)
-- [String management](@ref libstring)
-- [Timing functions](@ref timing)
+- [Writing to the console](@ref console)
+- [Managing access to memory](@ref memory)
+- [Safety checking your program](@ref safetychecking)
+- [Debugging routines for tracing](@ref debugging)
+- [Working with strings in general](@ref libstring)
+- [Working with timing](@ref timing)
 - [Validation and testing routines](@ref testing)
-- Data structures
 - Encryption
 - Compression
 - IPC
@@ -63,9 +67,6 @@ I've broken down the library down into functional areas. This encompases a low-l
 - Internationalization
 - Windowed applications/forms
 - Application design and patterns
-
-\section esources Resources
-This is currently hosted on my [devel server](http://devel.stuartmathews.com/projects/my-c-library)
 
  */
 
