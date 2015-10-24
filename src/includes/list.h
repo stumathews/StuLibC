@@ -9,28 +9,15 @@
  */
 
 /** \page list Lists
-Linked list data structure and functionality.
-The default one is LIST_* functions and the other is
-taken from the linux kernel and is more mature.
-A list looks like this
- {List
- 	 head -> node
- 	 tail -> node
- 	 size
- }
+This page contains the function and type declarations for dealing with handling lists in the library.
+There are currently two implementations. A simple list and an advanced list.
 
- A node looks like this:
- {Node
- 	 data
- 	 previous
- 	 next
- 	 list
-  }
-
-  Node(Head) -- Node -- Node -- Node(Tail)
+The default one is the LIST_* of functions and the other is taken from the Linux kernel and functions are preceded with list_* and is more mature.
+While the advanced list is more flexible and mature, its less user friendly where the simple list is easier to use but is not as flexible.
 
 Simple List:
 \include list.h
+
 Advanced List:
 \include linuxlist.h
 */
@@ -121,6 +108,7 @@ LIBRARY_API Node* LIST_Pop( List* list );
  * @return
  */
 LIBRARY_API int   LIST_DeleteNode( List* list, Node* nodeToDelete );
+
 /**
  * Finds the first node in the list with the data provided
  * @param list
@@ -150,3 +138,8 @@ LIBRARY_API void LIST_Print( List* list );
 LIBRARY_API void LIST_Deallocate( List* list );
 
 #endif
+
+/**
+ These shows how to use lists in the library:
+\example list.c
+ */
