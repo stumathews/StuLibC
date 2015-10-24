@@ -2,6 +2,7 @@
 #include <console.h>
 #include <stdbool.h>
 #include <memory.h>
+#include <debugging.h>
 
 static void freeNode(Node* node);
 static void increase_list_size_by_one(List* list) {
@@ -13,11 +14,26 @@ static void decrease_list_size_by_one(List* list) {
 
 void LIST_ForEach( List* list,  ActOnNodeFn fn )
 {
+	DBG("foreach10");
 	Node *node = list->head;
-	while(node != null && list->size > 0)
+	DBG("foreach11");
+	if( list == NULL){
+		DBG("list is null");
+		return;
+	}
+
+	while(node != NULL && list->size > 0)
 	{
 		Node* next = node->next;
-		fn(node);
+		DBG("foreach12");
+		if( fn != NULL ){
+			DBG("foreach13");
+			fn(node);
+			DBG("foreach14");
+		}
+		else
+			return;
+
 		node = next;
 	}
 }
