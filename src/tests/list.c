@@ -140,10 +140,14 @@ void testInsertAfter()
 
 }
 
-void addTen( struct LinkedListNode* node)
+static void addTen( struct LinkedListNode* node)
 {
+	PRINTLINE("addTen1");
 	int* integer = (int*)node->data;
+	PRINTLINE("addTen2");
+	PRINTLINE("integer is '%d'", *integer);
 	*integer +=1;
+	PRINTLINE("addTe3");
 }
 
 void testLIST_ForEach()
@@ -152,11 +156,12 @@ void testLIST_ForEach()
 DBG("foreach1");
 	LIST_Init(&list);
 
-	LIST_Add(&list,(void*)10);
-	LIST_Add(&list,(void*)10);
-	LIST_Add(&list,(void*)10);
-	LIST_Add(&list,(void*)10);
-	LIST_Add(&list,(void*)10);
+	int numbers[] = {10,10,10,10,10,10};
+	LIST_Add(&list, (void*)&numbers[0]);
+	LIST_Add(&list,(void*)&numbers[1]);
+	LIST_Add(&list,(void*)&numbers[2]);
+	LIST_Add(&list,(void*)&numbers[3]);
+	LIST_Add(&list,(void*)&numbers[4]);
 	DBG("foreach2");
 	LIST_ForEach(&list, addTen);
 	assert( list.size == 5);
@@ -167,7 +172,7 @@ DBG("foreach1");
 		Node* got = LIST_Get(&list,i);
 		int* data = (int*)got->data;
 		DBG("foreach5");
-		PRINTLINE("data is '%d'", data);
+		PRINTLINE("data is '%d'", *data);
 		assert( *data == 11);
 		DBG("foreach6");
 	}
@@ -175,21 +180,25 @@ DBG("foreach1");
 
 void testLIST_DeleteNode()
 {
+	PRINTLINE("deleteNode0");
 	List list = {0};
 
 	LIST_Init(&list);
 
+	PRINTLINE("deleteNode1");
 	LIST_Add(&list,(void*)1);
 	LIST_Add(&list,(void*)2);
 
+	PRINTLINE("deleteNode2");
 	Node* three = LIST_Add(&list,(void*)3);
 	Node* four = LIST_Add(&list,(void*)4);
 	Node* five = LIST_Add(&list,(void*)5);
 
 	assert( list.size == 5);
-
+	PRINTLINE("deleteNode3");
 	LIST_DeleteNode(&list, three);
 
+	PRINTLINE("deleteNode4");
 	assert( list.size == 4);
 
 	Node* res1 = LIST_Get(&list, 2);
