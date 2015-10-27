@@ -182,17 +182,18 @@ void testLIST_DeleteNode()
 {
 	DBG("deleteNode0");
 	List list = {0};
+	int numbers[] = {1,2,3,4,5,6};
 
 	LIST_Init(&list);
 
 	DBG("deleteNode1");
-	LIST_Add(&list,(void*)1);
-	LIST_Add(&list,(void*)2);
+	LIST_Add(&list,(void*)&numbers[0]);
+	LIST_Add(&list,(void*)&numbers[1]);
 
 	DBG("deleteNode2");
-	Node* three = LIST_Add(&list,(void*)3);
-	Node* four = LIST_Add(&list,(void*)4);
-	Node* five = LIST_Add(&list,(void*)5);
+	Node* three = LIST_Add(&list,(void*)&numbers[2]);
+	Node* four = LIST_Add(&list,(void*)&numbers[3]);
+	Node* five = LIST_Add(&list,(void*)&numbers[4]);
 
 	assert( list.size == 5);
 	DBG("deleteNode3");
@@ -208,24 +209,31 @@ void testLIST_DeleteNode()
 	assert( res2 == five);
 	assert( list.size == 4);
 
-	//assert( (int) *(int*)(LIST_Get(&list,0)->data) == 1 );
-	//assert( (int) *(int*)(LIST_Get(&list,1)->data) == 2 );
-	//assert( (int) *((int*)three->data) == 3 );
-	//assert( (int) *((int*)four->data) == 4 );
-	//assert( (int) *((int*)five->data) == 5 );
-
+	Node* one = LIST_Get(&list,0);
+	int *one_data = (int*)one->data;
+	Node* two = LIST_Get(&list,1);
+	int* two_data = (int*)two->data;
+	int* three_data = (int*)three->data;
+	int* four_data = (int*)four->data;
+	int* five_data = (int*)five->data;
+	assert( *one_data == 1 );
+	assert( *two_data == 2);
+	assert( *three_data == 3);
+	assert( *four_data == 4);
+	assert( *five_data == 5);
 }
 
 void testLIST_FindData()
 {
 	List list = {0};
+	int numbers[] = {1,2,3,4,5,6};
 
 	LIST_Init(&list);
-	LIST_Push(&list, (void*)1);
-	LIST_Push(&list, (void*)2);
+	LIST_Push(&list, (void*)&numbers[0]);
+	LIST_Push(&list, (void*)&numbers[1]);
 
-	Node* three = LIST_Push(&list, (void*)3);
-	Node* result = LIST_FindData(&list, (void*)3);
+	Node* three = LIST_Push(&list, (void*)&numbers[2]);
+	Node* result = LIST_FindData(&list, (void*)&numbers[2]);
 
 	assert( result == three);
 	assert( list.size == 3);
