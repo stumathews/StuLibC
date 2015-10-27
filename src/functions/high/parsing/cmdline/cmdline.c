@@ -43,10 +43,10 @@ void CMD_ShowUsages(char* tagline, char* address, char* description)
     struct memory* node = first_alloc_memory;
     struct Argument* found = NULL;
 
-    char* license = "Copyright (C) 2010 Free Software Foundation, Inc.\n\
-                     License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>\n\
-                     This is free software: you are free to change and redistribute it.\n\
-                     There is NO WARRANTY, to the extent permitted by law.\n";
+    char* license = "Copyright (C) 2010 Free Software Foundation, Inc.\n" \
+"License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>\n" \
+"This is free software: you are free to change and redistribute it.\n" \
+"There is NO WARRANTY, to the extent permitted by law.\n";
     
     // Prints out the first line, the tag line
     printf("%s\n\n", license );
