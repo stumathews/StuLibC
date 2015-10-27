@@ -1,4 +1,4 @@
-AM_CPPFLAGS = -I$(top_builddir)/src/includes
+AM_CPPFLAGS = -I$(top_builddir)/src/includes -g -O0
 
 bin_PROGRAMS	= cmdline \
                   debugging \
@@ -11,12 +11,12 @@ bin_PROGRAMS	= cmdline \
                   memory \
                   safetychecking \
                   uselib \
-				  tcpclient \
-                  tcpserver \
-				  udpserver \
-				  udpclient \
-				  vrs \
-				  vrc \
+		  		  #tcpclient \
+                  #tcpserver \
+		  		  #udpserver \
+		  	      #udpclient \
+		  		  #vrs \
+		  		  #vrc \
                   stack \
                   list
 
@@ -31,7 +31,19 @@ uselib.o: uselib.c
 # Build tests - directly linking (not using the above @LIBSTU_DLL_IMPORT@
 
 TESTS=$(check_PROGRAMS)
-check_PROGRAMS= cmdline debugging strings files testing errors logging timing memory safetychecking uselib stack
+check_PROGRAMS= cmdline \
+				debugging \
+				strings \
+				files \
+				testing \
+				errors \
+				logging \
+				timing \
+				memory \
+				safetychecking \
+				uselib \
+				stack \
+				list
 
 stack_SOURCES = stack.c
 stack_LDADD = $(top_builddir)/src/libstu.la 
@@ -39,23 +51,23 @@ stack_LDADD = $(top_builddir)/src/libstu.la
 list_SOURCES = list.c
 list_LDADD = $(top_builddir)/src/libstu.la 
 
-tcpserver_SOURCES = tcpserver.c
-tcpserver_LDADD = $(top_builddir)/src/libstu.la 
+#tcpserver_SOURCES = tcpserver.c
+#tcpserver_LDADD = $(top_builddir)/src/libstu.la 
 
-udpserver_SOURCES = udpserver.c
-udpserver_LDADD = $(top_builddir)/src/libstu.la 
+#udpserver_SOURCES = udpserver.c
+#udpserver_LDADD = $(top_builddir)/src/libstu.la 
 
-tcpclient_SOURCES = tcpclient.c
-tcpclient_LDADD = $(top_builddir)/src/libstu.la 
+#tcpclient_SOURCES = tcpclient.c
+#tcpclient_LDADD = $(top_builddir)/src/libstu.la 
 
-udpclient_SOURCES = udpclient.c
-udpclient_LDADD = $(top_builddir)/src/libstu.la 
+#udpclient_SOURCES = udpclient.c
+#udpclient_LDADD = $(top_builddir)/src/libstu.la 
 
-vrc_SOURCES = vrc.c
-vrc_LDADD = $(top_builddir)/src/libstu.la 
+#vrc_SOURCES = vrc.c
+#vrc_LDADD = $(top_builddir)/src/libstu.la 
 
-vrs_SOURCES = vrs.c
-vrs_LDADD = $(top_builddir)/src/libstu.la 
+#vrs_SOURCES = vrs.c
+#vrs_LDADD = $(top_builddir)/src/libstu.la 
 
 safetychecking_SOURCES = safetychecking.c
 safetychecking_LDADD = $(top_builddir)/src/libstu.la
