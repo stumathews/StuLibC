@@ -168,38 +168,32 @@ DBG("foreach1");
 	DBG("foreach3");
 	for( int i = 0; i < list.size;i++)
 	{
-		DBG("foreach4");
 		Node* got = LIST_Get(&list,i);
 		int* data = (int*)got->data;
-		DBG("foreach5");
 		DBG("data is '%d'", *data);
 		assert( *data == 11);
-		DBG("foreach6");
 	}
 }
 
 void testLIST_DeleteNode()
 {
-	DBG("deleteNode0");
 	List list = {0};
 	int numbers[] = {1,2,3,4,5,6};
 
 	LIST_Init(&list);
 
-	DBG("deleteNode1");
 	LIST_Add(&list,(void*)&numbers[0]);
 	LIST_Add(&list,(void*)&numbers[1]);
 
-	DBG("deleteNode2");
+	Node* one = LIST_Get(&list,0);
+	Node* two = LIST_Get(&list,1);
 	Node* three = LIST_Add(&list,(void*)&numbers[2]);
 	Node* four = LIST_Add(&list,(void*)&numbers[3]);
 	Node* five = LIST_Add(&list,(void*)&numbers[4]);
 
 	assert( list.size == 5);
-	DBG("deleteNode3");
-	LIST_DeleteNode(&list, three);
 
-	DBG("deleteNode4");
+	LIST_DeleteNode(&list, three);
 	assert( list.size == 4);
 
 	Node* res1 = LIST_Get(&list, 2);
@@ -209,13 +203,12 @@ void testLIST_DeleteNode()
 	assert( res2 == five);
 	assert( list.size == 4);
 
-	Node* one = LIST_Get(&list,0);
 	int *one_data = (int*)one->data;
-	Node* two = LIST_Get(&list,1);
 	int* two_data = (int*)two->data;
 	int* three_data = (int*)three->data;
 	int* four_data = (int*)four->data;
 	int* five_data = (int*)five->data;
+
 	assert( *one_data == 1 );
 	assert( *two_data == 2);
 	assert( *three_data == 3);
@@ -259,6 +252,7 @@ void testLIST_Get()
 	LIST_Deallocate(&list);
 	assert( list.size == 0);
 }
+
 int main( int argc, char** argv )
 {
    struct TestDefinition tests[] = 
