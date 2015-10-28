@@ -59,6 +59,8 @@ struct timezone
 typedef unsigned int u_int32_t;
 
 #define EMSGSIZE		WSAEMSGSIZE
+
+#define NETINIT() 		INIT();
 #define INIT()			do { WSADATA wsaData; WSAStartup(MAKEWORD(2,2), &wsaData); } while(0);
 #define EXIT(s)			do { WSACleanup(); exit( ( s ) ); } \
 						while ( 0 )
