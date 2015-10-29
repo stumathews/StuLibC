@@ -64,6 +64,7 @@ typedef unsigned int u_int32_t;
 #define INIT()			do { WSADATA wsaData; WSAStartup(MAKEWORD(2,2), &wsaData); } while(0);
 #define EXIT(s)			do { WSACleanup(); exit( ( s ) ); } \
 						while ( 0 )
+#define NETCLOSE(s)		CLOSE(s)
 #define CLOSE(s)		if ( closesocket( s ) ) \
 							netError( 1, errno, "close failed" )
 #define errorno			( GetLastError() )

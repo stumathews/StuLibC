@@ -19,15 +19,27 @@ these are the console handling routines
 #include <constants.h>
 #include <stdio.h>
 
+#define BUFFER_MAX 256
+
+/* The intention of the PRINT functions is to send text to the user */
+
+/**
+ * Print message to the user without a newline
+ * @param message
+ */
 #define PRINT(format, ...) do {\
-			char buffer[256];\
-			snprintf( buffer,256,  "DBG : %s-%d stulibc::%s(): " format, __FILE__, __LINE__,__func__,##__VA_ARGS__);  \
+			char buffer[BUFFER_MAX];\
+			snprintf( buffer, BUFFER_MAX,  "DBG : %s-%d stulibc::%s(): " format, __FILE__, __LINE__,__func__,##__VA_ARGS__);  \
             CNS_Print(buffer); \
 } while (0)
 
+/**
+ * Prrint message to the user with a new line
+ * @param message
+ */
 #define PRINTLINE(format, ...) do {\
-			char buffer[256];\
-			snprintf( buffer,256,  "DBG : %s-%d stulibc::%s(): " format "\n", __FILE__, __LINE__,__func__,##__VA_ARGS__);  \
+			char buffer[BUFFER_MAX];\
+			snprintf( buffer, BUFFER_MAX,  "DBG : %s-%d stulibc::%s(): " format "\n", __FILE__, __LINE__,__func__,##__VA_ARGS__);  \
             CNS_PrintLine(buffer); \
 } while (0)
 
