@@ -2,25 +2,28 @@
 
 %{
 #define YY_DECL int iniscan()
-
+#include <stdio.h>
+#include <stdlib.h> 
 %}
 
 
-HEADER    \[.+\]
+HEADER    \[([^\]]+)\]
 KEYVALUE  .+\s*=\s*.+
 
 %%
 
+{HEADER}	{
+				char clean[80] = {0}; 
+				sscanf( yytext, "[%99[^] ] ]", clean);   
+				printf("header is '%s'\n", clean);
+			}
 
-
-{HEADER}    {
-	       printf( "An header: %s (%d)\n", yytext);
-}
-
-{KEYVALUE}	       {
-	       printf( "An keyvalue: %s (%d)\n", yytext);
-}
-
-.	       printf( "Unrecognized character: %s\n", yytext );
-
+{KEYVALUE}	{
+	       		char key[80] = {0}; 
+	       		char value[80] = {0};
+				sscanf( yytext, "%[^=]= %[^\n]", key, value);   
+				printf("key is '%s', value is '%s'\n", key, value);
+			}
+;.*	
+.	       printf( "Unrecognized character: %s\n", yytext );	   
 %%
