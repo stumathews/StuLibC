@@ -5,6 +5,8 @@
 #include <debugging.h>
 #include <stdbool.h>
 #include <safetychecking.h>
+#include <iniscanner.h>
+
 
 _Bool FILE_ContainsString(FILE* file, char* string)
 {
@@ -82,5 +84,14 @@ short FILE_Exists(const char* filename)
         fclose(file);
         return 1;
     }
+}
+
+void FILE_IniParse(const char* filename)
+{
+	yyin = fopen( filename, "r" );
+
+	iniscan();
+
+	fclose(yyin);
 }
 

@@ -92,6 +92,10 @@ void test_FILE_ContainsString()
 
 }
 
+void test_FILE_IniParse()
+{
+	FILE_IniParse("test.ini");
+}
 
 int main( int arvc, char** argv )
 {
@@ -101,8 +105,9 @@ int main( int arvc, char** argv )
 		TEST(test_FILE_Rename),
 		TEST(test_FILE_ContainsString),
 		TEST(test_FILE_read_ini),
+		TEST(test_FILE_IniParse)
   };
- run_tests(tests,5);
+ run_tests(tests,6);
   DBG_DeleteLog();
 
   return 0;
