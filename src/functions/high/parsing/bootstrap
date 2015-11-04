@@ -1,2 +1,0 @@
-flex ini.flex
-gcc lex.yy.c -L/usr/lib -lfl
