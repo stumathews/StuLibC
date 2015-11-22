@@ -56,15 +56,6 @@ void test_FILE_Delete()
 
 }
 
-void test_FILE_read_ini()
-{
-	FILE* stream = fopen( "test.ini", "r" );
-	assert(stream != NULL );
-	CHK_ExitIf( stream == NULL,"could not open file", "fopen");
-
-	if( stream != NULL) {fclose(stream);}
-}
-
 void test_FILE_ContainsString()
 {
   char* string = "hello mate";
@@ -104,10 +95,9 @@ int main( int arvc, char** argv )
 		TEST(test_FILE_Delete),
 		TEST(test_FILE_Rename),
 		TEST(test_FILE_ContainsString),
-		TEST(test_FILE_read_ini),
 		TEST(test_FILE_IniParse)
   };
- run_tests(tests,6);
+ run_tests(tests,5);
   DBG_DeleteLog();
 
   return 0;
