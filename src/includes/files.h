@@ -92,6 +92,14 @@ LIBRARY_API short FILE_Exists( const char* filename );
 long tFileSize( const char* filename);
 long FILE_GetFileSize(const char *filename);
 
+#define KEY_SIZE 20
+
+struct KeyValuePair
+{
+	char key[KEY_SIZE];
+	void* value;
+};
+
 LIBRARY_API void FILE_IniParse(const char* filename);
 
 #endif
