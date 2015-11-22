@@ -480,10 +480,14 @@ int yy_flex_debug = 0;
 char *yytext;
 #line 1 "ini.flex"
 #line 4 "ini.flex"
-#define YY_DECL int iniscan()
+#include <list.h>
+#define YY_DECL int iniscan(List* list)
 #include <stdio.h>
-#include <stdlib.h> 
-#line 487 "iniscanner.c"
+#include <stdlib.h>
+#include <string.h> 
+#include <files.h>
+#include <memory.h>
+#line 491 "iniscanner.c"
 
 #define INITIAL 0
 
@@ -670,10 +674,10 @@ YY_DECL
 	register char *yy_cp, *yy_bp;
 	register int yy_act;
     
-#line 13 "ini.flex"
+#line 17 "ini.flex"
 
 
-#line 677 "iniscanner.c"
+#line 681 "iniscanner.c"
 
 	if ( !(yy_init) )
 		{
@@ -759,39 +763,90 @@ do_action:	/* This label is used only to access EOF actions. */
 case 1:
 /* rule 1 can match eol */
 YY_RULE_SETUP
-#line 15 "ini.flex"
+#line 19 "ini.flex"
 {
-				char clean[80] = {0}; 
-				sscanf( yytext, "[%99[^] ] ]", clean);   
-				printf("header is '%s'\n", clean);
+				typedef	struct KeyValuePair	Header;
+				typedef struct KeyValuePair Setting;
+				typedef 	   Node			GenericListItem;
+
+				char headerName[80] = {0};
+				Header *thisHeader = null;
+
+				// found a header in file, extract it into header variable
+				sscanf( yytext, "[%99[^] ] ]", headerName);
+				
+				// Search through list of headers to see if we know about it already
+				GenericListItem *item = list->head;
+				while(item != null && list->size > 0)
+				{
+					GenericListItem* next = item->next;
+					Header* currentHeader = (Header*) item->data;
+					// do we already 'know/have' this header in our list of headers?
+					if(STR_Equals(currentHeader->key, headerName) == true){
+						thisHeader = currentHeader;
+						break;
+					}
+					item = next;
+				}
+
+				// Store this new header if we don't already have reference to it
+				if(thisHeader == null ){
+					thisHeader = (Header*) MEM_Alloc(sizeof(Header));
+					strcpy(thisHeader->key, headerName );
+
+					//and make space for a list of settings for it
+					thisHeader->value = MEM_Alloc(sizeof(List));
+					LIST_Push( list, (void*) thisHeader );
+				}
 			}
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 21 "ini.flex"
+#line 55 "ini.flex"
 {
-	       		char key[80] = {0}; 
+	       		// A KeyValuePair type is used for representing a header(heading) and setting(key=value)
+				typedef	struct KeyValuePair	Header;
+				typedef struct KeyValuePair Setting;
+
+				char key[80] = {0};
 	       		char value[80] = {0};
-				sscanf( yytext, "%[^=]= %[^\n]", key, value);   
-				printf("key is '%s', value is '%s'\n", key, value);
+	       		Header *currentHeader = null;
+				List* currentHeaderSettings = null;
+				Setting* setting = null;
+
+				// Found a key-value pair, extract it into key/value
+				sscanf(yytext, "%[^=]= %[^\n]", key, value);   
+
+				currentHeader = (Header*) list->tail->data;
+				currentHeaderSettings = (List*)currentHeader->value;
+
+				// Turn the key/value into a setting
+				setting = (Setting *) MEM_Alloc(sizeof(Setting));
+				setting->value = (char*) MEM_Alloc(sizeof(char) * 20);
+
+				strcpy(setting->key, key);
+				strcpy(setting->value, value);
+
+				// Add this setting to this header's list of settings
+				LIST_Push( currentHeaderSettings, (void*) setting);
 			}
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 27 "ini.flex"
+#line 82 "ini.flex"
 
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 28 "ini.flex"
+#line 83 "ini.flex"
 printf( "Unrecognized character: %s\n", yytext );	   
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 29 "ini.flex"
+#line 84 "ini.flex"
 ECHO;
 	YY_BREAK
-#line 795 "iniscanner.c"
+#line 850 "iniscanner.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1789,7 +1844,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 29 "ini.flex"
+#line 84 "ini.flex"
 
 
 

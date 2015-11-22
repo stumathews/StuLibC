@@ -327,7 +327,7 @@ extern int yylex (void);
 #undef YY_DECL
 #endif
 
-#line 29 "ini.flex"
+#line 84 "ini.flex"
 
 
 #line 334 "../../../includes/iniscanner.h"
