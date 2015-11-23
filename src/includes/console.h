@@ -29,7 +29,7 @@ these are the console handling routines
  */
 #define PRINT(format, ...) do {\
 			char buffer[BUFFER_MAX];\
-			snprintf( buffer, BUFFER_MAX,  "DBG : %s-%d stulibc::%s(): " format, __FILE__, __LINE__,__func__,##__VA_ARGS__);  \
+			snprintf( buffer, BUFFER_MAX,  "%s-%d stulibc::%s(): " format, __FILE__, __LINE__,__func__,##__VA_ARGS__);  \
             CNS_Print(buffer); \
 } while (0)
 
@@ -39,7 +39,7 @@ these are the console handling routines
  */
 #define PRINTLINE(format, ...) do {\
 			char buffer[BUFFER_MAX];\
-			snprintf( buffer, BUFFER_MAX,  "DBG : %s-%d stulibc::%s(): " format "\n", __FILE__, __LINE__,__func__,##__VA_ARGS__);  \
+			snprintf( buffer, BUFFER_MAX,  "%s-%d stulibc::%s(): " format "\n", __FILE__, __LINE__,__func__,##__VA_ARGS__);  \
             CNS_PrintLine(buffer); \
 } while (0)
 
