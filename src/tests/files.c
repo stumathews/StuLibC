@@ -3,6 +3,7 @@
 #include <assert.h>
 #include <debugging.h>
 #include <safetychecking.h>
+#include <console.h>
 
 
 void test_FILE_Exists()
@@ -83,9 +84,26 @@ void test_FILE_ContainsString()
 
 }
 
+static void printSetting( GenericListItem* LinkedListNode )
+{
+	struct KeyValuePair *kvp = (struct KeyValuePair*)(LinkedListNode->data);
+	PRINT( "setting: %s, value: %s \n", kvp->key, kvp->value);
+}
+static void KeyValuePairPrint( GenericListItem* myNode )
+{
+	struct KeyValuePair *kvp = (struct KeyValuePair*)(myNode->data);
+	PRINT( "header: %s\n", kvp->key);
+	List* list = (List*) kvp->value;
+	LIST_ForEach(list, printSetting);
+}
+
 void test_FILE_IniParse()
 {
-	FILE_IniParse("test.ini");
+	List settings = {0};
+	FILE_IniParse("test.ini", &settings);
+	settings.fnPrint = KeyValuePairPrint;
+	LIST_Print(&settings);
+
 }
 
 int main( int arvc, char** argv )
