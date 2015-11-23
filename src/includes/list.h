@@ -42,6 +42,8 @@ typedef struct LinkedListNode {
     struct LinkedList* list;
 } Node;
 
+typedef 	   Node			GenericListItem;
+
 /**
  * Any function that will print the contents of a LinkedListNode
  * @param LinkedListNode
