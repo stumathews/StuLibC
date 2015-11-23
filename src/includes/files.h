@@ -101,6 +101,4 @@ struct KeyValuePair
 	void* value;
 };
 
-LIBRARY_API void FILE_IniParse(const char* filename, List* list);
-
 #endif

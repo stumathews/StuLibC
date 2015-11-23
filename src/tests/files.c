@@ -4,6 +4,7 @@
 #include <debugging.h>
 #include <safetychecking.h>
 #include <console.h>
+#include <ini.h>
 
 
 void test_FILE_Exists()
@@ -100,7 +101,7 @@ static void KeyValuePairPrint( GenericListItem* myNode )
 void test_FILE_IniParse()
 {
 	List settings = {0};
-	FILE_IniParse("test.ini", &settings);
+	INI_IniParse("test.ini", &settings);
 	settings.fnPrint = KeyValuePairPrint;
 	LIST_Print(&settings);
 
