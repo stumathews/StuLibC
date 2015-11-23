@@ -88,26 +88,16 @@ short FILE_Exists(const char* filename)
     }
 }
 
-void printSetting( Node* LinkedListNode )
+void FILE_IniParse(const char* filename, List* settings)
 {
-	struct KeyValuePair *kvp = (struct KeyValuePair*)(LinkedListNode->data);
-	PRINT( "setting: %s, value: %s \n", kvp->key, kvp->value);
-}
-void KeyValuePairPrint( struct LinkedListNode* myNode )
-{
-	struct KeyValuePair *kvp = (struct KeyValuePair*)(myNode->data);
-	PRINT( "header: %s\n", kvp->key);
-	List* list = (List*) kvp->value;
-	LIST_ForEach(list, printSetting);
-}
+	CHECK_STRING( filename, IS_NOT_EMPTY );
 
-void FILE_IniParse(const char* filename)
-{
 	yyin = fopen( filename, "r" );
-	List settings = {0};
-	iniscan(&settings);
-	settings.fnPrint = KeyValuePairPrint;
-	LIST_Print(&settings);
+	if(yyin == null){
+		ERR_Print("Could not open .ini file", true);
+	}
+
+	iniscan(settings);
 
 	fclose(yyin);
 }
