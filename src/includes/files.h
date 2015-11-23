@@ -41,6 +41,7 @@ This describes the function prototypes
 #include <stdlib.h>
 #include <constants.h>
 #include <stdbool.h>
+#include <list.h>
 
 
 /** \brief Appends characters to the end of a named file
@@ -100,6 +101,6 @@ struct KeyValuePair
 	void* value;
 };
 
-LIBRARY_API void FILE_IniParse(const char* filename);
+LIBRARY_API void FILE_IniParse(const char* filename, List* list);
 
 #endif
