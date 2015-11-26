@@ -3,6 +3,7 @@
 #include <errors.h>
 #include <debugging.h>
 #include <assert.h>
+#include <strings.h>
 
 #define MAX_LOG_LINE_LENGTH 255
 
@@ -10,12 +11,20 @@ static char* DEFAULT_FILE_NAME = "safety.txt";
 static char* COMMON_CHK_RESULT_FORMAT = "[SAFETY] %s (%s)\n";
 static char buffer[MAX_LOG_LINE_LENGTH];
 
+bool isNotNegative( int integer )
+{
+	return integer >= 0;
+}
+
+void makeIntZero( int* integer)
+{
+	*integer = 0;
+}
 
 void CHK_int( IsIntValidRoutine func_IsDataValid, int* data, char* data_label, FixIntRoutine func_FixData)
 {
   if(!func_IsDataValid(data))
   {
-
     if( func_FixData == NULL)
     {
       ERR("Invalid data '%s' provided: '%d'\n",data_label, *data);
@@ -44,10 +53,14 @@ void CHK_ExitIf(int condition_result, char* message, char* resultContext)
 
 void CHK_str( char* string, enum StringChecks checks, char* functionName)
 {
-	if( (checks & IS_NOT_EMPTY) && (STR_IsNullOrEmpty(string)) )
+	if( checks & IS_NOT_EMPTY) 
 	{
-		DBG("Condition IS_NOT_EMPTY failed on string '%s' in caller funcion '%s'()",string, functionName);
+		if(STR_IsNullOrEmpty(string) == true)
+		{
+		    DBG("Condition IS_NOT_EMPTY failed on string"
+                " '%s' in caller funcion '%s'()",string, functionName);
 		exit(1);	
+		}
 	}
 	
 	if ( checks & CHARS_ONLY )

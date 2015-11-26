@@ -5,196 +5,126 @@
 #include <debugging.h>
 #include <stdlib.h>
 #include <memory.h>
+#include <linuxlist.h>
+#include <stulibc.h> // for LIB_*
 
-struct Address {
-	void* mem_loc;
-	struct Address* next;
-    struct Address* previous;
-} *mem_addrs, *first = NULL;
+/**
+ * All the tracked memory addresses
+ */
+struct TrackedAddress mem_addrs;
+struct TrackedAddress* tmp;
+struct list_head *pos, *q;
 
-// track this buffer as being allocated by MEM_Alloc.
+void MEM_Init()
+{
+    INIT_LIST_HEAD(&mem_addrs.list);
+}
+void MEM_Uninit()
+{
+    MEM_DeAllocAll();
+}
+
 static void track_buffer(void* buffer)
 {
-      DBG("track_buffer enter");
-      if( mem_addrs == NULL )
-      {
-        mem_addrs = malloc( sizeof( struct Address ));
-        mem_addrs->mem_loc = buffer;
-        mem_addrs->next = NULL;
-        mem_addrs->previous = NULL;
-        first = mem_addrs;
-      }
-      else
-      {
-       // traverse the linked linked list until the last node ois reached:
-        while( mem_addrs->next != NULL )
-            mem_addrs= mem_addrs->next;
-
-        // Append the buffer to the end of the list
-        struct Address *tmp = malloc( sizeof(struct Address));
-        tmp->mem_loc = buffer;
-        tmp->next = NULL;
-        tmp->previous = mem_addrs;
-
-        mem_addrs->next = tmp;
-
-      }
-      DBG("track_buffer exit");
+  struct TrackedAddress* tmp = (struct TrackedAddress*) malloc(sizeof(struct TrackedAddress));
+  tmp->mem_loc = buffer;
+  list_add(&(tmp->list), &(mem_addrs.list));
 }
 
 void* MEM_Alloc(size_t size)
 {
+  LIB_Check_Init();
+
   void* buffer = malloc(size);
+
+  memset(buffer,0,size);
 
   if( buffer != NULL )
   {
     track_buffer(buffer);
-    DBG("Tracked new buffer %p", buffer);
-    DBG("Currently %d tracked buffers.", MEM_GetTrackedCount());
     return buffer;
   }
   else
   {
     DBG("MEM_Alloc(): Could not allocate buffer.\n");
+    exit(1);
   }
 }
 
 int MEM_GetTrackedCount()
 {
-    
-  struct Address* addr = first;
-  int count = 0;
-  while( addr != NULL )
-  { 
-    count++;
-    addr = addr->next;
-  }
+	struct TrackedAddress* tmp;
+	struct list_head *pos;
+	int count = 0;
+	tmp = malloc(sizeof(struct TrackedAddress));
+
+	list_for_each(pos, &mem_addrs.list){
+		tmp = list_entry(pos, struct TrackedAddress, list);
+		count++;
+	}
+  
   return count;
 }
 
-void print_tracked()
+static struct TrackedAddress* find( void* buffer)
 {
-  struct Address* addr = first;
-  bool found = false;
-  int count = 0;
+	struct TrackedAddress* tmp;
+	struct list_head *pos;
 
-  if( first == NULL )
-  {
-    DBG("No tracked buffers.\n"); return;
-  }
-  while( addr != NULL )
-  { 
-    count++;
-    DBG("(%d)%p\n",count,addr->mem_loc);
-    addr = addr->next;
-  }
-}
-
-// frees the struct from memeory
-static void remove_link(struct Address* current)
-{
-    if( current == first )
-    {
-        free(current);
-        current = first = NULL;
-        return;
+	list_for_each(pos, &mem_addrs.list)
+	{
+        tmp = list_entry(pos, struct TrackedAddress, list);
+        if (tmp->mem_loc == buffer)
+        {
+            return tmp;
+        }		
     }
-
-    //Note: doubly linked list structure is represented as : previous-current-next
-    struct Address* previous = current->previous;
-    struct Address* next = current->next;
-    if( previous != NULL)
-        previous->next = current->next;
-    if( next != NULL )
-        next->previous = current->previous;
-
-    free(current);
-}
-
-static struct Address* find( void* buffer)
-{
-  struct Address* addr = first;
-
-  // find this buffer in our tracked list of buffers...
-  while( addr != NULL )
-  { 
-    if(addr->mem_loc == buffer)
-    {
-     return  addr;
-     break;	
-    }
-    addr = addr->next;
-  }
-
-  return NULL;
+	return NULL;
 }
 
 void MEM_DeAllocAll()
 {
-  struct Address* addr = first;
-  int count = 0;
-
-  while( addr != NULL )
-  { 
-      DBG("DealoccingAll:  buffer %p", addr->mem_loc);
-        free(addr->mem_loc);
-        struct Address* toRemove = addr;
-        addr = addr->next;
-        remove_link(toRemove);
-        count++;
-  }
+	int count = 0;
+	list_for_each_safe(pos, q, &mem_addrs.list)
+	{
+		tmp = list_entry(pos, struct TrackedAddress, list);
+		list_del(pos);
+		free(tmp);
+		count++;
+	}
 
   DBG("Deallocated %d tracked buffers.", count);
 }
 
 bool MEM_DeAlloc(void* buffer, char* buffer_name)
 {
-  struct Address* addr = first;
-  struct Address* found_buffer = NULL;
-  bool found =false;
-
-  // find this buffer in our tracked list of buffers...
-  while( addr != NULL )
-  { 
-    if(addr->mem_loc == buffer)
-    {
-     found = true;
-     found_buffer = addr;
-     break;	
-    }
-    addr = addr->next;
-  }
-
-  // dont care about buffers that are NULL, they are already deallocated
-  if( buffer == NULL )
-  {
-    DBG("Attempted to deallocated null pointer, '%s'. ignored.",buffer_name);
-    return false;
-  }
-
-  if( !found )
-  {
-    DBG("Wont dealloc a buffer that wasnt created by MEM_Alloc\n");
-    return false;
-  }
-
-  if( found_buffer == NULL )
-  {
-     DBG("found buffer unexpectantly set to NULL. ");
-     return false;
-  }
-    
-    DBG("happy ro dealloc %p", buffer);   
-  free(buffer);
-  remove_link(found_buffer);
-  return true;
+	list_for_each_safe(pos, q, &mem_addrs.list)
+	{
+		tmp = list_entry(pos, struct TrackedAddress, list);
+		if (buffer == tmp->mem_loc)
+		{
+			if (tmp->mem_loc == NULL)
+			{
+				DBG("found buffer unexpectantly set to NULL. ");
+				return false;
+			}
+			else
+			{
+				free(tmp->mem_loc);
+			}
+			list_del(pos);
+			free(tmp);
+			return true;
+		}
+	}  
+  return true; // nothing happened.
 }
 
 bool MEM_CheckAllocated( void* buffer,char* name, char* filename, int line)
 {
 
-  struct Address* tracked_buffer = find( buffer);
-  if( buffer != NULL )
+  struct TrackedAddress* tracked_buffer = find( buffer);
+  if( tracked_buffer != NULL )
   {
     return true;
   }

@@ -8,8 +8,9 @@
  * @see http://devel.stuartmathews.com/stulibc
  */
 
-/** \page constants Constants in the library
+/** \page constants Constants
 The constants we use are here
+\include constants.h
 */
 #ifndef LIBSTU_COMMON_H
 #define LIBSTU_COMMON_H

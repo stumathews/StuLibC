@@ -9,8 +9,9 @@
  * @see http://devel.stuartmathews.com/stulibc
  */
 
-/** \page libstring Dealing with strings in C
+/** \page libstring Strings
 This is a narative on this part of the library
+\include strings.h
 */
 
 #ifndef STULIBC_STRING_H
@@ -80,10 +81,11 @@ LIBRARY_API bool STR_IsNullOrEmpty(char* string);
  *
  * \param without_str char* string to be removed from the source string
  * \param string char* the source string
+ * \param string char* theresult of removing the substring from the source
  * \return LIBRARY_API char* the result
  *
  */
-LIBRARY_API char* STR_Without( char* without_str, char* string);
+LIBRARY_API char* STR_Without( const char* without_str, const char* string, char* result);
 
 /** \brief Determines if the string contains the provided character or not
  *
@@ -120,7 +122,7 @@ LIBRARY_API char* STR_EndsWithEither( char* endsWithPossibilities[], char* strin
  * \return LIBRARY_API char*
  *
  */
-LIBRARY_API char* STR_FromLast( char* last, char* string, char* resultBuffer);
+LIBRARY_API char* STR_FromLast( const char* last, const char* string, char* resultBuffer);
 
 /** \brief Determines if the string contains alphabetic characters
  *
@@ -130,5 +132,16 @@ LIBRARY_API char* STR_FromLast( char* last, char* string, char* resultBuffer);
  *
  */
 LIBRARY_API bool STR_IsAlpha( char* string, int len);
+
+/** \brief Reverse a string
+ * 
+ * \param string char* the string to reverse
+ * \return the reversed string
+ */
+LIBRARY_API char* STR_Reverse( char* string );
+
+LIBRARY_API bool STR_Equals(char* string1, char* string2 );
+
+LIBRARY_API bool STR_EqualsIgnoreCase( char* string1, char* string2 );
 
 #endif // STULIBC_STRING_H

@@ -5,6 +5,9 @@
 #include <debugging.h>
 #include <stdbool.h>
 #include <safetychecking.h>
+#include <list.h>
+#include <console.h>
+
 
 _Bool FILE_ContainsString(FILE* file, char* string)
 {
@@ -83,4 +86,5 @@ short FILE_Exists(const char* filename)
         return 1;
     }
 }
+
 

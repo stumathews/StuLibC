@@ -8,13 +8,19 @@
  * @see http://devel.stuartmathews.com/stulibc
  */
 
-/** \page cmdline Handling command line arguments
+/** \page cmdline Command Line
 Command line arguments and dealing with these in a structured way
+\include cmdline.h
+
+\section cmdline_example_sec Example
+Here is a quick example
+\include cmd.c
 */
 #ifndef CMDLINE_H
 #define CMDLINE_H
 #include <constants.h>
 #include <stdbool.h>
+#include <linuxlist.h>
 
 /** \brief Data structure representing a argument name
  */
@@ -33,6 +39,24 @@ struct Argument
 
 };
 
+// In memory linked list holding all registered arguments user submits via addArgument*() functions
+struct memory 
+{ 
+    struct Argument* argument;
+    struct memory* next;
+};
+
+struct MandatoryArgList {
+    char* arg_name;
+    struct list_head list;
+};
+
+/**
+ * Enumeration that represents the result of the parsing of a single registed command line argument
+ */
+enum ParseResult { EXPECTED_VALUE, NO_HANDLER, PARSE_SUCCESS, MANDATORY_MISSING  };
+
+
 /** \brief Add a single argument to be tracked by the library.
  *
  * \param argument struct NewArgument* a single argument
@@ -40,6 +64,7 @@ struct Argument
  *
  */
 LIBRARY_API void CMD_AddArgument( struct Argument* argument );
+
 
 /** \brief Parses the provided cmd line arguments and executes the argument handlers for them.
  *
@@ -49,13 +74,18 @@ LIBRARY_API void CMD_AddArgument( struct Argument* argument );
  * \return LIBRARY_API void
  *
  */
-LIBRARY_API void CMD_Parse(int argc, char** argv, bool skip_first_arg);
+LIBRARY_API enum ParseResult CMD_Parse(int argc, char** argv, bool skip_first_arg);
+
 
 /** \brief Shows a tag line and then all the arguments registered
  *
  *  \param tagline char* first line to show in the usages - normall should include the program name
+ *  \param address char* contact email address for utility/project
+ *  \param description char* brief description of utility
  */
-LIBRARY_API void CMD_ShowUsages(char* tagline);
+LIBRARY_API void CMD_ShowUsages(char* tagline, char* address, char* description);
+
+
 /** \brief Convenience function that creates a Argument structure from a function call
  * \param name char* name of argument
  * \param display char* the display of the argument when showing usages
@@ -65,11 +95,24 @@ LIBRARY_API void CMD_ShowUsages(char* tagline);
  * \param handler void (*)(char* arg) function to call then this argument is found, an optional argument is allowed
  */
 LIBRARY_API struct Argument* CMD_CreateNewArgument( char* name, char* display, char* description, bool isMandatory, bool isValueMandatory, void (*handler)(char* arg));
+
+
 /** \brief Uninitialises the cmd handling routine.
  *  Its recommended that you call this when you're finished with CMD_Parse.
  * \return LIBRARY_API void
  *
  */
 LIBRARY_API void CMD_Uninit();
+/** \brief Initialises the cmd handling routine.
+ *  Its recommended that you call this before using CMD_Parse().
+ * \return LIBRARY_API void
+ *
+ */
+LIBRARY_API void CMD_Init();
 
 #endif
+
+/**
+Here is an example on how to use the command line APIs
+\example cmd.c
+*/

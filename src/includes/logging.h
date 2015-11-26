@@ -9,8 +9,9 @@
  * @see http://devel.stuartmathews.com/stulibc
  */
 
-/** \page logging Logging things
+/** \page logging Logging
 This is a narative on this part of the library
+\include logging.h
 */
 
 #ifndef STULIBC_LOGGING_H
@@ -65,6 +66,16 @@ LIBRARY_API void  LOG_DeleteLog();
  *
  */
 LIBRARY_API char* LOG_GetDefaultLogFileName();
+
+/** \brief Write a string to a named log file
+ *
+ * \param message char* messag to log
+ * \param filename char* filename to log to (will create the file if it does not exist)
+ * \return LIBRARY_API void
+ *
+ */
+LIBRARY_API void LOG_LogLineToFile( char* message, char* filename );
+
 
 
 #endif // STULIBC_LOGGING_H

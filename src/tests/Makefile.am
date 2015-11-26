@@ -1,4 +1,4 @@
-AM_CPPFLAGS = -I$(top_builddir)/src/includes
+AM_CPPFLAGS = -I$(top_builddir)/src/includes -g -O0
 
 bin_PROGRAMS	= cmdline \
                   debugging \
@@ -11,15 +11,14 @@ bin_PROGRAMS	= cmdline \
                   memory \
                   safetychecking \
                   uselib \
-				  tcpclient \
-                  tcpserver \
-				  udpserver \
-				  udpclient \
-				  vrs \
-				  vrc \
-				  listen \
-				  say \
-				  cmd
+		  		  #tcpclient \
+                  #tcpserver \
+		  		  #udpserver \
+		  	      #udpclient \
+		  		  #vrs \
+		  		  #vrc \
+                  stack \
+                  list
 
 #Build a test harness program
 
@@ -32,34 +31,43 @@ uselib.o: uselib.c
 # Build tests - directly linking (not using the above @LIBSTU_DLL_IMPORT@
 
 TESTS=$(check_PROGRAMS)
-check_PROGRAMS= cmdline debugging strings files testing errors logging timing memory safetychecking uselib
+check_PROGRAMS= cmdline \
+				debugging \
+				strings \
+				files \
+				testing \
+				errors \
+				logging \
+				timing \
+				memory \
+				safetychecking \
+				uselib \
+				stack \
+				list
 
-tcpserver_SOURCES = tcpserver.c
-tcpserver_LDADD = $(top_builddir)/src/libstu.la 
+stack_SOURCES = stack.c
+stack_LDADD = $(top_builddir)/src/libstu.la 
 
-listen_SOURCES = standalone/listen.c
-listen_LDADD = $(top_builddir)/src/libstu.la 
+list_SOURCES = list.c
+list_LDADD = $(top_builddir)/src/libstu.la 
 
-say_SOURCES = standalone/say.c
-say_LDADD = $(top_builddir)/src/libstu.la 
+#tcpserver_SOURCES = tcpserver.c
+#tcpserver_LDADD = $(top_builddir)/src/libstu.la 
 
-cmd_SOURCES = standalone/cmd.c
-cmd_LDADD = $(top_builddir)/src/libstu.la 
+#udpserver_SOURCES = udpserver.c
+#udpserver_LDADD = $(top_builddir)/src/libstu.la 
 
-udpserver_SOURCES = udpserver.c
-udpserver_LDADD = $(top_builddir)/src/libstu.la 
+#tcpclient_SOURCES = tcpclient.c
+#tcpclient_LDADD = $(top_builddir)/src/libstu.la 
 
-tcpclient_SOURCES = tcpclient.c
-tcpclient_LDADD = $(top_builddir)/src/libstu.la 
+#udpclient_SOURCES = udpclient.c
+#udpclient_LDADD = $(top_builddir)/src/libstu.la 
 
-udpclient_SOURCES = udpclient.c
-udpclient_LDADD = $(top_builddir)/src/libstu.la 
+#vrc_SOURCES = vrc.c
+#vrc_LDADD = $(top_builddir)/src/libstu.la 
 
-vrc_SOURCES = vrc.c
-vrc_LDADD = $(top_builddir)/src/libstu.la 
-
-vrs_SOURCES = vrs.c
-vrs_LDADD = $(top_builddir)/src/libstu.la 
+#vrs_SOURCES = vrs.c
+#vrs_LDADD = $(top_builddir)/src/libstu.la 
 
 safetychecking_SOURCES = safetychecking.c
 safetychecking_LDADD = $(top_builddir)/src/libstu.la

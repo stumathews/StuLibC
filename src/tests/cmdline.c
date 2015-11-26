@@ -5,6 +5,7 @@
 #include <string.h>
 #include <strings.h>
 #include <assert.h>
+#include <stulibc.h>
 
 bool help_function_ran_ok = false;
 bool exitf_function_ran_ok = false;
@@ -18,7 +19,7 @@ void help(char* value)
  if( STR_IsNullOrEmpty(value) )
  {    
   help_function_ran_ok = true;
-  printf("help!\n");
+  DBG("help!\n");
  }
 }
 
@@ -94,7 +95,7 @@ void test_CMD_Parse()
 {
 DBG("In test_CND_Parse\n");
 
-    char* arguments[] = {"--help","--two-part","-exit","/name=1","-setit2=one","-part1","part1_answer","--needvaluearg","",NULL};
+    char* arguments[] = {"--help","--two-part","part2","-exit","/name=1","-setit2=one","-part1","part1_answer","--needvaluearg","",NULL};
 
     int num_args = 0;
     for( num_args = 0; arguments[num_args] != NULL; num_args++);
@@ -114,19 +115,20 @@ DBG("just after Parse\n");
 
 void test_CMD_ShowUsages()
 {
-    CMD_ShowUsages("Usage: test");
+    CMD_ShowUsages("Usage: test", "stumathews@gmail.com", "test cmd app");
 }
 
 int main(int argc, char* argv[])
 {
+	LIB_Init();
+
     struct TestDefinition tests[] = { test_CMD_AddArguments, "test_CMD_ADDArguments",
-        test_CMD_AddArgument, "test_CMD_ADDArgument",
-        test_CMD_Parse, "test_CMD_Parse",
-        test_CMD_ShowUsages, "test_CMD_ShowUsages"
+    		TEST(test_CMD_AddArgument),
+			TEST(test_CMD_Parse)
 
     };
-   run_tests(tests,4);
+   run_tests(tests,3);
 
-    CMD_Uninit();
+	LIB_Uninit();
     return 0;
 }

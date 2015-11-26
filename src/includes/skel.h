@@ -13,12 +13,13 @@
 
 #ifndef __SKEL_H__
 #define __SKEL_H__
+#include <constants.h>
 
 /*
  * Basic abstraction layer routines for tcp programming across linux and windows
  * */
 
-#ifdef HAVE_WINSOCK2_H
+#ifndef HAVE_WINSOCK2_H
 
 /* UNIX version */
 
@@ -33,16 +34,18 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 
-#define INIT()			( )
+#define INIT()			
 #define EXIT(s)			exit( s )
-#define CLOSE(s)		if ( close( s ) ) error( 1, errno, \
+#define CLOSE(s)		if ( close( s ) ) netError( 1, errno, \
 						"close failed" )
 #define set_errno(e)	errno = ( e )
 #define isvalidsock(s)	( ( s ) >= 0 )
 
 typedef int SOCKET;
 
-#else
+#endif
+
+#ifdef HAVE_WINSOCK2_H 
 
 #include <winsock2.h>
 #include <windows.h>
@@ -56,12 +59,15 @@ struct timezone
 typedef unsigned int u_int32_t;
 
 #define EMSGSIZE		WSAEMSGSIZE
-#define INIT()			init( argv );
+
+#define NETINIT() 		INIT();
+#define INIT()			do { WSADATA wsaData; WSAStartup(MAKEWORD(2,2), &wsaData); } while(0);
 #define EXIT(s)			do { WSACleanup(); exit( ( s ) ); } \
 						while ( 0 )
+#define NETCLOSE(s)		CLOSE(s)
 #define CLOSE(s)		if ( closesocket( s ) ) \
-							error( 1, errno, "close failed" )
-#define errno			( GetLastError() )
+							netError( 1, errno, "close failed" )
+#define errorno			( GetLastError() )
 #define set_errno(e)	SetLastError( ( e ) )
 #define isvalidsock(s)	( ( s ) != SOCKET_ERROR )
 #define bzero(b,n)		memset( ( b ), 0, ( n ) )
@@ -69,24 +75,8 @@ typedef unsigned int u_int32_t;
 #define WINDOWS
 
 
-inline void init( char **argv )
-{
-	WSADATA wsadata;
-	
-	WSAStartup( MAKEWORD( 2, 2 ), &wsadata );
-}
-
-/* inet_aton - version of inet_aton for SVr4 and Windows */
-inline int inet_aton( char *cp, struct in_addr *pin )
-{
-    int rc;
-	 
-	rc = inet_addr( cp );
-	if ( rc == -1 && strcmp( cp, "255.255.255.255" ) )
-		return 0;
-	pin->s_addr = rc;
-	return 1;
-}
+LIBRARY_API void init();
+LIBRARY_API int inet_aton( const char *cp, struct in_addr *pin );
 
 
 #endif /* HAVE_WINSOCK2_H */

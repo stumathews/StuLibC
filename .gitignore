@@ -1,30 +1,44 @@
 # ignore these files
+*.txt
+*.hin
+*.status
+*.sub
+libtool
+*.sh
+test-driver
+doc/docbook/*
+doc/html/*
+doc/man*/*
+doc/latex/**
+doc/rtf/**
+doc/xml/**
+man*/**
+doc/def/**
 
-# object files
 *.o
-
-# windows binaries
+*.lo
 Program/bin
 *.exe
 *.dll
-# generated log files
 *.log
-
-# hidden files
 .*
 *.gch
-
-# other and shared library binary files
 *.so*
 *.lib
 [*.lo]
 *.la
-*.out
-
-# vim backup files
+*.guess
 *~
-# everything else i dont want
 main
 /Default/
 *.in
 Makefile
+Makefile.in
+/autom4te.cache
+/aclocal.m4
+/compile
+/configure
+/depcomp
+/install-sh
+/missing
+/stamp-h1

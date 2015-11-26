@@ -13,8 +13,7 @@
 
 
 char* STR_CreateString(char* string)
-{
-    //char* str = (char*) malloc(strlen(string) + 1);
+{    
     char* str = MEM_Alloc( strlen(string) + 1 );
 
     MEM_CheckAllocated(str,"str", __FILE__,__LINE__);
@@ -42,39 +41,31 @@ char* STR_BeginsWithEither(char* possibilities[], char* string)
 
 char* STR_EndsWithEither(char* endsWithPossibilities[], char* string)
 {
-DBG("Enter STR_EndsWithEither()\n");
+    DBG("Enter STR_EndsWithEither()\n");
     // loop through all the possibilities
     for(int i = 0; endsWithPossibilities[i] != NULL; i++) {
         if(STR_EndsWith(endsWithPossibilities[i], string) == true)
             return endsWithPossibilities[i];
     }
-DBG("Finish STR_EndsWithEither()\n");
+    DBG("Finish STR_EndsWithEither()\n");
     return "";
 }
 
-char* STR_Without(char* without, char* source)
-{
-    //  "peter stuart mathews 1 stuart" should become "peter  mathews 1 " as we've removed all references to stuart
-    // "--help" becomes "help" without --
-    // "Stuart Mathews" becomes "Stuart" without " Mathews"
+char* STR_Without(const char* without, const char* source, char* result)
+{    
     short withoutLength = strlen(without);
     short sourceLength = strlen(source);
-    char* buffer = (char*) Alloc(sizeof(char) * (sourceLength +1));
-    MEM_CheckAllocated(buffer, "buffer", __FILE__,__LINE__);
-    strcpy(buffer, source);
-    char* occurance;
-    while((occurance = strstr(buffer,without)) != NULL) {
-        // modify buffer and rerun loop.
-        // note that occurance is a pointer to the buffer set via strstr ( copyinginto occurance, effectvly copies into the buffer )
-        strcpy(occurance,occurance+withoutLength);
+    strcpy(result, source);
+    char* ptrFound;
+	while ((ptrFound = strstr(result, without)) != NULL) {
+		strcpy(ptrFound, ptrFound + withoutLength);
     }
-
-    return buffer;
+	DBG("source '%s' without '%s' is '%s'", source, without, result);
+	return result;
 }
 
 bool STR_Contains(char* lookfor, char* orig)
 {
-    //Saftychecking candidates
     if( lookfor == null || strlen(lookfor) == 0 ) ERR("Bad juju 1\n");
     if( orig == null || strlen(orig) == 0 ) ERR("Bad juju 1\n");
     return (strstr((const char*)orig, (const char*)lookfor) != NULL) ? true:false;
@@ -86,41 +77,36 @@ bool STR_EndsWith(char* endsWith, char* string)
     short stringLength = strlen(string);
     if(stringLength == 0 || lookForLength == 0 || stringLength < lookForLength)
         return false;
-    // stuart__xx becomes yes it ends with __x
-    // 1234567890
     if(strcmp(string + (stringLength - lookForLength), endsWith) == 0)    // compare end of string with endsWith
         return true;
     else
         return false;
 }
 
-char* STR_FromLast(char* lookfor, char* string, char* result_buffer)
+char* STR_FromLast(const char* lookfor, const char* string, char* result_buffer)
 {
     short lookForLength = strlen(lookfor);
     short stringLength = strlen(string);
-    char* buffer = (char*) Alloc(sizeof(char) * (stringLength +1));
-    MEM_CheckAllocated(buffer,"buffer",__FILE__, __LINE__);
-    // copy into a backup buffer for local modification
-    strcpy(buffer,string);
+
+    strcpy(result_buffer,string);
     char* occurance = NULL;
     char* last_occurance = NULL;
-    //erase each occurancein the copy of the orignal string
-    while((occurance = strstr(buffer,lookfor)) != NULL) {
+
+    while((occurance = strstr(result_buffer,lookfor)) != NULL) {
         strcpy(occurance,occurance+lookForLength);
         last_occurance = occurance;
     }
-    // copy pointer to last occurance to result_buffer and prepare for returning it.
+
     strcpy(result_buffer, last_occurance);
-    MEM_DeAlloc(buffer, "buffer");
     return result_buffer;
 }
 
 char* STR_Join(char* s1, char* s2)
 {
-  char *s0 = Alloc(strlen(s1)+strlen(s2)+1);
-  strcpy(s0, s1);
-  strcat(s0, s2);
-   return s0;
+    char *s0 = Alloc(strlen(s1)+strlen(s2)+1);
+    strcpy(s0, s1);
+    strcat(s0, s2);
+    return s0;
 }
 
 char* STR_AppendStrings(char* first, char* second)
@@ -130,31 +116,74 @@ char* STR_AppendStrings(char* first, char* second)
 
 
 bool STR_IsNullOrEmpty(char* string)
-{
+{ 
     if( string == NULL )
-	return true;
-
-    if( strlen(string) == 0)
+    {
         return true;
-    else
-        return false;
+    }
+
+    if( string[0] == '\0')
+    {
+        return true;
+    }
+    return false;
 }
 
 bool STR_IsAlpha(char* string, int size)
 {
-	CHECK_STRING( string, IS_NOT_EMPTY );
-	
-	bool isAlphaString = true;
-	DBG("Entering %s() with string as '%s' and size is %d",__func__, string, size);
-	for( int i = 0; i < size ; i++)
-	{
-		if( !(islower(string[i]) || isupper(string[i])) )
-		{
-		 	isAlphaString = false; break;
-		}		
-							
-	}
-	return isAlphaString;
+    CHECK_STRING( string, IS_NOT_EMPTY );
+
+    bool isAlphaString = true;
+    DBG("Entering %s() with string as '%s' and size is %d",__func__, string, size);
+    for( int i = 0; i < size ; i++)
+    {
+        if( !(islower(string[i]) || isupper(string[i])) )
+        {
+            isAlphaString = false; break;
+        }		
+
+    }
+    return isAlphaString;
 
 }
+
+char* STR_Reverse(char* string )
+{
+    int length = strlen(string);
+
+    int i;
+    for( i = 0 ; i < (length/2); i++)
+    {
+        char tmp = string[i];        
+        int rightpos = (length-1)-i;
+        string[i] = string[rightpos];
+        string[rightpos] = tmp;
+    }
+    return string;
+}
+
+bool STR_Equals( char* string1, char* string2 )
+{
+    if( strcmp( string1, string2 ) == 0 )
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+bool STR_EqualsIgnoreCase( char* string1, char* string2 )
+{
+	if( strcmpi( string1, string2 ) == 0 )
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
 

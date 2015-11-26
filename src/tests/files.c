@@ -2,6 +2,9 @@
 #include <testing.h>
 #include <assert.h>
 #include <debugging.h>
+#include <safetychecking.h>
+#include <console.h>
+#include <ini.h>
 
 
 void test_FILE_Exists()
@@ -82,15 +85,60 @@ void test_FILE_ContainsString()
 
 }
 
+static void printSetting( GenericListItem* LinkedListNode )
+{
+	struct KeyValuePair *kvp = (struct KeyValuePair*)(LinkedListNode->data);
+	PRINT( "setting: %s, value: %s \n", kvp->key, kvp->value);
+}
+static void KeyValuePairPrint( GenericListItem* myNode )
+{
+	struct KeyValuePair *kvp = (struct KeyValuePair*)(myNode->data);
+	PRINT( "header: %s\n", kvp->key);
+	List* list = (List*) kvp->value;
+	LIST_ForEach(list, printSetting);
+}
+
+void test_FILE_IniParse()
+{
+	List settings = {0};
+
+	int res = INI_IniParse("test.ini", &settings);
+	if( res != 0)
+	{
+		ERR_Print("INI_IniParse() failed.\n", true );
+	}
+
+	char* setting = INI_GetSetting(&settings, "Network", "hostname");
+	assert( setting != null);
+	assert( STR_Equals(setting, "My Computer") == true);
+
+	setting = INI_GetSetting(&settings, "owner", "organization");
+	assert( setting != null);
+	assert( STR_Equals(setting, "Acme Widgets Inc.") == true);
+
+	setting = INI_GetSetting(&settings, "database", "server");
+	assert( setting != null);
+	assert( STR_Equals(setting, "192.0.2.62") == true);
+
+	// These dont exist and are expected to fail lookup .ie return null
+	setting = INI_GetSetting(&settings, "database", "server1");
+	assert( setting == null);
+
+	setting = INI_GetSetting(&settings, "unknown", "unknown");
+	assert( setting == null);
+
+}
+
 int main( int arvc, char** argv )
 {
  struct TestDefinition tests[] = {
-        test_FILE_Exists, "test_FILE_Exists",
-        test_FILE_Delete, "test_FILE_Delete",
-        test_FILE_Rename, "test_FILE_Rename",
-        test_FILE_ContainsString, "test_FILE_ContainsString()"
+		TEST(test_FILE_Exists),
+		TEST(test_FILE_Delete),
+		TEST(test_FILE_Rename),
+		TEST(test_FILE_ContainsString),
+		TEST(test_FILE_IniParse)
   };
- run_tests(tests,4); 
+ run_tests(tests,5);
   DBG_DeleteLog();
 
   return 0;

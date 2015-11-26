@@ -4,10 +4,10 @@
 #include <testing.h>
 #include <assert.h>
 #include <debugging.h>
+#include <stulibc.h>
 
 int* aIntPtr = NULL;
 int number = 25;
-void print_tracked();
 
 void test_Alloc()
 {
@@ -40,11 +40,13 @@ void test_DeAlloc()
 
 int main(int argc, char* argv[] )
 {
+  LIB_Init();
   struct TestDefinition tests[] = {
-    test_Alloc, "MEM_Alloc()",
-    test_DeAlloc, "MEM_DeAlloc()",
+    TEST(test_Alloc),
+    TEST(test_DeAlloc),
   };
 
   run_tests(tests,2);
+  LIB_Uninit();
   return 0;
 }

@@ -12,10 +12,12 @@ void  LOG_DeleteLog()
 {
   FILE_Delete( LOG_GetDefaultLogFileName() );
 }
+
 char* LOG_GetDefaultLogFileName()
 { 
   return DEFAULT_LOG_FILE_NAME; 
 }
+
 int LOG_If(int condition_result, char* message)
 {
     if(condition_result)
@@ -29,8 +31,6 @@ void LOG_LogToStream(char* message, FILE* stream)
     FILE_AppendTextToStream(buffer,stream);
 }
 
-
-
 void LOG_Log(char* message)
 {
     FILE* LogFileStream = fopen(DEFAULT_LOG_FILE_NAME,"a");
@@ -38,6 +38,13 @@ void LOG_Log(char* message)
     LOG_LogToStream(message,LogFileStream);
 
     fclose(LogFileStream);
+}
+
+void LOG_LogLineToFile( char* message,char* filename )
+{
+    FILE* LogFileStream = fopen( filename, "a");
+    LOG_LogToStream( message, LogFileStream );
+    fclose( LogFileStream );
 }
 
 

@@ -9,8 +9,9 @@
  * @see http://devel.stuartmathews.com/stulibc
  */
 
-/** \page safetychecking Trying to be safe in your program
+/** \page safetychecking Safety
 bounds checking on data structures and other sanity checks
+\include safetychecking.h
 */
 
 #ifndef SAFETY_CHECKING_H
@@ -34,9 +35,13 @@ enum StringChecks {IS_NOT_EMPTY = 2, CHARS_ONLY = 4, ALL_LOWER = 8};
 #define CHECK_STRING_BASICS( string ) do { \
 	CHK_str( (string), IS_NOT_EMPTY | CHARS_ONLY, (char*)__func__); \
 } while (0)
-void CHK_str( char* string, enum StringChecks checks, char* functionName);
 
-
+/** \brief Runs a prefedined check on a string
+ * \param string char* The string that needs to be checked
+ * \param checks enum StringChecks the check you'd liked performed
+ * \param functionName char* the function that this check is being called from
+ */
+LIBRARY_API void CHK_str( char* string, enum StringChecks checks, char* functionName);
 
 /** \brief Runs a provided data validation routine and its fix routine on provided data
  *
@@ -57,7 +62,7 @@ LIBRARY_API void CHK_int(IsIntValidRoutine func_IsDataValid, int* data, char* da
  * \return void
  *
  */
-void CHK_ExitIf(int condition, char* message, char* resultContext);
+LIBRARY_API void CHK_ExitIf(int condition, char* message, char* resultContext);
 //int CHK_LogIf(int condition, char* message, char* resultContext);
 //void CHK_Log(char* functionName,int lineNumber, char* resultContext);
 

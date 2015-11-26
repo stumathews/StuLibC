@@ -1,6 +1,6 @@
 #include <etcp.h>
 
-void set_address( char *hname, char *sname,	struct sockaddr_in *sap, char *protocol )
+void netSetAddress( char *hname, char *sname,	struct sockaddr_in *sap, char *protocol )
 {
 	struct servent *sp;
 	struct hostent *hp;
@@ -15,7 +15,7 @@ void set_address( char *hname, char *sname,	struct sockaddr_in *sap, char *proto
 		{
 			hp = gethostbyname( hname );
 			if ( hp == NULL )
-				error( 1, 0, "unknown host: %s\n", hname );
+				netError( 1, 0, "unknown host: %s\n", hname );
 			sap->sin_addr = *( struct in_addr * )hp->h_addr;
 		}
 	}
@@ -28,7 +28,7 @@ void set_address( char *hname, char *sname,	struct sockaddr_in *sap, char *proto
 	{
 		sp = getservbyname( sname, protocol );
 		if ( sp == NULL )
-			error( 1, 0, "unknown service: %s\n", sname );
+			netError( 1, 0, "unknown service: %s\n", sname );
 		sap->sin_port = sp->s_port;
 	}
 }

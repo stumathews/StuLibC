@@ -9,8 +9,9 @@
  * @see http://devel.stuartmathews.com/stulibc
  */
 
-/** \page debugging Debugging your program
+/** \page debugging Debugging
 Debugging functionality like writing to trace files, log files etc.
+\include debugging.h
 */
 
 #ifndef STULIBC_DEBUGGING_H
@@ -23,6 +24,7 @@ Debugging functionality like writing to trace files, log files etc.
 
 #include <constants.h>
 #include <stdio.h>
+#include <string.h>
 
 #if INSPECT_ERRORS
 #define DBG(format, ...) do {\
@@ -31,8 +33,9 @@ Debugging functionality like writing to trace files, log files etc.
 #else
 #define DBG(format, ...) do {\
 			char buffer[256];\
-			snprintf( buffer,256,  "DBG : %s-%d stulic::%s(): " format "\n", __FILE__, __LINE__,__func__,##__VA_ARGS__);  \
-			DBG_Log(buffer);\
+            memset( buffer, '\0', 256);\
+			snprintf( buffer,256,  "DBG : %s-%d stulibc::%s(): " format "\n", __FILE__, __LINE__,__func__,##__VA_ARGS__);  \
+            DBG_Log(buffer);\
 } while (0)
 #endif
 #define assertm(m,c) do {\

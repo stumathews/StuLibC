@@ -21,6 +21,25 @@ void test_append()
     if( errors ) exit(1);
 }
 
+void test_STR_Equals()
+{
+    assert( STR_Equals("one","one") == true );
+    assert( STR_Equals("one","two") == false );
+}
+
+void test_STR_EqualsIgnoreCase()
+{
+    assert( STR_Equals("ONE","ONE") == true );
+    assert( STR_Equals("one","two") == false );
+    assert( STR_Equals("one","One") == false );
+}
+void test_STR_Reverse()
+{
+    char beautiful[] = "BEAUTIFUL";
+    STR_Reverse(beautiful);
+    assert( strcmp("LUFITUAEB",beautiful) == 0 );
+}
+
 void test_STR_IsAlpha()
 {
     char* alpha = "abcdefghijklmnopqstuvwxyz";
@@ -90,19 +109,20 @@ void test_STR_Without()
     char* name = "Stuart Mathews";
     char* arg = "--help";
     short MAX = 20;
-    char* buffer;
+    char* buffer = MEM_Alloc(SIZEOFCHAR * strlen(name));
 
-    buffer = STR_Without( " Mathews", name);
+    buffer = STR_Without( " Mathews", name,buffer);
     assert( strcmp( buffer, "Stuart" ) == 0 );
-    buffer = STR_Without( "--", arg);
+    buffer = STR_Without( "--", arg,buffer);
     assert( strcmp( buffer, "help" ) == 0 );
-    buffer = STR_Without("stuart","peter stuart mathews 1 stuart");
+    buffer = STR_Without("stuart","peter stuart mathews 1 stuart",buffer);
 
     char* test = "peter  mathews 1 ";
+    char* buffer1 = MEM_Alloc(SIZEOFCHAR * strlen(name));
     assert( strcmp( buffer, test ) == 0 );
-    buffer = STR_Without(",,","s,,t,,u,,a,,r,,t");
+    buffer = STR_Without(",,","s,,t,,u,,a,,r,,t",buffer1);
     assert( strcmp( buffer, "stuart" ) == 0 );
-    buffer = STR_Without(",","s,t,u,a,r,t");
+    buffer = STR_Without(",","s,t,u,a,r,t",buffer1);
     assert( strcmp( buffer, "stuart" ) == 0 );
 }
 
@@ -138,20 +158,23 @@ void test_STR_FromLast()
 
 int main(int argc, char** argv)
 {
+	LIB_Init();
     struct TestDefinition tests[] = {
-        test_append,"test_append()",
-        test_createString,"test_createString",
-        test_beginsWith, "test_STR_BeginsWith",
-        test_beginsWithEither, "test_STR_BeginsWithEither",
-        test_IsNullOrEmpty,"test_STR_IsNullOrEmpty",
-        test_STR_Without,"test_STR_Without",
-        test_STR_Contains, "test_STR_Contains",
-        test_STR_EndsWith, "test_STR_EndsWith",
-        test_STR_FromLast, "test_STR_FromLast",
-        test_STR_IsAlpha, "test_STR_IsAlpha"
-
+        TEST(test_append),
+        TEST(test_createString),
+        TEST(test_beginsWith),
+        TEST(test_beginsWithEither),
+        TEST(test_IsNullOrEmpty),
+        TEST(test_STR_Without),
+        TEST(test_STR_Contains),
+        TEST(test_STR_EndsWith),
+        TEST(test_STR_FromLast),
+        TEST(test_STR_IsAlpha),
+        TEST(test_STR_Reverse),
+        TEST(test_STR_Equals),
+		TEST(test_STR_EqualsIgnoreCase),
     };
-    run_tests(tests,10);
+    run_tests(tests,13);
     DBG("about to LIB_Unint()");
     LIB_Uninit();
 

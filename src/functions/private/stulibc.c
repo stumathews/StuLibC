@@ -1,13 +1,49 @@
 #include <stulibc.h>
 
+bool IsLibraryInitialized = false;
+
 LIBRARY_API void LIB_Init()
 {
-    DBG("Initializing library");
+	if (!LIB_IsInit())
+	{			
+        INIT();
+		DBG("Initializing library");
+
+        MEM_Init();
+        CMD_Init();
+		
+        DBG("Initialized library");
+		IsLibraryInitialized = true;
+	}
+}
+
+void LIB_Check_Init()
+{
+  if( !LIB_IsInit() )
+  { 
+      PRINT("Library was not initialized. Recovering.\n");
+      LIB_Init(); 
+  }
+
 }
 
 LIBRARY_API void LIB_Uninit()
 {
-    DBG("Uninitializing library.");
-    MEM_DeAllocAll();
-    CMD_Uninit();
+	if (LIB_IsInit())
+	{
+		DBG("Uninitializing library.");
+		IsLibraryInitialized = false;
+				DBG("Uninitialized library.");
+
+		PRINT("Suppressing calls to CMD_Uninit() and MEM_Uninit() as they are broken and should be fixed before reinstating");
+		//CMD_Uninit();
+        //MEM_Uninit();
+
+
+	}
+}
+
+bool LIB_IsInit()
+{
+	return IsLibraryInitialized;
 }

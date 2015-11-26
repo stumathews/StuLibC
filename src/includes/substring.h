@@ -9,9 +9,6 @@
  * @see http://devel.stuartmathews.com/stulibc
  */
 
-/** \page Substring Using substring functionality
-TBD
-*/
 #ifndef STUIBC_STUBSTRING_H
 #define STUIBC_STUBSTRING_H
 

@@ -9,8 +9,9 @@
  * @see http://devel.stuartmathews.com/stulibc
  */
 
-/** \page memory Memory managment functionality
+/** \page memory Memory
 This is a narative on this part of the library
+\include memory.h
 */
 
 #ifndef STULIBC_MEMORY_MANAGEMENT_H
@@ -18,7 +19,15 @@ This is a narative on this part of the library
 #include <stdlib.h>
 #include <stdbool.h>
 #include <constants.h>
+#include <linuxlist.h>
 
+/**
+* Container that holds a raw memory buffer/location
+*/
+struct TrackedAddress {
+	void* mem_loc;
+	struct list_head list;
+};
 // Common memory related functions like allocating memory or filling memory and freeing it etc.
 
 #define MEM_allocate(size) malloc((size)
@@ -31,6 +40,12 @@ This is a narative on this part of the library
 #define MEM_get_first_char(cs,c,n) memchr((cs),(c),(n))
 #define MEM_set(s,c,n) memset((s),(c),(n))
 #define alloc(s) MEM_Alloc((s)) 
+
+// Deinitialises te memory managment function within the library
+void MEM_Uninit();
+
+// Initialises the memory management functions within the library
+void MEM_Init();
 
 /** \brief Detect empty pointers
  *

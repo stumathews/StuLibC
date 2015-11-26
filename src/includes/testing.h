@@ -9,8 +9,9 @@
  * @see http://devel.stuartmathews.com/stulibc
  */
 
-/** \page testing Testing and unit testing
-This is a narative on this part of the library
+/** \page testing Testing
+Contains the function and type declarations for dealing testing functionality in the libraryto implement generic unit testing and generic assertions etc..
+\include testing.h
 */
 
 
@@ -19,6 +20,8 @@ This is a narative on this part of the library
 #include <constants.h>
 #include <assert.h>
 #include <debugging.h>
+
+#define TEST(name) name, #name
 
 /** \brief Represents a function to run to test something indicated by name
  */

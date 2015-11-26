@@ -10,9 +10,18 @@
  * @see http://devel.stuartmathews.com/stulibc
  */
 
-/** \page networking Adding networking functionality to your program
+/** \page networking Networking
  This includes reading and writing to sockets and tcp and udp client and server routines
-*/
+ \include etcp.h
+ \include skel.h
+ */
+
+
+/** \example say.c
+ * This is an example of how to use the netTcpClient
+ * This starts off by using the cmd line parsing routines to get the desired port number to send data do.
+ * Then it sends out the string Hello World to that port
+ */
 
 #ifndef __ETCP_H__
 #define __ETCP_H__
@@ -48,7 +57,7 @@ typedef void ( *tofunc_t )( void * );
  * \return void 
  *
  */
-LIBRARY_API void error( int status, int err, char* fmt, ... );
+LIBRARY_API void netError( int status, int err, char* fmt, ... );
 
 /** \brief Read and wait for len bytes on socket
  *
@@ -58,7 +67,7 @@ LIBRARY_API void error( int status, int err, char* fmt, ... );
  * \return int number of bytes read, or -1 on error 
  *
  */
-LIBRARY_API int readn( SOCKET s, char* buf, size_t len );
+LIBRARY_API int netReadn( SOCKET s, char* buf, size_t len );
 
 /** \brief Read variable records (expects first data read to be size of remaining data)
  *
@@ -68,9 +77,9 @@ LIBRARY_API int readn( SOCKET s, char* buf, size_t len );
  * \return int number of bytes read, or -1 on error 
  *
  */
-LIBRARY_API int readvrec( SOCKET s, char* buf, size_t len );
-LIBRARY_API int readcrlf( SOCKET, char *, size_t );
-LIBRARY_API int readline( SOCKET, char *, size_t );
+LIBRARY_API int netReadVRec( SOCKET s, char* buf, size_t len );
+LIBRARY_API int netReadcrlf( SOCKET, char *, size_t );
+LIBRARY_API int netReadLine( SOCKET, char *, size_t );
 
 /** \brief Set up for tcp server: get tcp socket, bound to hname:sname and returns socket.
  *
@@ -79,7 +88,7 @@ LIBRARY_API int readline( SOCKET, char *, size_t );
  * \return socket configuured to listen on hname host and sname port 
  *
  */
-LIBRARY_API SOCKET tcp_server( char* hname, char* sname );
+LIBRARY_API SOCKET netTcpServer( char* hname, char* sname );
 
 /** \brief Set up for tcp client socket, then connect to it and return socket
  *
@@ -88,7 +97,7 @@ LIBRARY_API SOCKET tcp_server( char* hname, char* sname );
  * \return socket that represents the established connection  
  *
  */
-LIBRARY_API SOCKET tcp_client( char* hname, char* sname );
+LIBRARY_API SOCKET netTcpClient( char* hname, char* sname );
 
 /** \brief Set up for udp server: get udp socket bound to hname:sname
  *
@@ -97,7 +106,7 @@ LIBRARY_API SOCKET tcp_client( char* hname, char* sname );
  * \return socket that represents hname host and sname port 
  *
  */
-LIBRARY_API SOCKET udp_server( char* hname, char* sname );
+LIBRARY_API SOCKET netUdpServer( char* hname, char* sname );
 
 /** \brief Set up for udp client: get a udp socket and fill address to use(this never blocks)
  *
@@ -107,7 +116,7 @@ LIBRARY_API SOCKET udp_server( char* hname, char* sname );
  * \return a raw simple udp socket  
  *
  */
-LIBRARY_API SOCKET udp_client( char* hname, char* sname, struct sockaddr_in* sap );
+LIBRARY_API SOCKET netUdpClient( char* hname, char* sname, struct sockaddr_in* sap );
 
 int tselect( int, fd_set *, fd_set *, fd_set *);
 unsigned int timeout( tofunc_t, void *, int );
@@ -127,6 +136,6 @@ void *smbrecv( SOCKET );
  * \return void the pointer sap will be filled up and available to caller
  *
  */
-LIBRARY_API void set_address( char* hname, char* sname, struct sockaddr_in* sap, char* protocol );
+LIBRARY_API void netSetAddress( char* hname, char* sname, struct sockaddr_in* sap, char* protocol );
 
 #endif  /* __ETCP_H__ */

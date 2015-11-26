@@ -24,7 +24,7 @@ int main( int argc, char **argv )
 
     // get a socket, bound to this address thats configured to listen.
     // NB: This is always ever non-blocking 
-    s = tcp_server("localhost","9000");
+    s = netTcpServer("localhost","9000");
 
 	do
 	{
@@ -32,7 +32,7 @@ int main( int argc, char **argv )
         // wait/block on this listening socket...
 		s1 = accept( s, ( struct sockaddr * )&peer, &peerlen );
 		if ( !isvalidsock( s1 ) )
-			error( 1, errno, "accept failed" );
+			netError( 1, errno, "accept failed" );
         // do network functionality on this socket that now represents a connection with the peer (client) 
 		server( s1, &peer );
 		CLOSE( s1 );
