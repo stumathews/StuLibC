@@ -27,6 +27,12 @@ void test_STR_Equals()
     assert( STR_Equals("one","two") == false );
 }
 
+void test_STR_EqualsIgnoreCase()
+{
+    assert( STR_Equals("ONE","ONE") == true );
+    assert( STR_Equals("one","two") == false );
+    assert( STR_Equals("one","One") == false );
+}
 void test_STR_Reverse()
 {
     char beautiful[] = "BEAUTIFUL";
@@ -166,8 +172,9 @@ int main(int argc, char** argv)
         TEST(test_STR_IsAlpha),
         TEST(test_STR_Reverse),
         TEST(test_STR_Equals),
+		TEST(test_STR_EqualsIgnoreCase),
     };
-    run_tests(tests,12);
+    run_tests(tests,13);
     DBG("about to LIB_Unint()");
     LIB_Uninit();
 

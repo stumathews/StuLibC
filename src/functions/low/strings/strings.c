@@ -165,8 +165,25 @@ char* STR_Reverse(char* string )
 bool STR_Equals( char* string1, char* string2 )
 {
     if( strcmp( string1, string2 ) == 0 )
+    {
         return true;
+    }
     else
+    {
         return false;
+    }
 }
+
+bool STR_EqualsIgnoreCase( char* string1, char* string2 )
+{
+	if( strcmpi( string1, string2 ) == 0 )
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
 
