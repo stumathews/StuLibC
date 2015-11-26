@@ -101,9 +101,31 @@ static void KeyValuePairPrint( GenericListItem* myNode )
 void test_FILE_IniParse()
 {
 	List settings = {0};
-	INI_IniParse("test.ini", &settings);
-	settings.fnPrint = KeyValuePairPrint;
-	LIST_Print(&settings);
+
+	int res = INI_IniParse("test.ini", &settings);
+	if( res != 0)
+	{
+		ERR_Print("INI_IniParse() failed.\n", true );
+	}
+
+	char* setting = INI_GetSetting(&settings, "Network", "hostname");
+	assert( setting != null);
+	assert( STR_Equals(setting, "My Computer") == true);
+
+	setting = INI_GetSetting(&settings, "owner", "organization");
+	assert( setting != null);
+	assert( STR_Equals(setting, "Acme Widgets Inc.") == true);
+
+	setting = INI_GetSetting(&settings, "database", "server");
+	assert( setting != null);
+	assert( STR_Equals(setting, "192.0.2.62") == true);
+
+	// These dont exist and are expected to fail lookup .ie return null
+	setting = INI_GetSetting(&settings, "database", "server1");
+	assert( setting == null);
+
+	setting = INI_GetSetting(&settings, "unknown", "unknown");
+	assert( setting == null);
 
 }
 
