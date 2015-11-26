@@ -11,6 +11,15 @@ static char* DEFAULT_FILE_NAME = "safety.txt";
 static char* COMMON_CHK_RESULT_FORMAT = "[SAFETY] %s (%s)\n";
 static char buffer[MAX_LOG_LINE_LENGTH];
 
+bool isNotNegative( int integer )
+{
+	return integer >= 0;
+}
+
+void makeIntZero( int* integer)
+{
+	*integer = 0;
+}
 
 void CHK_int( IsIntValidRoutine func_IsDataValid, int* data, char* data_label, FixIntRoutine func_FixData)
 {

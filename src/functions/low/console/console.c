@@ -22,10 +22,6 @@ void CNS_PrintFile( char* filename )
         PRINT("File does not exist: %s", filename);
         return;
     }
-
-    FILE* file = fopen( filename, "r");
-    char buf[256];
-    fread( &buf, sizeof(char), 1,file );
-    fclose(file);
+    CHK_ExitIf(1,"not implemented yet","CNS_PrintFile");
 }
 

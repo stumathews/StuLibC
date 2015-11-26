@@ -24,6 +24,7 @@ Debugging functionality like writing to trace files, log files etc.
 
 #include <constants.h>
 #include <stdio.h>
+#include <string.h>
 
 #if INSPECT_ERRORS
 #define DBG(format, ...) do {\

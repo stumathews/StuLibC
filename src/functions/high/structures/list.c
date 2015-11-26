@@ -3,20 +3,24 @@
 #include <stdbool.h>
 #include <memory.h>
 #include <debugging.h>
+#include <safetychecking.h>
 
 static void freeNode(Node* node);
-static void increase_list_size_by_one(List* list) {
+
+static void increase_list_size_by_one(List* list)
+{
 	list->size++;
 }
-static void decrease_list_size_by_one(List* list) {
+static void decrease_list_size_by_one(List* list)
+{
 	list->size--;
 }
 
 void LIST_ForEach( List* list,  ActOnNodeFn fn )
 {
-	DBG("foreach10");
+	DBG("foreach_a");
 	Node *node = list->head;
-	DBG("foreach11");
+	DBG("foreach_b");
 	if( list == NULL){
 		DBG("list is null");
 		return;
@@ -25,14 +29,15 @@ void LIST_ForEach( List* list,  ActOnNodeFn fn )
 	while(node != NULL && list->size > 0)
 	{
 		Node* next = node->next;
-		DBG("foreach12");
-		if( fn != NULL ){
-			DBG("foreach13");
-			fn(node);
-			DBG("foreach14");
-		}
-		else
+		DBG("foreach_c");
+		if( fn == NULL )
+		{
 			return;
+		}
+
+		DBG("foreach_d");
+		fn(node);
+		DBG("foreach_e");
 
 		node = next;
 	}
@@ -40,12 +45,21 @@ void LIST_ForEach( List* list,  ActOnNodeFn fn )
 
 Node* LIST_Pop(List* list)
 {
-	if( list->size == 0 || list->tail == NULL)
+	if( list == NULL)
+	{
+		DBG("List is empty\n");
 		return NULL;
+	}
+
+	if( list->size == 0 || list->tail == NULL )
+	{
+		return NULL;
+	}
 
 	Node* oldTail = list->tail;
 
-	if( oldTail->previous != NULL){
+	if( oldTail->previous != NULL)
+	{
 		oldTail->previous->next = NULL;
 		decrease_list_size_by_one(list);
 		list->tail = oldTail->previous;
@@ -56,12 +70,25 @@ Node* LIST_Pop(List* list)
 
 Node* LIST_Get( List* list, int zero_index)
 {
+	if(list == NULL || list->size == 0)
+	{
+		DBG("List is empty\n");
+		return NULL;
+	}
+
+	if( zero_index < 0)
+	{
+		DBG("List index is invalid : %d while size of list is %d\n", zero_index, list->size);
+		return NULL;
+	}
+
 	Node *node = list->head;
 	int count = 0;
 	while(node != null && list->size > 0)
 	{
 		Node* next = node->next;
-		if( count == zero_index){
+		if( count == zero_index)
+		{
 			return node;
 		}
 		node = next;
@@ -70,15 +97,13 @@ Node* LIST_Get( List* list, int zero_index)
 	return NULL;
 }
 
-
-
 Node* LIST_Push( List* list, void *data)
 {
 	Node *created = NULL;
 
 	if( list->head == NULL )
 	{
-		Node *head = MEM_Alloc( sizeof(Node));
+		Node *head = MEM_Alloc(sizeof(Node));
 
 		head->data = data;
 		head->next = NULL;
@@ -110,8 +135,6 @@ Node* LIST_Push( List* list, void *data)
 	increase_list_size_by_one(list);
 	return created;
 }
-
-
 
 int LIST_DeleteNode( List* list, Node* nodeToDelete)
 {
@@ -194,7 +217,8 @@ void LIST_Deallocate( List* list )
     }
 }
 
-void freeNode(Node* node){
+static void freeNode(Node* node)
+{
 	free(node->data);
 	free(node);
 }
@@ -216,9 +240,14 @@ void LIST_Print( List* list )
     while(current != null && list->size > 0)
     {
     	if( list->fnPrint != NULL)
+    	{
     		list->fnPrint(current);
+    	}
     	else
+    	{
     		PRINTLINE("%d",current->data);
+    	}
+
         current = current->next;
     }
 }

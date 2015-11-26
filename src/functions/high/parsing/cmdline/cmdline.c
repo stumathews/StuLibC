@@ -26,7 +26,8 @@ void CMD_Init()
 {
     INIT_LIST_HEAD( &mandatory_args.list );
 }
-// Frees the im-memory linked list holing all registered arguments.
+
+// Frees the in-memory linked list holing all registered arguments.
 void CMD_Uninit() 
 {
     struct memory* node = first_alloc_memory;
@@ -35,6 +36,7 @@ void CMD_Uninit()
         struct memory* free_me = node;
         node = node->next;
         free(free_me);
+        free_me = null;
     }
 }
 
@@ -53,11 +55,11 @@ void CMD_ShowUsages(char* tagline, char* address, char* description)
     printf("Usage %s [Options]\n",tagline);
     printf("%s\n", description );
 
-    // Prints ouf the options:
+    // Prints out the options:
     printf( "Options:\n\n");
     
-    // Extract the registered arguments detials and print them
-    while(node!=NULL) 
+    // Extract the registered arguments details and print them
+    while(node != NULL)
     {
         char* display_name = (!STR_IsNullOrEmpty(node->argument->display) ? node->argument->display :  node->argument->name);
         char* description = node->argument->description;
@@ -70,16 +72,16 @@ void CMD_ShowUsages(char* tagline, char* address, char* description)
 }
 
 // Linearly search through the linked list of registered arguments
-// find the argument that was registered - ie that is tracked in the memory storage
+// find the argument that was registered - i.e that is tracked in the memory storage
 struct Argument* find(char* name)
 {
-    // Post condition chceks
+    // Post condition checks
     CHECK_STRING_BASICS(name);
 
     struct memory* node = first_alloc_memory;
     struct Argument* found = NULL;
 
-    while(node!=NULL)
+    while(node != NULL)
     {
         // look for our named argument:
         if(strcmp(node->argument->name, name) == 0) 
@@ -119,7 +121,7 @@ void CMD_AddArgument(struct Argument* argument)
         last_alloc_memory = tmp;
     }
 
-    // Ok we have a new argument, lets see if its a mandatory one, and if so add it to known mandatoryargs list
+    // O.k we have a new argument, lets see if its a mandatory one, and if so add it to known mandatoryargs list
     if( last_alloc_memory->argument->isMandatory )
     {
         struct MandatoryArgList* tmp = malloc( sizeof( struct MandatoryArgList ) );
@@ -145,7 +147,7 @@ void CMD_AddArgument(struct Argument* argument)
 // -----------------------------------------------------
 // [ -- | NumberOfEyes | = | 2
 // -----------------------------------------------------  
-enum EnumPipeParts { ARG_INDICATOR, ARG_NAME,VALUE_INDICATOR,VALUE} ;     // pipe line ["--","StoreSomething","=","2"]
+enum EnumPipeParts { ARG_INDICATOR, ARG_NAME, VALUE_INDICATOR, VALUE} ;     // pipe line ["--","StoreSomething","=","2"]
 
 // Main pipe line aka the current pipe
 char* pipe_line[] = {"","","","",""}; // [ARG_INDICATOR, ARG_NAME, VALUE]
@@ -190,8 +192,8 @@ bool push_into_pipe(char* arg, char* next_part)   // determine what type of part
     char* tmpNextArg = (char*) Alloc(SIZEOFCHAR * nextArgLength +1);
     
     // Prepare space
-    strcpy(tmpArg, arg);
-    strcpy(tmpNextArg, next_part);
+    strncpy(tmpArg, arg, argLength);
+    strncpy(tmpNextArg, next_part, nextArgLength);
     char* indicator = NULL;
     char* indicators[] = {"--","-","/",NULL};
     
@@ -229,7 +231,7 @@ bool push_into_pipe(char* arg, char* next_part)   // determine what type of part
         else
         {
             // pipe not finished, expecting a value next
-            return false ;
+            return !finish_pipe();
         }
     } 
     else 
@@ -252,15 +254,17 @@ enum ParseResult ensure_mandatory_args_present( int argc, char** argv,bool skip_
     struct MandatoryArgList* tmp = malloc( sizeof( struct MandatoryArgList ));
 
 
-    list_for_each( pos, &mandatory_args.list){
+    list_for_each( pos, &mandatory_args.list)
+    {
         tmp = list_entry( pos, struct MandatoryArgList, list );
         bool found = false;
         // Look for this mandatory arg in all the args:
 
         for(int i = 0; i < argc; i++) 
         {
+        	bool isFirstArg = (i == 0);
 
-            if( skip_first_arg && i == 0 )
+            if( skip_first_arg && isFirstArg )
                 continue;
 
             char* peek_next = i+1 < argc ? argv[i+1]:"";
@@ -300,7 +304,6 @@ enum ParseResult CMD_Parse(int argc,char** argv, bool skip_first_arg)
 
     for(int i = 0; i < argc; i++) 
     {
-        
         if( skip_first_arg && i == 0 )
             continue;
 
@@ -319,10 +322,15 @@ enum ParseResult CMD_Parse(int argc,char** argv, bool skip_first_arg)
             // gets the argument from the pipe and finds it in the registered arguments. 
             // Also runs the argument handler
             enum ParseResult parseResult = interpretArgInPipe();
+
             if( parseResult == EXPECTED_VALUE )
+            {
                 return EXPECTED_VALUE;
+            }
             else if ( parseResult == NO_HANDLER || parseResult == PARSE_SUCCESS )
+            {
                 continue;
+            }
         }
     }
     return PARSE_SUCCESS;
@@ -345,13 +353,13 @@ enum ParseResult interpretArgInPipe()
         // is this a argumenent that needsd a value?
         if(argument->isValueMandatory)
         {
-            if( !STR_IsNullOrEmpty(pipe_line[VALUE]))
+            if( !STR_IsNullOrEmpty(pipe_line[VALUE]) )
             {
                 value = pipe_line[VALUE]; // get the argument's value out of the pipe line...
             }
             else
             {
-                printf("Error: Argument '%s' expects a value but none was provided.\n",argument->name);
+            	printf("Error: Argument '%s' expects a value but none was provided.\n",argument->name);
                 return EXPECTED_VALUE;
             }
         }
