@@ -142,5 +142,6 @@ LIBRARY_API char* STR_Reverse( char* string );
 
 LIBRARY_API bool STR_Equals(char* string1, char* string2 );
 
+LIBRARY_API bool STR_EqualsIgnoreCase( char* string1, char* string2 );
 
 #endif // STULIBC_STRING_H
