@@ -5,7 +5,6 @@
 #include <debugging.h>
 #include <stdbool.h>
 #include <safetychecking.h>
-#include <iniscanner.h>
 #include <list.h>
 #include <console.h>
 
@@ -88,17 +87,4 @@ short FILE_Exists(const char* filename)
     }
 }
 
-void FILE_IniParse(const char* filename, List* settings)
-{
-	CHECK_STRING( filename, IS_NOT_EMPTY );
-
-	yyin = fopen( filename, "r" );
-	if(yyin == null){
-		ERR_Print("Could not open .ini file", true);
-	}
-
-	iniscan(settings);
-
-	fclose(yyin);
-}
 
