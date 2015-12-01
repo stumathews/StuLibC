@@ -115,7 +115,7 @@ DBG("just after Parse\n");
 
 void test_CMD_ShowUsages()
 {
-    CMD_ShowUsages("Usage: test", "stumathews@gmail.com", "test cmd app");
+    CMD_ShowUsages("Usage: test", PACKAGE_BUGREPORT , "test cmd app");
 }
 
 int main(int argc, char* argv[])
