@@ -13,7 +13,7 @@ AC_CHECK_LIB([ws2_32],[main])
 LIBSTU_DLL_IMPORT=
 case "$host" in
 	*-*-cygwin | *-*-mingw )
-          if test X"$enable_sharred" = Xyes; then
+          if test X"$enable_shared" = Xyes; then
 		AC_TRY_LINK_FUNC([libstu_is_dll],
 				 [LIBSTU_DLL_IMPORT=-DLIBSTU_DLL_IMPORT])
 	  fi
