@@ -90,13 +90,6 @@ static void printSetting( GenericListItem* LinkedListNode )
 	struct KeyValuePair *kvp = (struct KeyValuePair*)(LinkedListNode->data);
 	PRINT( "setting: %s, value: %s \n", kvp->key, kvp->value);
 }
-static void KeyValuePairPrint( GenericListItem* myNode )
-{
-	struct KeyValuePair *kvp = (struct KeyValuePair*)(myNode->data);
-	PRINT( "header: %s\n", kvp->key);
-	List* list = (List*) kvp->value;
-	LIST_ForEach(list, printSetting);
-}
 
 void test_FILE_IniParse()
 {
