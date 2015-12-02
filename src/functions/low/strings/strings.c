@@ -66,8 +66,8 @@ char* STR_Without(const char* without, const char* source, char* result)
 
 bool STR_Contains(char* lookfor, char* orig)
 {
-    if( lookfor == null || strlen(lookfor) == 0 ) ERR("Bad juju 1\n");
-    if( orig == null || strlen(orig) == 0 ) ERR("Bad juju 1\n");
+    if( lookfor == null || strlen(lookfor) == 0 ) DBG("Bad juju 1\n");
+    if( orig == null || strlen(orig) == 0 ) DBG("Bad juju 2\n");
     return (strstr((const char*)orig, (const char*)lookfor) != NULL) ? true:false;
 }
 
