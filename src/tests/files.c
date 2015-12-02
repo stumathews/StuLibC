@@ -1,11 +1,5 @@
-#include <files.h>
-#include <testing.h>
 #include <assert.h>
-#include <debugging.h>
-#include <safetychecking.h>
-#include <console.h>
-#include <ini.h>
-
+#include <stulibc.h>
 
 void test_FILE_Exists()
 {
@@ -83,12 +77,6 @@ void test_FILE_ContainsString()
   FILE_Delete( filename);  
   
 
-}
-
-static void printSetting( GenericListItem* LinkedListNode )
-{
-	struct KeyValuePair *kvp = (struct KeyValuePair*)(LinkedListNode->data);
-	PRINT( "setting: %s, value: %s \n", kvp->key, kvp->value);
 }
 
 void test_FILE_IniParse()
