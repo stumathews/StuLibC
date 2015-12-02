@@ -24,7 +24,6 @@ void test_CHK_int()
   CHK_int( IsAgeValid, &age,"my age", rectifyAge );
 }
 
-
 int main( int argc, char* argv[])
 {
   struct TestDefinition tests[] = {
