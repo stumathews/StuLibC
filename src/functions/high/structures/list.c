@@ -22,9 +22,8 @@ void LIST_FreeInstance(List* list)
 
 void LIST_ForEach( List* list,  ActOnNodeFn fn )
 {
-DBG("foreach_a");
+
 	Node *node = list->head;
-DBG("foreach_b");
 	if( list == NULL){
 		DBG("list is null");
 		return;
@@ -33,15 +32,12 @@ DBG("foreach_b");
 	while(node != NULL && list->size > 0)
 	{
 		Node* next = node->next;
-DBG("foreach_c");
 		if( fn == NULL )
 		{
 			return;
 		}
 
-DBG("foreach_d");
 		fn(node);
-DBG("foreach_e");
 
 		node = next;
 	}
