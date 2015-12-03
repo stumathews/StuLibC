@@ -141,6 +141,24 @@ LIBRARY_API bool STR_IsAlpha( char* string, int len);
 LIBRARY_API char* STR_Reverse( char* string );
 
 LIBRARY_API bool STR_Equals(char* string1, char* string2 );
+/**
+ * Trims the whitespace from the string
+ * @param str string to modify
+ * \remark modifies string in place
+ */
+LIBRARY_API void STR_Trim(char *str);
+/**
+ * Trims the whitespace from the right of string
+ * @param str string to modify
+ * \remark modifies string in place
+ */
+LIBRARY_API void STR_Rtrim(char *str);
+/**
+ * Trims the whitespace from the left of string
+ * @param str string to modify
+ * \remark modifies string in place
+ */
+LIBRARY_API void STR_Ltrim(char *str);
 
 LIBRARY_API bool STR_EqualsIgnoreCase( char* string1, char* string2 );
 
