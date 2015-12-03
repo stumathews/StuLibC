@@ -2,9 +2,9 @@
 #define yyHEADER_H 1
 #define yyIN_HEADER 1
 
-#line 6 "../../../includes/iniscanner.h"
+#line 6 "../../../../includes/iniscanner.h"
 
-#line 8 "../../../includes/iniscanner.h"
+#line 8 "../../../../includes/iniscanner.h"
 
 #define  YY_INT_ALIGNED short int
 
@@ -327,9 +327,9 @@ extern int yylex (void);
 #undef YY_DECL
 #endif
 
-#line 84 "ini.flex"
+#line 86 "ini.flex"
 
 
-#line 334 "../../../includes/iniscanner.h"
+#line 334 "../../../../includes/iniscanner.h"
 #undef yyIN_HEADER
 #endif /* yyHEADER_H */
