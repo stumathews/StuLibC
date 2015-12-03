@@ -1,15 +1,13 @@
 #ifndef INI_H
 #define INI_H
 
-#include <constants.h>
-#include <list.h>
-#include <iniscanner.h>
+#include <stulibc.h>
 
 /**
  * Fetches all the settings from a well formed .ini file.
  * @param filename
  * @param settings
- * @return non-negative integer on success or negative integer otherwise
+ * @return 0 on success or negative integer otherwise
  */
 LIBRARY_API int INI_IniParse(const char* filename, List* settings);
 
