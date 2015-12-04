@@ -91,6 +91,14 @@ I've broken down the library down into functional areas. This encompases a low-l
 #include <list.h>
 #include <linuxlist.h>
 #include <stdbool.h>
+#include <ini.h>
+#include <files.h>
+#include <testing.h>
+#include <debugging.h>
+#include <safetychecking.h>
+#include <console.h>
+#include <ini.h>
+
 // .. include others for an all-includeive #incude <libstu.h> to pull in all functions
 
 LIBRARY_API void LIB_Init();

@@ -6,10 +6,8 @@ AC_PROG_CC_STDC
 AC_C_CONST
 AC_LIBTOOL_WIN32_DLL
 AC_PROG_LIBTOOL
-AC_CHECK_HEADERS([sys/socket.h])
-AC_CHECK_HEADERS([winsock2.h])
-AC_CHECK_HEADERS([windows.h])
-AC_CHECK_LIB([ws2_32],[main])
+AC_CHECK_FUNCS(_open)
+
 LIBSTU_DLL_IMPORT=
 case "$host" in
 	*-*-cygwin | *-*-mingw )
@@ -19,9 +17,50 @@ case "$host" in
 	  fi
 	  ;;
 esac
+
 AC_ARG_WITH(inspect,
 								    [  --with-inspect           Inspect test suite errors],
 										[ AC_DEFINE(INSPECT_ERRORS, 1, "Inspect test suite errors")],
 										[ AC_DEFINE(INSPECT_ERRORS, 0, "Inspect test suite errors")])
 AC_SUBST(LIBSTU_DLL_IMPORT)
+
+# Check system type - found at https://gnunet.org/svn/libmicrohttpd/configure.ac
+AC_MSG_CHECKING([[for target host OS]])
+case "$host_os" in
+*darwin* | *rhapsody* | *macosx*)
+     AC_DEFINE_UNQUOTED(__APPLE__,1,[This is an OS X system])     
+     AC_MSG_RESULT([[$mhd_host_os]])
+     CFLAGS="-no-cpp-precomp -fno-common $CFLAGS"
+     mhd_host_os='Darwin'
+     ;;
+*linux*)
+     AC_DEFINE_UNQUOTED(__linux__,1,[This is a Linux kernel])
+     AC_DEFINE_UNQUOTED(HAVE_LISTEN_SHUTDOWN,1,[can use shutdown on listen sockets])   
+     AC_MSG_RESULT([[$mhd_host_os]])
+     AC_CHECK_HEADERS([sys/socket.h])
+     mhd_host_os='Linux'
+     ;;
+*mingw*)     
+     AC_DEFINE_UNQUOTED(_WIN32,1,[This is a Windows system])
+     AC_DEFINE_UNQUOTED(MINGW,1,[This is a MinGW system])     
+     AC_MSG_RESULT([[$mhd_host_os]])
+     AC_CHECK_HEADERS([winsock2.h windows.h ws2tcpip.h],, AC_MSG_ERROR([[Winsock2 headers are required for W32]]))
+     AC_CHECK_LIB([ws2_32],[main])
+     LIBS="$LIBS -lws2_32"
+     os_is_windows=yes
+     os_is_native_w32=yes
+     mhd_host_os='Windows (MinGW)'
+     ;;
+*)
+     AC_MSG_RESULT([[$mhd_host_os]])
+     AC_MSG_WARN([Unrecognised OS $host_os])
+     AC_DEFINE_UNQUOTED(OTHEROS,1,[Some strange OS])
+     mhd_host_os='unrecognised OS'
+#    You might want to find out if your OS supports shutdown on listen sockets,
+#    and extend the switch statement; if we do not have 'HAVE_LISTEN_SHUTDOWN',
+#    pipes are used instead to signal 'select'.
+#    AC_DEFINE_UNQUOTED(HAVE_LISTEN_SHUTDOWN,1,[can use shutdown on listen sockets])
+;;
+esac
+
 AC_OUTPUT(Makefile src/Makefile doc/Makefile examples/Makefile man/Makefile scripts/Makefile src/tests/Makefile)

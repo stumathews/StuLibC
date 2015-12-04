@@ -1,13 +1,11 @@
 %option noyywrap
 
 %{
-#include <list.h>
-#define YY_DECL int iniscan(List* list)
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h> 
-#include <files.h>
-#include <memory.h>
+#include <stulibc.h>
+#define YY_DECL int iniscan(List* list)
 %}
 
 
@@ -26,6 +24,8 @@ KEYVALUE  .+\s*=\s*.+
 
 				// found a header in file, extract it into header variable
 				sscanf( yytext, "[%99[^] ] ]", headerName);
+				
+				DBG("Found header: %s", headerName);
 				
 				// Search through list of headers to see if we know about it already
 				GenericListItem *item = list->head;
@@ -75,6 +75,8 @@ KEYVALUE  .+\s*=\s*.+
 
 				strcpy(setting->key, key);
 				strcpy(setting->value, value);
+				
+				DBG("Found %s key/value: %s/%s", currentHeader->key, key, value);
 
 				// Add this setting to this header's list of settings
 				LIST_Push( currentHeaderSettings, (void*) setting);

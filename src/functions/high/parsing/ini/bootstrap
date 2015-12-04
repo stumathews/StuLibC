@@ -1,1 +1,3 @@
-flex --header-file=../../../includes/iniscanner.h -o iniscanner.c ini.flex
+rm ../../../../includes/iniscanner.h 
+rm iniscanner.c
+flex --header-file=../../../../includes/iniscanner.h -o iniscanner.c ini.flex

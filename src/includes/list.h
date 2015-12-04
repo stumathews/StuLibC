@@ -127,7 +127,7 @@ LIBRARY_API void LIST_Init( List* list );
 
 /** \brief Uses provided print function to print the contents of the list
  *  
- *  The function needs tp be compatible with the data within the linked list.
+ *  The function needs to be compatible with the data within the linked list.
  *  \param list struct* list* the list to print
  *  \return void
  */
@@ -138,6 +138,18 @@ LIBRARY_API void LIST_Print( List* list );
  * @param list the list to free up
  */
 LIBRARY_API void LIST_Deallocate( List* list );
+
+/***
+ * Gets a reference to a new list instance
+ * @param list created
+ */
+LIBRARY_API List* LIST_GetInstance();
+
+/**
+ * Free previously created list instance
+ * @param list
+ */
+LIBRARY_API void LIST_FreeInstance(List* list);
 
 #endif
 

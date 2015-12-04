@@ -72,7 +72,6 @@ typedef unsigned int u_int32_t;
 #define isvalidsock(s)	( ( s ) != SOCKET_ERROR )
 #define bzero(b,n)		memset( ( b ), 0, ( n ) )
 #define sleep(t)		Sleep( ( t ) * 1000 )
-#define WINDOWS
 
 
 LIBRARY_API void init();

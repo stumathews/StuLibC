@@ -76,7 +76,7 @@ void CMD_ShowUsages(char* tagline, char* address, char* description)
 struct Argument* find(char* name)
 {
     // Post condition checks
-    CHECK_STRING_BASICS(name);
+    CHK_str(name, IS_NOT_EMPTY, (const char*) __FUNCTION__);
 
     struct memory* node = first_alloc_memory;
     struct Argument* found = NULL;

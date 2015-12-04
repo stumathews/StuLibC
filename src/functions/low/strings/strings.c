@@ -66,8 +66,8 @@ char* STR_Without(const char* without, const char* source, char* result)
 
 bool STR_Contains(char* lookfor, char* orig)
 {
-    if( lookfor == null || strlen(lookfor) == 0 ) ERR("Bad juju 1\n");
-    if( orig == null || strlen(orig) == 0 ) ERR("Bad juju 1\n");
+    if( lookfor == null || strlen(lookfor) == 0 ) DBG("Bad juju 1\n");
+    if( orig == null || strlen(orig) == 0 ) DBG("Bad juju 2\n");
     return (strstr((const char*)orig, (const char*)lookfor) != NULL) ? true:false;
 }
 
@@ -162,9 +162,43 @@ char* STR_Reverse(char* string )
     return string;
 }
 
+void STR_Rtrim(char *str)
+{
+  size_t n;
+  n = strlen(str);
+  while (n > 0 && isspace((unsigned char)str[n - 1])) {
+    n--;
+  }
+  str[n] = '\0';
+}
+
+void STR_Ltrim(char *str)
+{
+  size_t n;
+  n = 0;
+  while (str[n] != '\0' && isspace((unsigned char)str[n])) {
+    n++;
+  }
+  memmove(str, str + n, strlen(str) - n + 1);
+}
+
+void STR_Trim(char *str)
+{
+  STR_Rtrim(str);
+  STR_Ltrim(str);
+}
+
 bool STR_Equals( char* string1, char* string2 )
 {
-    if( strcmp( string1, string2 ) == 0 )
+	char string1_cpy[strlen(string1)+1];
+	strcpy(string1_cpy, string1);
+	char string2_cpy[strlen(string2)+1];
+	strcpy(string2_cpy, string2);
+
+	STR_Trim(string1_cpy);
+	STR_Trim(string2_cpy);
+
+    if( strcmp( string1_cpy, string2_cpy ) == 0 )
     {
         return true;
     }

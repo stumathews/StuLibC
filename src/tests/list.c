@@ -60,8 +60,6 @@ struct MyLinuxList myList = {0};
 void testLinuxList()
 {
    
-
-    
 	struct list_head *pos, *q;
 	struct MyLinuxList* tmp;
 
@@ -252,6 +250,27 @@ void testLIST_Get()
 	LIST_Deallocate(&list);
 	assert( list.size == 0);
 }
+void testGetInstance()
+{
+	List* list = LIST_GetInstance();
+
+	CHK_ExitIf(list == null,"list == null","testGetInstance");
+
+
+	LIST_Add(list, "Stuart");
+	LIST_Add(list, "Robert");
+	LIST_Add(list, "Charles");
+
+	CHK_ExitIf(list->size != 3,"list->size != 3","testGetInstance");
+
+	list->fnPrint = strPrint;
+	LIST_Print(list);
+
+	LIST_FreeInstance(list);
+	CHK_ExitIf(!list,"list is not null","testGetInstance");
+
+}
+
 
 int main( int argc, char** argv )
 {
@@ -266,9 +285,9 @@ int main( int argc, char** argv )
 		TEST(testLISTPop),
 		TEST(testLIST_FindData),
 		TEST(testLIST_DeleteNode),
-		TEST(testLIST_ForEach)
-
+		TEST(testLIST_ForEach),
+		TEST(testGetInstance)
    };
-   run_tests(tests,10);
+   run_tests(tests,11);
    return 0;
 }

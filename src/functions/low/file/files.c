@@ -7,6 +7,7 @@
 #include <safetychecking.h>
 #include <list.h>
 #include <console.h>
+#include <errors.h>
 
 
 _Bool FILE_ContainsString(FILE* file, char* string)

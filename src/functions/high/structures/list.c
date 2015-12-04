@@ -6,21 +6,24 @@
 #include <safetychecking.h>
 
 static void freeNode(Node* node);
+static void increase_list_size_by_one(List* list);
+static void decrease_list_size_by_one(List* list);
 
-static void increase_list_size_by_one(List* list)
+List* LIST_GetInstance()
 {
-	list->size++;
+	List* list = MEM_Alloc( sizeof( struct LinkedList ));
+	return list;
 }
-static void decrease_list_size_by_one(List* list)
+void LIST_FreeInstance(List* list)
 {
-	list->size--;
+	free(list);
+	list = null;
 }
 
 void LIST_ForEach( List* list,  ActOnNodeFn fn )
 {
-	DBG("foreach_a");
+
 	Node *node = list->head;
-	DBG("foreach_b");
 	if( list == NULL){
 		DBG("list is null");
 		return;
@@ -29,15 +32,12 @@ void LIST_ForEach( List* list,  ActOnNodeFn fn )
 	while(node != NULL && list->size > 0)
 	{
 		Node* next = node->next;
-		DBG("foreach_c");
 		if( fn == NULL )
 		{
 			return;
 		}
 
-		DBG("foreach_d");
 		fn(node);
-		DBG("foreach_e");
 
 		node = next;
 	}
@@ -234,7 +234,6 @@ void LIST_Init( List* list)
 
 void LIST_Print( List* list )
 {
-    PRINT("Printing the list:\n");
     Node* current = list->head;
 
     while(current != null && list->size > 0)
@@ -243,11 +242,15 @@ void LIST_Print( List* list )
     	{
     		list->fnPrint(current);
     	}
-    	else
-    	{
-    		PRINTLINE("%d",current->data);
-    	}
-
         current = current->next;
     }
+}
+
+static void increase_list_size_by_one(List* list)
+{
+	list->size++;
+}
+static void decrease_list_size_by_one(List* list)
+{
+	list->size--;
 }

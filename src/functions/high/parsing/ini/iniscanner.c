@@ -480,14 +480,12 @@ int yy_flex_debug = 0;
 char *yytext;
 #line 1 "ini.flex"
 #line 4 "ini.flex"
-#include <list.h>
-#define YY_DECL int iniscan(List* list)
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h> 
-#include <files.h>
-#include <memory.h>
-#line 491 "iniscanner.c"
+#include <stulibc.h>
+#define YY_DECL int iniscan(List* list)
+#line 489 "iniscanner.c"
 
 #define INITIAL 0
 
@@ -674,10 +672,10 @@ YY_DECL
 	register char *yy_cp, *yy_bp;
 	register int yy_act;
     
-#line 17 "ini.flex"
+#line 15 "ini.flex"
 
 
-#line 681 "iniscanner.c"
+#line 679 "iniscanner.c"
 
 	if ( !(yy_init) )
 		{
@@ -763,7 +761,7 @@ do_action:	/* This label is used only to access EOF actions. */
 case 1:
 /* rule 1 can match eol */
 YY_RULE_SETUP
-#line 19 "ini.flex"
+#line 17 "ini.flex"
 {
 				typedef	struct KeyValuePair	Header;
 				typedef struct KeyValuePair Setting;
@@ -774,6 +772,8 @@ YY_RULE_SETUP
 
 				// found a header in file, extract it into header variable
 				sscanf( yytext, "[%99[^] ] ]", headerName);
+				
+				DBG("Found header: %s", headerName);
 				
 				// Search through list of headers to see if we know about it already
 				GenericListItem *item = list->head;
@@ -826,6 +826,8 @@ YY_RULE_SETUP
 
 				strcpy(setting->key, key);
 				strcpy(setting->value, value);
+				
+				DBG("Found %s key/value: %s/%s", currentHeader->key, key, value);
 
 				// Add this setting to this header's list of settings
 				LIST_Push( currentHeaderSettings, (void*) setting);
@@ -833,20 +835,20 @@ YY_RULE_SETUP
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 82 "ini.flex"
+#line 84 "ini.flex"
 
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 83 "ini.flex"
+#line 85 "ini.flex"
 printf( "Unrecognized character: %s\n", yytext );	   
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 84 "ini.flex"
+#line 86 "ini.flex"
 ECHO;
 	YY_BREAK
-#line 850 "iniscanner.c"
+#line 852 "iniscanner.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1844,7 +1846,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 84 "ini.flex"
+#line 86 "ini.flex"
 
 
 

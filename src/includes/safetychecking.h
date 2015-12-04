@@ -29,9 +29,23 @@ typedef void (*FixIntRoutine)(int*);
 typedef bool (*IsIntValidRoutine)(int*);
 
 enum StringChecks {IS_NOT_EMPTY = 2, CHARS_ONLY = 4, ALL_LOWER = 8};
+
+/**
+ * Checks to see if the string meets all the validation requirements
+ * @param string the string under inspection
+ * @param checks the validation requirements (StringChecks enum can be &'ed together)
+ * @param functionName The function name that this was called under
+ */
 #define CHECK_STRING( string, checks ) do { \
 	CHK_str( (char*)(string), (checks), (char*)__func__); \
 } while (0)
+
+/**
+ * Checks to see if the string is not empty and is only alphabetic characters
+ * @param string the string under inspection
+ * @param checks the validation requirements (StringChecks enum can be &'ed together)
+ * @param functionName The function name that this was called under
+ */
 #define CHECK_STRING_BASICS( string ) do { \
 	CHK_str( (string), IS_NOT_EMPTY | CHARS_ONLY, (char*)__func__); \
 } while (0)
@@ -40,8 +54,9 @@ enum StringChecks {IS_NOT_EMPTY = 2, CHARS_ONLY = 4, ALL_LOWER = 8};
  * \param string char* The string that needs to be checked
  * \param checks enum StringChecks the check you'd liked performed
  * \param functionName char* the function that this check is being called from
+ * \remark Exists the application if the checks fail validation
  */
-LIBRARY_API void CHK_str( char* string, enum StringChecks checks, char* functionName);
+LIBRARY_API void CHK_str( const char* string, enum StringChecks checks, const char* functionName);
 
 /** \brief Runs a provided data validation routine and its fix routine on provided data
  *
@@ -63,8 +78,7 @@ LIBRARY_API void CHK_int(IsIntValidRoutine func_IsDataValid, int* data, char* da
  *
  */
 LIBRARY_API void CHK_ExitIf(int condition, char* message, char* resultContext);
-//int CHK_LogIf(int condition, char* message, char* resultContext);
-//void CHK_Log(char* functionName,int lineNumber, char* resultContext);
+#define ExitIf CHK_ExitIf
 
 
 #endif
