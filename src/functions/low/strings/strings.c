@@ -114,6 +114,10 @@ char* STR_AppendStrings(char* first, char* second)
     return STR_Join(first,second);
 }
 
+void STR_ToLower(char* string, int strlen)
+{
+	for( int i = 0; i < strlen -1;i++ ) { tolower(string[i]); }
+}
 
 bool STR_IsNullOrEmpty(char* string)
 { 
@@ -210,7 +214,19 @@ bool STR_Equals( char* string1, char* string2 )
 
 bool STR_EqualsIgnoreCase( char* string1, char* string2 )
 {
-	if( strcmpi( string1, string2 ) == 0 )
+	int len1 = strlen(string1);
+	int len2 = strlen(string2);
+	char string1_cpy[len1+1];
+	char string2_cpy[len2+1];
+	
+	strcpy(string2_cpy, string2);
+	strcpy(string1_cpy, string1);
+	
+	STR_ToLower(string1_cpy, len1);
+	STR_ToLower(string2_cpy, len2);
+
+
+	if( strcmp( string1, string2 ) == 0 )
 	{
 		return true;
 	}
