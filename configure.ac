@@ -1,5 +1,5 @@
 AC_INIT([libstuc], [0.0.1], [stumathews@gmail.com])
-AM_INIT_AUTOMAKE([libstuc], [0.0.1])
+AM_INIT_AUTOMAKE
 AM_CONFIG_HEADER(src/includes/config.h:config.hin)
 AC_PROG_CC
 AC_PROG_CC_STDC
@@ -7,7 +7,7 @@ AC_C_CONST
 AC_LIBTOOL_WIN32_DLL
 AC_PROG_LIBTOOL
 AC_CHECK_FUNCS(_open)
-
+AM_INIT_AUTOMAKE([subdir-objects])
 LIBSTU_DLL_IMPORT=
 case "$host" in
 	*-*-cygwin | *-*-mingw )
