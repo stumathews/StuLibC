@@ -27,7 +27,7 @@ int main( int argc, char **argv )
 	struct sockaddr_in peer;
 	SOCKET s;
 
-	INIT();
+	NETINIT();
     
     // Establish a connection(calls connect) and return the socket that represents that connection.
 	s = netTcpClient("localhost","9000");

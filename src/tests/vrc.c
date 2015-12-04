@@ -10,7 +10,7 @@ int main( int argc, char **argv )
 		char buf[ 128 ];
 	} packet;
 
-	INIT();
+	NETINIT();
 
 	s = netTcpClient( "localhost", "9000" );
     // for each string we get from the keyboard, send it to the server. Put it into buffer

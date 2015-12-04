@@ -6,7 +6,7 @@ LIBRARY_API void LIB_Init()
 {
 	if (!LIB_IsInit())
 	{			
-        INIT();
+        NETINIT();
 		DBG("Initializing library");
 
         MEM_Init();

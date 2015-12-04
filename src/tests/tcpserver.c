@@ -20,7 +20,7 @@ int main( int argc, char **argv )
 	SOCKET s;
 	const int on = 1;
 
-	INIT();
+	NETINIT();
 
     // get a socket, bound to this address thats configured to listen.
     // NB: This is always ever non-blocking 

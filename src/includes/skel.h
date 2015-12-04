@@ -34,9 +34,9 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 
-#define INIT()			
+#define NETINIT()			
 #define EXIT(s)			exit( s )
-#define CLOSE(s)		if ( close( s ) ) netError( 1, errno, \
+#define NETCLOSE(s)		if ( close( s ) ) netError( 1, errno, \
 						"close failed" )
 #define set_errno(e)	errno = ( e )
 #define isvalidsock(s)	( ( s ) >= 0 )
@@ -60,8 +60,7 @@ typedef unsigned int u_int32_t;
 
 #define EMSGSIZE		WSAEMSGSIZE
 
-#define NETINIT() 		INIT();
-#define INIT()			do { WSADATA wsaData; WSAStartup(MAKEWORD(2,2), &wsaData); } while(0);
+#define NETINIT()			do { WSADATA wsaData; WSAStartup(MAKEWORD(2,2), &wsaData); } while(0);
 #define EXIT(s)			do { WSACleanup(); exit( ( s ) ); } \
 						while ( 0 )
 #define NETCLOSE(s)		CLOSE(s)

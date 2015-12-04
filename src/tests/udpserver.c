@@ -31,7 +31,7 @@ int main( int argc, char **argv )
 	char *sname = "9000";
 	SOCKET s;
 
-	INIT();
+	NETINIT();
 
     // get udp socket bound this this address
     s = netUdpServer( hname, sname );

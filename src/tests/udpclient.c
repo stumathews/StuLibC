@@ -32,7 +32,7 @@ int main( int argc, char **argv )
 	struct sockaddr_in peer;
 	SOCKET s;
 
-	INIT();
+	NETINIT();
 
     // get a raw udp socket for this address (NB: rmeember this is alwaysi ever non-blocking)
     s = netUdpClient( "localhost", "9000", &peer);
