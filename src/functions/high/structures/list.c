@@ -115,6 +115,7 @@ Node* LIST_Push( List* list, void *data)
 		head->list = (struct LinkedList*) list;
 
 		created = head;
+		DBG("created head node %p\n", created);
 	}
 	else
 	{
@@ -131,6 +132,8 @@ Node* LIST_Push( List* list, void *data)
 		list->tail = newNode;
 
 		created = newNode;
+		DBG("created node, %p <- [%p created] -> %p\n", created->previous, created, created->next);
+
 	}
 	increase_list_size_by_one(list);
 	return created;
@@ -138,20 +141,24 @@ Node* LIST_Push( List* list, void *data)
 
 int LIST_DeleteNode( List* list, Node* nodeToDelete)
 {
+	if( list == null ){ return; }
+
 	Node *node = list->head;
 	bool found = false;
-	while(node != null && list->size > 0)
+	PRINT("Looking for andicate node(%p) to delete within the list\n",nodeToDelete);
+	while(node != null || list->size > 0)
 	{
-		Node* next = node->next;
+		PRINT("found node %p\n", node);
 		if (nodeToDelete == node)
 		{
 			found = true;
 			break;
 		}
-		node = next;
+		node = node->next;
 	}
 
-	if(found){
+	if(found)
+	{
 		Node* previous = nodeToDelete->previous;
 		Node* next = nodeToDelete->next;
 
@@ -219,7 +226,9 @@ void LIST_Deallocate( List* list )
 
 static void freeNode(Node* node)
 {
-	free(node->data);
+	if( node == null ) {return;}
+	
+	PRINT("** Freeing node itself %p\n", node);
 	free(node);
 }
 

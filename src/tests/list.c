@@ -12,7 +12,7 @@ void strPrint( struct LinkedListNode* myNode )
 void testIntList()
 {
 
-    struct LinkedList myList;
+    struct LinkedList myList = {0};
     int x = 0, y = 1, z = 2;
 
     LIST_Init( &myList );
@@ -22,6 +22,7 @@ void testIntList()
     myList.fnPrint = printMe;
     LIST_Print( &myList );
     PRINT("LIst size is %d\n", myList.size);
+    LIST_Deallocate( &myList );
 }
 
 void testStringList()
@@ -42,11 +43,8 @@ void testStringList()
     myStringList.fnPrint = strPrint;
 
     LIST_Print( &myStringList );
-    LIST_Deallocate( &myStringList );
+    LIST_Deallocate( &myStringList);
 
-    assert( myStringList.size == 0);
-
-    LIST_Print( &myStringList );
 
 }
 
@@ -89,18 +87,19 @@ void testLinuxList()
 
 void testInsertBefore()
 {
-	List list = {0};
-	LIST_Init(&list);
-	Node* one = LIST_Add(&list, (void*)1);
-	Node* two = LIST_Add(&list, (void*)2);
+	List *list = (List*) MEM_Alloc(sizeof(List));
+	LIST_Init(list);
+	Node* one = LIST_Add(list, (void*)1);
+	Node* two = LIST_Add(list, (void*)2);
 
-	LIST_InsertBefore(&list,(void*)3,two);
-	Node* result = LIST_Get(&list,1);
+	LIST_InsertBefore(list,(void*)3,two);
+	Node* result = LIST_Get(list,1);
 	assert( result->data == (void*)3 );
 	assert( result->next == two );
 	assert( result->previous == one);
-	LIST_Print(&list);
-	LIST_Deallocate(&list);
+	LIST_Print(list);
+
+	LIST_Deallocate( list);
 
 }
 
@@ -116,6 +115,7 @@ void testLISTPop()
 	assert( list.tail->next == NULL );
 	assert( list.tail == alpha);
 	assert( list.size == 1);
+	LIST_Deallocate( &list);
 
 }
 
@@ -134,7 +134,7 @@ void testInsertAfter()
 	assert( result->next == three );
 	assert( result->previous == two);
 	LIST_Print(&list);
-	LIST_Deallocate(&list);
+	LIST_Deallocate( &list);
 
 }
 
@@ -171,11 +171,13 @@ DBG("foreach1");
 		DBG("data is '%d'", *data);
 		assert( *data == 11);
 	}
+	LIST_Deallocate( &list);
 }
 
 void testLIST_DeleteNode()
 {
-	List list = {0};
+	List *actualList = (List*) MEM_Alloc(sizeof(List));
+	List list = *actualList;
 	int numbers[] = {1,2,3,4,5,6};
 
 	LIST_Init(&list);
@@ -194,6 +196,7 @@ void testLIST_DeleteNode()
 	LIST_DeleteNode(&list, three);
 	assert( list.size == 4);
 
+
 	Node* res1 = LIST_Get(&list, 2);
 	assert( res1 == four );
 
@@ -203,15 +206,15 @@ void testLIST_DeleteNode()
 
 	int *one_data = (int*)one->data;
 	int* two_data = (int*)two->data;
-	int* three_data = (int*)three->data;
 	int* four_data = (int*)four->data;
 	int* five_data = (int*)five->data;
 
 	assert( *one_data == 1 );
 	assert( *two_data == 2);
-	assert( *three_data == 3);
 	assert( *four_data == 4);
 	assert( *five_data == 5);
+
+	LIST_Deallocate( &list);
 }
 
 void testLIST_FindData()
@@ -235,20 +238,18 @@ void testLIST_Get()
 {
 	const char* strMmathews = "Mathews";
 
-	List list = {0};
-	LIST_Init(&list);
-	LIST_Push(&list, (void*)"Stuart");
-	LIST_Push(&list, (void*)strMmathews);
+	List *list = (List*) MEM_Alloc(sizeof( List ));
+	LIST_Init(list);
+	LIST_Push(list, (void*)"Stuart");
+	LIST_Push(list, (void*)strMmathews);
 
-	assert( list.size == 2);
+	assert( list->size == 2);
 
-	Node* mathews = LIST_Get(&list,1);
+	Node* mathews = LIST_Get(list,1);
 
-	assert( list.size == 2);
+	assert( list->size == 2);
 	assert( STR_Equals((char*)mathews->data, (char*)strMmathews) == true );
 
-	LIST_Deallocate(&list);
-	assert( list.size == 0);
 }
 void testGetInstance()
 {

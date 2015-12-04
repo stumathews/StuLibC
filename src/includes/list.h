@@ -134,7 +134,7 @@ LIBRARY_API void LIST_Init( List* list );
 LIBRARY_API void LIST_Print( List* list );
 
 /**
- * Deallocates all items in the list and sets the list size to 0
+ * Deallocates all items in the list and sets the list size to 0. Note the list itself is not freed
  * @param list the list to free up
  */
 LIBRARY_API void LIST_Deallocate( List* list );
