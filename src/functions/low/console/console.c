@@ -9,7 +9,6 @@ void CNS_PrintLine(char* message)
 
 void CNS_Print( char* message )
 {
-	CHECK_STRING( message, IS_NOT_EMPTY );
 	printf("%s", message);
 }
 
