@@ -7,7 +7,7 @@ void test_append()
 {
     char expected[] = "one two";
     int errors = 0;
-    char* append_result = (char*) STR_AppendStrings( "one ", "two");
+    char* append_result = (char*) STR_Join( "one ", "two");
 
     if( append_result == NULL ) {
         // could not create buffer to store appended string
@@ -48,25 +48,6 @@ void test_STR_IsAlpha()
     assert( !STR_IsAlpha(nonalpha, strlen(nonalpha)) );
 }
 
-void test_createString()
-{
-    int errors = 0;
-    char* string1 = "string1";
-    char* string2 = "string2";
-
-    char* dynamic_string1 = STR_CreateString("string1");
-    char* dynamic_string2 = STR_CreateString("string2");
-
-    if( dynamic_string1 == NULL || dynamic_string2 == NULL ) errors++;
-    if( errors ) exit(1);
-    if( strcmp( string1, dynamic_string1 ) != 0) errors++;
-    if( strcmp( string2, dynamic_string2 ) != 0) errors++;
-    if( errors ) exit(1);
-//    free( dynamic_string1);
-  //  free( dynamic_string2);
-
-}
-
 void test_beginsWith()
 {
     char* expected[] = {"--","-","/",NULL};
@@ -85,10 +66,10 @@ void test_beginsWith()
 void test_beginsWithEither()
 {
     char* possibilities[] = {"--","-","/",NULL};
-    assert( strcmp( STR_BeginsWithEither( possibilities, "--thanks" ), possibilities[0]) == 0 );
-    assert( strcmp( STR_BeginsWithEither( possibilities, "-h"), possibilities[1]) == 0 );
-    assert( strcmp( STR_BeginsWithEither( possibilities, "/?"), possibilities[2]) == 0 );
-    assert( strcmp( STR_BeginsWithEither( possibilities, "a"), "") == 0);;
+    assert( strcmp( STR_BeginsWithEither( possibilities, "--thanks", 3 ), possibilities[0]) == 0 );
+    assert( strcmp( STR_BeginsWithEither( possibilities, "-h", 3), possibilities[1]) == 0 );
+    assert( strcmp( STR_BeginsWithEither( possibilities, "/?", 3), possibilities[2]) == 0 );
+    assert( strcmp( STR_BeginsWithEither( possibilities, "a", 3), "") == 0);;
 }
 
 
@@ -161,7 +142,6 @@ int main(int argc, char** argv)
 	LIB_Init();
     struct TestDefinition tests[] = {
         TEST(test_append),
-        TEST(test_createString),
         TEST(test_beginsWith),
         TEST(test_beginsWithEither),
         TEST(test_IsNullOrEmpty),
@@ -174,7 +154,7 @@ int main(int argc, char** argv)
         TEST(test_STR_Equals),
 		TEST(test_STR_EqualsIgnoreCase),
     };
-    run_tests(tests,13);
+    run_tests(tests,12);
     DBG("about to LIB_Unint()");
     LIB_Uninit();
 
