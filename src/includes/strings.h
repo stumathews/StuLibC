@@ -23,14 +23,16 @@ This is a narative on this part of the library
 #include <constants.h>
 #include <stdbool.h>
 
-/** \brief Concatenates two strings
+/**
+ * Dynamically allocates space for the two strings and then joins them together, copying them to this space.
  *
- * \param s1 const char*
- * \param s2 const char*
- * \return LIBRARY_API char*
- *
+ * @param string1
+ * @param string2
+ * @return char* as location of the joined strings in memory.
+ * @note The caller needs to deallocate the memory, or it will be deallocated automatically
+ * when the program exists ie. this is not a memory performant routine in TSR based or long running applications.
  */
-LIBRARY_API char* STR_Join(char* s1,char* s2);
+LIBRARY_API char* STR_Join(const char* s1,const char* s2);
 
 
 /** \brief Creates a string in a memory buffer
@@ -51,14 +53,14 @@ LIBRARY_API char* STR_CreateString( char* string);
  */
 LIBRARY_API char* STR_AppendStrings( char* first, char* second);
 
-/** \brief Determines if a string begins with any possibilities provided
- *
- * \param posibilities[] char*
- * \param string char* the possibility found at the beginning or any empty string if it didnt begin with any of the provided possibilities
- * \return LIBRARY_API char*
- *
+/***
+ * Checks to see if the string begins with any of the possibilities
+ * @param possibilities a pointer to an array of strings
+ * @param string
+ * @param max the number of possibilities
+ * @return
  */
-LIBRARY_API char* STR_BeginsWithEither( char* posibilities[], char* string);
+LIBRARY_API const char* STR_BeginsWithEither(const char* posibilities[],const char* string, int max);
 
 /** \brief Determines if a string begins with a character
  *
@@ -67,7 +69,7 @@ LIBRARY_API char* STR_BeginsWithEither( char* posibilities[], char* string);
  * \return LIBRARY_API bool
  *
  */
-LIBRARY_API bool STR_BeginsWith( char* beginsWith, char* string );
+LIBRARY_API bool STR_BeginsWith(const char* beginsWith, const char* string);
 
 /** \brief Determines if a string is empty or NULL
  *
@@ -75,7 +77,7 @@ LIBRARY_API bool STR_BeginsWith( char* beginsWith, char* string );
  * \return LIBRARY_API bool
  *
  */
-LIBRARY_API bool STR_IsNullOrEmpty(char* string);
+LIBRARY_API bool STR_IsNullOrEmpty(const char* string);
 
 /** \brief copies the string without the specified substring in it.
  *
@@ -131,7 +133,7 @@ LIBRARY_API char* STR_FromLast( const char* last, const char* string, char* resu
  * \return LIBRARY_API bool true if string contains only alphabetic characters
  *
  */
-LIBRARY_API bool STR_IsAlpha( char* string, int len);
+LIBRARY_API bool STR_IsAlpha( const char* string, int len);
 
 /** \brief Reverse a string
  * 
@@ -140,26 +142,40 @@ LIBRARY_API bool STR_IsAlpha( char* string, int len);
  */
 LIBRARY_API char* STR_Reverse( char* string );
 
+/***
+ * Compares two strings to see if they are the sameor not
+ * @param string1
+ * @param string2
+ * @note Will trim the strings before comparing.
+ */
 LIBRARY_API bool STR_Equals(char* string1, char* string2 );
 /**
  * Trims the whitespace from the string
  * @param str string to modify
  * \remark modifies string in place
  */
-LIBRARY_API void STR_Trim(char *str);
+LIBRARY_API size_t STR_Trim(char *str);
+
 /**
  * Trims the whitespace from the right of string
  * @param str string to modify
  * \remark modifies string in place
  */
-LIBRARY_API void STR_Rtrim(char *str);
+LIBRARY_API size_t STR_Rtrim(char *str);
+
 /**
  * Trims the whitespace from the left of string
  * @param str string to modify
  * \remark modifies string in place
  */
-LIBRARY_API void STR_Ltrim(char *str);
+LIBRARY_API size_t STR_Ltrim(char *str);
 
-LIBRARY_API bool STR_EqualsIgnoreCase( char* string1, char* string2 );
+/***
+ * Compares two strings independant of there case for equality
+ * @param string1
+ * @param string2
+ * @return
+ */
+LIBRARY_API bool STR_EqualsIgnoreCase( const char* string1, const char* string2 );
 
 #endif // STULIBC_STRING_H
