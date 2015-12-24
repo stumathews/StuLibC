@@ -119,4 +119,6 @@ The constants we use are here
  */
 #define SIZEOFPSHORT sizeof(short*)
 
+#define NULL_TERMINATOR 	'\0'
+
 #endif // LIBSTU_COMMON_H
