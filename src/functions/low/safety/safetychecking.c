@@ -29,7 +29,7 @@ void CHK_ExitIf(int condition_result, char* message, char* resultContext)
     if(condition_result)
     {
         sprintf(buffer, COMMON_CHK_RESULT_FORMAT, message, resultContext);
-        ERR_Print((const char*)buffer, 1);
+        ERR_Print((const char*)buffer, YES);
         exit(1);
     }
 }
@@ -37,20 +37,15 @@ void CHK_ExitIf(int condition_result, char* message, char* resultContext)
 void CHK_str( const char* string, enum StringChecks checks, const char* functionName)
 {
 	bool invalid = false;
-
-	// Prove that the string conforms to the StringChecks provided:
-
-	// Test for IS_NOT_EMPTY
 	if(checks & IS_NOT_EMPTY)
 	{
 		if((invalid = STR_IsNullOrEmpty(string)))
 		{
+			printf("fail fail fail\n");
 		    PRINT("Condition IS_NOT_EMPTY failed on string '%s' in caller function '%s'()",string, functionName);
 			exit(1);
 		}
 	}
-
-	// Check that CHARS_ONLY is true of string
 	if ( checks & CHARS_ONLY )
 	{
 		DBG("CHARS_ONLY");
@@ -64,7 +59,6 @@ void CHK_str( const char* string, enum StringChecks checks, const char* function
 			 }
 		}
 		CHK_ExitIf(invalid, "Not implemented", "CHARS_ONLY");
-
 	}
 
 	// Check that ALL_LOWER is true of the string
