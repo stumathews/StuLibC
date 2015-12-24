@@ -198,7 +198,7 @@ bool push_into_pipe(char* arg, char* next_part)   // determine what type of part
     char* indicators[] = {"--","-","/",NULL};
     
     // Determine if this is the beginning of a new argument
-    indicator = STR_BeginsWithEither(indicators,tmpArg);
+    indicator = STR_BeginsWithEither(indicators,tmpArg, 3);
 
     // What is our indicator?
     if(!(STR_IsNullOrEmpty(indicator))) 
@@ -224,7 +224,7 @@ bool push_into_pipe(char* arg, char* next_part)   // determine what type of part
         DBG("tmpNextArgs is %s", tmpNextArg);
        
         // if the next argument that will be sent to us is a arg indicator, then this pipe is finished, as its the beginning of te next argument
-        if(!STR_IsNullOrEmpty(STR_BeginsWithEither(indicators, tmpNextArg)) || STR_IsNullOrEmpty(tmpNextArg)) 
+        if(!STR_IsNullOrEmpty(STR_BeginsWithEither(indicators, tmpNextArg,3)) || STR_IsNullOrEmpty(tmpNextArg))
         {
             return finish_pipe();
         }
