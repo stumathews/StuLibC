@@ -11,43 +11,44 @@
 #include <ctype.h>
 #include <safetychecking.h>
 
+bool STR_BeginsWith(const char* beginsWith, const char* string)
+{
+	CHK_ExitIf(beginsWith == null, "begins with cannot == null", (char*) __func__);
+	CHK_ExitIf(string == null, "string with cannot == null", (char*)__func__);
 
-char* STR_CreateString(char* string)
-{    
-    char* str = MEM_Alloc( strlen(string) + 1 );
+    if(strlen(string) < strlen(beginsWith))
+    	return false;
 
-    MEM_CheckAllocated(str,"str", __FILE__,__LINE__);
-    strcpy(str, string);
-    // this seems wrong, allocated memory and assuming the caller will free it
-    return str;
+    return strncmp(string, beginsWith, strlen(beginsWith)) == 0 ? true: false;
 }
 
-bool STR_BeginsWith(char* beginsWith, char* string)
+/***
+ * Checks to see if the string begins with any of the possibilities
+ * @param possibilities a pointer to an array of strings
+ * @param string
+ * @param max the number of possibilities
+ * @return empty string if no possibilities match or the posibility that matched
+ */
+const char* STR_BeginsWithEither(const char* possibilities[], const char* string, int max)
 {
-    if(beginsWith == NULL || string == NULL || strlen(beginsWith) == 0 || strlen(string) == 0) return false;
-    if(strlen(string) < strlen(beginsWith)  || strncmp(string, beginsWith, strlen(beginsWith)) != 0) return false;
-    return true;
-}
+	CHK_ExitIf(possibilities == NULL,"possibilities cannot be null", (char*)__func__);
 
-char* STR_BeginsWithEither(char* possibilities[], char* string)
-{
-    // loop through all the possibilities ie. {"--","/","-"}
-    for(int i = 0; possibilities[i] != NULL; i++) {
-        if(STR_BeginsWith(possibilities[i], string) == true)
+    for(int i = 0; possibilities[i] != NULL && i < max; i++) {
+        if(STR_BeginsWith(possibilities[i], string) == true) {
             return possibilities[i];
+        }
     }
-    return ""; // None of te possibilities were found.
+    return "";
 }
 
 char* STR_EndsWithEither(char* endsWithPossibilities[], char* string)
 {
-    DBG("Enter STR_EndsWithEither()\n");
-    // loop through all the possibilities
+	CHK_ExitIf(endsWithPossibilities == null, "endsWithPossibilities cannot be null", (char*)__func__);
+
     for(int i = 0; endsWithPossibilities[i] != NULL; i++) {
         if(STR_EndsWith(endsWithPossibilities[i], string) == true)
             return endsWithPossibilities[i];
     }
-    DBG("Finish STR_EndsWithEither()\n");
     return "";
 }
 
@@ -101,139 +102,166 @@ char* STR_FromLast(const char* lookfor, const char* string, char* result_buffer)
     return result_buffer;
 }
 
-char* STR_Join(char* s1, char* s2)
+/**
+ * Dynamically allocates space for the two strings and then joins them together, copying them to this space.
+ *
+ * @param string1
+ * @param string2
+ * @return char* as location of the joined strings in memory.
+ * @note The caller needs to deallocate the memory, or it will be deallocated automatically
+ * when the program exists ie. this is not a memory performant routine in TSR based or long running applications.
+ */
+char* STR_Join(const char* string1, const char* string2)
 {
-    char *s0 = Alloc(strlen(s1)+strlen(s2)+1);
-    strcpy(s0, s1);
-    strcat(s0, s2);
-    return s0;
+    char *joined = Alloc(strlen(string1) + strlen(string2) + 1);
+	CHK_ExitIf(joined == (void*)0, "Unable to allocate memory.", "STR_Join()");
+
+    strcpy(joined, string1);
+    strcat(joined, string2);
+    return joined;
 }
 
-char* STR_AppendStrings(char* first, char* second)
-{
-    return STR_Join(first,second);
-}
+#define STR_AppendStrings(first, second) STR_Join((first),(second))
 
+/**
+ * Converts the string, in place, to its lower case equivalent.
+ * @param string
+ * @param strlen the length of the string to vaoid buffer overflow
+ */
 void STR_ToLower(char* string, int strlen)
 {
 	for( int i = 0; i < strlen -1;i++ ) { tolower(string[i]); }
 }
 
-bool STR_IsNullOrEmpty(char* string)
+bool STR_IsNullOrEmpty(const char* string)
 { 
-    if( string == NULL )
-    {
-        return true;
-    }
-
-    if( string[0] == '\0')
-    {
-        return true;
-    }
-    return false;
+	return (string == NULL || strlen(string) == 0) ? true : false;
 }
 
-bool STR_IsAlpha(char* string, int size)
+/***
+ * Determines if the string constains entirely alphabetic characters (a-zA-Z)
+ * @param string
+ * @param length
+ * @return
+ */
+bool STR_IsAlpha(const char* string, int length)
 {
     CHECK_STRING( string, IS_NOT_EMPTY );
 
     bool isAlphaString = true;
-    DBG("Entering %s() with string as '%s' and size is %d",__func__, string, size);
-    for( int i = 0; i < size ; i++)
-    {
-        if( !(islower(string[i]) || isupper(string[i])) )
-        {
-            isAlphaString = false; break;
-        }		
 
+    for( int i = 0; i < length ; i++)
+    {
+        if(!(islower(string[i]) || isupper(string[i])))
+        {
+            isAlphaString = false;
+            break;
+        }		
     }
     return isAlphaString;
 
 }
 
+/***
+ * Revereses a string in place.
+ * @param string
+ * @return the same location of the original string but with its contents reversed.
+ */
 char* STR_Reverse(char* string )
 {
     int length = strlen(string);
-
-    int i;
-    for( i = 0 ; i < (length/2); i++)
+    char tmp;
+    for( int i = 0 ; i < (length/2); i++)
     {
-        char tmp = string[i];        
-        int rightpos = (length-1)-i;
-        string[i] = string[rightpos];
-        string[rightpos] = tmp;
+        tmp = string[i];
+        int endmost = (length-1)-i;
+        string[i] = string[endmost];
+        string[endmost] = tmp;
     }
     return string;
 }
 
-void STR_Rtrim(char *str)
+/***
+ * Trims, in place, the string from the right of all whitespace.
+ * @param str
+ * @return size of the string now
+ */
+size_t STR_Rtrim(char *str)
 {
-  size_t n;
-  n = strlen(str);
+  size_t n = strlen(str);
   while (n > 0 && isspace((unsigned char)str[n - 1])) {
     n--;
   }
   str[n] = '\0';
+  return strlen(str);
 }
 
-void STR_Ltrim(char *str)
+/***
+ * Trims the string, inplace, of whitespace from the left of the string.
+ * @param str
+ * @return length of resulting trimmed string
+ */
+size_t STR_Ltrim(char *str)
 {
-  size_t n;
-  n = 0;
+  size_t n = 0;
   while (str[n] != '\0' && isspace((unsigned char)str[n])) {
     n++;
   }
   memmove(str, str + n, strlen(str) - n + 1);
+  return strlen(str);
 }
 
-void STR_Trim(char *str)
+/***
+ * Trims the string, in place, of any whitespace to the left or right of the string
+ * @param str
+ * @return length of string after trimming
+ */
+size_t STR_Trim(char *str)
 {
   STR_Rtrim(str);
   STR_Ltrim(str);
+  return strlen(str);
 }
 
+/***
+ * Compares two strings to see if they are the sameor not
+ * @param string1
+ * @param string2
+ * @note Will trim the strings before comparing.
+ */
 bool STR_Equals( char* string1, char* string2 )
 {
 	char string1_cpy[strlen(string1)+1];
 	strcpy(string1_cpy, string1);
+
 	char string2_cpy[strlen(string2)+1];
 	strcpy(string2_cpy, string2);
 
 	STR_Trim(string1_cpy);
 	STR_Trim(string2_cpy);
 
-    if( strcmp( string1_cpy, string2_cpy ) == 0 )
-    {
-        return true;
-    }
-    else
-    {
-        return false;
-    }
+	return strcmp( string1_cpy, string2_cpy ) == 0 ? true : false;
 }
 
-bool STR_EqualsIgnoreCase( char* string1, char* string2 )
+/***
+ * Compares two strings independant of there case for equality
+ * @param string1
+ * @param string2
+ * @return
+ */
+bool STR_EqualsIgnoreCase( const char* string1, const char* string2 )
 {
 	int len1 = strlen(string1);
 	int len2 = strlen(string2);
-	char string1_cpy[len1+1];
-	char string2_cpy[len2+1];
 	
+	char string1_cpy[len1 + 1];
+	char string2_cpy[len2 + 1];
+
 	strcpy(string2_cpy, string2);
 	strcpy(string1_cpy, string1);
 	
 	STR_ToLower(string1_cpy, len1);
 	STR_ToLower(string2_cpy, len2);
 
-
-	if( strcmp( string1, string2 ) == 0 )
-	{
-		return true;
-	}
-	else
-	{
-		return false;
-	}
+	return strcmp(string1, string2) == 0 ? true : false;
 }
-
-
