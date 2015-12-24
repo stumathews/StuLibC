@@ -6,7 +6,6 @@
 
 void ERR_Print(const char* error, int should_log)
 {
-  CHECK_STRING( error, IS_NOT_EMPTY );
   PRINT("Error: %s", error);
   
   if(should_log)
