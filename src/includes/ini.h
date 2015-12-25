@@ -1,7 +1,7 @@
 #ifndef INI_H
 #define INI_H
 
-#include <stulibc.h>
+#include <list.h>
 
 /**
  * Fetches all the settings from a well formed .ini file.
