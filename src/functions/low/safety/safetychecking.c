@@ -41,7 +41,6 @@ void CHK_str( const char* string, enum StringChecks checks, const char* function
 	{
 		if((invalid = STR_IsNullOrEmpty(string)))
 		{
-			printf("fail fail fail\n");
 		    PRINT("Condition IS_NOT_EMPTY failed on string '%s' in caller function '%s'()",string, functionName);
 			exit(1);
 		}
