@@ -20,7 +20,7 @@ void LIST_FreeInstance(List* list)
 	list = null;
 }
 
-void LIST_ForEach( List* list,  ActOnNodeFn fn )
+void LIST_ForEach( const List* list,  ActOnNodeFn fn )
 {
 
 	Node *node = list->head;
@@ -68,7 +68,7 @@ Node* LIST_Pop(List* list)
 	return oldTail;
 }
 
-Node* LIST_Get( List* list, int zero_index)
+Node* LIST_Get( const List* list, int zero_index)
 {
 	if(list == NULL || list->size == 0)
 	{
@@ -97,7 +97,7 @@ Node* LIST_Get( List* list, int zero_index)
 	return NULL;
 }
 
-Node* LIST_Push( List* list, void *data)
+Node* LIST_Push(List* list, const void *data)
 {
 	Node *created = NULL;
 
@@ -141,7 +141,7 @@ Node* LIST_Push( List* list, void *data)
 
 int LIST_DeleteNode( List* list, Node* nodeToDelete)
 {
-	if( list == null ){ return; }
+	if( list == null ){ return -1; }
 
 	Node *node = list->head;
 	bool found = false;
@@ -173,7 +173,7 @@ int LIST_DeleteNode( List* list, Node* nodeToDelete)
 	return -1;
 }
 
-Node* LIST_FindData( List* list, void* data )
+Node* LIST_FindData( const List* list, const void* data )
 {
 	Node *node = list->head;
 	while(node != null && list->size > 0)
@@ -185,7 +185,7 @@ Node* LIST_FindData( List* list, void* data )
 	return NULL;
 }
 
-void LIST_InsertBefore( List* list, void* data, Node* beforeThisNode)
+void LIST_InsertBefore( List* list, const void* data, Node* beforeThisNode)
 {
 	Node* newNode = MEM_Alloc(sizeof(struct LinkedListNode));
 	newNode->data = data;
@@ -198,7 +198,7 @@ void LIST_InsertBefore( List* list, void* data, Node* beforeThisNode)
 	increase_list_size_by_one(list);
 }
 
-void LIST_InsertAfter( List* list, void* data, Node* afterThisNode)
+void LIST_InsertAfter( List* list, const void* data, Node* afterThisNode)
 {
 	struct LinkedListNode* newNode = MEM_Alloc(sizeof(struct LinkedListNode));
 	newNode->data = data;
@@ -212,7 +212,7 @@ void LIST_InsertAfter( List* list, void* data, Node* afterThisNode)
 
 }
 
-void LIST_Deallocate( List* list )
+void LIST_Deallocate(List* list)
 {
     Node *node = list->head;
     while(node != null && list->size > 0)
@@ -232,7 +232,7 @@ static void freeNode(Node* node)
 	free(node);
 }
 
-void LIST_Init( List* list)
+void LIST_Init(List* list)
 {
     list->head = NULL;
     list->tail = NULL;
@@ -241,7 +241,7 @@ void LIST_Init( List* list)
 }
 
 
-void LIST_Print( List* list )
+void LIST_Print(const List* list)
 {
     Node* current = list->head;
 
