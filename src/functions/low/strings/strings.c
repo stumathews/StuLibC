@@ -13,8 +13,8 @@
 
 bool STR_BeginsWith(const char* beginsWith, const char* string)
 {
-	CHK_ExitIf(beginsWith == null, "begins with cannot == null", (char*) __func__);
-	CHK_ExitIf(string == null, "string with cannot == null", (char*)__func__);
+	CHK_ExitIf(beginsWith == null, "begins with cannot be null", (char*) __func__);
+	CHK_ExitIf(string == null, "string with cannot be null", (char*)__func__);
 
     if(strlen(string) < strlen(beginsWith))
     	return false;
@@ -41,47 +41,61 @@ const char* STR_BeginsWithEither(const char* possibilities[], const char* string
     return "";
 }
 
-char* STR_EndsWithEither(char* endsWithPossibilities[], char* string)
+const char* STR_EndsWithEither(char* endsWithPossibilities[], const char* string, int max)
 {
 	CHK_ExitIf(endsWithPossibilities == null, "endsWithPossibilities cannot be null", (char*)__func__);
 
-    for(int i = 0; endsWithPossibilities[i] != NULL; i++) {
+    for(int i = 0; endsWithPossibilities[i] != NULL && i < max; i++) {
         if(STR_EndsWith(endsWithPossibilities[i], string) == true)
             return endsWithPossibilities[i];
     }
     return "";
 }
 
-char* STR_Without(const char* without, const char* source, char* result)
+/***
+ * Removes the 'without' string from the source string and pus the result in buffer
+ * @param without
+ * @param source
+ * @param buffer
+ * @return
+ * @notes no source was harmed during the operation of this function
+ */
+char* STR_Without(const char* without, const char* source, char* buffer)
 {    
     short withoutLength = strlen(without);
     short sourceLength = strlen(source);
-    strcpy(result, source);
+
+    strcpy(buffer, source);
+
     char* ptrFound;
-	while ((ptrFound = strstr(result, without)) != NULL) {
+	while ((ptrFound = strstr(buffer, without)) != NULL) {
 		strcpy(ptrFound, ptrFound + withoutLength);
     }
-	DBG("source '%s' without '%s' is '%s'", source, without, result);
-	return result;
+	return buffer;
 }
 
 bool STR_Contains(char* lookfor, char* orig)
 {
-    if( lookfor == null || strlen(lookfor) == 0 ) DBG("Bad juju 1\n");
-    if( orig == null || strlen(orig) == 0 ) DBG("Bad juju 2\n");
+    CHK_ExitIf(lookfor == null || strlen(lookfor) == 0, "lookfor cannot be null", (char*)__func__);
+    CHK_ExitIf(orig == null || strlen(orig) == 0, "orig cannot be null", (char*)__func__);
+
+    if(strlen(lookfor) > strlen(orig)) { return false; }
+
     return (strstr((const char*)orig, (const char*)lookfor) != NULL) ? true:false;
 }
 
-bool STR_EndsWith(char* endsWith, char* string)
+bool STR_EndsWith(const char* endsWith, const char* string)
 {
-    short lookForLength = strlen(endsWith);
+    short endsWithLen = strlen(endsWith);
     short stringLength = strlen(string);
-    if(stringLength == 0 || lookForLength == 0 || stringLength < lookForLength)
-        return false;
-    if(strcmp(string + (stringLength - lookForLength), endsWith) == 0)    // compare end of string with endsWith
-        return true;
-    else
-        return false;
+
+    CHK_ExitIf(endsWith == null, "endsWith cannot be null", (char*)__func__);
+    CHK_ExitIf(string == null, "string cannot be null", (char*)__func__);
+    CHK_ExitIf(stringLength < endsWithLen, "look length too long", (char*) __func__);
+
+    if(stringLength < endsWithLen || endsWithLen == 0 ) { return false; }
+
+    return (strcmp(string + (stringLength - endsWithLen), endsWith) == 0) ? true : false;
 }
 
 char* STR_FromLast(const char* lookfor, const char* string, char* result_buffer)
@@ -90,6 +104,7 @@ char* STR_FromLast(const char* lookfor, const char* string, char* result_buffer)
     short stringLength = strlen(string);
 
     strcpy(result_buffer,string);
+
     char* occurance = NULL;
     char* last_occurance = NULL;
 
@@ -103,13 +118,27 @@ char* STR_FromLast(const char* lookfor, const char* string, char* result_buffer)
 }
 
 /**
- * Dynamically allocates space for the two strings and then joins them together, copying them to this space.
+ * @brief Joins two strings together
  *
- * @param string1
- * @param string2
- * @return char* as location of the joined strings in memory.
- * @note The caller needs to deallocate the memory, or it will be deallocated automatically
- * when the program exists ie. this is not a memory performant routine in TSR based or long running applications.
+ * Creates a new string by joining string1 and string2 together.
+ * The new string will be allocated by the function.
+ *
+ * @b Note: This string is allocated by the function and needs to be deallocated by the @b caller.
+ * Internally the following c runtime function are used
+ * @verbatim
+    strcpy(joined, string1);
+    strcat(joined, string2);@endverbatim
+ * Example of usage:
+ * @code
+    char expected[] = "one two";
+    char* append_result = (char*) STR_Join( "one ", "two");
+ * @endcode
+ * @param string1 The first string
+ * @param string2 The second string which will be appended to @p string1.
+ * @return A new string allocated in memory with @p string2 appended to @p string1 *
+ * @see http://www.stuartmathews.com
+ * @note If the string cannot be allocated dynamically, the program exists
+ * @warning This allocates memory from within and doesn't free it. This is probably not good use in a TSR or long running program
  */
 char* STR_Join(const char* string1, const char* string2)
 {
@@ -121,6 +150,12 @@ char* STR_Join(const char* string1, const char* string2)
     return joined;
 }
 
+/** \brief Appends 2 strings together and returns a pointer to it.
+ * @param first char*
+ * @param second char*
+ * @return LIBRARY_API char*
+ * @note A new string is automatically allocated and its up to the caller to free it. *
+ */
 #define STR_AppendStrings(first, second) STR_Join((first),(second))
 
 /**
@@ -263,5 +298,5 @@ bool STR_EqualsIgnoreCase( const char* string1, const char* string2 )
 	STR_ToLower(string1_cpy, len1);
 	STR_ToLower(string2_cpy, len2);
 
-	return strcmp(string1, string2) == 0 ? true : false;
+	return (strcmp(string1, string2) == 0) ? true : false;
 }
