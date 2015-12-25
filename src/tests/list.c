@@ -282,8 +282,8 @@ void testLIST_InsertBeforeHead()
 	LIST_InsertBeforeHead(names,"Stuart");
 
 	Node* name = LIST_Get(names, 0);
-	printf( (char*)LIST_Get(names,0)->data);
-	//assert(STR_EqualsIgnoreCase((char*)name->data, "Stuart"));
+
+	assert(STR_EqualsIgnoreCase((char*)name->data, "Stuart"));
 
 
 }
