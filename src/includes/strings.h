@@ -1,16 +1,42 @@
 /**
  * @file strings.h
- * @brief String library prototypes.
+ * @brief String library function prototypes.
  * @author Stuart Mathews
  * @date 19 July 2013
  *
  * This header contains the function and type declarations for dealing with string functionality in the library.
- * This includes creating, copying, manipulating strings.
+ * This includes joining, trimming, converting & various checking functions.
  * @see http://devel.stuartmathews.com/stulibc
  */
 
 /** \page libstring Strings
-This is a narative on this part of the library
+
+Working with strings in C can often be laborious. Here are a few useful functions that can help.
+
+In most cases all you need to do is either include string.h or stulibc.h and then the following functions
+are at your disposal:
+Function name  | Summary
+------------- | -------------
+STR_Join | Join two strings
+STR_ToLower | Converts string to lower case
+STR_BeginsWithEither | Does string begin with either list of possible strings
+STR_BeginsWith | Does string begin with another
+STR_IsNullOrEmpty | Is the string null or empty
+STR_Without | Return string without substring
+STR_Contains | Does string contain substring
+STR_EndsWith | Does string end with another
+STR_EndsWithEither | Does string end with possibilities
+STR_FromLast | Return rest of string from last occurance
+STR_IsAlpha | Is string only a-zA-Z
+STR_Reverse | Reverse the string in place
+STR_Equals | Is the string equal
+STR_Trim | Remove whitespace on either side of string
+STR_Rtrim | Remove whitespace on right of string
+STR_Ltrim | Remove whitespace on left of string
+STR_EqualsIgnoreCase | Are strings equal, ignore case
+
+Function prototypes:
+
 \include strings.h
 */
 
@@ -24,37 +50,37 @@ This is a narative on this part of the library
 #include <stdbool.h>
 
 /**
- * Dynamically allocates space for the two strings and then joins them together, copying them to this space.
+ * @brief Joins two strings together
  *
- * @param string1
- * @param string2
- * @return char* as location of the joined strings in memory.
- * @note The caller needs to deallocate the memory, or it will be deallocated automatically
- * when the program exists ie. this is not a memory performant routine in TSR based or long running applications.
+ * Creates a new string by joining string1 and string2 together.
+ * The new string will be allocated by the function.
+ *
+ * @b Note: This string is allocated by the function and needs to be deallocated by the @b caller.
+ * Internally the following c runtime function are used
+ * @verbatim
+    strcpy(joined, string1);
+    strcat(joined, string2);@endverbatim
+ * Example of usage:
+ * @code
+    char expected[] = "one two";
+    char* append_result = (char*) STR_Join( "one ", "two");
+ * @endcode
+ * @param string1 The first string
+ * @param string2 The second string which will be appended to @p string1.
+ * @return A new string allocated in memory with @p string2 appended to @p string1 *
+ * @see http://www.stuartmathews.com
+ * @note If the string cannot be allocated dynamically, the program exists
+ * @warning This allocates memory from within and doesn't free it. This is probably not good use in a TSR or long running program
  */
 LIBRARY_API char* STR_Join(const char* s1,const char* s2);
 
-
-/** \brief Creates a string in a memory buffer
- *
- * \param string char*
- * \return LIBRARY_API char* the address of the memory buffer
- * \note the caller is expected to free the memory buffer
+/** \brief Converts the string, in place, to its lower case equivalent.
+ * @param string
+ * @param strlen the length of the string to vaoid buffer overflow
  */
-LIBRARY_API char* STR_CreateString( char* string);
+LIBRARY_API void STR_ToLower(char* string, int strlen);
 
-/** \brief Appends 2 strings together and returns a pointer to it.
- *
- * \param first char*
- * \param second char*
- * \return LIBRARY_API char*
- * \note A new string is automatically allocated and its up to the caller to free it.
- *
- */
-LIBRARY_API char* STR_AppendStrings( char* first, char* second);
-
-/***
- * Checks to see if the string begins with any of the possibilities
+/** \brief Checks to see if the string begins with any of the possibilities
  * @param possibilities a pointer to an array of strings
  * @param string
  * @param max the number of possibilities
@@ -79,15 +105,14 @@ LIBRARY_API bool STR_BeginsWith(const char* beginsWith, const char* string);
  */
 LIBRARY_API bool STR_IsNullOrEmpty(const char* string);
 
-/** \brief copies the string without the specified substring in it.
- *
- * \param without_str char* string to be removed from the source string
- * \param string char* the source string
- * \param string char* theresult of removing the substring from the source
- * \return LIBRARY_API char* the result
- *
+/** \brief Removes the 'without' string from the source string and put the result in buffer
+ * @param without
+ * @param source
+ * @param buffer
+ * @return the buffer
+ * @notes no source was harmed during the operation of this function
  */
-LIBRARY_API char* STR_Without( const char* without_str, const char* string, char* result);
+LIBRARY_API char* STR_Without(const char* without_str, const char* string, char* result);
 
 /** \brief Determines if the string contains the provided character or not
  *
@@ -96,7 +121,7 @@ LIBRARY_API char* STR_Without( const char* without_str, const char* string, char
  * \return LIBRARY_API bool
  *
  */
-LIBRARY_API bool STR_Contains( char* lookfor, char* orig);
+LIBRARY_API bool STR_Contains(char* lookfor, char* orig);
 
 /** \brief Determins if the string ends with provided character or not.
  *
@@ -105,26 +130,25 @@ LIBRARY_API bool STR_Contains( char* lookfor, char* orig);
  * \return LIBRARY_API bool
  *
  */
-LIBRARY_API bool STR_EndsWith( char* endsWith, char* string);
+LIBRARY_API bool STR_EndsWith(const char* endsWith, const char* string);
 
-/** \brief Determines if the the string ends with any of the possibly characters provided.
- *
+/** \brief Determines if the the string ends with any of the possibly characters provided. *
  * \param endsWithPossibilities[] char*
  * \param string char* returns the possibility found or an empty string
  * \return LIBRARY_API char*
  *
  */
-LIBRARY_API char* STR_EndsWithEither( char* endsWithPossibilities[], char* string);
+LIBRARY_API const char* STR_EndsWithEither(char* endsWithPossibilities[], const char* string, int max);
 
-/** \brief Copies the remaining characters from the last detected occurance of specified character into a buffer
- *
- * \param last char*
+/** \brief Copies the remaining characters from the last detected occurance of specified character into a buffer * \param last char*
  * \param string char*
  * \param resultBuffer char*
+ * \param max size of the possibilities array *
  * \return LIBRARY_API char*
+ * \note will check for NULL in endsWithPossibilities as signal to end processing it
  *
  */
-LIBRARY_API char* STR_FromLast( const char* last, const char* string, char* resultBuffer);
+LIBRARY_API char* STR_FromLast(const char* last, const char* string, char* resultBuffer);
 
 /** \brief Determines if the string contains alphabetic characters
  *
@@ -133,45 +157,41 @@ LIBRARY_API char* STR_FromLast( const char* last, const char* string, char* resu
  * \return LIBRARY_API bool true if string contains only alphabetic characters
  *
  */
-LIBRARY_API bool STR_IsAlpha( const char* string, int len);
+LIBRARY_API bool STR_IsAlpha(const char* string, int len);
 
 /** \brief Reverse a string
  * 
  * \param string char* the string to reverse
  * \return the reversed string
  */
-LIBRARY_API char* STR_Reverse( char* string );
+LIBRARY_API char* STR_Reverse(char* string );
 
-/***
- * Compares two strings to see if they are the sameor not
+/** \brief Compares two strings to see if they are the sameor not
  * @param string1
  * @param string2
  * @note Will trim the strings before comparing.
  */
 LIBRARY_API bool STR_Equals(char* string1, char* string2 );
-/**
- * Trims the whitespace from the string
+
+/** \brief Trims the whitespace from the string
  * @param str string to modify
  * \remark modifies string in place
  */
 LIBRARY_API size_t STR_Trim(char *str);
 
-/**
- * Trims the whitespace from the right of string
+/**  \brief Trims the whitespace from the right of string
  * @param str string to modify
  * \remark modifies string in place
  */
 LIBRARY_API size_t STR_Rtrim(char *str);
 
-/**
- * Trims the whitespace from the left of string
+/** \brief Trims the whitespace from the left of string
  * @param str string to modify
  * \remark modifies string in place
  */
 LIBRARY_API size_t STR_Ltrim(char *str);
 
-/***
- * Compares two strings independant of there case for equality
+/** \brief Compares two strings independant of there case for equality
  * @param string1
  * @param string2
  * @return
