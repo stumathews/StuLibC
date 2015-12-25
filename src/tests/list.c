@@ -272,6 +272,21 @@ void testGetInstance()
 
 }
 
+void testLIST_InsertBeforeHead()
+{
+	List* names = LIST_GetInstance();
+
+	LIST_Add(names, "Robert");
+	LIST_Add(names, "Charles");
+
+	LIST_InsertBeforeHead(names,"Stuart");
+
+	Node* name = LIST_Get(names, 0);
+	printf( (char*)LIST_Get(names,0)->data);
+	//assert(STR_EqualsIgnoreCase((char*)name->data, "Stuart"));
+
+
+}
 
 int main( int argc, char** argv )
 {
@@ -287,8 +302,9 @@ int main( int argc, char** argv )
 		TEST(testLIST_FindData),
 		TEST(testLIST_DeleteNode),
 		TEST(testLIST_ForEach),
-		TEST(testGetInstance)
+		TEST(testGetInstance),
+		TEST(testLIST_InsertBeforeHead)
    };
-   run_tests(tests,11);
+   run_tests(tests,12);
    return 0;
 }

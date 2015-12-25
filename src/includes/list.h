@@ -60,6 +60,13 @@ typedef struct LinkedList {
     
 } List;
 
+/** \brief Puts data in front of the current head.
+ * This is useful for putting things in front of the queue when the list is beging used as one
+ * @param list
+ * @param data
+ */
+LIBRARY_API void LIST_InsertBeforeHead(List* list, const void* data);
+
 LIBRARY_API void LIST_ForEach(const List* list, ActOnNodeFn fn);
 
 /**

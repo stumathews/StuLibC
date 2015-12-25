@@ -84,6 +84,11 @@ Node* LIST_Get( const List* list, int zero_index)
 
 	Node *node = list->head;
 	int count = 0;
+
+	if( zero_index == 0) {
+		return node;
+	}
+
 	while(node != null && list->size > 0)
 	{
 		Node* next = node->next;
@@ -115,13 +120,12 @@ Node* LIST_Push(List* list, const void *data)
 		head->list = (struct LinkedList*) list;
 
 		created = head;
-		DBG("created head node %p\n", created);
 	}
 	else
 	{
-		Node* newNode = MEM_Alloc( sizeof(Node) );
 		Node* previous = list->tail;
 
+		Node* newNode = MEM_Alloc(sizeof(Node));
 		newNode->data = data;
 		newNode->next = NULL;
 		newNode->previous = previous;
@@ -132,8 +136,6 @@ Node* LIST_Push(List* list, const void *data)
 		list->tail = newNode;
 
 		created = newNode;
-		DBG("created node, %p <- [%p created] -> %p\n", created->previous, created, created->next);
-
 	}
 	increase_list_size_by_one(list);
 	return created;
@@ -145,10 +147,8 @@ int LIST_DeleteNode( List* list, Node* nodeToDelete)
 
 	Node *node = list->head;
 	bool found = false;
-	PRINT("Looking for andicate node(%p) to delete within the list\n",nodeToDelete);
 	while(node != null || list->size > 0)
 	{
-		PRINT("found node %p\n", node);
 		if (nodeToDelete == node)
 		{
 			found = true;
@@ -183,6 +183,25 @@ Node* LIST_FindData( const List* list, const void* data )
 		node = next;
 	}
 	return NULL;
+}
+
+/** \brief Puts data in front of the current head.
+ * This is useful for putting things in front of the queue when the list is beging used as one
+ * @param list
+ * @param data
+ */
+void LIST_InsertBeforeHead( List* list, const void* data)
+{
+	Node* newNode = MEM_Alloc(sizeof(Node));
+
+	newNode->data = data;
+	newNode->next = list->head;
+	newNode->previous = NULL;
+	newNode->list = (struct LinkedList*) list;
+
+	list->head->previous = newNode;
+	list->head = newNode;
+	increase_list_size_by_one(list);
 }
 
 void LIST_InsertBefore( List* list, const void* data, Node* beforeThisNode)
@@ -227,8 +246,7 @@ void LIST_Deallocate(List* list)
 static void freeNode(Node* node)
 {
 	if( node == null ) {return;}
-	
-	PRINT("** Freeing node itself %p\n", node);
+
 	free(node);
 }
 
