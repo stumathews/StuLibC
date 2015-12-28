@@ -1,17 +1,25 @@
 #include <stulibc.h>
 
-void printMe( struct LinkedListNode* myNode )
+static void printMe( struct LinkedListNode* myNode )
 {
     PRINT( "%d\n",*(int*)(myNode->data));
 }
-void strPrint( struct LinkedListNode* myNode )
+static void strPrint( struct LinkedListNode* myNode )
 {
     PRINT( "%s\n",(char*)(myNode->data));
 }
-
-void testIntList()
+static void addTen( struct LinkedListNode* node)
 {
+	DBG("addTen1");
+	int* integer = (int*)node->data;
+	DBG("addTen2");
+	DBG("integer is '%d'", *integer);
+	*integer +=1;
+	DBG("addTe3");
+}
 
+static void testIntList()
+{
     struct LinkedList myList = {0};
     int x = 0, y = 1, z = 2;
 
@@ -19,13 +27,16 @@ void testIntList()
     LIST_Add( &myList, &x );
     LIST_Add( &myList, &y );
     LIST_Add( &myList, &z );
+
     myList.fnPrint = printMe;
+
     LIST_Print( &myList );
-    PRINT("LIst size is %d\n", myList.size);
+
+    PRINT("List size is %d\n", myList.size);
+
     LIST_Deallocate( &myList );
 }
-
-void testStringList()
+static void testStringList()
 {
 
     List myStringList = {0};
@@ -44,114 +55,77 @@ void testStringList()
 
     LIST_Print( &myStringList );
     LIST_Deallocate( &myStringList);
-
-
 }
-
-struct MyLinuxList
+static void testInsertBefore()
 {
-	int myNumber;
-	struct list_head list;
-};
-struct MyLinuxList myList = {0};
+	List *list = LIST_GetInstance();
+	int alpha = 101;
+	int beta = 102;
+	int theta = 103;
 
-void testLinuxList()
-{
-   
-	struct list_head *pos, *q;
-	struct MyLinuxList* tmp;
+	Node* one = LIST_Add(list, (void*)&alpha);
+	Node* two = LIST_Add(list, (void*)&beta);
 
-    INIT_LIST_HEAD( &myList.list );    
-	
-	for (int i = 0; i < 20; i++)
-	{
-		tmp = (struct MyLinuxList*) malloc(sizeof(struct MyLinuxList));
-		tmp->myNumber = i;
-		list_add(&(tmp->list), &(myList.list));
-	}
-	
-    list_for_each(pos, &myList.list){
-		tmp = list_entry(pos, struct MyLinuxList, list);
-		printf("number is %d\n", tmp->myNumber);
-    }
-		
-    list_for_each_safe(pos, q, &myList.list)
-	{
-		tmp = list_entry(pos, struct MyLinuxList, list);
-		printf("freeing item myNumber= %d\n", tmp->myNumber);
-        list_del(pos);
-		free(tmp);
-    }
+	LIST_InsertBefore(list,(void*)&theta,two);
 
-}
-
-void testInsertBefore()
-{
-	List *list = (List*) MEM_Alloc(sizeof(List));
-	LIST_Init(list);
-	Node* one = LIST_Add(list, (void*)1);
-	Node* two = LIST_Add(list, (void*)2);
-
-	LIST_InsertBefore(list,(void*)3,two);
 	Node* result = LIST_Get(list,1);
-	assert( result->data == (void*)3 );
+
+	assert( result->data == (void*)&theta );
 	assert( result->next == two );
 	assert( result->previous == one);
-	LIST_Print(list);
 
+	LIST_Print(list);
 	LIST_Deallocate( list);
 
 }
-
-void testLISTPop()
+static void testLISTPop()
 {
 	List list = {0};
 	LIST_Init(&list);
+
 	Node* alpha = LIST_Push(&list,(void*) "alpha");
 	Node* beta = LIST_Push(&list,(void*) "beta");
+
 	Node* shouldBeBeta = LIST_Pop(&list);
+
 	assert( beta == shouldBeBeta);
 	assert( LIST_Get(&list,0) == alpha );
 	assert( list.tail->next == NULL );
 	assert( list.tail == alpha);
 	assert( list.size == 1);
-	LIST_Deallocate( &list);
+	LIST_Clear(&list);
 
 }
-
-void testInsertAfter()
+static void testInsertAfter()
 {
 	List list = {0};
 	LIST_Init(&list);
-	Node* one = LIST_Add(&list, (void*)1);
-	Node* two = LIST_Add(&list, (void*)2);
-	Node* three = LIST_Add(&list, (void*)3);
+
+	int alpha = 101;
+	int beta = 102;
+	int theta = 103;
+
+	Node* one = LIST_Add(&list, (void*)&alpha);
+	Node* two = LIST_Add(&list, (void*)&beta);
+	Node* three = LIST_Add(&list, (void*)&theta);
 
 	int data = 4;
-	LIST_InsertAfter(&list,(void*)data,two);
+	LIST_InsertAfter(&list,(void*)&data,two);
+
 	Node* result = LIST_Get(&list,2);
-	assert( result->data == (void*)data );
-	assert( result->next == three );
-	assert( result->previous == two);
+
+	assert(result->data == (void*)&data);
+	assert(result->next == three);
+	assert(result->previous == two);
+	assert(one == LIST_Get(&list,0));
+
 	LIST_Print(&list);
-	LIST_Deallocate( &list);
+	LIST_Clear(&list);
 
 }
-
-static void addTen( struct LinkedListNode* node)
-{
-	DBG("addTen1");
-	int* integer = (int*)node->data;
-	DBG("addTen2");
-	DBG("integer is '%d'", *integer);
-	*integer +=1;
-	DBG("addTe3");
-}
-
-void testLIST_ForEach()
+static void testLIST_ForEach()
 {
 	List list = {0};
-DBG("foreach1");
 	LIST_Init(&list);
 
 	int numbers[] = {10,10,10,10,10,10};
@@ -160,23 +134,21 @@ DBG("foreach1");
 	LIST_Add(&list,(void*)&numbers[2]);
 	LIST_Add(&list,(void*)&numbers[3]);
 	LIST_Add(&list,(void*)&numbers[4]);
-	DBG("foreach2");
+
 	LIST_ForEach(&list, addTen);
 	assert( list.size == 5);
-	DBG("foreach3");
+
 	for( int i = 0; i < list.size;i++)
 	{
 		Node* got = LIST_Get(&list,i);
 		int* data = (int*)got->data;
-		DBG("data is '%d'", *data);
 		assert( *data == 11);
 	}
 	LIST_Deallocate( &list);
 }
-
-void testLIST_DeleteNode()
+static void testLIST_DeleteNode()
 {
-	List *actualList = (List*) MEM_Alloc(sizeof(List));
+	List *actualList = LIST_GetInstance();
 	List list = *actualList;
 	int numbers[] = {1,2,3,4,5,6};
 
@@ -216,8 +188,7 @@ void testLIST_DeleteNode()
 
 	LIST_Deallocate( &list);
 }
-
-void testLIST_FindData()
+static void testLIST_FindData()
 {
 	List list = {0};
 	int numbers[] = {1,2,3,4,5,6};
@@ -233,12 +204,11 @@ void testLIST_FindData()
 	assert( list.size == 3);
 
 }
-
-void testLIST_Get()
+static void testLIST_Get()
 {
 	const char* strMmathews = "Mathews";
 
-	List *list = (List*) MEM_Alloc(sizeof( List ));
+	List *list = LIST_GetInstance();
 	LIST_Init(list);
 	LIST_Push(list, (void*)"Stuart");
 	LIST_Push(list, (void*)strMmathews);
@@ -251,7 +221,7 @@ void testLIST_Get()
 	assert( STR_Equals((char*)mathews->data, (char*)strMmathews) == true );
 
 }
-void testGetInstance()
+static void testGetInstance()
 {
 	List* list = LIST_GetInstance();
 
@@ -271,8 +241,7 @@ void testGetInstance()
 	CHK_ExitIf(!list,"list is not null","testGetInstance");
 
 }
-
-void testLIST_InsertBeforeHead()
+static void testLIST_InsertBeforeHead()
 {
 	List* names = LIST_GetInstance();
 
@@ -285,6 +254,42 @@ void testLIST_InsertBeforeHead()
 
 	assert(STR_EqualsIgnoreCase((char*)name->data, "Stuart"));
 
+
+}
+static void testLinuxList()
+{
+	struct MyLinuxList
+	{
+		int myNumber;
+		struct list_head list;
+	};
+
+	struct MyLinuxList myList = {0};
+
+	struct list_head *pos, *q;
+	struct MyLinuxList* tmp;
+
+    INIT_LIST_HEAD( &myList.list );
+
+	for (int i = 0; i < 20; i++)
+	{
+		tmp = (struct MyLinuxList*) malloc(sizeof(struct MyLinuxList));
+		tmp->myNumber = i;
+		list_add(&(tmp->list), &(myList.list));
+	}
+
+    list_for_each(pos, &myList.list){
+		tmp = list_entry(pos, struct MyLinuxList, list);
+		printf("number is %d\n", tmp->myNumber);
+    }
+
+    list_for_each_safe(pos, q, &myList.list)
+	{
+		tmp = list_entry(pos, struct MyLinuxList, list);
+		printf("freeing item myNumber= %d\n", tmp->myNumber);
+        list_del(pos);
+		free(tmp);
+    }
 
 }
 
