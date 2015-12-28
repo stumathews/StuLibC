@@ -8,10 +8,15 @@
 static void freeNode(Node* node);
 static void increase_list_size_by_one(List* list);
 static void decrease_list_size_by_one(List* list);
+static Node* makeNewNode(const void* data, Node* previous, Node* next, List* list);
 
 List* LIST_GetInstance()
 {
-	List* list = MEM_Alloc( sizeof( struct LinkedList ));
+	List* list = MEM_Alloc(sizeof(struct LinkedList));
+	if(list == NULL) {
+		ERR_Print("could not allocate memory.", YES);
+	}
+	LIST_Init(list);
 	return list;
 }
 void LIST_FreeInstance(List* list)
@@ -20,46 +25,28 @@ void LIST_FreeInstance(List* list)
 	list = null;
 }
 
-void LIST_ForEach( const List* list,  ActOnNodeFn fn )
+void LIST_ForEach(const List* list,  ActOnNodeFn fn)
 {
-
 	Node *node = list->head;
-	if( list == NULL){
-		DBG("list is null");
+	if( list == NULL || fn == NULL) {
 		return;
 	}
-
-	while(node != NULL && list->size > 0)
-	{
+	do {
 		Node* next = node->next;
-		if( fn == NULL )
-		{
-			return;
-		}
-
 		fn(node);
-
 		node = next;
-	}
+	} while(node != NULL && list->size > 0);
 }
 
 Node* LIST_Pop(List* list)
 {
-	if( list == NULL)
-	{
-		DBG("List is empty\n");
-		return NULL;
-	}
-
-	if( list->size == 0 || list->tail == NULL )
-	{
+	if(list == NULL || list->size == 0 || list->tail == NULL) {
 		return NULL;
 	}
 
 	Node* oldTail = list->tail;
 
-	if( oldTail->previous != NULL)
-	{
+	if( oldTail->previous != NULL) {
 		oldTail->previous->next = NULL;
 		decrease_list_size_by_one(list);
 		list->tail = oldTail->previous;
@@ -68,37 +55,33 @@ Node* LIST_Pop(List* list)
 	return oldTail;
 }
 
-Node* LIST_Get( const List* list, int zero_index)
+Node* LIST_Get(const List* list, int zero_index)
 {
-	if(list == NULL || list->size == 0)
-	{
+	if(list == NULL || list->size == 0) {
 		DBG("List is empty\n");
 		return NULL;
 	}
 
-	if( zero_index < 0)
-	{
+	if(zero_index < 0) 	{
 		DBG("List index is invalid : %d while size of list is %d\n", zero_index, list->size);
 		return NULL;
 	}
 
-	Node *node = list->head;
-	int count = 0;
-
-	if( zero_index == 0) {
-		return node;
+	if(zero_index == 0) {
+		return list->head;
 	}
 
-	while(node != null && list->size > 0)
-	{
+	Node *node = list->head;
+	int count = 0;
+	do {
 		Node* next = node->next;
-		if( count == zero_index)
-		{
+		if(count == zero_index) {
 			return node;
 		}
 		node = next;
 		count++;
-	}
+	} while(node != null && list->size > 0);
+
 	return NULL;
 }
 
@@ -106,31 +89,18 @@ Node* LIST_Push(List* list, const void *data)
 {
 	Node *created = NULL;
 
-	if( list->head == NULL )
-	{
-		Node *head = MEM_Alloc(sizeof(Node));
-
-		head->data = data;
-		head->next = NULL;
-		head->previous = NULL;
-
+	if(list->head == NULL) {
+		Node* previous = NULL;
+		Node*next = NULL;
+		Node *head = makeNewNode(data, previous, next, list);
 		list->head = head;
 		list->tail = head;
 
-		head->list = (struct LinkedList*) list;
-
 		created = head;
 	}
-	else
-	{
+	else {
 		Node* previous = list->tail;
-
-		Node* newNode = MEM_Alloc(sizeof(Node));
-		newNode->data = data;
-		newNode->next = NULL;
-		newNode->previous = previous;
-		newNode->list = (struct LinkedList*) list;
-
+		Node* newNode = makeNewNode(data, previous, NULL, list);
 		previous->next = newNode;
 
 		list->tail = newNode;
@@ -141,24 +111,23 @@ Node* LIST_Push(List* list, const void *data)
 	return created;
 }
 
-int LIST_DeleteNode( List* list, Node* nodeToDelete)
+int LIST_DeleteNode(List* list, Node* nodeToDelete)
 {
 	if( list == null ){ return -1; }
 
 	Node *node = list->head;
 	bool found = false;
-	while(node != null || list->size > 0)
-	{
-		if (nodeToDelete == node)
-		{
+
+	do {
+		if (nodeToDelete == node)  {
 			found = true;
 			break;
 		}
 		node = node->next;
-	}
+	} while(node != null || list->size > 0);
 
-	if(found)
-	{
+
+	if(found) {
 		Node* previous = nodeToDelete->previous;
 		Node* next = nodeToDelete->next;
 
@@ -173,79 +142,66 @@ int LIST_DeleteNode( List* list, Node* nodeToDelete)
 	return -1;
 }
 
-Node* LIST_FindData( const List* list, const void* data )
+Node* LIST_FindData(const List* list, const void* data)
 {
 	Node *node = list->head;
-	while(node != null && list->size > 0)
-	{
+
+	do {
 		Node* next = node->next;
-		if( node->data == data) return node;
+		if(node->data == data) return node;
 		node = next;
-	}
+	} while(node != null && list->size > 0);
+
 	return NULL;
 }
 
-/** \brief Puts data in front of the current head.
- * This is useful for putting things in front of the queue when the list is beging used as one
- * @param list
- * @param data
- */
-void LIST_InsertBeforeHead( List* list, const void* data)
+void LIST_InsertBeforeHead(List* list, const void* data)
 {
-	Node* newNode = MEM_Alloc(sizeof(Node));
-
-	newNode->data = data;
-	newNode->next = list->head;
-	newNode->previous = NULL;
-	newNode->list = (struct LinkedList*) list;
+	Node* newNode = makeNewNode(data, NULL, list->head, list);
 
 	list->head->previous = newNode;
 	list->head = newNode;
+
 	increase_list_size_by_one(list);
 }
 
-void LIST_InsertBefore( List* list, const void* data, Node* beforeThisNode)
+void LIST_InsertBefore(List* list, const void* data, Node* beforeThisNode)
 {
-	Node* newNode = MEM_Alloc(sizeof(struct LinkedListNode));
-	newNode->data = data;
-	newNode->list = list;
-	newNode->previous = beforeThisNode->previous;
+	Node* newNode = makeNewNode(data, beforeThisNode->previous, beforeThisNode, list);
+
 	newNode->previous->next = newNode;
-	newNode->next = beforeThisNode;
 
 	beforeThisNode->previous = newNode;
+
 	increase_list_size_by_one(list);
 }
 
-void LIST_InsertAfter( List* list, const void* data, Node* afterThisNode)
+void LIST_InsertAfter(List* list, const void* data, Node* afterThisNode)
 {
-	struct LinkedListNode* newNode = MEM_Alloc(sizeof(struct LinkedListNode));
-	newNode->data = data;
-	newNode->list = list;
-	newNode->next = afterThisNode->next;
-	newNode->previous = afterThisNode;
+	struct LinkedListNode* newNode = makeNewNode(data, afterThisNode,afterThisNode->next,list);
 
 	afterThisNode->next = newNode;
 	newNode->next->previous = newNode;
-	increase_list_size_by_one(list);
 
+	increase_list_size_by_one(list);
 }
 
 void LIST_Deallocate(List* list)
 {
     Node *node = list->head;
-    while(node != null && list->size > 0)
-    {
+
+    do {
         Node* next = node->next;
         freeNode(node);
         node = next;
         decrease_list_size_by_one(list);
-    }
+    } while(node != null && list->size > 0);
+
 }
 
 static void freeNode(Node* node)
 {
-	if( node == null ) {return;}
+	if(node == null) {return;}
 
 	free(node);
 }
@@ -262,15 +218,13 @@ void LIST_Init(List* list)
 void LIST_Print(const List* list)
 {
     Node* current = list->head;
+    do {
+		if( list->fnPrint != NULL) {
+			list->fnPrint(current);
+		}
+		current = current->next;
+    } while(current != null && list->size > 0);
 
-    while(current != null && list->size > 0)
-    {
-    	if( list->fnPrint != NULL)
-    	{
-    		list->fnPrint(current);
-    	}
-        current = current->next;
-    }
 }
 
 static void increase_list_size_by_one(List* list)
@@ -280,4 +234,14 @@ static void increase_list_size_by_one(List* list)
 static void decrease_list_size_by_one(List* list)
 {
 	list->size--;
+}
+
+static Node* makeNewNode(const void* data, Node* previous, Node* next, List* list)
+{
+	Node* newNode = MEM_Alloc(sizeof(Node));
+	newNode->data = data;
+	newNode->next = next;
+	newNode->previous = previous;
+	newNode->list = (struct LinkedList*) list;
+	return newNode;
 }
