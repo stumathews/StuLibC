@@ -23,6 +23,13 @@ AC_ARG_WITH(inspect,
 										[ AC_DEFINE(INSPECT_ERRORS, 1, "Inspect test suite errors")],
 										[ AC_DEFINE(INSPECT_ERRORS, 0, "Inspect test suite errors")])
 AC_SUBST(LIBSTU_DLL_IMPORT)
+AC_CHECK_PROGS([DOXYGEN], [doxygen])
+if test -z "$DOXYGEN";
+   then AC_MSG_WARN([Doxygen not found - continuing without Doxygen support])
+fi
+
+AM_CONDITIONAL([HAVE_DOXYGEN], [test -n "$DOXYGEN"])
+AM_COND_IF([HAVE_DOXYGEN], [AC_CONFIG_FILES([doc/Doxyfile])])
 
 # Check system type - found at https://gnunet.org/svn/libmicrohttpd/configure.ac
 AC_MSG_CHECKING([[for target host OS]])
