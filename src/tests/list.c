@@ -23,18 +23,23 @@ static void testIntList()
     struct LinkedList myList = {0};
     int x = 0, y = 1, z = 2;
 
-    LIST_Init( &myList );
-    LIST_Add( &myList, &x );
-    LIST_Add( &myList, &y );
-    LIST_Add( &myList, &z );
+    LIST_Init(&myList);
+    LIST_Add(&myList, &x);
+    LIST_Add(&myList, &y);
+    LIST_Add(&myList, &z);
+
+    assert(myList.size == 3);
+    assert( 0 == DEREF_TO_INT(LIST_Get(&myList, 0)->data));
+    assert( 1 == DEREF_TO_INT(LIST_Get(&myList, 1)->data));
+    assert( 2 == DEREF_TO_INT(LIST_Get(&myList, 2)->data));
 
     myList.fnPrint = printMe;
 
-    LIST_Print( &myList );
+    LIST_Print(&myList);
 
     PRINT("List size is %d\n", myList.size);
 
-    LIST_Deallocate( &myList );
+    LIST_Deallocate(&myList);
 }
 static void testStringList()
 {
@@ -45,9 +50,9 @@ static void testStringList()
     char* three = "three";
 
     LIST_Init( &myStringList );
-    LIST_Add( &myStringList, (void*)one);
-    LIST_Add( &myStringList, (void*)two);
-    LIST_Add( &myStringList, (void*)three);
+    LIST_Add( &myStringList, DEREF_TO_STR(one));
+    LIST_Add( &myStringList, DEREF_TO_STR(two));
+    LIST_Add( &myStringList, DEREF_TO_STR(three));
 
     assert( myStringList.size == 3);
 
