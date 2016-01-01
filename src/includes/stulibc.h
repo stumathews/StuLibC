@@ -106,5 +106,9 @@ LIBRARY_API void LIB_Uninit();
 void LIB_Check_Init();
 bool LIB_IsInit();
 
+/** \brief Dereferences a void pointer to int i.e typeof(int)  */
+#define DEREF_TO_INT(voidptr) (*(int*)(voidptr))
+/** \brief Dereferences a void pointer to string i.e typeof(char*)  */
+#define DEREF_TO_STR(voidptr) ((char*)(voidptr))
 
 #endif
