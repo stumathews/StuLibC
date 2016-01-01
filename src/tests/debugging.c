@@ -51,7 +51,7 @@ int main( int argc, char** argv )
   TEST(test_DBG_LogIf)
  };
 
-  run_tests(tests,3);
+  RUN_TESTS(tests);
   
  DBG_DeleteLog();
  return 0;

@@ -122,13 +122,12 @@ int main(int argc, char* argv[])
 {
 	LIB_Init();
 
-    struct TestDefinition tests[] = { test_CMD_AddArguments, "test_CMD_ADDArguments",
+    struct TestDefinition tests[] = { 
     		TEST(test_CMD_AddArgument),
-			TEST(test_CMD_Parse)
+		TEST(test_CMD_Parse)
 
     };
-   run_tests(tests,3);
-
+	RUN_TESTS(tests);
 	LIB_Uninit();
     return 0;
 }

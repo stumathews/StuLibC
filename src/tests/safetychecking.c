@@ -29,6 +29,6 @@ int main( int argc, char* argv[])
   struct TestDefinition tests[] = {
     TEST(test_CHK_int),
   };
-  run_tests(tests,1);
+  RUN_TESTS(tests);
   return 0;
 }

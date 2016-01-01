@@ -61,7 +61,7 @@ int main( int argc, char** argv)
   TEST(test_LOG_GetDefaultLogFileName),
   };
   
-  run_tests(tests,5);  
+  RUN_TESTS(tests);  
 
   LOG_DeleteLog();
   return 0;

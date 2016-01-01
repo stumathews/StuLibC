@@ -21,6 +21,9 @@ Contains the function and type declarations for dealing testing functionality in
 #include <assert.h>
 #include <debugging.h>
 
+#define RUN_TESTS( tests ) do {\
+run_tests( (tests), sizeof((tests))/sizeof(tests[0])); \
+} while (0) 
 #define TEST(name) name, #name
 
 /** \brief Represents a function to run to test something indicated by name

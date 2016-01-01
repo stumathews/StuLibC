@@ -310,6 +310,6 @@ int main( int argc, char** argv )
 		TEST(testGetInstance),
 		TEST(testLIST_InsertBeforeHead)
    };
-   run_tests(tests,12);
+   RUN_TESTS(tests);
    return 0;
 }

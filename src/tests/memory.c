@@ -46,7 +46,7 @@ int main(int argc, char* argv[] )
     TEST(test_DeAlloc),
   };
 
-  run_tests(tests,2);
+  RUN_TESTS(tests);
   LIB_Uninit();
   return 0;
 }

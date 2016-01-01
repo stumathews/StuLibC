@@ -46,7 +46,7 @@ int main( int argc, char** argv)
       TEST(test_AllInOneTests)
   };
   
-  run_tests(tests,1);  
+  RUN_TESTS(tests);  
 
   return 0;
 }

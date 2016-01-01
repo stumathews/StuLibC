@@ -12,7 +12,7 @@ void test_ERR_Print()
 int main(int argc, char** argv )
 {
   struct TestDefinition tests[] = { TEST(test_ERR_Print)};
-  run_tests(tests,1);
+  RUN_TESTS(tests);
   LOG_DeleteLog();
   return 0;
 }

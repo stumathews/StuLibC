@@ -152,9 +152,9 @@ int main(int argc, char** argv)
         TEST(test_STR_IsAlpha),
         TEST(test_STR_Reverse),
         TEST(test_STR_Equals),
-		TEST(test_STR_EqualsIgnoreCase),
+	TEST(test_STR_EqualsIgnoreCase),
     };
-    run_tests(tests,12);
+    RUN_TESTS(tests);
     DBG("about to LIB_Unint()");
     LIB_Uninit();
 

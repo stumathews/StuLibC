@@ -119,7 +119,7 @@ int main( int arvc, char** argv )
 		TEST(test_FILE_ContainsString),
 		TEST(test_FILE_IniParse)
   };
- run_tests(tests,5);
+  RUN_TESTS(tests);
   DBG_DeleteLog();
 
   return 0;
