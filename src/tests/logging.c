@@ -27,7 +27,7 @@ void test_LOG_LogToStream()
   assert( stream != NULL );
   LOG_LogToStream("message", stream);  
   
-  freopen( filename, "r", stream);
+  stream = freopen( filename, "r", stream);
  
    // read from stream for message
   assert( FILE_ContainsString( stream, "message" ));
