@@ -4,6 +4,7 @@
 #include <memory.h>
 #include <debugging.h>
 #include <safetychecking.h>
+#include <errors.h>
 
 static void freeNode(Node* node);
 static void increase_list_size_by_one(List* list);
@@ -239,7 +240,7 @@ static void decrease_list_size_by_one(List* list)
 static Node* makeNewNode(const void* data, Node* previous, Node* next, List* list)
 {
 	Node* newNode = MEM_Alloc(sizeof(Node));
-	newNode->data = data;
+	newNode->data = (void*) data;
 	newNode->next = next;
 	newNode->previous = previous;
 	newNode->list = (struct LinkedList*) list;
