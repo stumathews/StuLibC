@@ -98,7 +98,7 @@ typedef struct LinkedListNode {
  *
  * @param LinkedListNode the node to act on
  */
-typedef void ( *ActOnNodeFn )(Node* LinkedListNode);
+typedef void (*ActOnNodeFn)(Node* LinkedListNode);
 
 /** \brief Main list type. */
 typedef struct LinkedList {
@@ -116,6 +116,8 @@ typedef struct LinkedList {
     ActOnNodeFn fnPrint;
     
 } List;
+
+typedef List Stack;
 
 /** \brief Puts provided user data at front of list.
  *

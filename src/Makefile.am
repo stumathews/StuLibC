@@ -26,7 +26,6 @@ libstu_la_SOURCES = functions/private/stulibc.c \
 			functions/low/networking/udp_client.c \
 			functions/low/networking/udp_server.c \
 			functions/low/networking/wincompat.c \
-            functions/high/structures/stack.c \
             functions/high/structures/list.c \
             functions/high/structures/linuxlist.c \
             functions/high/parsing/ini/iniscanner.c \

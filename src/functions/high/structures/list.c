@@ -47,12 +47,12 @@ Node* LIST_Pop(List* list)
 
 	Node* oldTail = list->tail;
 
-	if( oldTail->previous != NULL) {
+	if(oldTail->previous != NULL) {
 		oldTail->previous->next = NULL;
-		decrease_list_size_by_one(list);
 		list->tail = oldTail->previous;
 	}
 
+	decrease_list_size_by_one(list);
 	return oldTail;
 }
 
@@ -96,18 +96,15 @@ Node* LIST_Push(List* list, const void *data)
 		Node *head = makeNewNode(data, previous, next, list);
 		list->head = head;
 		list->tail = head;
-
 		created = head;
-	}
-	else {
+	} else {
 		Node* previous = list->tail;
 		Node* newNode = makeNewNode(data, previous, NULL, list);
 		previous->next = newNode;
-
 		list->tail = newNode;
-
 		created = newNode;
 	}
+
 	increase_list_size_by_one(list);
 	return created;
 }

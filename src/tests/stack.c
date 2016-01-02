@@ -3,38 +3,37 @@
 
 void test_AllInOneTests()
 {
-    Stack* intStack = newStack(10);
+    Stack* intStack = LIST_GetInstance();
     int x = 100, y = 200, z = 300;
     
-    assert(isEmpty(intStack));
+    assert(intStack->size == 0);
     
-    push(&x, intStack);
-    push(&y, intStack);
-    push(&z, intStack);
+    LIST_Push(intStack, &x);
+    LIST_Push(intStack, &y);
+    LIST_Push(intStack, &z);
     
-    assert( !isEmpty(intStack) );
+    assert(intStack->size != 0);
 
-#if INSPECT_ERRORS
-    trace(intStack);
-#endif 
-    assert( *(int*)pop(intStack) == 300);
-    assert( *(int*)pop(intStack) == 200);
-    assert( *(int*)pop(intStack) == 100);
+    assert(DEREF_TO_INT(LIST_Pop(intStack)->data) == 300);
+    assert(DEREF_TO_INT(LIST_Pop(intStack)->data) == 200);
+    assert(DEREF_TO_INT(LIST_Pop(intStack)->data) == 100);
 
-    assert( isEmpty(intStack) );
-    Stack* stringStack = newStack(4);
+    assert(intStack->size == 0);
+    Stack* stringStack = LIST_GetInstance();
     
     char* hello = "Hello world!";
     char* goodbye = "Goodbye cruel world!";
-    push(hello, stringStack);
-    push(goodbye, stringStack);
 
-    assert( !isEmpty(stringStack) );
-    assert( strcmp( (char*)pop(stringStack), goodbye) == 0 );
-    assert( strcmp( (char*)pop(stringStack), hello) == 0 );
+    LIST_Push(stringStack, hello);
+    LIST_Push(stringStack, goodbye);
+
+
+    assert(stringStack->size != 0);
+    assert(strcmp(DEREF_TO_STR(LIST_Pop(stringStack)->data), goodbye) == 0);
+    assert(strcmp(DEREF_TO_STR(LIST_Pop(stringStack)->data), hello) == 0);
     
-    freeStack(intStack);
-    freeStack(stringStack);
+    LIST_FreeInstance(intStack);
+    LIST_FreeInstance(stringStack);
 }
 
 int main( int argc, char** argv)

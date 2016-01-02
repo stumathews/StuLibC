@@ -82,7 +82,6 @@ I've broken down the library down into functional areas. This encompases a low-l
 #include <etcp.h>
 #include <logging.h>
 #include <safetychecking.h>
-#include <stack.h>
 #include <testing.h>
 #include <stdio.h>
 #include <stdlib.h> 
