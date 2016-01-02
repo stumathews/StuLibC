@@ -65,7 +65,7 @@ void test_beginsWith()
 
 void test_beginsWithEither()
 {
-    char* possibilities[] = {"--","-","/",NULL};
+    const char* possibilities[] = {"--","-","/",NULL};
     assert( strcmp( STR_BeginsWithEither( possibilities, "--thanks", 3 ), possibilities[0]) == 0 );
     assert( strcmp( STR_BeginsWithEither( possibilities, "-h", 3), possibilities[1]) == 0 );
     assert( strcmp( STR_BeginsWithEither( possibilities, "/?", 3), possibilities[2]) == 0 );

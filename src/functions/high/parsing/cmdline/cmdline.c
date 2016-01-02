@@ -195,7 +195,7 @@ bool push_into_pipe(char* arg, char* next_part)   // determine what type of part
     strncpy(tmpArg, arg, argLength);
     strncpy(tmpNextArg, next_part, nextArgLength);
     char* indicator = NULL;
-    char* indicators[] = {"--","-","/",NULL};
+    const char* indicators[] = {"--","-","/",NULL};
     
     // Determine if this is the beginning of a new argument
     indicator = STR_BeginsWithEither(indicators,tmpArg, 3);
