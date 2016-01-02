@@ -109,5 +109,7 @@ bool LIB_IsInit();
 #define DEREF_TO_INT(voidptr) (*(int*)(voidptr))
 /** \brief Dereferences a void pointer to string i.e typeof(char*)  */
 #define DEREF_TO_STR(voidptr) ((char*)(voidptr))
+/** \brief Dereferences to any specified type */
+#define DEREF_TO(voidptr, type) ((type)(voidptr))
 
 #endif
