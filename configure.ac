@@ -46,6 +46,8 @@ case "$host_os" in
      AC_MSG_RESULT([[$mhd_host_os]])
      AC_CHECK_HEADERS([sys/socket.h])
      mhd_host_os='Linux'
+     AC_CHECK_LIB([pthreads])
+     LIBS="$LIBS -lpthread"
      ;;
 *mingw*)     
      AC_DEFINE_UNQUOTED(_WIN32,1,[This is a Windows system])
