@@ -101,6 +101,15 @@ LIBRARY_API clock_t TIME_StopCPURecord(clock_t startTime);
  *
  */
 LIBRARY_API clock_t TIME_GetCPUTimeTakenInSeconds(clock_t startTime, clock_t endTime);
+
+/** \brief Calculates the time in milliseconds between to points in time
+ *
+ * \param startTime clock_t start point in time
+ * \param endTime clock_t end point in time
+ * \return LIBRARY_API clock_t the number of seconds between the two points (elapsed time)
+ *
+ */
+LIBRARY_API clock_t TIME_GetCPUTimeTakenInMilliSeconds(clock_t startTime, clock_t endTime);
 /** \brief Returns the number of CPU clock units elapsed between two points in time
  *
  * \param startTime clock_t first point in time

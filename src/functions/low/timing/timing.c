@@ -11,12 +11,19 @@ clock_t TIME_StartCPURecord()
 
 clock_t TIME_StopCPURecord(clock_t startTime)
 {
-  return TIME_GetCPUTimeTakenInSeconds( startTime, TIME_StartCPURecord());
+  return TIME_GetCPUTimeTakenInSeconds(startTime, TIME_StartCPURecord());
+}
+
+clock_t TIME_GetCPUTimeTakenInMilliSeconds(clock_t startTime, clock_t endTime)
+{
+	int msec = (endTime - startTime)  * 1000 / CLOCKS_PER_SEC;
+	return msec % 1000;
 }
 
 clock_t TIME_GetCPUTimeTakenInSeconds(clock_t startTime, clock_t endTime)
 {
-  return (endTime - startTime) / CLOCKS_PER_SEC;
+	int msec = (endTime - startTime)  * 1000 / CLOCKS_PER_SEC;
+	return msec / 1000;
 }
 
 clock_t TIME_GetCPUTimeTakenInUnits(clock_t startTime, clock_t endTime)
