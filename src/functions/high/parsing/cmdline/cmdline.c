@@ -194,7 +194,7 @@ bool push_into_pipe(char* arg, char* next_part)   // determine what type of part
     // Prepare space
     strncpy(tmpArg, arg, argLength);
     strncpy(tmpNextArg, next_part, nextArgLength);
-    char* indicator = NULL;
+    const char* indicator = NULL;
     const char* indicators[] = {"--","-","/",NULL};
     
     // Determine if this is the beginning of a new argument
@@ -203,7 +203,7 @@ bool push_into_pipe(char* arg, char* next_part)   // determine what type of part
     // What is our indicator?
     if(!(STR_IsNullOrEmpty(indicator))) 
     {
-        pipe_line[ARG_INDICATOR] = indicator;
+        pipe_line[ARG_INDICATOR] = (char*)indicator;
 		char* result = MEM_Alloc(SIZEOFCHAR * strlen(tmpArg));
         char* tmpArgName = STR_Without(indicator, tmpArg, result); // such that --help becomes help or help=something
 
