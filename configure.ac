@@ -44,16 +44,17 @@ case "$host_os" in
      AC_DEFINE_UNQUOTED(__linux__,1,[This is a Linux kernel])
      AC_DEFINE_UNQUOTED(HAVE_LISTEN_SHUTDOWN,1,[can use shutdown on listen sockets])   
      AC_MSG_RESULT([[$mhd_host_os]])
-     AC_CHECK_HEADERS([sys/socket.h])
+     AC_CHECK_HEADERS([sys/socket.h],[],AC_MSG_ERROR([Need socket library but not found]),[])
      mhd_host_os='Linux'
-     AC_CHECK_LIB([pthreads])
+     AC_CHECK_LIB(pthread, pthread_create,[])
      LIBS="$LIBS -lpthread"
      ;;
 *mingw*)     
      AC_DEFINE_UNQUOTED(_WIN32,1,[This is a Windows system])
      AC_DEFINE_UNQUOTED(MINGW,1,[This is a MinGW system])     
      AC_MSG_RESULT([[$mhd_host_os]])
-     AC_CHECK_HEADERS([winsock2.h windows.h ws2tcpip.h],, AC_MSG_ERROR([[Winsock2 headers are required for W32]]))
+     AC_CHECK_HEADERS(windows.h,[],AC_MSG_ERROR([Windows header flies not found]),[])
+     AC_CHECK_HEADERS(ws2tcpip.h windows.h winsock2.h,[],AC_MSG_ERROR([Winsock2 headers are required for W32]),[])
      AC_CHECK_LIB([ws2_32],[main])
      LIBS="$LIBS -lws2_32"
      os_is_windows=yes
