@@ -32,15 +32,15 @@ void* thread_function(void* param)
 
 void test_THREAD_RunAndForget()
 {
+#ifdef __linux__
 		srand(time(NULL));
 		for(int i = 0 ; i < sizeof(numbers)/sizeof(numbers[0]); i++) {
 			if(THREAD_RunAndForget(thread_function, numbers+i)) {
 				ERR_Print("Problem running thread", YES);
 			}
 		}
-#ifdef __linux__
+
 		pthread_exit(NULL);
-#endif
 
 		assert(numbers[0] == 100);
 		assert(numbers[1] == 100);
@@ -50,8 +50,7 @@ void test_THREAD_RunAndForget()
 		assert(numbers[5] == 100);
 		assert(numbers[6] == 100);
 		assert(numbers[7] == 100);
-
-
+#endif
 }
 
 int main(int argc, char** argv)
