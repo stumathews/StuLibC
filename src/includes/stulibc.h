@@ -97,6 +97,7 @@ I've broken down the library down into functional areas. This encompases a low-l
 #include <safetychecking.h>
 #include <console.h>
 #include <ini.h>
+#include <threading.h>
 
 // .. include others for an all-includeive #incude <libstu.h> to pull in all functions
 

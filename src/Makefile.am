@@ -29,7 +29,8 @@ libstu_la_SOURCES = functions/private/stulibc.c \
             functions/high/structures/list.c \
             functions/high/structures/linuxlist.c \
             functions/high/parsing/ini/iniscanner.c \
-            functions/high/parsing/ini/ini.c 
+            functions/high/parsing/ini/ini.c \
+            functions/low/threading/threading.c
 libstu_la_LDFLAGS = -no-undefined -version-info 0:0:0
 
 
