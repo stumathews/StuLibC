@@ -18,7 +18,8 @@ bin_PROGRAMS	= cmdline \
 		  		  #vrs \
 		  		  #vrc \
                   stack \
-                  list
+                  list \
+                  threading_tests
 
 #Build a test harness program
 
@@ -43,7 +44,8 @@ check_PROGRAMS= cmdline \
 				safetychecking \
 				uselib \
 				stack \
-				list
+				list \
+				threading_tests
 
 stack_SOURCES = stack.c
 stack_LDADD = $(top_builddir)/src/libstu.la 
@@ -98,4 +100,7 @@ files_LDADD = $(top_builddir)/src/libstu.la
 
 testing_SOURCES = testing.c
 testing_LDADD = $(top_builddir)/src/libstu.la
+
+threading_tests_SOURCES = threading_tests.c
+threading_tests_LDADD = $(top_builddir)/src/libstu.la
 
