@@ -8,6 +8,12 @@ static void strPrint( struct LinkedListNode* myNode )
 {
     PRINT( "%s\n",(char*)(myNode->data));
 }
+static void printBuffer(Node* node)
+{
+	PRINT("%p<--%p\n", node->previous != NULL ? node->previous->data:0,
+						  node != null ? node->data : 0);
+						  //node->next != NULL ? node->next->data : 0);
+}
 static void addTen( struct LinkedListNode* node)
 {
 	DBG("addTen1");
@@ -192,6 +198,8 @@ static void testLIST_DeleteNode()
 	assert( *five_data == 5);
 
 	LIST_Deallocate( &list);
+
+
 }
 static void testLIST_FindData()
 {
@@ -297,6 +305,18 @@ static void testLinuxList()
     }
 
 }
+void testListOrder()
+{
+	List* names = LIST_GetInstance();
+	names->fnPrint = printBuffer;
+
+	Node* first = LIST_Push(names, "a");
+	Node* second = LIST_Push(names, "b");
+	Node* third = LIST_Push(names, "c");
+	Node* fourth = LIST_Push(names, "d");
+
+	LIST_Print((const List*)names);
+}
 
 int main( int argc, char** argv )
 {
@@ -313,7 +333,8 @@ int main( int argc, char** argv )
 		TEST(testLIST_DeleteNode),
 		TEST(testLIST_ForEach),
 		TEST(testGetInstance),
-		TEST(testLIST_InsertBeforeHead)
+		TEST(testLIST_InsertBeforeHead),
+		TEST(testListOrder)
    };
    RUN_TESTS(tests);
    return 0;

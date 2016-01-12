@@ -65,13 +65,13 @@ Advanced List:
 #include <stdlib.h>
 
 /** \brief Convenience MACRO to removes a node from the list  */
-#define LIST_Remove( list, node ) LIST_DeleteNode( list, node )
+#define LIST_Remove(list, node) LIST_DeleteNode((list), (node))
 
 /** \brief Convenience MACRO to add raw data to list */
-#define LIST_Add( list, data ) LIST_Push( list, data )
+#define LIST_Add(list, data) LIST_Push((list), (data))
 
 /** \brief Convenience MACRO to clear the contents of the list */
-#define LIST_Clear( list ) LIST_Deallocate( list )
+#define LIST_Clear(list) LIST_Deallocate((list))
 
 /** \brief Represents a single node in the list.
  *
