@@ -9,7 +9,6 @@ LIBRARY_API void LIB_Init()
         NETINIT();
 		DBG("Initializing library");
 
-        MEM_Init();
         CMD_Init();
 		
         DBG("Initialized library");

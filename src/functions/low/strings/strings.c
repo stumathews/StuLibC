@@ -142,7 +142,8 @@ char* STR_FromLast(const char* lookfor, const char* string, char* result_buffer)
  */
 char* STR_Join(const char* string1, const char* string2)
 {
-    char *joined = Alloc(strlen(string1) + strlen(string2) + 1);
+	List* mem_pool = LIST_GetInstance();
+    char *joined = Alloc(strlen(string1) + strlen(string2) + 1, mem_pool);
 	CHK_ExitIf(joined == (void*)0, "Unable to allocate memory.", "STR_Join()");
 
     strcpy(joined, string1);

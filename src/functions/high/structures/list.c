@@ -10,6 +10,7 @@ static void increase_list_size_by_one(List* list);
 static void decrease_list_size_by_one(List* list);
 static Node* makeNewNode(const void* data, Node* previous, Node* next, List* list);
 static void printNodeData(Node* node);
+
 List* LIST_GetInstance()
 {
 	List* list = malloc(sizeof(struct LinkedList));
@@ -19,6 +20,7 @@ List* LIST_GetInstance()
 	LIST_Init(list);
 	return list;
 }
+
 void LIST_FreeInstance(List* list)
 {
 	free(list);
@@ -74,6 +76,7 @@ Node* LIST_Get(const List* list, int zero_index)
 
 	Node *node = list->head;
 	int count = 0;
+
 	do {
 		Node* next = node->next;
 		if(count == zero_index) {
@@ -100,8 +103,9 @@ Node* LIST_Push(List* list, const void *data)
 		list->tail = newNode;
 		created = newNode;
 	}
-	list->fnPrint = printNodeData;
-	LIST_Print(list);
+
+	//list->fnPrint = printNodeData;
+	//LIST_Print(list);
 	increase_list_size_by_one(list);
 	return created;
 }
@@ -109,8 +113,9 @@ Node* LIST_Push(List* list, const void *data)
 int LIST_DeleteNode(List* list, Node* nodeToDelete)
 {
 	if( list == null ){
-	DBG("list is null\n");
-	 return -1; }
+	 DBG("list is null\n");
+	 return -1; 
+	}
 
 	Node *node = list->head;
 	bool found = false;
@@ -126,7 +131,6 @@ int LIST_DeleteNode(List* list, Node* nodeToDelete)
 
 
 	if(found) {
-		DBG("Found node to delete its data is :%p\n", nodeToDelete->data);
 		if(nodeToDelete != list->head && nodeToDelete != list->tail){
 			DBG("is just normal node:");
 			printNodeData(nodeToDelete);
@@ -136,14 +140,16 @@ int LIST_DeleteNode(List* list, Node* nodeToDelete)
 		if(nodeToDelete == list->tail) {
 			DBG("it is the tail node:");
 			printNodeData(nodeToDelete);
-			nodeToDelete->previous->next = NULL;	
+			if(nodeToDelete->previous != NULL)
+				nodeToDelete->previous->next = NULL;
 			list->tail = nodeToDelete->previous;
-		}
+			DBG("done with tail");
+		}/*
 		if(nodeToDelete == list->head) {
 			DBG("it is the head node:");
 			printNodeData(nodeToDelete);
 			list->head = NULL;	
-		}
+		}*/
 
 		freeNode(nodeToDelete);
 		decrease_list_size_by_one(list);
@@ -160,7 +166,7 @@ Node* LIST_FindData(const List* list, const void* data)
 {
 	Node *node = list->head;
 	if(node == NULL || node->data == NULL){
-	DBG("node(%p) is null or node->data(%p) is null", node, node->data);
+		DBG("node(%p) is null or node->data(%p) is null", node, node->data);
 	}
 	do {
 		Node* next = node->next;
@@ -206,6 +212,10 @@ void LIST_Deallocate(List* list)
 {
     Node *node = list->head;
 
+    if( list->size == 0) {
+    	return;
+    }
+
     do {
         Node* next = node->next;
         freeNode(node);
@@ -218,10 +228,10 @@ void LIST_Deallocate(List* list)
 static void freeNode(Node* node)
 {
 	if(node == null) {
-	DBG("Cant feee a null node\n");
-	return;
+		DBG("Cant feee a null node\n");
+		return;
 	}
-
+	DBG("frreding node");
 	free(node);
 }
 
@@ -262,9 +272,7 @@ static Node* makeNewNode(const void* data, Node* previous, Node* next, List* lis
 	newNode->next = next;
 	newNode->previous = previous;
 	newNode->list = (struct LinkedList*) list;
-	DBG("result: %p<--%p-->%p", newNode->previous != null ? newNode->previous->data : 0,
-				  newNode->data,
-				  newNode->next != null ? newNode->next->data : 0);
+	printNodeData(newNode);
 	return newNode;
 }
 static void printNodeData(Node* node){

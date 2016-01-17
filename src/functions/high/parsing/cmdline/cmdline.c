@@ -38,6 +38,7 @@ void CMD_Uninit()
         free(free_me);
         free_me = null;
     }
+    MEM_DeAllocAll();
 }
 
 void CMD_ShowUsages(char* tagline, char* address, char* description) 
@@ -99,10 +100,11 @@ struct Argument* find(char* name)
 // Register an argument
 void CMD_AddArgument(struct Argument* argument) 
 {
+	List* mem_pool = LIST_GetInstance();
     if(last_alloc_memory == NULL) 
     {
         // Create the first registered argument
-        last_alloc_memory = (struct memory*) Alloc(sizeof(struct memory));
+        last_alloc_memory = (struct memory*) Alloc(sizeof(struct memory),mem_pool);
         last_alloc_memory->argument = argument;
         last_alloc_memory->next = NULL;
 
@@ -112,7 +114,7 @@ void CMD_AddArgument(struct Argument* argument)
     else 
     {
         // Create the next argument to be reigistered and store it in the linked list
-        struct memory* tmp = (struct memory*) Alloc(sizeof(struct memory));
+        struct memory* tmp = (struct memory*) Alloc(sizeof(struct memory),mem_pool);
         last_alloc_memory->next = tmp;
         tmp->argument = argument;
         tmp->next = NULL;
@@ -185,11 +187,12 @@ struct Argument* CMD_CreateNewArgument( char* name, char* display, char* descrip
 bool push_into_pipe(char* arg, char* next_part)   // determine what type of part this is. Returns true if a fully formed pipe is created.
 {
     CHECK_STRING( arg, IS_NOT_EMPTY );
+    List* mem_pool = LIST_GetInstance();
 
     short argLength = strlen(arg);
     short nextArgLength = strlen(next_part);
-    char* tmpArg = (char*) Alloc(SIZEOFCHAR * argLength +1);
-    char* tmpNextArg = (char*) Alloc(SIZEOFCHAR * nextArgLength +1);
+    char* tmpArg = (char*) Alloc(SIZEOFCHAR * argLength +1,mem_pool);
+    char* tmpNextArg = (char*) Alloc(SIZEOFCHAR * nextArgLength +1,mem_pool);
     
     // Prepare space
     strncpy(tmpArg, arg, argLength);
@@ -204,7 +207,7 @@ bool push_into_pipe(char* arg, char* next_part)   // determine what type of part
     if(!(STR_IsNullOrEmpty(indicator))) 
     {
         pipe_line[ARG_INDICATOR] = (char*)indicator;
-		char* result = MEM_Alloc(SIZEOFCHAR * strlen(tmpArg));
+		char* result = MEM_Alloc(SIZEOFCHAR * strlen(tmpArg),mem_pool);
         char* tmpArgName = STR_Without(indicator, tmpArg, result); // such that --help becomes help or help=something
 
         pipe_line[ARG_NAME] = tmpArgName;
@@ -212,7 +215,7 @@ bool push_into_pipe(char* arg, char* next_part)   // determine what type of part
         //check if the name is attached to a value indicated by a value indicator.(help=something)
         if( STR_Contains("=\0",tmpArg) &&  !STR_EndsWith("=\0",tmpArg)) 
         {
-            char* tmpValue = (char*) Alloc(SIZEOFCHAR * (strlen(tmpArg) - strlen(indicator) - 1)); // extract the value as in "something" from help=something
+            char* tmpValue = (char*) Alloc(SIZEOFCHAR * (strlen(tmpArg) - strlen(indicator) - 1),mem_pool); // extract the value as in "something" from help=something
         
             pipe_line[VALUE] = STR_FromLast("=",tmpArg,tmpValue);
 			result = STR_Without("=", tmpArgName, result);

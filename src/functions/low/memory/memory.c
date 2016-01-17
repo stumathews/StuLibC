@@ -7,48 +7,34 @@
 #include <memory.h>
 #include <stulibc.h> // for LIB_*
 
-/**
- * All the tracked memory addresses
- */
-List* mem_addrs = 0;
-void MEM_Init()
-{
-    mem_addrs = LIST_GetInstance();
-}
-void MEM_Uninit()
-{
-    MEM_DeAllocAll();
-    LIST_FreeInstance(mem_addrs);
-}
 
-static void track_buffer(void* buffer)
+static void track_buffer(void* buffer, List* mem_pool)
 {
   if(buffer == NULL) {
-	DBG("Cant allocated null buffer:%p\n", buffer);
+	PRINT("Cant allocated null buffer:%p\n", buffer);
   }
-  DBG("about to add it to internal list of addresses\n");
-  if(mem_addrs == NULL) {
-     DBG("Memmory subsystem not initialised. doing it now");
-     MEM_Init();
+
+  if(mem_pool == NULL) {
+     PRINT("Memory subsystem not initialised. doing it now");
+     exit(1);
   }
-  LIST_Add(mem_addrs, buffer);
+  LIST_Add(mem_pool, buffer);
 }
 
-void* MEM_Alloc(size_t size)
+void* MEM_Alloc(size_t size, List* mem_pool)
 {
 	DBG("MEM_Alloc()\n");
 	void* buffer = malloc(size);
 
 	if(buffer == NULL) {
-		DBG("Failed to malloc size %d\n", size);
+		DBG("Failed to malloc \n");
 		return NULL;
 	}
 
-	DBG("zeroing buffer");
 	memset(buffer,0,size);
 
 	if(buffer != NULL) {
-	    track_buffer(buffer);
+	    track_buffer(buffer, mem_pool);
     	    return buffer;
   	} else {
     		DBG("MEM_Alloc(): Could not allocate buffer.\n");
@@ -56,14 +42,13 @@ void* MEM_Alloc(size_t size)
   	}
 }
 
-int MEM_GetTrackedCount()
+int MEM_GetTrackedCount(List* mem_addrs)
 {
   return mem_addrs->size;
 }
 
-static void* find(void* buffer)
+static void* find(void* buffer, List* mem_addrs)
 {
-DBG("find()\n");
 	Node* result = LIST_FindData((const List*)mem_addrs, buffer);
 	return result != NULL ? result->data : NULL;
 }
@@ -71,21 +56,17 @@ DBG("find()\n");
 static int dealloc_count = 0;
 static void freeBuffer(Node* node)
 {
-DBG("freeBuffer()\n");
 	free(node->data);
 	dealloc_count++;
 }
 
-void MEM_DeAllocAll()
+void MEM_DeAllocAll(List* mem_addrs)
 {
-DBG("MEM_DeAllocAll(): prrinting mem locations in memaddrs(ptr: %d), size: %d\n", mem_addrs, mem_addrs->size);
   LIST_ForEach((const List*)mem_addrs, freeBuffer);
-  DBG("Deallocated %d tracked buffers.", dealloc_count);
 }
 
-bool MEM_DeAlloc(void* buffer, char* buffer_name)
+bool MEM_DeAlloc(void* buffer, char* buffer_name, List* mem_addrs)
 {
-	DBG("before MEM_DeAlloc(%p): mem_addrs size: %d contents:\n", buffer,  mem_addrs->size);
 	Node* result = LIST_FindData((const List*)mem_addrs, buffer);
 	
 	if(result == NULL || result->data == NULL ) {
@@ -93,16 +74,16 @@ bool MEM_DeAlloc(void* buffer, char* buffer_name)
 		 return false; 
 	}
 
-	void* data = result->data;
+
 	LIST_DeleteNode(mem_addrs, result);
-	free(data);
+	//freeBuffer(result);
+
 	return true;
 }
 
-bool MEM_CheckAllocated( void* buffer,char* name, char* filename, int line)
+bool MEM_CheckAllocated( void* buffer,char* name, char* filename, int line, List* mem_addrs)
 {
-DBG("MEM_CheckAllocated()\n");
-  void* tracked_buffer = find( buffer);
+  void* tracked_buffer = find( buffer, mem_addrs);
   if(tracked_buffer != NULL)  {
     return true;
   }

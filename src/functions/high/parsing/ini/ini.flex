@@ -43,11 +43,11 @@ KEYVALUE  .+\s*=\s*.+
 
 				// Store this new header if we don't already have reference to it
 				if(thisHeader == null ){
-					thisHeader = (Header*) MEM_Alloc(sizeof(Header));
+					thisHeader = (Header*) malloc(sizeof(Header));
 					strcpy(thisHeader->key, headerName );
 
 					//and make space for a list of settings for it
-					thisHeader->value = MEM_Alloc(sizeof(List));
+					thisHeader->value = malloc(sizeof(List));
 					LIST_Push( list, (void*) thisHeader );
 				}
 			}
@@ -70,8 +70,8 @@ KEYVALUE  .+\s*=\s*.+
 				currentHeaderSettings = (List*)currentHeader->value;
 
 				// Turn the key/value into a setting
-				setting = (Setting *) MEM_Alloc(sizeof(Setting));
-				setting->value = (char*) MEM_Alloc(sizeof(char) * 20);
+				setting = (Setting *) malloc(sizeof(Setting));
+				setting->value = (char*) malloc(sizeof(char) * 20);
 
 				strcpy(setting->key, key);
 				strcpy(setting->value, value);

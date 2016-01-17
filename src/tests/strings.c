@@ -90,7 +90,8 @@ void test_STR_Without()
     char* name = "Stuart Mathews";
     char* arg = "--help";
     short MAX = 20;
-    char* buffer = MEM_Alloc(SIZEOFCHAR * strlen(name));
+    List* mem_addrs = LIST_GetInstance();
+    char* buffer = MEM_Alloc(SIZEOFCHAR * strlen(name), mem_addrs);
 
     buffer = STR_Without( " Mathews", name,buffer);
     assert( strcmp( buffer, "Stuart" ) == 0 );
@@ -99,12 +100,14 @@ void test_STR_Without()
     buffer = STR_Without("stuart","peter stuart mathews 1 stuart",buffer);
 
     char* test = "peter  mathews 1 ";
-    char* buffer1 = MEM_Alloc(SIZEOFCHAR * strlen(name));
+    char* buffer1 = MEM_Alloc(SIZEOFCHAR * strlen(name), mem_addrs);
     assert( strcmp( buffer, test ) == 0 );
     buffer = STR_Without(",,","s,,t,,u,,a,,r,,t",buffer1);
     assert( strcmp( buffer, "stuart" ) == 0 );
     buffer = STR_Without(",","s,t,u,a,r,t",buffer1);
     assert( strcmp( buffer, "stuart" ) == 0 );
+
+    //MEM_DeAllocAll(mem_addrs);
 }
 
 void test_STR_Contains()
