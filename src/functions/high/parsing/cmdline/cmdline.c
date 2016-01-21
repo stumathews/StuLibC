@@ -38,7 +38,6 @@ void CMD_Uninit()
         free(free_me);
         free_me = null;
     }
-    MEM_DeAllocAll();
 }
 
 void CMD_ShowUsages(char* tagline, char* address, char* description) 
