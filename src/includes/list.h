@@ -81,7 +81,7 @@ Advanced List:
  */
 typedef struct LinkedListNode {
 
-	/** \brief The raw data that is wrapped within this LinkedListNode  */
+    /** \brief The raw data that is wrapped within this LinkedListNode  */
     void* data;
 
     /** \brief  link to the next node - NULL if none exists  */
@@ -179,7 +179,7 @@ LIBRARY_API void  LIST_InsertAfter(List* list, const void* data, Node* afterThis
  */
 LIBRARY_API Node* LIST_Pop(List* list);
 
-/** \brief Deletes a node in the list.
+/** \brief Deletes the last node from the list, and returns it
  *
  * @param list
  * @param nodeToDelete

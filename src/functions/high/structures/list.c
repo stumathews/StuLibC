@@ -248,10 +248,10 @@ void LIST_Print(const List* list)
 {
     Node* current = list->head;
     do {
-		if( list->fnPrint != NULL) {
-			list->fnPrint(current);
-		}
-		current = current->next;
+	if( list->fnPrint != NULL) {
+		list->fnPrint(current);
+	}
+	current = current->next;
     } while(current != null && list->size > 0);
 
 }
@@ -260,6 +260,7 @@ static void increase_list_size_by_one(List* list)
 {
 	list->size++;
 }
+
 static void decrease_list_size_by_one(List* list)
 {
 	list->size--;
@@ -275,6 +276,7 @@ static Node* makeNewNode(const void* data, Node* previous, Node* next, List* lis
 	printNodeData(newNode);
 	return newNode;
 }
+
 static void printNodeData(Node* node){
 
 	DBG("h:[%p] t:[%p] s:[%d] %p<-%p->%p\n", node->list->head != NULL ? node->list->head->data : 0,

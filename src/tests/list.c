@@ -315,7 +315,18 @@ void testListOrder()
 	Node* third = LIST_Push(names, "c");
 	Node* fourth = LIST_Push(names, "d");
 
+	LIST_DeleteNode(names, third);
+	Node* popped = LIST_Pop(names);
+
+	assert(names->size == 2);
+	assert(strcmp(DEREF_TO_STR(names->tail->data), "b") == 0);
+
 	LIST_Print((const List*)names);
+	LIST_Clear(names);
+	LIST_FreeInstance(names);
+
+
+
 }
 
 int main( int argc, char** argv )
