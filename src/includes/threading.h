@@ -20,9 +20,12 @@ Put stuff about this threading functionality in here.
 
 #ifdef __linux__
 #include <pthread.h>
+typedef void* (*threadfunc)(void* threadparam);
 #endif
 
-typedef void* (*threadfunc)(void* param);
+#ifdef _WIN32
+typedef unsigned long (*threadfunc)(void* threadparam);
+#endif
 
 /** \brief Runs a function in its own thread
  * Creates a new thread and runs the provided user function within it. *

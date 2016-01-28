@@ -32,7 +32,7 @@ void* thread_function(void* param)
 
 void test_THREAD_RunAndForget()
 {
-#ifdef __linux__
+	PRINT("About to run thread\n");
 		srand(time(NULL));
 		for(int i = 0 ; i < sizeof(numbers)/sizeof(numbers[0]); i++) {
 			if(THREAD_RunAndForget(thread_function, numbers+i)) {
@@ -40,17 +40,18 @@ void test_THREAD_RunAndForget()
 			}
 		}
 
-		pthread_exit(NULL);
-
-		assert(numbers[0] == 100);
-		assert(numbers[1] == 100);
-		assert(numbers[2] == 100);
-		assert(numbers[3] == 100);
-		assert(numbers[4] == 100);
-		assert(numbers[5] == 100);
-		assert(numbers[6] == 100);
-		assert(numbers[7] == 100);
+#ifdef __linux__
+		pthread_exit(NULL);  //wait for all threads to finish
 #endif
+#ifdef _WIN32
+		sleep(2); //wait for all threads to finish
+#endif
+
+		for( int i = 0; i < 7;i++){
+			assert(numbers[i] == 100);
+		}
+
+
 }
 
 int main(int argc, char** argv)

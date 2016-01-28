@@ -48,7 +48,7 @@ LIBRARY_API bool MEM_DeAlloc(void* buffer, char* buffer_name, List* mem_addrs);
 #define MEM_Alloc(a, b) Alloc(a,b)
 
 // Not a library function to be used externally only internall by LIB_Uninit()
-void MEM_DeAllocAll(List* mem_pool);
+LIBRARY_API void MEM_DeAllocAll(List* mem_pool);
 
 
 /** \brief Allocate a size amount of memory

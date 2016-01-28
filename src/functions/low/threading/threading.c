@@ -8,7 +8,7 @@
 #include <threading.h>
 #include <errors.h>
 #include <safetychecking.h>
-
+#include <stulibc.h>
 int THREAD_RunAndForget(threadfunc func, void* threadparam)
 {
 #ifdef __linux__
@@ -30,8 +30,16 @@ int THREAD_RunAndForget(threadfunc func, void* threadparam)
 
 #endif
 
-#ifdef _win32
-	return -1;
+#ifdef _WIN32
+	unsigned long dwThreadId;
+	HANDLE hThread;
+	//TODO: We need a way to be able to wait for the threads all to finish like pthread_exit()
+	if((hThread = _beginthreadex(NULL, 0, (threadfunc)func,(void*)threadparam, 0, &dwThreadId)) == NULL) {
+		ERR_Print("Could not create thread.\n", YES);
+		return -1;
+	}else { return 0;
+	}
+
 #endif
 }
 

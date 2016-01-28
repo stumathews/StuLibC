@@ -15,9 +15,7 @@ The constants we use are here
 #ifndef LIBSTU_COMMON_H
 #define LIBSTU_COMMON_H
 
-#if HAVE_CONFIG_H
 #include <config.h>
-#endif
 
 #ifdef _WIN32
 #  ifdef DLL_EXPORT

@@ -8,7 +8,7 @@ LIBRARY_API void run_tests(struct TestDefinition* tests, int num_tests)
 {
   for( int i = 0; i < num_tests ; i++)
   {
-    DBG("- Running test '%s' ...\n", tests[i].name);
+    PRINT("- Running test '%s' ...\n", tests[i].name);
     tests[i].function();
   }
 }
