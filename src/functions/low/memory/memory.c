@@ -27,7 +27,7 @@ void* MEM_Alloc(size_t size, List* mem_pool)
 	void* buffer = malloc(size);
 
 	if(buffer == NULL) {
-		DBG("Failed to malloc \n");
+		DBG("Failed to malloc size %d\n", size);
 		return NULL;
 	}
 
