@@ -784,6 +784,7 @@ YY_RULE_SETUP
 					// do we already 'know/have' this header in our list of headers?
 					if(STR_Equals(currentHeader->key, headerName) == true){
 						thisHeader = currentHeader;
+						DBG("header already exists\n");
 						break;
 					}
 					item = next;
@@ -795,8 +796,8 @@ YY_RULE_SETUP
 					strcpy(thisHeader->key, headerName );
 
 					//and make space for a list of settings for it
-					thisHeader->value = malloc(sizeof(List));
-					LIST_Push( list, (void*) thisHeader );
+					thisHeader->value = LIST_GetInstance();
+					LIST_Push(list, (void*) thisHeader);
 				}
 			}
 	YY_BREAK
@@ -831,6 +832,9 @@ YY_RULE_SETUP
 
 				// Add this setting to this header's list of settings
 				LIST_Push( currentHeaderSettings, (void*) setting);
+				DBG("pushed ok\n");
+				LIST_Print(currentHeaderSettings);
+
 			}
 	YY_BREAK
 case 3:
