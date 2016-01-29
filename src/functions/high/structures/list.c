@@ -107,6 +107,7 @@ Node* LIST_Push(List* list, const void *data)
 	//list->fnPrint = printNodeData;
 	//LIST_Print(list);
 	increase_list_size_by_one(list);
+	printNodeData(created);
 	return created;
 }
 
@@ -258,6 +259,7 @@ void LIST_Print(const List* list)
 
 static void increase_list_size_by_one(List* list)
 {
+
 	list->size++;
 }
 
@@ -273,7 +275,6 @@ static Node* makeNewNode(const void* data, Node* previous, Node* next, List* lis
 	newNode->next = next;
 	newNode->previous = previous;
 	newNode->list = (struct LinkedList*) list;
-	printNodeData(newNode);
 	return newNode;
 }
 
