@@ -30,8 +30,11 @@ static void testIntList()
     int x = 0, y = 1, z = 2;
 
     LIST_Init(&myList);
+    assert(myList.size == 0);
     LIST_Add(&myList, &x);
+    assert(myList.size == 1);
     LIST_Add(&myList, &y);
+    assert(myList.size == 2);
     LIST_Add(&myList, &z);
 
     assert(myList.size == 3);
