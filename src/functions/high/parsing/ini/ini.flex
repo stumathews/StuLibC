@@ -46,8 +46,8 @@ KEYVALUE  .+\s*=\s*.+
 					thisHeader = (Header*) malloc(sizeof(Header));
 					strcpy(thisHeader->key, headerName );
 
-					//and make space for a list of settings for it
-					thisHeader->value = malloc(sizeof(List));
+					//and make space for a list of settings for it					
+					thisHeader->value = LIST_GetInstance();
 					LIST_Push( list, (void*) thisHeader );
 				}
 			}
