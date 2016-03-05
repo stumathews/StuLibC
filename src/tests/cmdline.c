@@ -16,11 +16,8 @@ bool needvaluearg_function_ran_ok = false;
 
 void help(char* value)
 {
- if( STR_IsNullOrEmpty(value) )
- {    
   help_function_ran_ok = true;
   DBG("help!\n");
- }
 }
 
 void exitf(char* value)
