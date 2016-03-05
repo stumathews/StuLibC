@@ -19,6 +19,18 @@ void test_append()
         errors++;
 
     if( errors ) exit(1);
+
+    char* one = "labrador_";
+    char* two = "alsatian_";
+    char* three = "bulldog_";
+    char* four = "spaniel";
+
+    char* first_part = STR_Join(one, two);
+    char* second_part = STR_Join(three, four);
+    char* final_part = STR_Join(first_part, second_part);
+
+    assert(strcmp("labrador_alsatian_bulldog_spaniel", final_part) == 0);
+
 }
 
 void test_STR_Equals()
