@@ -350,7 +350,7 @@ enum ParseResult interpretArgInPipe()
     if(argument != NULL) 
     {
         // we found a matching registerd argument.
-        char* value = NULL;
+        char* value = pipe_line[VALUE];
 
         // is this a argumenent that needsd a value?
         if(argument->isValueMandatory)
