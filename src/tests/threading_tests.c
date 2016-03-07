@@ -8,24 +8,29 @@
 #include <stulibc.h>
 
 int numbers[8] = {0,1,2,3,4,5,6,7};
-
+LockPtr lock;
 void* thread_function(void* param)
 {
-	int* ptrToValueAtParam = (int*)param;
-	int oldval = DEREF_TO_INT(param);
+	if(AquireLock(&lock)){
+		int* ptrToValueAtParam = (int*)param;
+		int oldval = DEREF_TO_INT(param);
 
-	*ptrToValueAtParam = 100;
+		*ptrToValueAtParam = 100;
 
-	PRINT("thread '%d', DONE (0:%d,1:%d,2:%d,3:%d,4:%d,5:%d,6:%d,7:%d)\n",
-			oldval,
-			numbers[0],
-			numbers[1],
-			numbers[2],
-			numbers[3],
-			numbers[4],
-			numbers[5],
-			numbers[6],
-			numbers[7]);
+		PRINT("thread '%d', DONE (0:%d,1:%d,2:%d,3:%d,4:%d,5:%d,6:%d,7:%d)\n",
+				oldval,
+				numbers[0],
+				numbers[1],
+				numbers[2],
+				numbers[3],
+				numbers[4],
+				numbers[5],
+				numbers[6],
+				numbers[7]);
+		ReleaseLock(&lock);
+	} else {
+		PRINT("Could not aquire lock\n");
+	}
 
 	return NULL;
 }
@@ -33,8 +38,15 @@ void* thread_function(void* param)
 void test_THREAD_RunAndForget()
 {
 	PRINT("About to run thread\n");
+#define RAII_VARIABLE(vartype,varname,initval,dtor) \
+	void _dtor_ ## varname (vartype * v) { dtor(*v); } \
+	vartype varname __attribute__((cleanup(_dtor_ ## varname))) = (initval)
+
+	MakeLock(&lock);
+	RAII_VARIABLE(char*, name, (char*)malloc(32),free);
 		srand(time(NULL));
 		for(int i = 0 ; i < sizeof(numbers)/sizeof(numbers[0]); i++) {
+
 			if(THREAD_RunAndForget(thread_function, numbers+i)) {
 				ERR_Print("Problem running thread", YES);
 			}
@@ -42,6 +54,7 @@ void test_THREAD_RunAndForget()
 
 #ifdef __linux__
 		pthread_exit(NULL);  //wait for all threads to finish
+		CloseHandle(lock);
 #endif
 #ifdef _WIN32
 		sleep(2); //wait for all threads to finish
