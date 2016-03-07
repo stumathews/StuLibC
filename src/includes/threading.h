@@ -21,10 +21,12 @@ Put stuff about this threading functionality in here.
 #ifdef __linux__
 #include <pthread.h>
 typedef void* (*threadfunc)(void* threadparam);
+#define Lock pthread_mutex_t
 #endif
 
 #ifdef _WIN32
-typedef unsigned long (*threadfunc)(void* threadparam);
+typedef unsigned __stdcall (*threadfunc)(void* threadparam);
+#define Lock void
 #endif
 
 /** \brief Runs a function in its own thread
@@ -35,5 +37,9 @@ typedef unsigned long (*threadfunc)(void* threadparam);
  * \returns 0 on success, any other value on failure
  */
 LIBRARY_API int THREAD_RunAndForget(threadfunc func, void* threadparam);
+
+LIBRARY_API void AquireLock(Lock *lock);
+LIBRARY_API void ReleaseAndDestroyLock(Lock *lock);
+LIBRARY_API void MakeLock(Lock *lock);
 
 #endif /* THREADING_H */
