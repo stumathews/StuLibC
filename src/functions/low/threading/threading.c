@@ -42,58 +42,86 @@ int THREAD_RunAndForget(threadfunc func, void* threadparam)
 #endif
 }
 
-LIBRARY_API void MakeLock(Lock *lock)
+LIBRARY_API void MakeLock(LockPtr* lock)
 {
 	DBG("MakeLock() Entry\n");
 #ifdef __linux__
-	pthread_mutex_init(lock, NULL);
+	pthread_mutex_init(*lock, NULL);
 #endif
 
 #ifdef _WIN32
-	lock = CreateMutex(NULL,FALSE,NULL);
+	*lock = CreateMutex(NULL,FALSE,NULL);
+	if(*lock == NULL) {
+		printf("CreateMutex error: %d\n", GetLastError());
+	}
 #endif
 	DBG("MakeLock() Exit\n");
 }
 
-LIBRARY_API void AquireLock(Lock *lock)
+LIBRARY_API bool AquireLock(LockPtr *lock)
 {
 	DBG("Aquiring/Waiting for ownership of Lock\n");
 
 #ifdef __linux__
-	pthread_mutex_lock(lock);
+	pthread_mutex_lock(*lock);
 	DBG("Got ownership of Lock\n");
 #endif
 
 #ifdef _WIN32
-	 DWORD dwWaitResult = WaitForSingleObject(lock, INFINITE);
+	 DWORD dwWaitResult = WaitForSingleObject(*lock, INFINITE);
 	 switch (dwWaitResult)
 	 {
 		 // The thread got ownership of the mutex
 		 case WAIT_OBJECT_0:
 			 DBG("Got ownership of Lock\n");
-		 return;
+		 return true;
 		 break;
 		 case WAIT_ABANDONED:
 			 DBG("The thread got ownership of an abandoned mutex\n");
 			 break;
+		 case WAIT_TIMEOUT:
+			 DBG("The time-out interval elapsed, and the object's state is nonsignaled.\n");
+			 break;
+		 case WAIT_FAILED:
+			 DBG("WaitForSingleObject failed with error: %d\n", GetLastError());
+			 break;
+		 default:
+			 DBG("(default cause matched)WaitForSingleObject error: %d\n", GetLastError());
+			 break;
 	 }
+	 return false;
 
 #endif
 }
 
-LIBRARY_API void ReleaseAndDestroyLock(Lock *lock)
+LIBRARY_API void ReleaseAndDestroyLock(LockPtr *lock)
 {
 	DBG("ReleaseAndDestroyLock() Entry\n");
 #ifdef __linux__
-	pthread_mutex_unlock(lock);
-	pthread_mutex_destroy(lock);
+	pthread_mutex_unlock(*lock);
+	pthread_mutex_destroy(*lock);
 #endif
 
 #ifdef _WIN32
 	// Release ownership of the mutex object
-	ReleaseMutex(lock);
+	ReleaseMutex(*lock);
+	CloseHandle(*lock);
 #endif
 	DBG("ReleaseAndDestroyLock() Exit\n");
+}
+
+LIBRARY_API void ReleaseLock(LockPtr *lock)
+{
+	DBG("ReleaseLock() Entry\n");
+#ifdef __linux__
+	pthread_mutex_unlock(*lock);
+#endif
+
+#ifdef _WIN32
+	// Release ownership of the mutex object
+	ReleaseMutex(*lock);
+#endif
+	DBG("ReleaseLock() Exit\n");
 }
 
 

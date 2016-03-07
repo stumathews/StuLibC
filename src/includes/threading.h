@@ -13,20 +13,25 @@ Put stuff about this threading functionality in here.
 \include threading.h
 */
 
-
+#include <stdbool.h>
 #ifndef THREADING_H
 #define THREADING_H
 #include <constants.h>
 
+#ifdef _WIN32
+#include <windows.h>
+#endif
+
 #ifdef __linux__
 #include <pthread.h>
 typedef void* (*threadfunc)(void* threadparam);
-#define Lock pthread_mutex_t
+//#define Lock pthread_mutex_t
+typedef pthread_mutex_t* LockPtr;
 #endif
 
 #ifdef _WIN32
 typedef unsigned __stdcall (*threadfunc)(void* threadparam);
-#define Lock void
+typedef HANDLE LockPtr;
 #endif
 
 /** \brief Runs a function in its own thread
@@ -38,8 +43,9 @@ typedef unsigned __stdcall (*threadfunc)(void* threadparam);
  */
 LIBRARY_API int THREAD_RunAndForget(threadfunc func, void* threadparam);
 
-LIBRARY_API void AquireLock(Lock *lock);
-LIBRARY_API void ReleaseAndDestroyLock(Lock *lock);
-LIBRARY_API void MakeLock(Lock *lock);
+LIBRARY_API bool AquireLock(LockPtr *lock);
+LIBRARY_API void ReleaseAndDestroyLock(LockPtr *lock);
+LIBRARY_API void ReleaseLock(LockPtr *lock);
+LIBRARY_API void MakeLock(LockPtr *lock);
 
 #endif /* THREADING_H */
