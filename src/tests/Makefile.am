@@ -11,12 +11,6 @@ bin_PROGRAMS	= cmdline \
                   memory \
                   safetychecking \
                   uselib \
-		  		  #tcpclient \
-                  #tcpserver \
-		  		  #udpserver \
-		  	      #udpclient \
-		  		  #vrs \
-		  		  #vrc \
                   stack \
                   list \
                   threading_tests
