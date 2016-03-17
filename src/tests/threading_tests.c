@@ -9,9 +9,11 @@
 
 int numbers[8] = {0,1,2,3,4,5,6,7};
 LockPtr lock;
+pthread_mutex_t lock1;
 void* thread_function(void* param)
 {
-	if(AquireLock(&lock)){
+	if(AquireLock(&lock))
+	{
 		int* ptrToValueAtParam = (int*)param;
 		int oldval = DEREF_TO_INT(param);
 
@@ -38,12 +40,9 @@ void* thread_function(void* param)
 void test_THREAD_RunAndForget()
 {
 	PRINT("About to run thread\n");
-#define RAII_VARIABLE(vartype,varname,initval,dtor) \
-	void _dtor_ ## varname (vartype * v) { dtor(*v); } \
-	vartype varname __attribute__((cleanup(_dtor_ ## varname))) = (initval)
 
+	pthread_mutex_init(&lock1,NULL);
 	MakeLock(&lock);
-	RAII_VARIABLE(char*, name, (char*)malloc(32),free);
 		srand(time(NULL));
 		for(int i = 0 ; i < sizeof(numbers)/sizeof(numbers[0]); i++) {
 
@@ -53,11 +52,12 @@ void test_THREAD_RunAndForget()
 		}
 
 #ifdef __linux__
+		//pthread_mutex_destroy(lock);
 		pthread_exit(NULL);  //wait for all threads to finish
-		CloseHandle(lock);
 #endif
 #ifdef _WIN32
 		sleep(2); //wait for all threads to finish
+		CloseHandle(lock);
 #endif
 
 		for( int i = 0; i < 7;i++){
