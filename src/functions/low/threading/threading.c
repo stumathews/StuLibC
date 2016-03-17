@@ -46,7 +46,7 @@ LIBRARY_API void MakeLock(LockPtr* lock)
 {
 	DBG("MakeLock() Entry\n");
 #ifdef __linux__
-	pthread_mutex_init(*lock, NULL);
+	pthread_mutex_init(lock, NULL);
 #endif
 
 #ifdef _WIN32
@@ -63,8 +63,9 @@ LIBRARY_API bool AquireLock(LockPtr *lock)
 	DBG("Aquiring/Waiting for ownership of Lock\n");
 
 #ifdef __linux__
-	pthread_mutex_lock(*lock);
+	pthread_mutex_lock(lock);
 	DBG("Got ownership of Lock\n");
+	return true;
 #endif
 
 #ifdef _WIN32
@@ -114,7 +115,7 @@ LIBRARY_API void ReleaseLock(LockPtr *lock)
 {
 	DBG("ReleaseLock() Entry\n");
 #ifdef __linux__
-	pthread_mutex_unlock(*lock);
+	pthread_mutex_unlock(lock);
 #endif
 
 #ifdef _WIN32

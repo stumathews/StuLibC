@@ -25,7 +25,6 @@ Put stuff about this threading functionality in here.
 #ifdef __linux__
 #include <pthread.h>
 typedef void* (*threadfunc)(void* threadparam);
-//#define Lock pthread_mutex_t
 typedef pthread_mutex_t* LockPtr;
 #endif
 
