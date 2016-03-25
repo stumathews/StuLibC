@@ -164,7 +164,7 @@ LIBRARY_API bool STR_IsAlpha(const char* string, int len);
  * \param string char* the string to reverse
  * \return the reversed string
  */
-LIBRARY_API char* STR_Reverse(char* string );
+LIBRARY_API char* STR_Reverse(char* string);
 
 /** \brief Compares two strings to see if they are the sameor not
  * @param string1

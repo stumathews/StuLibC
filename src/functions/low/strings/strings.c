@@ -10,6 +10,7 @@
 #include <memory.h>
 #include <ctype.h>
 #include <safetychecking.h>
+#include <reverse.h>
 
 bool STR_BeginsWith(const char* beginsWith, const char* string)
 {
@@ -203,18 +204,9 @@ bool STR_IsAlpha(const char* string, int length)
  * @param string
  * @return the same location of the original string but with its contents reversed.
  */
-char* STR_Reverse(char* string )
+char* STR_Reverse(char* string)
 {
-    int length = strlen(string);
-    char tmp;
-    for( int i = 0 ; i < (length/2); i++)
-    {
-        tmp = string[i];
-        int endmost = (length-1)-i;
-        string[i] = string[endmost];
-        string[endmost] = tmp;
-    }
-    return string;
+	return mb_reverse(string);
 }
 
 /***
