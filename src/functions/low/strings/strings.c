@@ -143,13 +143,12 @@ char* STR_FromLast(const char* lookfor, const char* string, char* result_buffer)
  */
 char* STR_Join(const char* string1, const char* string2)
 {
-	List* mem_pool = LIST_GetInstance();
-    char *joined = Alloc(strlen(string1) + strlen(string2) + 1, mem_pool);
-	CHK_ExitIf(joined == (void*)0, "Unable to allocate memory.", "STR_Join()");
-
-    strcpy(joined, string1);
-    strcat(joined, string2);
-    return joined;
+	size_t new_size = sizeof(char) * (strlen(string1) + strlen(string2)) + 1;
+	char* new = malloc(new_size);
+	*new = '\0';
+	strcat(new, string1);
+	strcat(new,string2);
+    return new;
 }
 
 /** \brief Appends 2 strings together and returns a pointer to it.
