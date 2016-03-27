@@ -205,16 +205,7 @@ bool STR_IsAlpha(const char* string, int length)
  */
 char* STR_Reverse(char* string )
 {
-    int length = strlen(string);
-    char tmp;
-    for( int i = 0 ; i < (length/2); i++)
-    {
-        tmp = string[i];
-        int endmost = (length-1)-i;
-        string[i] = string[endmost];
-        string[endmost] = tmp;
-    }
-    return string;
+    return mb_reverse(string);
 }
 
 /***
