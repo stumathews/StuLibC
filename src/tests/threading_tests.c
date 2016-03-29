@@ -31,9 +31,9 @@ unsigned __stdcall thread_function(void* param)
 		ReleaseLock(&lock);
 	} else {
 		PRINT("Could not aquire lock\n");
+		return 0;
 	}
 
-	return NULL;
 }
 
 void test_THREAD_RunAndForget()
