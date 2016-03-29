@@ -9,7 +9,11 @@
 
 int numbers[8] = {0,1,2,3,4,5,6,7};
 LockPtr lock;
+#ifdef _WIN32
 unsigned __stdcall thread_function(void* param)
+#else
+void* thread_function(void* param)
+#endif
 {
 	if(AquireLock(&lock))
 	{
