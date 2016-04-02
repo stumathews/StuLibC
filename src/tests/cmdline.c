@@ -92,14 +92,15 @@ void test_CMD_Parse()
 {
 DBG("In test_CND_Parse\n");
 
-    char* arguments[] = {"--help","--two-part","part2","-exit","/name=1","-setit2=one","-part1","part1_answer","--needvaluearg","",NULL};
-
+    char* arguments[] = {"--help","--two-part","part2","-exit","/name=1","-setit2=one","-part1","part1_answer","--needvaluearg","", NULL};
     int num_args = 0;
-    for( num_args = 0; arguments[num_args] != NULL; num_args++);
-    ;
+
+    for(num_args = 0; arguments[num_args] != NULL; num_args++) {
+    	printf("%s ",arguments[num_args]);
+    }
 
 DBG("just before Parse()\n");
-    CMD_Parse(num_args,arguments,false);
+    CMD_Parse(num_args, arguments, false);
 
 DBG("just after Parse\n");
     assert(help_function_ran_ok == true);
@@ -120,7 +121,7 @@ int main(int argc, char* argv[])
 	LIB_Init();
 
     struct TestDefinition tests[] = { 
-    		TEST(test_CMD_AddArgument),
+    	TEST(test_CMD_AddArgument),
 		TEST(test_CMD_Parse)
 
     };
