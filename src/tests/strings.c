@@ -7,13 +7,11 @@ void test_append()
 {
     char expected[] = "one two";
     int errors = 0;
+    printf("pass1\n");
     char* append_result = (char*) STR_Join( "one ", "two");
 
-    if( append_result == NULL ) {
-        // could not create buffer to store appended string
-        errors++;
-        exit(1);
-    }
+    assert(append_result != NULL);
+
 
     if( strcmp( expected, append_result) != 0)
         errors++;
@@ -24,11 +22,13 @@ void test_append()
     char* two = "alsatian_";
     char* three = "bulldog_";
     char* four = "spaniel";
-
+    printf("pass2\n");
     char* first_part = STR_Join(one, two);
+    printf("pass3\n");
     char* second_part = STR_Join(three, four);
+    printf("pass4\n");
     char* final_part = STR_Join(first_part, second_part);
-
+    printf("pass5\n");
     assert(strcmp("labrador_alsatian_bulldog_spaniel", final_part) == 0);
 
 }

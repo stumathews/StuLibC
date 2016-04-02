@@ -10,6 +10,7 @@
 #include <memory.h>
 #include <ctype.h>
 #include <safetychecking.h>
+#include <reverse.h>
 
 bool STR_BeginsWith(const char* beginsWith, const char* string)
 {
@@ -142,13 +143,12 @@ char* STR_FromLast(const char* lookfor, const char* string, char* result_buffer)
  */
 char* STR_Join(const char* string1, const char* string2)
 {
-	List* mem_pool = LIST_GetInstance();
-    char *joined = malloc(strlen(string1) + strlen(string2) + 1);
-	CHK_ExitIf(joined == (void*)0, "Unable to allocate memory.", "STR_Join()");
-
-    strcpy(joined, string1);
-    strcat(joined, string2);
-    return joined;
+	size_t new_size = sizeof(char) * (strlen(string1) + strlen(string2)) + 1;
+	char* new = malloc(new_size);
+	*new = '\0';
+	strcat(new, string1);
+	strcat(new,string2);
+    return new;
 }
 
 /** \brief Appends 2 strings together and returns a pointer to it.
@@ -203,9 +203,9 @@ bool STR_IsAlpha(const char* string, int length)
  * @param string
  * @return the same location of the original string but with its contents reversed.
  */
-char* STR_Reverse(char* string )
+char* STR_Reverse(char* string)
 {
-    return mb_reverse(string);
+	return mb_reverse(string);
 }
 
 /***
