@@ -7,16 +7,14 @@
 #include <memory.h>
 #include <safetychecking.h>
 #include <ctype.h>
-#include <linuxlist.h>
 #include <console.h>
 
-struct MandatoryArgList mandatory_args;
-struct memory* last_alloc_memory = NULL;
-struct memory* first_alloc_memory = NULL;
+List mandatory_arg_names;
+List memory;
 static const char* indicators[] = {"--","-","/",NULL};
 
 enum ParseResult interpretArgInPipe();
-
+void print_pipe_line();
 char* CMD_GetIndicators()
 {
     return (char*) indicators;
@@ -24,27 +22,23 @@ char* CMD_GetIndicators()
 
 void CMD_Init()
 {
-    INIT_LIST_HEAD( &mandatory_args.list );
+    LIST_Init(&mandatory_arg_names);
+    LIST_Init(&memory);
 }
 
+void freeArgument(struct LinkedListNode* node)
+{
+	struct Argument* arg = node->data;
+	MEM_DeAlloc(arg);
+}
 // Frees the in-memory linked list holing all registered arguments.
 void CMD_Uninit() 
 {
-    struct memory* node = first_alloc_memory;
-    while(node != NULL) 
-    {
-        struct memory* free_me = node;
-        node = node->next;
-        free(free_me);
-        free_me = null;
-    }
+    LIST_ForEach(&memory, freeArgument);
 }
 
 void CMD_ShowUsages(char* tagline, char* address, char* description) 
 {
-    struct memory* node = first_alloc_memory;
-    struct Argument* found = NULL;
-
     char* license = "Copyright (C) 2010 Free Software Foundation, Inc.\n" \
 "License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>\n" \
 "This is free software: you are free to change and redistribute it.\n" \
@@ -56,17 +50,16 @@ void CMD_ShowUsages(char* tagline, char* address, char* description)
     printf("%s\n", description );
 
     // Prints out the options:
-    printf( "Options:\n\n");
+    printf("Options:\n\n");
     
     // Extract the registered arguments details and print them
-    while(node != NULL)
+    for(int j = 0; j < memory.size;j++)
     {
-        char* display_name = (!STR_IsNullOrEmpty(node->argument->display) ? node->argument->display :  node->argument->name);
-        char* description = node->argument->description;
+    	struct Argument* arg = LIST_Get(&memory, j)->data;
+        char* display_name = (!STR_IsNullOrEmpty(arg->display) ? arg->display :  arg->name);
+        char* description = arg->description;
        
         printf("  --%-23s%s\n", display_name, description);
-        
-        node = node->next;
     }
     printf("\nReport bugs to <%s>.", address );
 }
@@ -78,19 +71,19 @@ struct Argument* find(char* name)
     // Post condition checks
     CHK_str(name, IS_NOT_EMPTY, (const char*) __FUNCTION__);
 
-    struct memory* node = first_alloc_memory;
     struct Argument* found = NULL;
 
-    while(node != NULL)
+    for(int j = 0; j < memory.size; j++)
     {
-        // look for our named argument:
-        if(strcmp(node->argument->name, name) == 0) 
-        {
-            found = node->argument;
-            return found;
+        struct Argument* arg = LIST_Get(&memory, j)->data; // look for our named argument:
+        DBG("looking ar argument: %s for %s\n", arg->name, name);
+        if(strcmp(arg->name, name) == 0) {
+        	DBG("found argument: %s\n", arg->name);
+            return arg;
         }
-
-        node = node->next;
+    }
+    if(!found){
+    	DBG("Could not find %s", name);
     }
     // Give the argument back to the caller
     return found;
@@ -99,39 +92,14 @@ struct Argument* find(char* name)
 // Register an argument
 void CMD_AddArgument(struct Argument* argument) 
 {
-	List* mem_pool = LIST_GetInstance();
-    if(last_alloc_memory == NULL) 
-    {
-        // Create the first registered argument
-        last_alloc_memory = (struct memory*) Alloc(sizeof(struct memory),mem_pool);
-        last_alloc_memory->argument = argument;
-        last_alloc_memory->next = NULL;
-
-        // Also track the first registered argument
-        first_alloc_memory = last_alloc_memory;
-    } 
-    else 
-    {
-        // Create the next argument to be reigistered and store it in the linked list
-        struct memory* tmp = (struct memory*) Alloc(sizeof(struct memory),mem_pool);
-        last_alloc_memory->next = tmp;
-        tmp->argument = argument;
-        tmp->next = NULL;
-
-        // Set the last registered argument
-        last_alloc_memory = tmp;
+	LIST_Add(&memory, argument);
+    if(argument->isMandatory) {
+        LIST_Add(&mandatory_arg_names,argument->name);
+        DBG("Adding new argument: %s as mandatory.\n", argument->name);
     }
 
-    // O.k we have a new argument, lets see if its a mandatory one, and if so add it to known mandatoryargs list
-    if( last_alloc_memory->argument->isMandatory )
-    {
-        struct MandatoryArgList* tmp = malloc( sizeof( struct MandatoryArgList ) );
-        tmp->arg_name = last_alloc_memory->argument->name;
-        list_add( &(tmp->list), &(mandatory_args.list));
-    }
+    DBG("Adding new argument: %s\n", argument->name);
 }
-
-
 
 // Pipe line is a structure that represents the parts of an argument.
 // Strings that make up a argument are pushed into a pipe one at a time until the pipe is full.
@@ -151,11 +119,13 @@ void CMD_AddArgument(struct Argument* argument)
 enum EnumPipeParts { ARG_INDICATOR, ARG_NAME, VALUE_INDICATOR, VALUE} ;     // pipe line ["--","StoreSomething","=","2"]
 
 // Main pipe line aka the current pipe
-char* pipe_line[] = {"","","","",""}; // [ARG_INDICATOR, ARG_NAME, VALUE]
+char* pipe_line[] = {"","","","",""}; // [ARG_INDICATOR, ARG_NAME,VALUE_INDICATOR,  VALUE]
 
 // Convenience function to indicate the the pipe is finished - make the code more readable to retrn finish_pipe() instead of true
 bool finish_pipe()
 {
+	DBG("Pipe is finished: ");
+	print_pipe_line();
     return true;
 }
 
@@ -165,18 +135,22 @@ static void clear_pipe() // reset pipe array structure/variable
     pipe_line[ARG_INDICATOR] = NULL;
     pipe_line[ARG_NAME] = NULL;
     pipe_line[VALUE] = NULL;
+    DBG("Clearing the pipe\n");
 }
 
 // convienience function to create a new argument structure for user
-struct Argument* CMD_CreateNewArgument( char* name, char* display, char* description, bool isMandatory, bool isValueMandatory, void (*handler)(char* arg))
+struct Argument* CMD_CreateNewArgument(char* name, char* display, char* description, bool isMandatory, bool isValueMandatory, void (*handler)(char* arg))
 {
-    struct Argument* newArgument = (struct Argument*) malloc( sizeof(struct Argument) );
+    struct Argument* newArgument = (struct Argument*) malloc(sizeof(struct Argument) );
     strcpy(newArgument->name,name);
     strcpy(newArgument->display, display);
     strcpy(newArgument->description,description);
     newArgument->isMandatory = isMandatory;
     newArgument->isValueMandatory = isValueMandatory;
     newArgument->handler = handler;
+
+
+
     return newArgument;
 }
 
@@ -186,60 +160,56 @@ struct Argument* CMD_CreateNewArgument( char* name, char* display, char* descrip
 bool push_into_pipe(char* arg, char* next_part)   // determine what type of part this is. Returns true if a fully formed pipe is created.
 {
     CHECK_STRING( arg, IS_NOT_EMPTY );
-    List* mem_pool = LIST_GetInstance();
-
-    short argLength = strlen(arg);
-    short nextArgLength = strlen(next_part);
-    char* tmpArg = (char*) Alloc(SIZEOFCHAR * argLength +1,mem_pool);
-    char* tmpNextArg = (char*) Alloc(SIZEOFCHAR * nextArgLength +1,mem_pool);
     
-    // Prepare space
-    strncpy(tmpArg, arg, argLength);
-    strncpy(tmpNextArg, next_part, nextArgLength);
+    bool isValidIndicator = false;
     const char* indicator = NULL;
     const char* indicators[] = {"--","-","/",NULL};
     
     // Determine if this is the beginning of a new argument
-    indicator = STR_BeginsWithEither(indicators,tmpArg, 3);
+    indicator = STR_BeginsWithEither(indicators,arg, 3);
 
-    // What is our indicator?
-    if(!(STR_IsNullOrEmpty(indicator))) 
+    DBG("Detected indicator as %s \n", indicator);
+
+    isValidIndicator = !(STR_IsNullOrEmpty(indicator));
+    if(isValidIndicator)
     {
-        pipe_line[ARG_INDICATOR] = (char*)indicator;
-		char* result = MEM_Alloc(SIZEOFCHAR * strlen(tmpArg),mem_pool);
-        char* tmpArgName = STR_Without(indicator, tmpArg, result); // such that --help becomes help or help=something
+        pipe_line[ARG_INDICATOR] = (char*) indicator;
+		char* clean_arg_name = malloc(SIZEOFCHAR * strlen(arg));
+		clean_arg_name = STR_Without(indicator, arg, clean_arg_name); // such that --help becomes help or help=something
+        pipe_line[ARG_NAME] = clean_arg_name;
 
-        pipe_line[ARG_NAME] = tmpArgName;
+        DBG("Added argument name to pipeline: %s\n", pipe_line[ARG_NAME]);
 
         //check if the name is attached to a value indicated by a value indicator.(help=something)
-        if( STR_Contains("=\0",tmpArg) &&  !STR_EndsWith("=\0",tmpArg)) 
+        if(STR_Contains("=", arg) && !STR_EndsWith("=", arg))
         {
-            char* tmpValue = (char*) Alloc(SIZEOFCHAR * (strlen(tmpArg) - strlen(indicator) - 1),mem_pool); // extract the value as in "something" from help=something
-        
-            pipe_line[VALUE] = STR_FromLast("=",tmpArg,tmpValue);
-			result = STR_Without("=", tmpArgName, result);
-			result = STR_Without(pipe_line[VALUE], tmpArgName, result);
-            pipe_line[ARG_NAME] = tmpArgName;
+        	DBG("Name=Value argument detected.\n");
+        	DBG("Extracting value....\n");
+
+        	char* tmpValue = (char*) malloc(SIZEOFCHAR * (strlen(arg) - strlen(indicator) - 1)); // extract the value as in "something" from help=something
+        	pipe_line[VALUE] = STR_FromLast("=", arg, tmpValue);
+            DBG("value is %s\n", pipe_line[VALUE]);
+
+
+            clean_arg_name = STR_Without("=", pipe_line[ARG_NAME], clean_arg_name);
+            clean_arg_name = STR_Without(pipe_line[VALUE], pipe_line[ARG_NAME], clean_arg_name);
+
+            pipe_line[ARG_NAME] = clean_arg_name;
+            DBG("arg is %s\n", clean_arg_name);
+
+            DBG("Name '%s' is attached to value %s\n", pipe_line[ARG_NAME], pipe_line[VALUE]);
         
             return finish_pipe();
         }
-        DBG("tmpNextArgs is %s", tmpNextArg);
        
         // if the next argument that will be sent to us is a arg indicator, then this pipe is finished, as its the beginning of te next argument
-        if(!STR_IsNullOrEmpty(STR_BeginsWithEither(indicators, tmpNextArg,3)) || STR_IsNullOrEmpty(tmpNextArg))
-        {
-            return finish_pipe();
-        }
-        else
-        {
-            // pipe not finished, expecting a value next
-            return !finish_pipe();
-        }
+        return !STR_IsNullOrEmpty(STR_BeginsWithEither(indicators, next_part, 3)) || STR_IsNullOrEmpty(next_part) ? finish_pipe(): false;
     } 
     else 
-    { 
-        // this is a value, this indicates the end of a pipe, thus it is finished
-        pipe_line[VALUE] = tmpArg;
+    { // this is a value, this indicates the end of a pipe, thus it is finished
+    	DBG("Indicator is value: %s \n", indicator);
+        pipe_line[VALUE] = arg;
+        DBG("pipline value: %s \n", pipe_line[VALUE]);
         return finish_pipe();
     }
 }
@@ -249,90 +219,92 @@ void print_pipe_line()
     DBG("Pipe [%s|%s|%s|%s]\n", pipe_line[ARG_INDICATOR],pipe_line[ARG_NAME],pipe_line[VALUE_INDICATOR],pipe_line[VALUE]);
 }
 
-enum ParseResult ensure_mandatory_args_present( int argc, char** argv,bool skip_first_arg)
+enum ParseResult ensure_mandatory_args_present(int argc, char** argv, bool skip_first_arg)
 {
-
-    struct list_head *pos;
-    struct MandatoryArgList* tmp = malloc( sizeof( struct MandatoryArgList ));
-
-
-    list_for_each( pos, &mandatory_args.list)
-    {
-        tmp = list_entry( pos, struct MandatoryArgList, list );
+	printf("%d count of mandatory args\n", mandatory_arg_names.size);
+	for(int j = 0; j < mandatory_arg_names.size; j++) {
+        char* mandatoryName = LIST_Get(&mandatory_arg_names, j)->data;
         bool found = false;
-        // Look for this mandatory arg in all the args:
+        DBG("Looking for mandatory arg %s\n", mandatoryName);
+        DBG("Look for this mandatory arg %s in all the args:", mandatoryName);
 
-        for(int i = 0; i < argc; i++) 
-        {
-        	bool isFirstArg = (i == 0);
-
-            if( skip_first_arg && isFirstArg )
-                continue;
-
-            char* peek_next = i+1 < argc ? argv[i+1]:"";
+        for(int i = 0; i < argc; i++) {
+            char* peek_next = i+1 < argc ? argv[i+1]: "";
             char* arg_name = argv[i];
 
+        	DBG("found this: %s\n", argv[i]);
+        	bool isFirstArg = (i == 0);
+
+            if(skip_first_arg && isFirstArg) {
+            	DBG("Skipping first argument, %s", argv[i]);
+            	continue;
+            }
+
             // skip to next argument if this is empty
-            if( strcmp(arg_name,"") == 0 ) continue;
+            if(strcmp(arg_name,"") == 0) {
+            	DBG("Skipping argument, %s as is empty", arg_name);
+            	continue;
+            }
 
             // Push this string into the pipe line and check if this completes the argument/pipline: 
             bool pushResult = push_into_pipe(arg_name, peek_next);
             bool isPipeReady = (pushResult == true);
 
-            if(isPipeReady) 
-            { 
-                if( strcmp( tmp->arg_name,pipe_line[ARG_NAME]) == 0 )
-                {
+            if(isPipeReady) {
+            	DBG("Checking pipeline for match:\n");
+            	print_pipe_line();
+                if(strcmp(mandatoryName, pipe_line[ARG_NAME]) == 0) {
                     found = true;
+                    DBG("Found mandatory arg %s in arg list as expected\n", mandatoryName);
                     break;
                 }
             }
-        }
+        } // loop again to push next arg into pipe
 
-        if(!found)
-        {
-            printf("Error: Mandatory Argument '%s' not provided.\n",tmp->arg_name);
+        if(!found) {
+            printf("Error: Mandatory Argument '%s' not provided.\n", mandatoryName);
             return MANDATORY_MISSING;
         }
     }
     return PARSE_SUCCESS;
 }
 // Take each argument string passed in put it into the pipe line so as incrementally create a full argument such as "--help=something" into its seperate parts
-enum ParseResult CMD_Parse(int argc,char** argv, bool skip_first_arg)
+enum ParseResult CMD_Parse(int argc, char** argv, bool skip_first_arg)
 {
     // inefficient
-    enum ParseResult man_ret =  ensure_mandatory_args_present( argc, argv, skip_first_arg);
-    if( man_ret != PARSE_SUCCESS) return man_ret;
+    enum ParseResult man_ret =  ensure_mandatory_args_present(argc, argv, skip_first_arg);
+    if(man_ret != PARSE_SUCCESS) return man_ret;
 
-    for(int i = 0; i < argc; i++) 
-    {
-        if( skip_first_arg && i == 0 )
+    for(int i = 0; i < argc; i++) {
+        if(skip_first_arg && i == 0) {
+        	DBG("Skipping firs argument %s\n", argv[i]);
             continue;
+        }
+        DBG("argument is %s\n", argv[i]);
 
-        char* peek_next = i+1 < argc ? argv[i+1]:"";
+        char* peek_next = i + 1 < argc ? argv[i+1] : "";
         char* arg_name = argv[i];
 
         // skip to next argument if this is empty
-        if( strcmp(arg_name,"") == 0 ) continue;
+		if( strcmp(arg_name,"") == 0 ) {
+			DBG("Skipping argument, %s as is empty", arg_name);
+			continue;
+		}
       
         // Push this string into the pipe line and check if this completes the argument/pipline: 
         bool pushResult = push_into_pipe(arg_name, peek_next);
         bool isPipeReady = (pushResult == true);
 
-        if(isPipeReady) 
-        { 
+        if(isPipeReady) {
             // gets the argument from the pipe and finds it in the registered arguments. 
             // Also runs the argument handler
             enum ParseResult parseResult = interpretArgInPipe();
-
-            if( parseResult == EXPECTED_VALUE )
-            {
+            if(parseResult == EXPECTED_VALUE) {
                 return EXPECTED_VALUE;
+            } else if (parseResult == NO_HANDLER || parseResult == PARSE_SUCCESS) {
+                continue; // next arg!
             }
-            else if ( parseResult == NO_HANDLER || parseResult == PARSE_SUCCESS )
-            {
-                continue;
-            }
+            clear_pipe();
         }
     }
     return PARSE_SUCCESS;
@@ -342,42 +314,30 @@ enum ParseResult CMD_Parse(int argc,char** argv, bool skip_first_arg)
 // gets the argument from the pipe and finds it in the registered arguments. Also runs the argument handler
 enum ParseResult interpretArgInPipe()
 {
-    // Generally, if pipeline is full(true), interpret argunent and 
-    // find it in stored list of registered arguments(in-memory map)...
-    
-    // look for argument currently stored in the pipeline in the list of registered arguments 
     struct Argument* argument = find(pipe_line[ARG_NAME]);
-    if(argument != NULL) 
-    {
+    if(argument != NULL) {
         // we found a matching registerd argument.
         char* value = pipe_line[VALUE];
 
-        // is this a argumenent that needsd a value?
-        if(argument->isValueMandatory)
-        {
-            if( !STR_IsNullOrEmpty(pipe_line[VALUE]) )
-            {
+        // is this a argumenent that needs a value?
+        if(argument->isValueMandatory) {
+            if(!STR_IsNullOrEmpty(pipe_line[VALUE])) {
                 value = pipe_line[VALUE]; // get the argument's value out of the pipe line...
-            }
-            else
-            {
+            } else {
             	printf("Error: Argument '%s' expects a value but none was provided.\n",argument->name);
                 return EXPECTED_VALUE;
             }
         }
+
         // run the value        
-        if(argument->handler != NULL)
-        {
+        if(argument->handler != NULL) {
+        	DBG("Running handler for argument %s\n", pipe_line[ARG_NAME]);
             argument->handler(value); // fire off the user's event for handling this argument
-        }
-        else
-        {
+        } else {
             DBG("No handler could be run for argument %s%s",pipe_line[ARG_INDICATOR],argument->name);
             return NO_HANDLER;
         }
-    } 
-    else
-    {
+    } else {
         DBG("Could not find argument Pipe [%s|%s|%s|%s]\n", pipe_line[ARG_INDICATOR],pipe_line[ARG_NAME],pipe_line[VALUE_INDICATOR],pipe_line[VALUE]);
         printf("Could find argument '%s'\n", pipe_line[ARG_NAME]);
     }
