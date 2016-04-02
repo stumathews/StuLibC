@@ -141,9 +141,11 @@ int LIST_DeleteNode(List* list, Node* nodeToDelete)
 		if(nodeToDelete == list->tail) {
 			DBG("it is the tail node:");
 			printNodeData(nodeToDelete);
-			if(nodeToDelete->previous != NULL)
+			if(nodeToDelete->previous != NULL) {
 				nodeToDelete->previous->next = NULL;
-			list->tail = nodeToDelete->previous;
+			} else {
+				list->tail = list->head = NULL;
+			}
 			DBG("done with tail");
 		}/*
 		if(nodeToDelete == list->head) {
