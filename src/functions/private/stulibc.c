@@ -32,7 +32,11 @@ LIBRARY_API void LIB_Uninit()
 	{
 		DBG("Uninitializing library.");
 		IsLibraryInitialized = false;
-				DBG("Uninitialized library.");
+		DBG("Uninitialized library.");
+
+#ifdef __linux__
+	pthread_exit(NULL);
+#endif
 
 		PRINT("Suppressing calls to CMD_Uninit() and MEM_Uninit() as they are broken and should be fixed before reinstating");
 		//CMD_Uninit();
