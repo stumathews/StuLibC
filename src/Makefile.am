@@ -12,6 +12,7 @@ libstu_la_SOURCES = functions/private/stulibc.c \
 		    functions/low/console/console.c \
 		    functions/low/error/errors.c \
             functions/low/strings/strings.c \
+            functions/low/strings/reverse.c \
            	functions/low/testing/testing.c \
             functions/high/parsing/cmdline/cmdline.c \
             functions/low/memory/memory.c \
