@@ -102,24 +102,22 @@ void test_STR_Without()
     char* name = "Stuart Mathews";
     char* arg = "--help";
     short MAX = 20;
-    List* mem_addrs = LIST_GetInstance();
-    char* buffer = MEM_Alloc(SIZEOFCHAR * strlen(name), mem_addrs);
 
-    buffer = STR_Without( " Mathews", name,buffer);
+    char* buffer = MEM_Alloc(SIZEOFCHAR * strlen(name)+1);
+    buffer = STR_Without( " Mathews", name, buffer);
     assert( strcmp( buffer, "Stuart" ) == 0 );
-    buffer = STR_Without( "--", arg,buffer);
+    buffer = STR_Without( "--", arg, buffer);
     assert( strcmp( buffer, "help" ) == 0 );
-    buffer = STR_Without("stuart","peter stuart mathews 1 stuart",buffer);
 
-    char* test = "peter  mathews 1 ";
-    char* buffer1 = MEM_Alloc(SIZEOFCHAR * strlen(name), mem_addrs);
-    assert( strcmp( buffer, test ) == 0 );
+    char* teststring = "peter stuart mathews 1 stuart";
+    buffer = MEM_Alloc(SIZEOFCHAR * strlen(teststring)+1);
+    buffer = STR_Without("stuart", teststring, buffer);
+
+    char* buffer1 = MEM_Alloc(80);
     buffer = STR_Without(",,","s,,t,,u,,a,,r,,t",buffer1);
     assert( strcmp( buffer, "stuart" ) == 0 );
     buffer = STR_Without(",","s,t,u,a,r,t",buffer1);
     assert( strcmp( buffer, "stuart" ) == 0 );
-
-    //MEM_DeAllocAll(mem_addrs);
 }
 
 void test_STR_Contains()
