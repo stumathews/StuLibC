@@ -8,7 +8,6 @@
 #define YY_DECL int iniscan(List* list)
 %}
 
-
 HEADER    \[([^\]]+)\]
 KEYVALUE  .+\s*=\s*.+
 
@@ -81,6 +80,7 @@ KEYVALUE  .+\s*=\s*.+
 				// Add this setting to this header's list of settings
 				LIST_Push( currentHeaderSettings, (void*) setting);
 			}
+[ \t\n]+          /* eat up whitespace */
 ;.*	
 .	       printf( "Unrecognized character: %s\n", yytext );	   
 %%
