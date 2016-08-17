@@ -32,18 +32,18 @@ void freeArgument(struct LinkedListNode* node)
 	MEM_DeAlloc(arg);
 }
 // Frees the in-memory linked list holing all registered arguments.
-void CMD_Uninit() 
+void CMD_Uninit()
 {
     LIST_ForEach(&memory, freeArgument);
 }
 
-void CMD_ShowUsages(char* tagline, char* address, char* description) 
+void CMD_ShowUsages(char* tagline, char* address, char* description)
 {
     char* license = "Copyright (C) 2010 Free Software Foundation, Inc.\n" \
 "License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>\n" \
 "This is free software: you are free to change and redistribute it.\n" \
 "There is NO WARRANTY, to the extent permitted by law.\n";
-    
+
     // Prints out the first line, the tag line
     printf("%s\n\n", license );
     printf("Usage %s [Options]\n",tagline);
@@ -51,14 +51,14 @@ void CMD_ShowUsages(char* tagline, char* address, char* description)
 
     // Prints out the options:
     printf("Options:\n\n");
-    
+
     // Extract the registered arguments details and print them
     for(int j = 0; j < memory.size;j++)
     {
     	struct Argument* arg = LIST_Get(&memory, j)->data;
         char* display_name = (!STR_IsNullOrEmpty(arg->display) ? arg->display :  arg->name);
         char* description = arg->description;
-       
+
         printf("  --%-23s%s\n", display_name, description);
     }
     printf("\nReport bugs to <%s>.", address );
@@ -90,7 +90,7 @@ struct Argument* find(char* name)
 }
 
 // Register an argument
-void CMD_AddArgument(struct Argument* argument) 
+void CMD_AddArgument(struct Argument* argument)
 {
 	LIST_Add(&memory, argument);
     if(argument->isMandatory) {
@@ -107,15 +107,15 @@ void CMD_AddArgument(struct Argument* argument)
 // The consistients of the argument are broken down into four components and a pipe is made up of these parts:
 // -----------------------------------------------------
 // [ arg-indicator | arg name | value indicator | value]
-// -----------------------------------------------------  
+// -----------------------------------------------------
 // Arg indicator: --, -,/ characters
 // Arg name: any valid alphabetic name
 // Value indicator: character that represents a vaue if following: =
-// Value: the string following the value 
+// Value: the string following the value
 // Example:
 // -----------------------------------------------------
 // [ -- | NumberOfEyes | = | 2
-// -----------------------------------------------------  
+// -----------------------------------------------------
 enum EnumPipeParts { ARG_INDICATOR, ARG_NAME, VALUE_INDICATOR, VALUE} ;     // pipe line ["--","StoreSomething","=","2"]
 
 // Main pipe line aka the current pipe
@@ -139,7 +139,7 @@ static void clear_pipe() // reset pipe array structure/variable
 }
 
 // convienience function to create a new argument structure for user
-struct Argument* CMD_CreateNewArgument(char* name, char* display, char* description, bool isMandatory, bool isValueMandatory, void (*handler)(char* arg))
+struct Argument* CMD_CreateNewArgument(char* name, char* display, char* description, bool isMandatory, bool isValueMandatory, void (*handler)(char* arg, int numExtraArgs, ...))
 {
     struct Argument* newArgument = (struct Argument*) malloc(sizeof(struct Argument) );
     strcpy(newArgument->name,name);
@@ -156,15 +156,15 @@ struct Argument* CMD_CreateNewArgument(char* name, char* display, char* descript
 
 // retuns true of the current pipe is full
 // a full pipe is if an argument has a indicator such as -- and a name such as 'help' as in '--help' and does not have a value indicator following the name ie. a '=' sign OR
-// has a value indicator and a value following it which is not a argument indicator 
+// has a value indicator and a value following it which is not a argument indicator
 bool push_into_pipe(char* arg, char* next_part)   // determine what type of part this is. Returns true if a fully formed pipe is created.
 {
     CHECK_STRING( arg, IS_NOT_EMPTY );
-    
+
     bool isValidIndicator = false;
     const char* indicator = NULL;
     const char* indicators[] = {"--","-","/",NULL};
-    
+
     // Determine if this is the beginning of a new argument
     indicator = STR_BeginsWithEither(indicators,arg, 3);
 
@@ -198,14 +198,14 @@ bool push_into_pipe(char* arg, char* next_part)   // determine what type of part
             DBG("arg is %s\n", clean_arg_name);
 
             DBG("Name '%s' is attached to value %s\n", pipe_line[ARG_NAME], pipe_line[VALUE]);
-        
+
             return finish_pipe();
         }
-       
+
         // if the next argument that will be sent to us is a arg indicator, then this pipe is finished, as its the beginning of te next argument
         return !STR_IsNullOrEmpty(STR_BeginsWithEither(indicators, next_part, 3)) || STR_IsNullOrEmpty(next_part) ? finish_pipe(): false;
-    } 
-    else 
+    }
+    else
     { // this is a value, this indicates the end of a pipe, thus it is finished
     	DBG("Indicator is value: %s \n", indicator);
         pipe_line[VALUE] = arg;
@@ -246,7 +246,7 @@ enum ParseResult ensure_mandatory_args_present(int argc, char** argv, bool skip_
             	continue;
             }
 
-            // Push this string into the pipe line and check if this completes the argument/pipline: 
+            // Push this string into the pipe line and check if this completes the argument/pipline:
             bool pushResult = push_into_pipe(arg_name, peek_next);
             bool isPipeReady = (pushResult == true);
 
@@ -290,13 +290,13 @@ enum ParseResult CMD_Parse(int argc, char** argv, bool skip_first_arg)
 			DBG("Skipping argument, %s as is empty", arg_name);
 			continue;
 		}
-      
-        // Push this string into the pipe line and check if this completes the argument/pipline: 
+
+        // Push this string into the pipe line and check if this completes the argument/pipline:
         bool pushResult = push_into_pipe(arg_name, peek_next);
         bool isPipeReady = (pushResult == true);
 
         if(isPipeReady) {
-            // gets the argument from the pipe and finds it in the registered arguments. 
+            // gets the argument from the pipe and finds it in the registered arguments.
             // Also runs the argument handler
             enum ParseResult parseResult = interpretArgInPipe();
             if(parseResult == EXPECTED_VALUE) {
@@ -329,10 +329,10 @@ enum ParseResult interpretArgInPipe()
             }
         }
 
-        // run the value        
+        // run the value
         if(argument->handler != NULL) {
         	DBG("Running handler for argument %s\n", pipe_line[ARG_NAME]);
-            argument->handler(value); // fire off the user's event for handling this argument
+            argument->handler(value, 0); // fire off the user's event for handling this argument
         } else {
             DBG("No handler could be run for argument %s%s",pipe_line[ARG_INDICATOR],argument->name);
             return NO_HANDLER;
