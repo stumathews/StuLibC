@@ -17,7 +17,7 @@ static void client( SOCKET s, struct sockaddr_in *peerp )
 
 static char port[20] = {0};
 
-void setPortNumber(char* arg)
+void set_port_num(char* arg)
 {
     CHECK_STRING(arg, IS_NOT_EMPTY);
     strncpy( port, arg, strlen(arg));
@@ -29,7 +29,7 @@ int main( int argc, char **argv )
 {
     LIB_Init();
     
-    struct Argument* portNumber = CMD_CreateNewArgument("port","port <number>","Set the port to connect to", true, true, setPortNumber);
+    struct Argument* portNumber = CMD_CreateNewArgument("port","port <number>","Set the port to connect to", true, true, set_port_num);
     CMD_AddArgument(portNumber);
     
     if( argc > 1 )
