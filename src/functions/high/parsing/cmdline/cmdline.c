@@ -139,7 +139,7 @@ static void clear_pipe() // reset pipe array structure/variable
 }
 
 // convienience function to create a new argument structure for user
-struct Argument* CMD_CreateNewArgument(char* name, char* display, char* description, bool isMandatory, bool isValueMandatory, void (*handler)(char* arg, int numExtraArgs, ...))
+struct Argument* CMD_CreateNewArgument(char* name, char* display, char* description, bool isMandatory, bool isValueMandatory, void (*handler)(char* arg))
 {
     struct Argument* newArgument = (struct Argument*) malloc(sizeof(struct Argument) );
     strcpy(newArgument->name,name);
@@ -332,7 +332,7 @@ enum ParseResult interpretArgInPipe()
         // run the value
         if(argument->handler != NULL) {
         	DBG("Running handler for argument %s\n", pipe_line[ARG_NAME]);
-            argument->handler(value, 0); // fire off the user's event for handling this argument
+            argument->handler(value); // fire off the user's event for handling this argument
         } else {
             DBG("No handler could be run for argument %s%s",pipe_line[ARG_INDICATOR],argument->name);
             return NO_HANDLER;

@@ -35,7 +35,7 @@ struct Argument
     char description[80]; // moves the player forward
     bool isMandatory; // must be given
     bool isValueMandatory; // value must be given
-    void (*handler)(char*, int numExtraArgs, ...); //function to call
+    void (*handler)(char*); //function to call
 
 };
 
@@ -94,7 +94,7 @@ LIBRARY_API void CMD_ShowUsages(char* tagline, char* address, char* description)
  * \param isValueMandatory bool true if a single value must be provided after the argument is supplied
  * \param handler void (*)(char* arg) function to call then this argument is found, an optional argument is allowed
  */
-LIBRARY_API struct Argument* CMD_CreateNewArgument( char* name, char* display, char* description, bool isMandatory, bool isValueMandatory, void (*handler)(char* arg, int numExtraArgs, ...));
+LIBRARY_API struct Argument* CMD_CreateNewArgument( char* name, char* display, char* description, bool isMandatory, bool isValueMandatory, void (*handler)(char* arg));
 
 
 /** \brief Uninitialises the cmd handling routine.
