@@ -1,0 +1,23 @@
+digraph "list.h"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node5 [label="list.h",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node5 -> Node6 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node6 [label="files.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$files_8h.html",tooltip="File management library prototypes. "];
+  Node6 -> Node7 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node7 [label="logging.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$logging_8h.html",tooltip="Useful logging library function prototypes. "];
+  Node7 -> Node8 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node8 [label="stulibc.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$stulibc_8h.html",tooltip="Main include file. "];
+  Node6 -> Node9 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node9 [label="safetychecking.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$safetychecking_8h.html",tooltip="Safety checking library prototypes. "];
+  Node9 -> Node8 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node6 -> Node8 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 -> Node10 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node10 [label="ini.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$ini_8h.html"];
+  Node10 -> Node8 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 -> Node11 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node11 [label="memory.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$memory_8h.html",tooltip="Memory management library prototypes. "];
+  Node11 -> Node8 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 -> Node8 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+}

@@ -1,0 +1,6 @@
+digraph "yy_buffer_state"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="{yy_buffer_state\n|+ yy_input_file\l+ yy_ch_buf\l+ yy_buf_pos\l+ yy_buf_size\l+ yy_n_chars\l+ yy_is_our_buffer\l+ yy_is_interactive\l+ yy_at_bol\l+ yy_bs_lineno\l+ yy_bs_column\l+ yy_fill_buffer\l+ yy_buffer_status\l|}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+}
