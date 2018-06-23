@@ -73,4 +73,4 @@ case "$host_os" in
 ;;
 esac
 
-AC_OUTPUT(Makefile src/Makefile doc/Makefile examples/Makefile man/Makefile scripts/Makefile src/tests/Makefile)
+AC_OUTPUT(Makefile src/Makefile doc/Makefile examples/Makefile scripts/Makefile src/tests/Makefile)
